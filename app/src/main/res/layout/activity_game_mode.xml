@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_game_mode"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/teste_vectorized"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="estagio3.ufpb.com.br.projeto1.GameModeActivity"
+    android:baselineAligned="false">
+
+    <TextView
+        android:id="@+id/modeGameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:text="@string/modos_de_jogo"
+        android:gravity="center"
+        android:textSize="30sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/connectButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="@string/conecta"/>
+
+        <Button
+            android:id="@+id/shufflerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="@string/mistura"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

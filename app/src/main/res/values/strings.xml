@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Projeto 1</string>
+    <string name="modos_de_jogo">Modos de Jogo</string>
+    <string name="mistura">Mistura</string>
+    <string name="conecta">Conecta</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="jogar">Jogar</string>
+    <string name="configurar">Configurar</string>
+    <string name="pontos">pontos</string>
+</resources>
