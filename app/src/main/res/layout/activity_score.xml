@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/teste_vectorized"
+    android:background="@drawable/backgroung"
     tools:context="estagio3.ufpb.com.br.projeto1.ScoreActivity">
 
 </LinearLayout>

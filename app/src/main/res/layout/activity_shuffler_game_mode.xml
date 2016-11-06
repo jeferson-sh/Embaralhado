@@ -4,7 +4,7 @@
     android:id="@+id/activity_shuffler_game_mode"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/teste_vectorized"
+    android:background="@drawable/backgroung"
     android:orientation="vertical"
     tools:context="estagio3.ufpb.com.br.projeto1.ShufflerDog">
 
@@ -185,7 +185,7 @@
                 android:layout_height="50dp"
                 android:id="@+id/antButton"
                 android:layout_margin="@dimen/activity_horizontal_margin"
-                android:background="@drawable/ant"/>
+                android:background="@drawable/back"/>
 
             <ImageButton
                 android:layout_width="50dp"

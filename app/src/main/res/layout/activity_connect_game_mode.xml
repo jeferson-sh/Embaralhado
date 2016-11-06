@@ -4,7 +4,7 @@
     android:id="@+id/activity_connect_game_mode"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/teste_vectorized"
+    android:background="@drawable/backgroung"
     tools:context="estagio3.ufpb.com.br.projeto1.ConnectGameMode">
 
 </LinearLayout>
