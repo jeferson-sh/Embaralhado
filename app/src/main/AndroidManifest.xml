@@ -22,7 +22,7 @@
         <activity android:name=".SettingsActivity" />
         <activity android:name=".ScoreActivity" />
         <activity android:name=".ConnectGameMode" />
-        <activity android:name=".ShufflerGameMode" />
+        <activity android:name=".ShufflerDog" />
     </application>
 
 </manifest>

@@ -38,7 +38,7 @@ public class GameModeActivity extends AppCompatActivity {
     }
 
     private void startShufflerGameMode() {
-        Intent intent = new Intent(this,ShufflerGameMode.class);
+        Intent intent = new Intent(this,ShufflerDog.class);
         startActivity(intent);
     }
 }
