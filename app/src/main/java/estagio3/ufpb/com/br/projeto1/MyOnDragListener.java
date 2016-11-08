@@ -3,6 +3,7 @@ package estagio3.ufpb.com.br.projeto1;
 import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,12 +32,12 @@ class MyOnDragListener implements View.OnDragListener {
         int action = event.getAction();
         boolean isDroped = false;
         LinearLayout drop = (LinearLayout)v;
-        TextView letra = (TextView) event.getLocalState();
+        ImageView letra = (ImageView) event.getLocalState();
 
         switch(action) {
             case DragEvent.ACTION_DROP:
                 isDroped = true;
-                setPalavra(palavra.concat(letra.getText().toString()));
+                setPalavra(palavra.concat(letra.getTag().toString()));
                 ViewGroup dragLayout = (ViewGroup) letra.getParent();
                 dragLayout.removeView(letra);
                 drop.addView(letra);

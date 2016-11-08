@@ -19,6 +19,7 @@
             android:layout_height="40dp"
             android:id="@+id/menuButton"
             android:layout_margin="5dp"
+            android:elevation="10dp"
             android:background="@drawable/menu"/>
 
         <TextView
@@ -59,6 +60,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
+        android:id="@+id/drop"
         android:layout_marginTop="5dp">
 
         <LinearLayout
@@ -208,7 +210,6 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/drag3"
-            android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
