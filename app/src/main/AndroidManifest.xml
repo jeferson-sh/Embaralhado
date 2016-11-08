@@ -11,18 +11,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameModeActivity" />
-        <activity android:name=".SettingsActivity" />
-        <activity android:name=".ScoreActivity" />
-        <activity android:name=".ConnectGameMode" />
-        <activity android:name=".ShufflerGameMode" />
+        <activity android:name=".GameModeActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".SettingsActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".ScoreActivity"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".ConnectGameMode"
+            android:screenOrientation="landscape"/>
+        <activity android:name=".ShufflerGameMode"
+            android:screenOrientation="landscape"/>
     </application>
 
 </manifest>
