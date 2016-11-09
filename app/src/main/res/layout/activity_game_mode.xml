@@ -23,26 +23,54 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/connectButton"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:text="@string/conecta"/>
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/shufflerButton"
-            android:layout_width="match_parent"
+            <ImageButton
+                android:id="@+id/connectButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/link"/>
+
+            <TextView
+                android:id="@+id/textConnectButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/conecta"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:textSize="25sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:text="@string/mistura"/>
+            android:orientation="vertical"
+            android:gravity="center">
 
+            <ImageButton
+                android:id="@+id/shufflerButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shuffle"/>
+
+            <TextView
+                android:id="@+id/textShufflertButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mistura"
+                android:textColor="#ffffff"
+                android:gravity="center"
+                android:textSize="25sp"/>
+
+        </LinearLayout>
     </LinearLayout>
-
-
 </LinearLayout>

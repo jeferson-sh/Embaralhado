@@ -46,23 +46,15 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private ImageView drag9;
     private ImageView drag0;
 
-    private MyOnDragListener myOnDragListener;
-    private MyOnLongClickListener myOnLongClickListener;
+    private MyOnDragListener myOnDragListener = new MyOnDragListener();;
+    private MyOnLongClickListener myOnLongClickListener = new MyOnLongClickListener();;
 
     private ImageButton checkButon;
     private ImageButton backbt;
     private ImageButton nextbt;
 
-    private String [ ] palavras;
-    private int nivel;
-
-    public ShufflerGameMode() {
-        this.nivel = 0;
-        this.palavras = new String[]{"CACHORRO","GATO"};
-        this.myOnDragListener = new MyOnDragListener();
-        this.myOnLongClickListener = new MyOnLongClickListener();
-
-    }
+    private String [ ] palavras = new String[]{"CACHORRO","GATO"};;
+    private int nivel = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +66,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
 
         this.checkButon = (ImageButton) findViewById(R.id.checkButton);
+
+        this.nextbt = (ImageButton) findViewById(R.id.nextButton);
 
         this.drag1 = (ImageView) findViewById(R.id.drag1);
         this.drag2 = (ImageView) findViewById(R.id.drag2);
@@ -96,6 +90,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.drop8 = (LinearLayout) findViewById(R.id.drop8);
         this.drop9 = (LinearLayout) findViewById(R.id.drop9);
         this.drop0 = (LinearLayout) findViewById(R.id.drop0);
+
 
         this.drag1.setOnLongClickListener(new MyOnLongClickListener());
         this.drag2.setOnLongClickListener(new MyOnLongClickListener());
@@ -390,7 +385,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             Toast toast = Toast.makeText(this, "Acertou!", Toast.LENGTH_LONG);
             toast.show();
         }else {
-            Toast toast = Toast.makeText(this, myOnDragListener.getPalavra(), Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(this, "Errou!", Toast.LENGTH_LONG);
             toast.show();
         }
 

@@ -48,8 +48,8 @@
         android:id="@+id/linearImage">
 
         <ImageView
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_margin="5dp"
             android:id="@+id/imageQuestion"/>
     </LinearLayout>
@@ -277,24 +277,24 @@
             android:gravity="center">
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:id="@+id/antButton"
                 android:layout_margin="5dp"
                 android:background="@drawable/back"/>
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:id="@+id/checkButton"
                 android:background="@drawable/checked"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_margin"/>
 
             <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:id="@+id/proxButton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/nextButton"
                 android:layout_margin="5dp"
                 android:background="@drawable/next"/>
 
