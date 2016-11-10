@@ -56,11 +56,11 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private ImageButton backbt;
     private ImageButton nextbt;
 
-    private Bundle palavra;
+    private Palavra palavra;
     private int nivel;
     private int nivelAleatorio;
 
-    private List<String> palavras;
+    private List<Palavra> palavras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +69,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         myOnDragListener = new MyOnDragListener();
         myOnLongClickListener = new MyOnLongClickListener();
-        palavras = new ArrayList<String>();
-        palavra = new Bundle();
+        palavras = new ArrayList<Palavra>();
         nivel = 0;
         nivelAleatorio = (int) (Math.random() * palavras.size());
 
@@ -143,7 +142,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.checkButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VerifyWord(palavras.get(nivelAleatorio));
+                VerifyWord(palavras.get(nivelAleatorio).getPalavra());
             }
         });
 
@@ -153,19 +152,18 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
                 reset();
                 nivelAleatorio = (int) (Math.random() * palavras.size());
                 loadNivel(nivelAleatorio);
-                setImage(palavras.get(nivelAleatorio));
+                setImage(nivelAleatorio);
                 setNivel();
             }
         });
 
 
         loadNivel(nivelAleatorio);
-        setImage(palavras.get(nivelAleatorio));
+        setImage(nivelAleatorio);
     }
 
-    public void addPalavra(String palavra, int imagem){
-        this.palavra.putInt(palavra,imagem);
-        palavras.add(palavra);
+    public void addPalavra(String palavra, int idImagem){
+        this.palavras.add(new Palavra(palavra,idImagem));
         setNivel();
     }
 
@@ -190,14 +188,14 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         }
     }
 
-    private void setImage(String i) {
-        this.imageQuestion.setImageResource(palavra.getInt(i));
+    private void setImage(int i) {
+        this.imageQuestion.setImageResource(palavras.get(i).getIdImage());
     }
 
     public void loadNivel(int pos){
         ImageView [] letras = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
         LinearLayout [] drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
-        char aux [] = shuffle(palavras.get(pos)).toCharArray();
+        char aux [] = shuffle(palavras.get(pos).getPalavra()).toCharArray();
         for (int i= 0; i < aux.length; i++){
             char letra = aux[i];
             switch (letra){
