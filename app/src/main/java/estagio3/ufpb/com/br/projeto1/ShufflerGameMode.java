@@ -71,27 +71,27 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         this.nextbt = (ImageButton) findViewById(R.id.nextButton);
 
-        this.letra0 = (ImageView) findViewById(R.id.drag1);
-        this.letra1 = (ImageView) findViewById(R.id.drag2);
-        this.letra2 = (ImageView) findViewById(R.id.drag3);
-        this.letra3 = (ImageView) findViewById(R.id.drag4);
-        this.letra4 = (ImageView) findViewById(R.id.drag5);
-        this.letra5 = (ImageView) findViewById(R.id.drag6);
-        this.letra6 = (ImageView) findViewById(R.id.drag7);
-        this.letra7 = (ImageView) findViewById(R.id.drag8);
-        this.letra8 = (ImageView) findViewById(R.id.drag9);
-        this.letra9 = (ImageView) findViewById(R.id.drag0);
+        this.letra0 = (ImageView) findViewById(R.id.letra0);
+        this.letra1 = (ImageView) findViewById(R.id.letra1);
+        this.letra2 = (ImageView) findViewById(R.id.letra2);
+        this.letra3 = (ImageView) findViewById(R.id.letra3);
+        this.letra4 = (ImageView) findViewById(R.id.letra4);
+        this.letra5 = (ImageView) findViewById(R.id.letra5);
+        this.letra6 = (ImageView) findViewById(R.id.letra6);
+        this.letra7 = (ImageView) findViewById(R.id.letra7);
+        this.letra8 = (ImageView) findViewById(R.id.letra8);
+        this.letra9 = (ImageView) findViewById(R.id.letra9);
 
-        this.drop0 = (LinearLayout) findViewById(R.id.drop1);
-        this.drop1 = (LinearLayout) findViewById(R.id.drop2);
-        this.drop2 = (LinearLayout) findViewById(R.id.drop3);
-        this.drop3 = (LinearLayout) findViewById(R.id.drop4);
-        this.drop4 = (LinearLayout) findViewById(R.id.drop5);
-        this.drop5 = (LinearLayout) findViewById(R.id.drop6);
-        this.drop6 = (LinearLayout) findViewById(R.id.drop7);
-        this.drop7 = (LinearLayout) findViewById(R.id.drop8);
-        this.drop8 = (LinearLayout) findViewById(R.id.drop9);
-        this.drop9 = (LinearLayout) findViewById(R.id.drop0);
+        this.drop0 = (LinearLayout) findViewById(R.id.drop0);
+        this.drop1 = (LinearLayout) findViewById(R.id.drop1);
+        this.drop2 = (LinearLayout) findViewById(R.id.drop2);
+        this.drop3 = (LinearLayout) findViewById(R.id.drop3);
+        this.drop4 = (LinearLayout) findViewById(R.id.drop4);
+        this.drop5 = (LinearLayout) findViewById(R.id.drop5);
+        this.drop6 = (LinearLayout) findViewById(R.id.drop6);
+        this.drop7 = (LinearLayout) findViewById(R.id.drop7);
+        this.drop8 = (LinearLayout) findViewById(R.id.drop8);
+        this.drop9 = (LinearLayout) findViewById(R.id.drop9);
 
         this.dragContainer = (LinearLayout)findViewById(R.id.drag);
 
@@ -172,8 +172,6 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         }
     }
-
-
 
     private void setImage(int i) {
         switch (i){

@@ -70,6 +70,18 @@
             android:background="#6f80b9"
             android:layout_margin="5dp"
             android:visibility="gone"
+            android:id="@+id/drop0"
+            android:gravity="center">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:background="#6f80b9"
+            android:visibility="gone"
+            android:layout_margin="5dp"
             android:id="@+id/drop1"
             android:gravity="center">
 
@@ -170,18 +182,6 @@
             android:gravity="center">
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:orientation="vertical"
-            android:background="#6f80b9"
-            android:visibility="gone"
-            android:layout_margin="5dp"
-            android:id="@+id/drop0"
-            android:gravity="center">
-
-        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -195,62 +195,62 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/drag1"
+            android:id="@+id/letra0"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/drag2"
+            android:id="@+id/letra1"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/drag3"
+            android:id="@+id/letra2"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:visibility="gone"
-            android:id="@+id/drag4"
+            android:id="@+id/letra3"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/drag5"
+            android:id="@+id/letra4"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/drag6"
+            android:id="@+id/letra5"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/drag7"
+            android:id="@+id/letra6"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/drag8"
+            android:id="@+id/letra7"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/drag9"
+            android:id="@+id/letra8"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
@@ -258,7 +258,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/drag0"
+            android:id="@+id/letra9"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
