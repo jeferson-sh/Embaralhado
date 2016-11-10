@@ -151,9 +151,10 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             @Override
             public void onClick(View v) {
                 reset();
+                nivelAleatorio = (int) (Math.random() * palavras.size());
+                loadNivel(nivelAleatorio);
+                setImage(palavras.get(nivelAleatorio));
                 setNivel();
-                loadNivel(nivel);
-                setImage(palavras.get(nivel));
             }
         });
 
