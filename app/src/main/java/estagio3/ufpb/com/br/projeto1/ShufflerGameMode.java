@@ -425,10 +425,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         if (s.equalsIgnoreCase(myOnDragListener.getPalavra())){
             Toast toast = Toast.makeText(this, "Acertou!", Toast.LENGTH_LONG);
             toast.show();
-        }else {
-            Toast toast = Toast.makeText(this, "Errou!", Toast.LENGTH_LONG);
-            toast.show();
+            myOnDragListener.setPalavra("");
         }
-
     }
 }
