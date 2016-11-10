@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -24,6 +24,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private ImageView imageQuestion;
 
 
+    private LinearLayout drop0;
     private LinearLayout drop1;
     private LinearLayout drop2;
     private LinearLayout drop3;
@@ -33,18 +34,19 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private LinearLayout drop7;
     private LinearLayout drop8;
     private LinearLayout drop9;
-    private LinearLayout drop0;
 
-    private ImageView drag1;
-    private ImageView drag2;
-    private ImageView drag3;
-    private ImageView drag4;
-    private ImageView drag5;
-    private ImageView drag6;
-    private ImageView drag7;
-    private ImageView drag8;
-    private ImageView drag9;
-    private ImageView drag0;
+    private LinearLayout dragContainer;
+
+    private ImageView letra0;
+    private ImageView letra1;
+    private ImageView letra2;
+    private ImageView letra3;
+    private ImageView letra4;
+    private ImageView letra5;
+    private ImageView letra6;
+    private ImageView letra7;
+    private ImageView letra8;
+    private ImageView letra9;
 
     private MyOnDragListener myOnDragListener = new MyOnDragListener();;
     private MyOnLongClickListener myOnLongClickListener = new MyOnLongClickListener();;
@@ -69,39 +71,51 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         this.nextbt = (ImageButton) findViewById(R.id.nextButton);
 
-        this.drag1 = (ImageView) findViewById(R.id.drag1);
-        this.drag2 = (ImageView) findViewById(R.id.drag2);
-        this.drag3 = (ImageView) findViewById(R.id.drag3);
-        this.drag4 = (ImageView) findViewById(R.id.drag4);
-        this.drag5 = (ImageView) findViewById(R.id.drag5);
-        this.drag6 = (ImageView) findViewById(R.id.drag6);
-        this.drag7 = (ImageView) findViewById(R.id.drag7);
-        this.drag8 = (ImageView) findViewById(R.id.drag8);
-        this.drag9 = (ImageView) findViewById(R.id.drag9);
-        this.drag0 = (ImageView) findViewById(R.id.drag0);
+        this.letra0 = (ImageView) findViewById(R.id.drag1);
+        this.letra1 = (ImageView) findViewById(R.id.drag2);
+        this.letra2 = (ImageView) findViewById(R.id.drag3);
+        this.letra3 = (ImageView) findViewById(R.id.drag4);
+        this.letra4 = (ImageView) findViewById(R.id.drag5);
+        this.letra5 = (ImageView) findViewById(R.id.drag6);
+        this.letra6 = (ImageView) findViewById(R.id.drag7);
+        this.letra7 = (ImageView) findViewById(R.id.drag8);
+        this.letra8 = (ImageView) findViewById(R.id.drag9);
+        this.letra9 = (ImageView) findViewById(R.id.drag0);
 
-        this.drop1 = (LinearLayout) findViewById(R.id.drop1);
-        this.drop2 = (LinearLayout) findViewById(R.id.drop2);
-        this.drop3 = (LinearLayout) findViewById(R.id.drop3);
-        this.drop4 = (LinearLayout) findViewById(R.id.drop4);
-        this.drop5 = (LinearLayout) findViewById(R.id.drop5);
-        this.drop6 = (LinearLayout) findViewById(R.id.drop6);
-        this.drop7 = (LinearLayout) findViewById(R.id.drop7);
-        this.drop8 = (LinearLayout) findViewById(R.id.drop8);
-        this.drop9 = (LinearLayout) findViewById(R.id.drop9);
-        this.drop0 = (LinearLayout) findViewById(R.id.drop0);
+        this.drop0 = (LinearLayout) findViewById(R.id.drop1);
+        this.drop1 = (LinearLayout) findViewById(R.id.drop2);
+        this.drop2 = (LinearLayout) findViewById(R.id.drop3);
+        this.drop3 = (LinearLayout) findViewById(R.id.drop4);
+        this.drop4 = (LinearLayout) findViewById(R.id.drop5);
+        this.drop5 = (LinearLayout) findViewById(R.id.drop6);
+        this.drop6 = (LinearLayout) findViewById(R.id.drop7);
+        this.drop7 = (LinearLayout) findViewById(R.id.drop8);
+        this.drop8 = (LinearLayout) findViewById(R.id.drop9);
+        this.drop9 = (LinearLayout) findViewById(R.id.drop0);
 
+        this.dragContainer = (LinearLayout)findViewById(R.id.drag);
 
-        this.drag1.setOnLongClickListener(new MyOnLongClickListener());
-        this.drag2.setOnLongClickListener(new MyOnLongClickListener());
-        this.drag3.setOnLongClickListener(new MyOnLongClickListener());
-        this.drag4.setOnLongClickListener(new MyOnLongClickListener());
-        this.drag5.setOnLongClickListener(new MyOnLongClickListener());
-        this.drag6.setOnLongClickListener(new MyOnLongClickListener());
-        this.drag7.setOnLongClickListener(new MyOnLongClickListener());
-        this.drag8.setOnLongClickListener(new MyOnLongClickListener());
-        this.drag9.setOnLongClickListener(new MyOnLongClickListener());
-        this.drag0.setOnLongClickListener(new MyOnLongClickListener());
+        this.letra0.setOnLongClickListener(myOnLongClickListener);
+        this.letra1.setOnLongClickListener(myOnLongClickListener);
+        this.letra2.setOnLongClickListener(myOnLongClickListener);
+        this.letra3.setOnLongClickListener(myOnLongClickListener);
+        this.letra4.setOnLongClickListener(myOnLongClickListener);
+        this.letra5.setOnLongClickListener(myOnLongClickListener);
+        this.letra6.setOnLongClickListener(myOnLongClickListener);
+        this.letra7.setOnLongClickListener(myOnLongClickListener);
+        this.letra8.setOnLongClickListener(myOnLongClickListener);
+        this.letra9.setOnLongClickListener(myOnLongClickListener);
+
+        this.drop0.setOnDragListener(this.myOnDragListener);
+        this.drop1.setOnDragListener(this.myOnDragListener);
+        this.drop2.setOnDragListener(this.myOnDragListener);
+        this.drop3.setOnDragListener(this.myOnDragListener);
+        this.drop4.setOnDragListener(this.myOnDragListener);
+        this.drop5.setOnDragListener(this.myOnDragListener);
+        this.drop6.setOnDragListener(this.myOnDragListener);
+        this.drop7.setOnDragListener(this.myOnDragListener);
+        this.drop8.setOnDragListener(this.myOnDragListener);
+        this.drop9.setOnDragListener(this.myOnDragListener);
 
         this.menubt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,25 +132,45 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             }
         });
 
-        this.drop1.setOnDragListener(this.myOnDragListener);
-        this.drop2.setOnDragListener(this.myOnDragListener);
-        this.drop3.setOnDragListener(this.myOnDragListener);
-        this.drop4.setOnDragListener(this.myOnDragListener);
-        this.drop5.setOnDragListener(this.myOnDragListener);
-        this.drop6.setOnDragListener(this.myOnDragListener);
-        this.drop7.setOnDragListener(this.myOnDragListener);
-        this.drop8.setOnDragListener(this.myOnDragListener);
-        this.drop9.setOnDragListener(this.myOnDragListener);
-        this.drop0.setOnDragListener(this.myOnDragListener);
+        this.nextbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reset();
+                setNivel();
+                loadNivel(nivel);
+                setImage(nivel);
+            }
+        });
 
 
 
-        loadNiveis(this.nivel);
+
+
+        loadNivel(this.nivel);
         setImage(this.nivel);
 
 
 
 
+    }
+
+    private void setNivel() {
+        if(nivel < palavras.length-1) {
+            this.nivel++;
+        }
+    }
+
+    private void reset(){
+        ImageView [] letras = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
+        LinearLayout [] drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
+        for(int i = 0; i < letras.length;i++){
+            ViewGroup dropLayout = (ViewGroup) letras[i].getParent();
+            dropLayout.removeView(letras[i]);
+            dragContainer.addView(letras[i]);
+            letras[i].setVisibility(View.GONE);
+            drops[i].setVisibility(View.GONE);
+
+        }
     }
 
 
@@ -152,9 +186,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         }
     }
 
-    public void loadNiveis(int pos){
-        ImageView [] letras = new ImageView[]{drag1,drag2,drag3,drag4,drag5,drag6,drag7,drag8,drag9,drag0};
-        LinearLayout [] drops = new LinearLayout[]{drop1,drop2,drop3,drop4,drop5,drop6,drop7,drop8,drop9,drop0};
+    public void loadNivel(int pos){
+        ImageView [] letras = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
+        LinearLayout [] drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
         char aux [] = shuffle(palavras[pos]).toCharArray();
         for (int i= 0; i < aux.length; i++){
             char letra = aux[i];
@@ -352,7 +386,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
     }
 
-    public static String shuffle(String s) {
+    public String shuffle(String s) {
         List<String> letters = Arrays.asList(s.split(""));
         Collections.shuffle(letters);
         StringBuilder t = new StringBuilder(s.length());
