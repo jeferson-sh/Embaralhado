@@ -18,48 +18,20 @@ import java.util.List;
 
 public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    private ImageButton menubt;
     private ImageButton soundbt;
 
     private ImageView imageQuestion;
 
-
-    private LinearLayout drop0;
-    private LinearLayout drop1;
-    private LinearLayout drop2;
-    private LinearLayout drop3;
-    private LinearLayout drop4;
-    private LinearLayout drop5;
-    private LinearLayout drop6;
-    private LinearLayout drop7;
-    private LinearLayout drop8;
-    private LinearLayout drop9;
+    private LinearLayout [] drops;
 
     private LinearLayout dragContainer;
 
-    private ImageView letra0;
-    private ImageView letra1;
-    private ImageView letra2;
-    private ImageView letra3;
-    private ImageView letra4;
-    private ImageView letra5;
-    private ImageView letra6;
-    private ImageView letra7;
-    private ImageView letra8;
-    private ImageView letra9;
+    private ImageView [] letras;
 
-    private MyOnDragListener myOnDragListener;;
-    private MyOnLongClickListener myOnLongClickListener;
+    private ImageButton restart;
 
-    private ImageButton checkButon;
-    private ImageButton backbt;
-    private ImageButton nextbt;
-
-    private Palavra palavra;
     private int nivel;
     private int nivelAleatorio;
-
-    private boolean isPlay;
 
     private List<Palavra> palavras;
 
@@ -68,9 +40,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shuffler_game_mode);
 
-        this.isPlay = true;
-        this.myOnDragListener = new MyOnDragListener();
-        this.myOnLongClickListener = new MyOnLongClickListener();
+        MyOnDragListener myOnDragListener = new MyOnDragListener();
+        MyOnLongClickListener myOnLongClickListener = new MyOnLongClickListener();
         PalavrasApplication palavrasApplication = new PalavrasApplication();
         palavrasApplication.onCreate();
         palavras = palavrasApplication.getPalavras();
@@ -78,66 +49,70 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         nivelAleatorio = (byte) (Math.random() * palavras.size());
 
 
-        this.menubt = (ImageButton) findViewById(R.id.menuButton);
+        ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
 
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
 
-        this.checkButon = (ImageButton) findViewById(R.id.checkButton);
+        ImageButton checkButon = (ImageButton) findViewById(R.id.checkButton);
 
-        this.nextbt = (ImageButton) findViewById(R.id.nextButton);
+        ImageButton nextbt = (ImageButton) findViewById(R.id.nextButton);
 
         this.soundbt = (ImageButton) findViewById(R.id.somButton);
 
-        this.letra0 = (ImageView) findViewById(R.id.letra0);
-        this.letra1 = (ImageView) findViewById(R.id.letra1);
-        this.letra2 = (ImageView) findViewById(R.id.letra2);
-        this.letra3 = (ImageView) findViewById(R.id.letra3);
-        this.letra4 = (ImageView) findViewById(R.id.letra4);
-        this.letra5 = (ImageView) findViewById(R.id.letra5);
-        this.letra6 = (ImageView) findViewById(R.id.letra6);
-        this.letra7 = (ImageView) findViewById(R.id.letra7);
-        this.letra8 = (ImageView) findViewById(R.id.letra8);
-        this.letra9 = (ImageView) findViewById(R.id.letra9);
+        ImageView letra0 = (ImageView) findViewById(R.id.letra0);
+        ImageView letra1 = (ImageView) findViewById(R.id.letra1);
+        ImageView letra2 = (ImageView) findViewById(R.id.letra2);
+        ImageView letra3 = (ImageView) findViewById(R.id.letra3);
+        ImageView letra4 = (ImageView) findViewById(R.id.letra4);
+        ImageView letra5 = (ImageView) findViewById(R.id.letra5);
+        ImageView letra6 = (ImageView) findViewById(R.id.letra6);
+        ImageView letra7 = (ImageView) findViewById(R.id.letra7);
+        ImageView letra8 = (ImageView) findViewById(R.id.letra8);
+        ImageView letra9 = (ImageView) findViewById(R.id.letra9);
 
-        this.drop0 = (LinearLayout) findViewById(R.id.drop0);
-        this.drop1 = (LinearLayout) findViewById(R.id.drop1);
-        this.drop2 = (LinearLayout) findViewById(R.id.drop2);
-        this.drop3 = (LinearLayout) findViewById(R.id.drop3);
-        this.drop4 = (LinearLayout) findViewById(R.id.drop4);
-        this.drop5 = (LinearLayout) findViewById(R.id.drop5);
-        this.drop6 = (LinearLayout) findViewById(R.id.drop6);
-        this.drop7 = (LinearLayout) findViewById(R.id.drop7);
-        this.drop8 = (LinearLayout) findViewById(R.id.drop8);
-        this.drop9 = (LinearLayout) findViewById(R.id.drop9);
+        this.letras = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
+
+        LinearLayout drop0 = (LinearLayout) findViewById(R.id.drop0);
+        LinearLayout drop1 = (LinearLayout) findViewById(R.id.drop1);
+        LinearLayout drop2 = (LinearLayout) findViewById(R.id.drop2);
+        LinearLayout drop3 = (LinearLayout) findViewById(R.id.drop3);
+        LinearLayout drop4 = (LinearLayout) findViewById(R.id.drop4);
+        LinearLayout drop5 = (LinearLayout) findViewById(R.id.drop5);
+        LinearLayout drop6 = (LinearLayout) findViewById(R.id.drop6);
+        LinearLayout drop7 = (LinearLayout) findViewById(R.id.drop7);
+        LinearLayout drop8 = (LinearLayout) findViewById(R.id.drop8);
+        LinearLayout drop9 = (LinearLayout) findViewById(R.id.drop9);
+
+        this.drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
 
         this.dragContainer = (LinearLayout)findViewById(R.id.drag);
 
         if(!BackgroundSoundService.ISPLAY)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
-        this.letra0.setOnLongClickListener(myOnLongClickListener);
-        this.letra1.setOnLongClickListener(myOnLongClickListener);
-        this.letra2.setOnLongClickListener(myOnLongClickListener);
-        this.letra3.setOnLongClickListener(myOnLongClickListener);
-        this.letra4.setOnLongClickListener(myOnLongClickListener);
-        this.letra5.setOnLongClickListener(myOnLongClickListener);
-        this.letra6.setOnLongClickListener(myOnLongClickListener);
-        this.letra7.setOnLongClickListener(myOnLongClickListener);
-        this.letra8.setOnLongClickListener(myOnLongClickListener);
-        this.letra9.setOnLongClickListener(myOnLongClickListener);
+        letra0.setOnLongClickListener(myOnLongClickListener);
+        letra1.setOnLongClickListener(myOnLongClickListener);
+        letra2.setOnLongClickListener(myOnLongClickListener);
+        letra3.setOnLongClickListener(myOnLongClickListener);
+        letra4.setOnLongClickListener(myOnLongClickListener);
+        letra5.setOnLongClickListener(myOnLongClickListener);
+        letra6.setOnLongClickListener(myOnLongClickListener);
+        letra7.setOnLongClickListener(myOnLongClickListener);
+        letra8.setOnLongClickListener(myOnLongClickListener);
+        letra9.setOnLongClickListener(myOnLongClickListener);
 
-        this.drop0.setOnDragListener(this.myOnDragListener);
-        this.drop1.setOnDragListener(this.myOnDragListener);
-        this.drop2.setOnDragListener(this.myOnDragListener);
-        this.drop3.setOnDragListener(this.myOnDragListener);
-        this.drop4.setOnDragListener(this.myOnDragListener);
-        this.drop5.setOnDragListener(this.myOnDragListener);
-        this.drop6.setOnDragListener(this.myOnDragListener);
-        this.drop7.setOnDragListener(this.myOnDragListener);
-        this.drop8.setOnDragListener(this.myOnDragListener);
-        this.drop9.setOnDragListener(this.myOnDragListener);
+        drop0.setOnDragListener(myOnDragListener);
+        drop1.setOnDragListener(myOnDragListener);
+        drop2.setOnDragListener(myOnDragListener);
+        drop3.setOnDragListener(myOnDragListener);
+        drop4.setOnDragListener(myOnDragListener);
+        drop5.setOnDragListener(myOnDragListener);
+        drop6.setOnDragListener(myOnDragListener);
+        drop7.setOnDragListener(myOnDragListener);
+        drop8.setOnDragListener(myOnDragListener);
+        drop9.setOnDragListener(myOnDragListener);
 
-        this.menubt.setOnClickListener(new View.OnClickListener() {
+        menubt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showMenu(v);
@@ -145,14 +120,14 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             }
         });
 
-        this.checkButon.setOnClickListener(new View.OnClickListener() {
+        checkButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 VerifyWord(palavras.get(nivelAleatorio).getPalavra());
             }
         });
 
-        this.nextbt.setOnClickListener(new View.OnClickListener() {
+        nextbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 reset();
@@ -166,7 +141,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopMusic(v);
+                stopMusic();
 
             }
         });
@@ -176,7 +151,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         setImage(nivelAleatorio);
     }
 
-    private void stopMusic(View v) {
+    private void stopMusic() {
         if(BackgroundSoundService.ISPLAY){
             this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
             stopService(new Intent(ShufflerGameMode.this, BackgroundSoundService.class));
@@ -188,22 +163,15 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         }
     }
 
-    public void addPalavra(String palavra, int idImagem){
-        this.palavras.add(new Palavra(palavra,idImagem));
-        setNivel();
-    }
-
     private void setNivel() {
         if(nivel < 50) {
             this.nivel++;
         }else{
-            Toast.makeText(this, "Memoria Cheia", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Memoria Cheia", Toast.LENGTH_LONG).show();
         }
     }
 
     private void reset(){
-        ImageView [] letras = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
-        LinearLayout [] drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
         for(int i = 0; i < letras.length;i++){
             ViewGroup dropLayout = (ViewGroup) letras[i].getParent();
             dropLayout.removeView(letras[i]);
@@ -219,11 +187,11 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     public void loadNivel(int pos){
-        ImageView [] letras = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
-        LinearLayout [] drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
         char aux [] = shuffle(palavras.get(pos).getPalavra()).toCharArray();
+        char aux2 [] = palavras.get(pos).getPalavra().toCharArray();
         for (int i= 0; i < aux.length; i++){
             char letra = aux[i];
+            drops[i].setTag(String.valueOf(aux2[i]));
             switch (letra){
                 case 'A':
                     letras[i].setImageResource(R.drawable.a);
@@ -412,13 +380,12 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
                     letras[i].setTag("Ç");
                     letras[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
-                    continue;
             }
         }
 
     }
 
-    public String shuffle(String s) {
+    private String shuffle(String s) {
         List<String> letras = Arrays.asList(s.split(""));
         Collections.shuffle(letras);
         StringBuilder t = new StringBuilder(s.length());
@@ -449,14 +416,14 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void VerifyWord(String s) {
-        if (s.equalsIgnoreCase(myOnDragListener.getPalavra())){
-            Toast toast = Toast.makeText(this, "Acertou!", Toast.LENGTH_LONG);
-            toast.show();
-            myOnDragListener.setPalavra("");
+        String aux = "";
+        for (int i = 0; i< s.length();i++){
+            aux = aux.concat(drops[i].getTag().toString());
+        }
+        if(s.equalsIgnoreCase(aux)){
+            Toast.makeText(this, "Parabéns você acertou!!!", Toast.LENGTH_LONG).show();
         }else{
-            Toast toast = Toast.makeText(this, "Algo errado!", Toast.LENGTH_LONG);
-            toast.show();
-            myOnDragListener.setPalavra("");
+            Toast.makeText(this, "Que pena tente novamente.", Toast.LENGTH_LONG).show();
         }
     }
 }
