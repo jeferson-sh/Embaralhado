@@ -69,13 +69,12 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         myOnDragListener = new MyOnDragListener();
         myOnLongClickListener = new MyOnLongClickListener();
-        palavras = new ArrayList<Palavra>();
+        PalavrasApplication palavrasApplication = new PalavrasApplication();
+        palavrasApplication.onCreate();
+        palavras = palavrasApplication.getPalavras();
         nivel = 0;
-        nivelAleatorio = (int) (Math.random() * palavras.size());
+        nivelAleatorio = (byte) (Math.random() * palavras.size());
 
-
-        addPalavra("CACHORRO",R.drawable.bulldog);
-        addPalavra("GATO",R.drawable.cat);
 
         this.menubt = (ImageButton) findViewById(R.id.menuButton);
 
@@ -231,7 +230,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
                     letras[i].setImageResource(R.drawable.e);
                     letras[i].setTag("E");
                     letras[i].setVisibility(View.VISIBLE);
-                    drops[1].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case 'F':
@@ -424,6 +423,10 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private void VerifyWord(String s) {
         if (s.equalsIgnoreCase(myOnDragListener.getPalavra())){
             Toast toast = Toast.makeText(this, "Acertou!", Toast.LENGTH_LONG);
+            toast.show();
+            myOnDragListener.setPalavra("");
+        }else{
+            Toast toast = Toast.makeText(this, "Algo errado!", Toast.LENGTH_LONG);
             toast.show();
             myOnDragListener.setPalavra("");
         }

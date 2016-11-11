@@ -290,7 +290,8 @@
                 android:id="@+id/checkButton"
                 android:background="@drawable/checked"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:onClick="VerifyWord"/>
 
             <ImageButton
                 android:layout_width="45dp"
