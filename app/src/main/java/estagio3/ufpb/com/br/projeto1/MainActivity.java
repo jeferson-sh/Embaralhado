@@ -1,5 +1,6 @@
 package estagio3.ufpb.com.br.projeto1;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             public void onClick(View v) {
                 showMenu(v);
 
+
             }
         });
     }
@@ -76,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.op1:
-                Intent intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
-                finish();
                 return true;
             default:
                 return false;

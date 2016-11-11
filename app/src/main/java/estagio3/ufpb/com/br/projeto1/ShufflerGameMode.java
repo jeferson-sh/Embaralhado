@@ -441,6 +441,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             case R.id.op1:
                 Intent intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
+                finish();
                 return true;
             default:
                 return false;
