@@ -4,78 +4,120 @@
     android:id="@+id/activity_main"
     android:orientation="vertical"
     android:background="@drawable/backgroung"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="estagio3.ufpb.com.br.projeto1.MainActivity">
 
-
-    <ImageButton
-        android:id="@+id/playButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:text="@string/jogar"
-        android:background="@drawable/play"
-        android:layout_gravity="center"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Jogar"
-        android:textColor="#ffffff"
-        android:textSize="25sp"/>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/settingsLinear">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/menuButton"
+            android:layout_margin="5dp"
+            android:background="@drawable/menu"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:text="Nome da aplicação"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:id="@+id/textModeGame"
+            android:textSize="25sp"/>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/somButton"
+            android:layout_margin="5dp"
+            android:background="@drawable/sound_button"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center">
 
             <ImageButton
-                android:id="@+id/settingsButton"
-                android:text="@string/configurar"
+                android:id="@+id/playButton"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:background="@drawable/settings"/>
-
+                android:text="@string/jogar"
+                android:background="@drawable/play"
+                android:layout_gravity="center"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Configurações"
-                android:textSize="25sp"
+                android:text="Jogar"
                 android:textColor="#ffffff"
-                android:layout_gravity="center"/>
-
-
+                android:textSize="25sp"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/scoreButton"
-                android:text="@string/pontos"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:background="@drawable/ranking"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pontuação"
-                android:textSize="25sp"
-                android:layout_gravity="center"
-                android:textColor="#ffffff"/>
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/settingsButton"
+                    android:text="@string/configurar"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/settings"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Configurações"
+                    android:textSize="25sp"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <ImageButton
+                    android:id="@+id/scoreButton"
+                    android:text="@string/pontos"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/ranking"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pontuação"
+                    android:textSize="25sp"
+                    android:layout_gravity="center"
+                    android:textColor="#ffffff"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

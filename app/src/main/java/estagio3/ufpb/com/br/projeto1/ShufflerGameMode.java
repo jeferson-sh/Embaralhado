@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -60,6 +59,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private int nivel;
     private int nivelAleatorio;
 
+    private boolean isPlay;
+
     private List<Palavra> palavras;
 
     @Override
@@ -67,8 +68,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shuffler_game_mode);
 
-        myOnDragListener = new MyOnDragListener();
-        myOnLongClickListener = new MyOnLongClickListener();
+        this.isPlay = true;
+        this.myOnDragListener = new MyOnDragListener();
+        this.myOnLongClickListener = new MyOnLongClickListener();
         PalavrasApplication palavrasApplication = new PalavrasApplication();
         palavrasApplication.onCreate();
         palavras = palavrasApplication.getPalavras();
@@ -83,6 +85,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.checkButon = (ImageButton) findViewById(R.id.checkButton);
 
         this.nextbt = (ImageButton) findViewById(R.id.nextButton);
+
+        this.soundbt = (ImageButton) findViewById(R.id.somButton);
 
         this.letra0 = (ImageView) findViewById(R.id.letra0);
         this.letra1 = (ImageView) findViewById(R.id.letra1);
@@ -107,6 +111,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.drop9 = (LinearLayout) findViewById(R.id.drop9);
 
         this.dragContainer = (LinearLayout)findViewById(R.id.drag);
+
+        if(!BackgroundSoundService.ISPLAY)
+            this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
         this.letra0.setOnLongClickListener(myOnLongClickListener);
         this.letra1.setOnLongClickListener(myOnLongClickListener);
@@ -156,9 +163,29 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             }
         });
 
+        this.soundbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopMusic(v);
+
+            }
+        });
+
 
         loadNivel(nivelAleatorio);
         setImage(nivelAleatorio);
+    }
+
+    private void stopMusic(View v) {
+        if(BackgroundSoundService.ISPLAY){
+            this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
+            stopService(new Intent(ShufflerGameMode.this, BackgroundSoundService.class));
+            BackgroundSoundService.ISPLAY = false;
+        }else{
+            this.soundbt.setBackgroundResource(R.drawable.sound_button);
+            startService(new Intent(ShufflerGameMode.this, BackgroundSoundService.class));
+            BackgroundSoundService.ISPLAY = true;
+        }
     }
 
     public void addPalavra(String palavra, int idImagem){
