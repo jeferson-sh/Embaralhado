@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 
 public class BackgroundSoundService extends Service {
 
@@ -17,29 +18,9 @@ public class BackgroundSoundService extends Service {
         player.setLooping(true); // Set looping
         player.setVolume(100,100);
     }
-
-    public IBinder onBind(Intent arg0) {
-
-        return null;
-    }
-
     public int onStartCommand(Intent intent, int flags, int startId) {
         player.start();
         return flags;
-    }
-
-    public void onStart(Intent intent, int startId) {
-        // TO DO
-    }
-    public IBinder onUnBind(Intent arg0) {
-        return null;
-    }
-
-    public void onStop() {
-
-    }
-    public void onPause() {
-
     }
     @Override
     public void onDestroy() {
@@ -49,6 +30,11 @@ public class BackgroundSoundService extends Service {
 
     @Override
     public void onLowMemory() {
+    }
 
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 }
