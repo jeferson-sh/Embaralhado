@@ -260,7 +260,8 @@
             android:layout_height="40dp"
             android:id="@+id/letra9"
             android:visibility="gone"
-            android:layout_margin="5dp"/>
+            android:layout_margin="5dp"
+            />
 
     </LinearLayout>
 
@@ -280,7 +281,7 @@
             <ImageButton
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:id="@+id/antButton"
+                android:id="@+id/restart_button"
                 android:layout_margin="5dp"
                 android:background="@drawable/refresh"/>
 

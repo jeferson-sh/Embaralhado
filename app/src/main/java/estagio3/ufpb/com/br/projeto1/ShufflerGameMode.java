@@ -19,22 +19,13 @@ import java.util.List;
 public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private ImageButton soundbt;
-
     private ImageView imageQuestion;
-
     private LinearLayout [] drops;
-
     private LinearLayout dragContainer;
-
     private ImageView [] letras;
-
-    private ImageButton restart;
-
     private int nivel;
     private int nivelAleatorio;
-
     private List<Palavra> palavras;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +43,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
 
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
+
+        ImageButton restartButton = (ImageButton) findViewById(R.id.restart_button);
 
         ImageButton checkButon = (ImageButton) findViewById(R.id.checkButton);
 
@@ -120,6 +113,13 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             }
         });
 
+        restartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restart();
+            }
+        });
+
         checkButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +149,18 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         loadNivel(nivelAleatorio);
         setImage(nivelAleatorio);
+    }
+
+    private void restart() {
+        for (int i = 0; i< palavras.get(nivelAleatorio).getPalavra().length();i++){
+            if (letras[i].getContentDescription().equals("f")){
+                ViewGroup dropLayout = (ViewGroup) letras[i].getParent();
+                dropLayout.removeView(letras[i]);
+                dragContainer.addView(letras[i]);
+                letras[i].setVisibility(View.VISIBLE);
+                drops[i].setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void stopMusic() {
@@ -191,7 +203,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         char aux2 [] = palavras.get(pos).getPalavra().toCharArray();
         for (int i= 0; i < aux.length; i++){
             char letra = aux[i];
-            drops[i].setTag(String.valueOf(aux2[i]));
+            letras[i].setContentDescription("v");
+            drops[i].setTag(aux2[i]);
             switch (letra){
                 case 'A':
                     letras[i].setImageResource(R.drawable.a);
@@ -416,14 +429,18 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void VerifyWord(String s) {
-        String aux = "";
+        CharSequence correct = "v";
         for (int i = 0; i< s.length();i++){
-            aux = aux.concat(drops[i].getTag().toString());
+            if(letras[i].getContentDescription().equals("f")) {
+                correct = letras[i].getContentDescription();
+                break;
+            }
         }
-        if(s.equalsIgnoreCase(aux)){
+        if(correct.equals("v")){
             Toast.makeText(this, "Parabéns você acertou!!!", Toast.LENGTH_LONG).show();
         }else{
             Toast.makeText(this, "Que pena tente novamente.", Toast.LENGTH_LONG).show();
         }
+
     }
 }
