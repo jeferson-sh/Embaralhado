@@ -5,10 +5,10 @@ package estagio3.ufpb.com.br.projeto1;
  */
 public class Palavra {
 
-    private String palavra;
     private int idImage;
+    private String palavra;
 
-    public Palavra (String palavra, int idImage){
+    public Palavra (int idImage,String palavra){
         this.palavra = palavra;
         this.idImage = idImage;
     }

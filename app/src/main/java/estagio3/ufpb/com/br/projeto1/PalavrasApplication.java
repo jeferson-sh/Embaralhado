@@ -16,34 +16,8 @@ public class PalavrasApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        palavras = new ArrayList<Palavra>();
+        palavras = new ArrayList<>();
         criarPalavras();
-    }
-
-    private void criarPalavras() {
-        palavras.add(new Palavra("ESQUILO",R.drawable.esquilo));
-        palavras.add(new Palavra("CACHORRO",R.drawable.bulldog));
-        palavras.add(new Palavra("GATO",R.drawable.cat));
-        palavras.add(new Palavra("HIPOPOTAMO",R.drawable.hipopotamo));
-        palavras.add(new Palavra("BOI",R.drawable.boi));
-        palavras.add(new Palavra("ZEBRA",R.drawable.zebra));
-        palavras.add(new Palavra("COALA",R.drawable.coala));
-        palavras.add(new Palavra("PEIXE",R.drawable.peixe));
-        palavras.add(new Palavra("PANDA",R.drawable.panda));
-        palavras.add(new Palavra("LEAO",R.drawable.leao));
-        palavras.add(new Palavra("CARRO",R.drawable.car));
-        palavras.add(new Palavra("BORBOLETA",R.drawable.borboleta));
-        palavras.add(new Palavra("MESA",R.drawable.mesa));
-        palavras.add(new Palavra("CADEIRA",R.drawable.cadeira));
-        palavras.add(new Palavra("SOFA",R.drawable.sofa));
-        palavras.add(new Palavra("RELOGIO",R.drawable.clock));
-
-
-
-    }
-
-    public List<Palavra> getPalavras() {
-        return palavras;
     }
 
     @Override
@@ -51,5 +25,26 @@ public class PalavrasApplication extends Application {
         super.onTerminate();
     }
 
+    public List<Palavra> getPalavras() {
+        return palavras;
+    }
 
+    private void criarPalavras() {
+        palavras.add(new Palavra(R.drawable.esquilo,"ESQUILO"));
+        palavras.add(new Palavra(R.drawable.bulldog, "CACHORRO"));
+        palavras.add(new Palavra(R.drawable.cat,"GATO"));
+        palavras.add(new Palavra(R.drawable.hipopotamo,"HIPOPOTAMO"));
+        palavras.add(new Palavra(R.drawable.boi,"BOI"));
+        palavras.add(new Palavra(R.drawable.zebra,"ZEBRA"));
+        palavras.add(new Palavra(R.drawable.coala,"COALA"));
+        palavras.add(new Palavra(R.drawable.peixe,"PEIXE"));
+        palavras.add(new Palavra(R.drawable.panda,"PANDA"));
+        palavras.add(new Palavra(R.drawable.leao,"LEAO"));
+        palavras.add(new Palavra(R.drawable.car,"CARRO"));
+        palavras.add(new Palavra(R.drawable.borboleta,"BORBOLETA"));
+        palavras.add(new Palavra(R.drawable.mesa,"MESA"));
+        palavras.add(new Palavra(R.drawable.cadeira,"CADEIRA"));
+        palavras.add(new Palavra(R.drawable.sofa,"SOFA"));
+        palavras.add(new Palavra(R.drawable.clock,"RELOGIO"));
+    }
 }

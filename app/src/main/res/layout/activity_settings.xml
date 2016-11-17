@@ -8,9 +8,19 @@
     android:orientation="vertical"
     tools:context="estagio3.ufpb.com.br.projeto1.SettingsActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:id="@+id/toolbar_main"
 
+        />
 
-
-
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none|vertical"
+        />
 
 </LinearLayout>
