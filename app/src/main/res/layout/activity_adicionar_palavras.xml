@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_adicionar_palavras"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backgroung"
+    tools:context="estagio3.ufpb.com.br.projeto1.AdicionarPalavras">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/settingsLinear">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/menuButton"
+            android:layout_margin="5dp"
+            android:background="@drawable/menu"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:text="Adicionar Palavras"
+            android:layout_margin="5dp"
+            android:gravity="center"
+            android:id="@+id/textModeGame"
+            android:textSize="30sp"/>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/somButton"
+            android:layout_margin="5dp"
+            android:background="@drawable/sound_button"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            android:hint="Inserir Palavra"
+            android:textColorHint="#ffffff"
+            android:textColor="#ffffff"
+            android:textSize="30sp"
+            android:id="@+id/editText"/>
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:id="@+id/imageView1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/photo_camera"
+            android:layout_margin="5dp"
+            android:id="@+id/tirar_foto"
+            android:onClick="tirarFoto"/>
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:id="@+id/salvar_foto"
+            android:onClick="salvarFoto"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

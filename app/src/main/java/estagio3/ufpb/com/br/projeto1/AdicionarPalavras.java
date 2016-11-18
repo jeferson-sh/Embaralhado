@@ -1,48 +1,41 @@
 package estagio3.ufpb.com.br.projeto1;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.ImageView;
 
-public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    private ListView listView;
+    private EditText palavra;
+    private PalavrasApplication palavrasApplication;
+    private ImageView imagem;
+    private Integer idImage;
     private ImageButton menubt;
     private ImageButton soundbt;
-    private ImageButton add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_adicionar_palavras);
         if(BackgroundSoundService.ISPLAY)
             startService(new Intent(this,BackgroundSoundService.class));
+        palavrasApplication = (PalavrasApplication) AdicionarPalavras.this.getApplicationContext();
+        this.palavra = (EditText) findViewById(R.id.editText);
+        this.imagem =(ImageView) findViewById(R.id.imageView1);
         this.menubt = (ImageButton) findViewById(R.id.menuButton);
         this.soundbt = (ImageButton) findViewById(R.id.somButton);
-        this.add = (ImageButton) findViewById(R.id.add_palavra);
         if(!BackgroundSoundService.ISPLAY)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
-        listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new PalavrasAdapter(this));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Snackbar.make(view, "Clicou", Snackbar.LENGTH_LONG).show();
-            }
-        });
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,14 +49,29 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
                 showMenu(v);
             }
         });
-        this.add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent adicionarPalavra = new Intent(SettingsActivity.this,AdicionarPalavras.class);
-                startActivity(adicionarPalavra);
-                finish();
+    }
+
+    public void tirarFoto(View view){
+        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+        startActivityForResult(intent, 0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(data != null){
+            Bundle bundle = data.getExtras();
+            if(bundle != null){
+                Bitmap img = (Bitmap) bundle.get("data");
+                idImage = img.getGenerationId();
+                imagem.setImageBitmap(img);
             }
-        });
+        }
+    }
+
+    public void salvarFoto(View view) {
+        if(idImage != null);
+            palavrasApplication.addPalavras(idImage,palavra.getText().toString());
+
     }
 
     private void showMenu(View v) {
@@ -76,11 +84,11 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
     private void stopMusic(View v) {
         if(BackgroundSoundService.ISPLAY){
             this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
-            stopService(new Intent(SettingsActivity.this, BackgroundSoundService.class));
+            stopService(new Intent(AdicionarPalavras.this, BackgroundSoundService.class));
             BackgroundSoundService.ISPLAY = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.sound_button);
-            startService(new Intent(SettingsActivity.this, BackgroundSoundService.class));
+            startService(new Intent(AdicionarPalavras.this, BackgroundSoundService.class));
             BackgroundSoundService.ISPLAY = true;
         }
     }

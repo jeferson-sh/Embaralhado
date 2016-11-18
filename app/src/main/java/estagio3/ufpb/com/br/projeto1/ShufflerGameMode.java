@@ -1,5 +1,6 @@
 package estagio3.ufpb.com.br.projeto1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,8 +34,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         MyOnDragListener myOnDragListener = new MyOnDragListener();
         MyOnLongClickListener myOnLongClickListener = new MyOnLongClickListener();
-        PalavrasApplication palavrasApplication = new PalavrasApplication();
-        palavrasApplication.onCreate();
+        PalavrasApplication palavrasApplication = (PalavrasApplication) ShufflerGameMode.this.getApplicationContext();
         palavras = palavrasApplication.getPalavras();
         nivel = 0;
         nivelAleatorio = (byte) (Math.random() * palavras.size());

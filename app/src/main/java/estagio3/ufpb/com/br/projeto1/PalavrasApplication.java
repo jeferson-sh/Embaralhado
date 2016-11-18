@@ -1,6 +1,7 @@
 package estagio3.ufpb.com.br.projeto1;
 
 import android.app.Application;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,12 @@ public class PalavrasApplication extends Application {
         return palavras;
     }
 
+    public void addPalavras(int idImage,String text){
+        palavras.add(new Palavra(idImage,text));
+    }
+
     private void criarPalavras() {
+
         palavras.add(new Palavra(R.drawable.esquilo,"ESQUILO"));
         palavras.add(new Palavra(R.drawable.bulldog, "CACHORRO"));
         palavras.add(new Palavra(R.drawable.cat,"GATO"));

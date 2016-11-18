@@ -26,7 +26,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".SettingsActivity"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".ScoreActivity"
             android:screenOrientation="landscape" />
@@ -42,6 +42,10 @@
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="true" />
+
+        <activity android:name=".AdicionarPalavras"
+            android:screenOrientation="landscape">
+        </activity>
     </application>
 
 </manifest>
