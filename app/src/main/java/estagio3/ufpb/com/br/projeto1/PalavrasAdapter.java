@@ -20,12 +20,12 @@ public class PalavrasAdapter extends BaseAdapter{
 
     private List<Palavra> palavras;
     private Context context;
-    private PalavrasApplication aplication;
+    private PalavrasApplication palavrasApplication;
 
     public PalavrasAdapter(Context context) {
         this.context = context;
-        this.aplication = (PalavrasApplication) context.getApplicationContext();
-        this.palavras = aplication.getPalavras();
+        this.palavrasApplication = (PalavrasApplication) context.getApplicationContext();
+        this.palavras = palavrasApplication.getPalavras();
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PalavrasAdapter extends BaseAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
-        View v = LayoutInflater.from(context).inflate(R.layout.item_list, viewGroup, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.palavra_item_list, viewGroup, false);
 
         ImageView imageView = (ImageView) v.findViewById(R.id.ic_item);
         TextView textView = (TextView) v.findViewById(R.id.text_item);
