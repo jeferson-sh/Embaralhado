@@ -94,12 +94,6 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {//criar opções ou ações da actionbar
-        getMenuInflater().inflate(R.menu.settings_menu, menu);
-        return true;
-    }
-
-    @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.op1:

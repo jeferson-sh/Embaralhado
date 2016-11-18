@@ -53,9 +53,8 @@ public class PalavrasAdapter extends BaseAdapter{
         Palavra palavra = this.palavras.get(i);
         textView.setText(palavra.getPalavra());
 
-        Picasso.with(this.context)// carrega o contexto onde sera exibida a imagem
-                .load(palavra.getIdImage())// carrega a imagem
-                .into(imageView); //aplica a transformação a imagem da view da imagem do xml
+        imageView.setImageResource(palavras.get(i).getIdImage());
+
 
         return v;
     }
