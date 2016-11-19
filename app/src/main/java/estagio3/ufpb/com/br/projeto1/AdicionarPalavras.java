@@ -18,9 +18,10 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     private EditText palavra;
     private PalavrasApplication palavrasApplication;
     private ImageView imagem;
-    private Integer idImage;
+    private byte [] imagemByte;
     private ImageButton menubt;
     private ImageButton soundbt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,15 +63,14 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
             Bundle bundle = data.getExtras();
             if(bundle != null){
                 Bitmap img = (Bitmap) bundle.get("data");
-                idImage = img.getGenerationId();
+                imagemByte = DbBitmapUtility.getBytes(img);
                 imagem.setImageBitmap(img);
             }
         }
     }
 
     public void salvarFoto(View view) {
-        if(idImage != null);
-            palavrasApplication.addPalavras(idImage,palavra.getText().toString());
+            palavrasApplication.addPalavras(imagemByte,palavra.getText().toString());
 
     }
 

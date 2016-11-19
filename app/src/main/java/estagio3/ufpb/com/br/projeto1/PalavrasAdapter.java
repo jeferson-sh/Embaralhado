@@ -12,8 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class PalavrasAdapter extends BaseAdapter{
@@ -45,17 +43,24 @@ public class PalavrasAdapter extends BaseAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
-        View v = LayoutInflater.from(context).inflate(R.layout.palavra_item_list, viewGroup, false);
 
-        ImageView imageView = (ImageView) v.findViewById(R.id.ic_item);
-        TextView textView = (TextView) v.findViewById(R.id.text_item);
+        View layout;
+        if(view == null){
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            layout = inflater.inflate(R.layout.palavra_item_list, null);
+        }
+        else{
+            layout = view;
+        }
+
+        ImageView imageView = (ImageView) layout.findViewById(R.id.ic_item);
+        TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
         Palavra palavra = this.palavras.get(i);
         textView.setText(palavra.getPalavra());
 
-        imageView.setImageResource(palavras.get(i).getIdImage());
+        imageView.setImageBitmap(palavras.get(i).getImage());
 
-
-        return v;
+        return layout;
     }
 }
