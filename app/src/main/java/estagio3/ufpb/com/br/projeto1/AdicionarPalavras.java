@@ -70,7 +70,7 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     }
 
     public void salvarFoto(View view) {
-            palavrasApplication.addPalavras(imagemByte,palavra.getText().toString());
+            palavrasApplication.addPalavras(imagemByte,palavra.getText().toString().toUpperCase());
 
     }
 
