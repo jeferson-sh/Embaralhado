@@ -5,16 +5,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -35,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         if(!BackgroundSoundService.ISPLAY)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listViewPontos);
         listView.setAdapter(new PalavrasAdapter(this));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -15,11 +15,13 @@ import java.util.List;
 public class PalavrasApplication extends Application {
 
     private List<Palavra> palavras;
+    private List<Pontuação> pontuações;
 
     @Override
     public void onCreate() {
         super.onCreate();
         palavras = new ArrayList<>();
+        pontuações = new ArrayList<>();
         criarPalavras();
     }
 
@@ -28,12 +30,20 @@ public class PalavrasApplication extends Application {
         super.onTerminate();
     }
 
+    public List<Pontuação> getPontuações() {
+        return pontuações;
+    }
+
     public List<Palavra> getPalavras() {
         return palavras;
     }
 
     public void addPalavras(byte[] byteImage, String text){
         palavras.add(new Palavra(byteImage,text));
+    }
+
+    public void addPontuação(byte[] byteImage, int pontuação){
+        pontuações.add(new Pontuação(byteImage,pontuação));
     }
 
     private void criarPalavras() {

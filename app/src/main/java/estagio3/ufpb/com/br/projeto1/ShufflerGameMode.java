@@ -28,8 +28,10 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private int count;
     private Integer nivelAleatorio;
     private List<Palavra> palavras;
+    private List<Pontuação> pontuações;
+    private int pontos;
     private ImageButton nextWord;
-    private TextView nivelText;
+    private static final int FINAL_NIVEL = 10;
 
     private List<Integer> niveis;
     @Override
@@ -40,7 +42,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         MyOnDragListener myOnDragListener = new MyOnDragListener();
         MyOnLongClickListener myOnLongClickListener = new MyOnLongClickListener();
         PalavrasApplication palavrasApplication = (PalavrasApplication) ShufflerGameMode.this.getApplicationContext();
-        palavras = palavrasApplication.getPalavras();
+        this.palavras = palavrasApplication.getPalavras();
+        this.pontuações = palavrasApplication.getPontuações();
+        this.pontos = 10;
         count = 1;
         this.niveis = shufflerNíveis();
         nivelAleatorio = niveis.get(count);
@@ -153,7 +157,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private List<Integer> shufflerNíveis(){
-       List<Integer> aux = new ArrayList<Integer>();
+        List<Integer> aux = new ArrayList<Integer>();
         for(int i = 0; i < palavras.size(); i++){
             aux.add(i);
         }
@@ -186,8 +190,21 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void setCount() {
-        if(count < this.niveis.size())
+        if(count < FINAL_NIVEL)
             this.count++;
+        else {
+            adicionarPontuação();
+        }
+    }
+
+    private void adicionarPontuação() {
+        if(this.pontos <= 3){
+            this.pontuações.add(new Pontuação(getResources().getDrawable(R.drawable.low_score),1));
+        }else if(this.pontos > 3 && this.pontos <= 7){
+            this.pontuações.add(new Pontuação(getResources().getDrawable(R.drawable.medium_score),2));
+        }else{
+            this.pontuações.add(new Pontuação(getResources().getDrawable(R.drawable.hight_score),3));
+        }
     }
 
     private void clearNivel(){
@@ -211,7 +228,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         char aux2 [] = palavras.get(pos).getPalavra().toCharArray();
         for (int i= 0; i < aux.length; i++){
             String letra = String.valueOf(aux[i]).toUpperCase();
-            letras[i].setContentDescription("");
+            letras[i].setContentDescription("f");
             drops[i].setTag(aux2[i]);
             switch (letra){
                 case "A":
@@ -437,12 +454,12 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void VerifyWord(String s) {
-        CharSequence correct = "";
+        CharSequence correct = "f";
         for (int i = 0; i< s.length();i++){
             if(letras[i].getContentDescription().equals("f")) {
                 correct = letras[i].getContentDescription();
                 break;
-            }else if(letras[i].getContentDescription().equals("v")){
+            }else{
                 correct = letras[i].getContentDescription();
             }
         }
@@ -452,6 +469,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             mp.start();
             mp.setVolume(200,200);
         }else{
+            this.pontos--;
             MediaPlayer mp = MediaPlayer.create(this,R.raw.wrong);
             mp.start();
             mp.setVolume(200,200);

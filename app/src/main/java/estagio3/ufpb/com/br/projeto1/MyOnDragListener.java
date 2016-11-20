@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 class MyOnDragListener implements View.OnDragListener {
 
@@ -22,8 +21,6 @@ class MyOnDragListener implements View.OnDragListener {
                 isDroped = true;
                 if(letra.getTag().toString().equalsIgnoreCase(drop.getTag().toString())){
                     letra.setContentDescription("v");
-                }else{
-                    letra.setContentDescription("f");
                 }
                 ViewGroup dragLayout = (ViewGroup) letra.getParent();
                 dragLayout.removeView(letra);
