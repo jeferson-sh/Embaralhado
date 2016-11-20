@@ -31,6 +31,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private List<Pontuação> pontuações;
     private int pontos;
     private ImageButton nextWord;
+    private TextView textCountNivel;
     private static final int FINAL_NIVEL = 10;
 
     private List<Integer> niveis;
@@ -56,6 +57,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         ImageButton checkButon = (ImageButton) findViewById(R.id.checkButton);
         this.nextWord = (ImageButton) findViewById(R.id.nextButton);
         this.soundbt = (ImageButton) findViewById(R.id.somButton);
+        this.textCountNivel =(TextView) findViewById(R.id.textCountNivel);
 
         if(!BackgroundSoundService.ISPLAY)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
@@ -223,6 +225,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     public void loadWord(int pos){
+        String n = "Palavra "+this.count+" de "+FINAL_NIVEL;
+        this.textCountNivel.setText(n);
         this.nextWord.setEnabled(false);
         char aux [] = shuffle(palavras.get(pos).getPalavra()).toCharArray();
         char aux2 [] = palavras.get(pos).getPalavra().toCharArray();
@@ -471,8 +475,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         }else{
             this.pontos--;
             MediaPlayer mp = MediaPlayer.create(this,R.raw.wrong);
+            mp.seekTo(1000);
             mp.start();
-            mp.setVolume(200,200);
+            mp.setVolume(300,300);
             removeLettersWrong();
         }
 

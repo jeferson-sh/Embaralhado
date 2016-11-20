@@ -38,18 +38,25 @@
             android:id="@+id/somButton"
             android:layout_margin="5dp"
             android:background="@drawable/sound_button"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center"
         android:id="@+id/linearImage">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="teste"
+            android:id="@+id/textCountNivel"
+            android:textSize="15sp"
+            android:textColor="#ffffff"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:layout_margin="5dp"
             android:id="@+id/imageQuestion"/>
     </LinearLayout>
 
@@ -58,8 +65,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/drop"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="40dp"
@@ -187,7 +193,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/drag"
-        android:layout_marginTop="5dp"
         android:gravity="center">
 
         <ImageView
@@ -289,7 +294,7 @@
                 android:layout_height="45dp"
                 android:id="@+id/checkButton"
                 android:background="@drawable/checked"
-               android:layout_margin="5dp"
+                android:layout_margin="5dp"
                 android:onClick="VerifyWord"/>
 
             <ImageButton
