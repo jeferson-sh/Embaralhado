@@ -48,19 +48,20 @@
 
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:inputType="textPersonName"
             android:hint="Inserir Palavra"
             android:textColorHint="#ffffff"
             android:textColor="#ffffff"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:id="@+id/editText"/>
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
             android:layout_margin="5dp"
             android:id="@+id/imageView1"/>
 
@@ -68,26 +69,32 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end">
 
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/photo_camera"
+            android:background="@drawable/ativar_camera"
             android:layout_margin="5dp"
-            android:id="@+id/tirar_foto"
-            android:onClick="tirarFoto"/>
+            android:id="@+id/ativar_camera"/>
 
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_margin="5dp"
-            android:id="@+id/salvar_foto"
-            android:onClick="salvarFoto"/>
+            android:id="@+id/ativar_galeria"
+            android:background="@drawable/ativar_galleria"/>
 
     </LinearLayout>
+
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:id="@+id/salvar_foto"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"/>
 
 
 </LinearLayout>

@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         this.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startGameModeActivity();
+                startGame();
             }
         });
         this.settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +93,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         }
     }
 
-    private void startGameModeActivity(){
-        Intent intent = new Intent(this,GameModeActivity.class);
+    private void startGame(){
+        Intent intent = new Intent(this,ShufflerGameMode.class);
         startActivity(intent);
         finish();
     }
