@@ -101,12 +101,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void startSettingsActivity(){
         Intent intent = new Intent(this,SettingsActivity.class);
         startActivity(intent);
-        finish();
     }
     private void startScoreActivity(){
         Intent intent = new Intent(this,ScoreActivity.class);
         startActivity(intent);
-        finish();
     }
 
     @Override

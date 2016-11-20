@@ -1,6 +1,7 @@
 package estagio3.ufpb.com.br.projeto1;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
@@ -10,8 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -23,9 +25,13 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private LinearLayout [] drops;
     private LinearLayout dragContainer;
     private ImageView [] letras;
-    private int nivel;
-    private int nivelAleatorio;
+    private int count;
+    private Integer nivelAleatorio;
     private List<Palavra> palavras;
+    private ImageButton nextWord;
+    private TextView nivelText;
+
+    private List<Integer> niveis;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,21 +41,20 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         MyOnLongClickListener myOnLongClickListener = new MyOnLongClickListener();
         PalavrasApplication palavrasApplication = (PalavrasApplication) ShufflerGameMode.this.getApplicationContext();
         palavras = palavrasApplication.getPalavras();
-        nivel = 0;
-        nivelAleatorio = (byte) (Math.random() * palavras.size());
+        count = 1;
+        this.niveis = shufflerNíveis();
+        nivelAleatorio = niveis.get(count);
 
 
         ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
-
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
-
         ImageButton restartButton = (ImageButton) findViewById(R.id.restart_button);
-
         ImageButton checkButon = (ImageButton) findViewById(R.id.checkButton);
-
-        ImageButton nextbt = (ImageButton) findViewById(R.id.nextButton);
-
+        this.nextWord = (ImageButton) findViewById(R.id.nextButton);
         this.soundbt = (ImageButton) findViewById(R.id.somButton);
+
+        if(!BackgroundSoundService.ISPLAY)
+            this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
         ImageView letra0 = (ImageView) findViewById(R.id.letra0);
         ImageView letra1 = (ImageView) findViewById(R.id.letra1);
@@ -61,7 +66,6 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         ImageView letra7 = (ImageView) findViewById(R.id.letra7);
         ImageView letra8 = (ImageView) findViewById(R.id.letra8);
         ImageView letra9 = (ImageView) findViewById(R.id.letra9);
-
         this.letras = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
 
         LinearLayout drop0 = (LinearLayout) findViewById(R.id.drop0);
@@ -74,13 +78,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         LinearLayout drop7 = (LinearLayout) findViewById(R.id.drop7);
         LinearLayout drop8 = (LinearLayout) findViewById(R.id.drop8);
         LinearLayout drop9 = (LinearLayout) findViewById(R.id.drop9);
-
         this.drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
 
         this.dragContainer = (LinearLayout)findViewById(R.id.drag);
-
-        if(!BackgroundSoundService.ISPLAY)
-            this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
         letra0.setOnLongClickListener(myOnLongClickListener);
         letra1.setOnLongClickListener(myOnLongClickListener);
@@ -115,7 +115,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                restart();
+                removeLettersWrong();
             }
         });
 
@@ -126,17 +126,12 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             }
         });
 
-        nextbt.setOnClickListener(new View.OnClickListener() {
+        this.nextWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reset();
-                nivelAleatorio = (int) (Math.random() * palavras.size());
-                loadNivel(nivelAleatorio);
-                setImage(nivelAleatorio);
-                setNivel();
+                toGetNextWord();
             }
         });
-
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,12 +140,28 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             }
         });
 
-
-        loadNivel(nivelAleatorio);
+        loadWord(nivelAleatorio);
         setImage(nivelAleatorio);
     }
 
-    private void restart() {
+    private void toGetNextWord(){
+        clearNivel();
+        setCount();
+        nivelAleatorio = niveis.get(count);
+        loadWord(nivelAleatorio);
+        setImage(nivelAleatorio);
+    }
+
+    private List<Integer> shufflerNíveis(){
+       List<Integer> aux = new ArrayList<Integer>();
+        for(int i = 0; i < palavras.size(); i++){
+            aux.add(i);
+        }
+        Collections.shuffle(aux);
+        return aux;
+    }
+
+    private void removeLettersWrong() {
         for (int i = 0; i< palavras.get(nivelAleatorio).getPalavra().length();i++){
             if (letras[i].getContentDescription().equals("f")){
                 ViewGroup dropLayout = (ViewGroup) letras[i].getParent();
@@ -174,15 +185,12 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         }
     }
 
-    private void setNivel() {
-        if(nivel < 50) {
-            this.nivel++;
-        }else{
-            Toast.makeText(this, "Memoria Cheia", Toast.LENGTH_LONG).show();
-        }
+    private void setCount() {
+        if(count < this.niveis.size())
+            this.count++;
     }
 
-    private void reset(){
+    private void clearNivel(){
         for(int i = 0; i < letras.length;i++){
             ViewGroup dropLayout = (ViewGroup) letras[i].getParent();
             dropLayout.removeView(letras[i]);
@@ -197,12 +205,13 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.imageQuestion.setImageBitmap(palavras.get(i).getImage());
     }
 
-    public void loadNivel(int pos){
+    public void loadWord(int pos){
+        this.nextWord.setEnabled(false);
         char aux [] = shuffle(palavras.get(pos).getPalavra()).toCharArray();
         char aux2 [] = palavras.get(pos).getPalavra().toCharArray();
         for (int i= 0; i < aux.length; i++){
             String letra = String.valueOf(aux[i]).toUpperCase();
-            letras[i].setContentDescription("v");
+            letras[i].setContentDescription("");
             drops[i].setTag(aux2[i]);
             switch (letra){
                 case "A":
@@ -428,17 +437,25 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void VerifyWord(String s) {
-        CharSequence correct = "v";
+        CharSequence correct = "";
         for (int i = 0; i< s.length();i++){
             if(letras[i].getContentDescription().equals("f")) {
                 correct = letras[i].getContentDescription();
                 break;
+            }else if(letras[i].getContentDescription().equals("v")){
+                correct = letras[i].getContentDescription();
             }
         }
         if(correct.equals("v")){
-            Toast.makeText(this, "Parabéns você acertou!!!", Toast.LENGTH_LONG).show();
+            this.nextWord.setEnabled(true);
+            MediaPlayer mp = MediaPlayer.create(this,R.raw.correct);
+            mp.start();
+            mp.setVolume(200,200);
         }else{
-            Toast.makeText(this, "Que pena tente novamente.", Toast.LENGTH_LONG).show();
+            MediaPlayer mp = MediaPlayer.create(this,R.raw.wrong);
+            mp.start();
+            mp.setVolume(200,200);
+            removeLettersWrong();
         }
 
     }

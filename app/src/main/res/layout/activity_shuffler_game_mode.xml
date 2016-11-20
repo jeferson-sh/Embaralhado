@@ -39,7 +39,6 @@
             android:layout_margin="5dp"
             android:background="@drawable/sound_button"/>
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -276,7 +275,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center|bottom">
 
             <ImageButton
                 android:layout_width="45dp"
@@ -290,8 +289,7 @@
                 android:layout_height="45dp"
                 android:id="@+id/checkButton"
                 android:background="@drawable/checked"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
+               android:layout_margin="5dp"
                 android:onClick="VerifyWord"/>
 
             <ImageButton
