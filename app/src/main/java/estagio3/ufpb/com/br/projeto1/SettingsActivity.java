@@ -5,6 +5,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,14 +32,10 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         if(!BackgroundSoundService.ISPLAY)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
-        listView = (ListView) findViewById(R.id.listViewPontos);
+        listView = (ListView) findViewById(R.id.listViewPalavras);
         listView.setAdapter(new PalavrasAdapter(this));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Snackbar.make(view, "Clicou", Snackbar.LENGTH_LONG).show();
-            }
-        });
+        registerForContextMenu(listView);
+
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +58,28 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             }
         });
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.delete:
+                PalavrasApplication palavrasApplication = (PalavrasApplication) getApplicationContext();
+                palavrasApplication.getPalavras().remove(info.position);
+                recreate();
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
 
     private void showMenu(View v) {
         PopupMenu popup = new PopupMenu(this, v);
