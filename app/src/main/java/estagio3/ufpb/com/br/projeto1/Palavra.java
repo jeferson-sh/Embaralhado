@@ -12,7 +12,14 @@ public class Palavra {
     private byte[] imageBytes;
     private String palavra;
     private Bitmap image;
+    private long id;
 
+    public Palavra (long id, byte[] imageBytes, String palavra){
+        this.id = id;
+        this.palavra = palavra;
+        this.imageBytes = imageBytes;
+        this.image = DbBitmapUtility.getImage(imageBytes);
+    }
     public Palavra (byte[] imageBytes, String palavra){
         this.palavra = palavra;
         this.imageBytes = imageBytes;
@@ -30,6 +37,13 @@ public class Palavra {
         this.imageBytes = DbBitmapUtility.getBytes(this.image);
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Bitmap getImage() {
         return image;

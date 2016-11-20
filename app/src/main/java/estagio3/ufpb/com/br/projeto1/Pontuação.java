@@ -12,6 +12,7 @@ public class Pontuação {
     private byte[] imageScoreBytes;
     private int pontos;
     private Bitmap image;
+    private long id;
 
     public Pontuação(byte[] imageScoreBytes, int pontos){
         this.pontos = pontos;
@@ -30,6 +31,20 @@ public class Pontuação {
         this.imageScoreBytes = DbBitmapUtility.getBytes(this.image);
     }
 
+    public Pontuação(long id, byte[] imageScoreBytes, int pontos) {
+        this.id = id;
+        this.pontos = pontos;
+        this.imageScoreBytes = imageScoreBytes;
+        this.image = DbBitmapUtility.getImage(imageScoreBytes);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public Bitmap getImage() {
         return image;

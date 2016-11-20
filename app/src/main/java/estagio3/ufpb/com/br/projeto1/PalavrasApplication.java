@@ -1,5 +1,6 @@
 package estagio3.ufpb.com.br.projeto1;
 
+import android.app.Activity;
 import android.app.Application;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,13 +17,21 @@ public class PalavrasApplication extends Application {
 
     private List<Palavra> palavras;
     private List<Pontuação> pontuações;
+    private BD bd;
+    static boolean isFirstStart;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        palavras = new ArrayList<>();
-        pontuações = new ArrayList<>();
-        criarPalavras();
+        bd = new BD(this);
+        palavras = bd.buscarPalavras();
+        pontuações = bd.buscarPontos();
+        if (palavras.isEmpty()){
+            criarPalavras();
+            onCreate();
+        }
+
+
     }
 
     @Override
@@ -46,22 +55,27 @@ public class PalavrasApplication extends Application {
         pontuações.add(new Pontuação(byteImage,pontuação));
     }
 
-    private void criarPalavras() {
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.esquilo),"ESQUILO"));
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.bulldog), "CACHORRO"));//4
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.cat),"GATO"));//2
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.hipopotamo),"HIPOPOTAMO"));//3
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.boi),"BOI"));//9
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.zebra),"ZEBRA"));//5
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.coala),"COALA"));
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.peixe),"PEIXE"));//7
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.panda),"PANDA"));//6
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.leao),"LEAO"));
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.car),"CARRO"));//10
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.borboleta),"BORBOLETA"));
-        palavras.add(new Palavra(getResources().getDrawable( R.drawable.mesa),"MESA"));//8
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.cadeira),"CADEIRA"));
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.sofa),"SOFA"));//11
-        palavras.add(new Palavra(getResources().getDrawable(R.drawable.clock),"RELOGIO"));//1
+    public void criarPalavras() {
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.esquilo),"ESQUILO"));
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.bulldog), "CACHORRO"));//4
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.cat),"GATO"));//2
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.hipopotamo),"HIPOPOTAMO"));//3
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.boi),"BOI"));//9
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.zebra),"ZEBRA"));//5
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.coala),"COALA"));
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.peixe),"PEIXE"));//7
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.panda),"PANDA"));//6
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.leao),"LEAO"));
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.car),"CARRO"));//10
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.borboleta),"BORBOLETA"));
+        bd.inserirPalavra(new Palavra(getResources().getDrawable( R.drawable.mesa),"MESA"));//8
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.cadeira),"CADEIRA"));
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.sofa),"SOFA"));//11
+        bd.inserirPalavra(new Palavra(getResources().getDrawable(R.drawable.clock),"RELOGIO"));//1
+
     }
+
+
+
+
 }
