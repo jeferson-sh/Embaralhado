@@ -66,7 +66,7 @@ public class BD {
         List<Palavra> list = new ArrayList<Palavra>();
         String[] colunas = new String[]{"_id", "nome", "image"};
 
-        Cursor cursor = bd.query("palavra", colunas, null, null, null, null, "nome ASC");
+        Cursor cursor = bd.query("palavra", colunas, null, null, null, null, null);
 
         if(cursor.getCount() > 0){
             cursor.moveToFirst();
@@ -89,7 +89,7 @@ public class BD {
         List<Pontuação> list = new ArrayList<Pontuação>();
         String[] colunas = new String[]{"_id", "pontos", "image"};
 
-        Cursor cursor = bd.query("pontos", colunas, null, null, null, null, "pontos ASC");
+        Cursor cursor = bd.query("pontos", colunas, null, null, null, null, null);
 
         if(cursor.getCount() > 0){
             cursor.moveToFirst();

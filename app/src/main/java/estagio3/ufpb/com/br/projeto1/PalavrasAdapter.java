@@ -24,6 +24,7 @@ public class PalavrasAdapter extends BaseAdapter{
         this.context = context;
         this.palavrasApplication = (PalavrasApplication) context.getApplicationContext();
         this.palavras = palavrasApplication.getPalavras();
+        this.notifyDataSetChanged();
     }
 
     @Override

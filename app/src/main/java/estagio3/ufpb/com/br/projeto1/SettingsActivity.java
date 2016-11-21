@@ -75,6 +75,8 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             case R.id.delete:
                 PalavrasApplication palavrasApplication = (PalavrasApplication) SettingsActivity.this.getApplicationContext();
                 bd.deletarPalavra(palavrasApplication.getPalavras().get(info.position));
+                palavrasApplication.getPalavras().remove(info.position);
+                recreate();
                 return true;
             default:
                 return super.onContextItemSelected(item);

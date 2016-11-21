@@ -118,8 +118,13 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     }
 
     public void salvarFoto() {
-        if(this.imagemByte != null && this.palavra.getText().toString().length() > 2 )
-            bd.inserirPalavra(new Palavra(imagemByte,palavra.getText().toString().toUpperCase()));
+        if (this.imagemByte != null && this.palavra.getText().toString().length() >= 2) {
+            PalavrasApplication palavrasApplication = (PalavrasApplication) AdicionarPalavras.this.getApplicationContext();
+            bd.inserirPalavra(new Palavra(imagemByte, palavra.getText().toString().toUpperCase()));
+            palavrasApplication.getPalavras().add(new Palavra(imagemByte, palavra.getText().toString().toUpperCase()));
+            startActivity(new Intent(AdicionarPalavras.this,SettingsActivity.class));
+
+        }
     }
 
     private void showMenu(View v) {
