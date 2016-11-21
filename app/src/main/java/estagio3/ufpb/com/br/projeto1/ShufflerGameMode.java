@@ -3,6 +3,7 @@ package estagio3.ufpb.com.br.projeto1;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
@@ -201,11 +202,11 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
     private void adicionarPontuação() {
         if(this.pontos <= 3){
-            this.pontuações.add(new Pontuação(getResources().getDrawable(R.drawable.low_score),1));
+            this.pontuações.add(new Pontuação(ContextCompat.getDrawable(this,R.drawable.low_score),1));
         }else if(this.pontos > 3 && this.pontos <= 7){
-            this.pontuações.add(new Pontuação(getResources().getDrawable(R.drawable.medium_score),2));
+            this.pontuações.add(new Pontuação(ContextCompat.getDrawable(this,R.drawable.medium_score),2));
         }else{
-            this.pontuações.add(new Pontuação(getResources().getDrawable(R.drawable.hight_score),3));
+            this.pontuações.add(new Pontuação(ContextCompat.getDrawable(this,R.drawable.hight_score),3));
         }
     }
 
