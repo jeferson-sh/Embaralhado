@@ -29,6 +29,7 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     private ImageButton camera;
     private ImageButton galeria;
     private ImageButton salvarFoto;
+    private BD bd;
 
 
     @Override
@@ -45,6 +46,7 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
         this.camera = (ImageButton) findViewById(R.id.ativar_camera);
         this.galeria = (ImageButton) findViewById(R.id.ativar_galeria);
         this.salvarFoto = (ImageButton) findViewById(R.id.salvar_foto);
+        this.bd = new BD(this);
 
         if(!BackgroundSoundService.ISPLAY)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
@@ -116,8 +118,8 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     }
 
     public void salvarFoto() {
-        palavrasApplication.addPalavras(imagemByte,palavra.getText().toString().toUpperCase());
-
+        if(this.imagemByte != null && this.palavra.getText().toString().length() > 2 )
+            bd.inserirPalavra(new Palavra(imagemByte,palavra.getText().toString().toUpperCase()));
     }
 
     private void showMenu(View v) {

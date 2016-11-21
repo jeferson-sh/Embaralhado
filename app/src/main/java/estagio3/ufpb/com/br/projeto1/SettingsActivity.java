@@ -19,6 +19,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
     private ImageButton menubt;
     private ImageButton soundbt;
     private ImageButton add;
+    private BD bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         if(BackgroundSoundService.ISPLAY)
             startService(new Intent(this,BackgroundSoundService.class));
         this.menubt = (ImageButton) findViewById(R.id.menuButton);
+        this.bd = new BD(this);
         this.soundbt = (ImageButton) findViewById(R.id.somButton);
         this.add = (ImageButton) findViewById(R.id.add_palavra);
         if(!BackgroundSoundService.ISPLAY)
@@ -71,9 +73,8 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.delete:
-                PalavrasApplication palavrasApplication = (PalavrasApplication) getApplicationContext();
-                palavrasApplication.getPalavras().remove(info.position);
-                recreate();
+                PalavrasApplication palavrasApplication = (PalavrasApplication) SettingsActivity.this.getApplicationContext();
+                bd.deletarPalavra(palavrasApplication.getPalavras().get(info.position));
                 return true;
             default:
                 return super.onContextItemSelected(item);
