@@ -90,19 +90,13 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
 
     private void ativarGaleria() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 0);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(requestCode == 0 && resultCode == RESULT_OK && null != data){
-            Bundle bundle = data.getExtras();
-            if(bundle != null){
-                this.bitmap = (Bitmap) bundle.get("data");
-                imagem.setImageBitmap(bitmap);
-            }
-        }else if(requestCode == 1 && resultCode == RESULT_OK && null != data){
             Uri selectedImage = data.getData();
             picturePath = getRealPathFromURI(selectedImage);
             setPic();

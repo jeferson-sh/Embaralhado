@@ -239,8 +239,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             pontuações.remove(0);
             bd.deletarPontos(1);
         }
-        this.pontuações.add(new Pontuação(p.getImageScoreBytes(),this.pontos));
-        bd.inserirPontos(new Pontuação(p.getImageScoreBytes(),this.pontos));
+        bd.inserirPontos(p);
     }
 
     private void clearNivel(){
@@ -475,6 +474,12 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
                     letras[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
+                case "Ã":
+                    letras[i].setImageResource(R.drawable.aaaa);
+                    letras[i].setTag("Ã");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
                 case "É":
                     letras[i].setImageResource(R.drawable.ee);
                     letras[i].setTag("É");
@@ -502,6 +507,12 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
                 case "Ô":
                     letras[i].setImageResource(R.drawable.ooo);
                     letras[i].setTag("Ô");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
+                case "Õ":
+                    letras[i].setImageResource(R.drawable.oooo);
+                    letras[i].setTag("Õ");
                     letras[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
@@ -560,6 +571,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             this.nextWord.setEnabled(true);
             startSoundQuestionCorrect();
             if(this.count == FINAL_NIVEL)
+                onPause();
                 congratulationMessage();
         }else{
             this.pontos--;

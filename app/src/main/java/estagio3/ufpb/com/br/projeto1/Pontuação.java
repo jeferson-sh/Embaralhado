@@ -19,11 +19,6 @@ public class Pontuação {
         this.imageScoreBytes = imageScoreBytes;
         this.image = DbBitmapUtility.getImage(imageScoreBytes);
     }
-    public Pontuação(Bitmap image, int pontos){
-        this.pontos = pontos;
-        this.image = image;
-        this.imageScoreBytes = DbBitmapUtility.getBytes(this.image);
-    }
 
     public Pontuação(Drawable drawable, int pontos) {
         this.image = ((BitmapDrawable) drawable).getBitmap();
