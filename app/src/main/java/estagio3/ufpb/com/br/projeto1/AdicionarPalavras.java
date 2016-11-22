@@ -1,7 +1,9 @@
 package estagio3.ufpb.com.br.projeto1;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
@@ -20,13 +22,14 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
 
     private EditText palavra;
     private ImageView imagem;
-    private byte [] imagemByte;
+    private Bitmap bitmap;
     private ImageButton menubt;
     private ImageButton soundbt;
     private ImageButton camera;
     private ImageButton galeria;
     private ImageButton salvarFoto;
     private BD bd;
+    private String picturePath;
 
 
     @Override
@@ -96,21 +99,45 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
         if(requestCode == 0 && resultCode == RESULT_OK && null != data){
             Bundle bundle = data.getExtras();
             if(bundle != null){
-                Bitmap img = (Bitmap) bundle.get("data");
-                imagemByte = DbBitmapUtility.getBytes(img);
-                imagem.setImageBitmap(img);
+                this.bitmap = (Bitmap) bundle.get("data");
+                imagem.setImageBitmap(bitmap);
             }
         }else if(requestCode == 1 && resultCode == RESULT_OK && null != data){
             Uri selectedImage = data.getData();
-            try {
-                Bitmap img = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImage);
-                if (img != null) {
-                    imagemByte = DbBitmapUtility.getBytes(img);
-                    imagem.setImageBitmap(img);
-                }
-            } catch (IOException e) {e.printStackTrace();}
-
+            picturePath = getRealPathFromURI(selectedImage);
+            setPic();
         }
+    }
+
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+    private void setPic() {
+        // Get the dimensions of the View
+        int targetW = imagem.getWidth();
+        int targetH = imagem.getHeight();
+
+        // Get the dimensions of the bitmap
+        BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+        bmOptions.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(picturePath, bmOptions);
+        int photoW = bmOptions.outWidth;
+        int photoH = bmOptions.outHeight;
+
+        // Determine how much to scale down the image
+        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+
+        // Decode the image file into a Bitmap sized to fill the View
+        bmOptions.inJustDecodeBounds = false;
+        bmOptions.inSampleSize = scaleFactor;
+        bmOptions.inPurgeable = true;
+
+        bitmap = BitmapFactory.decodeFile(picturePath, bmOptions);
+        imagem.setImageBitmap(bitmap);
     }
 
     public void salvarFoto(View v) {
@@ -118,8 +145,8 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
             Snackbar.make(v,"Palavra muito grande!",Snackbar.LENGTH_SHORT).setAction("OR",null).show();
         if(this.palavra.getText().toString().length() < 2)
             Snackbar.make(v,"Palavra muito pequena!",Snackbar.LENGTH_SHORT).setAction("OR",null).show();
-        if (this.imagemByte != null && this.palavra.getText().toString().length() >= 2 && palavra.getText().toString().length()<= 10) {
-            bd.inserirPalavra(new Palavra(imagemByte, palavra.getText().toString().toUpperCase()));
+        if (this.bitmap != null && this.palavra.getText().toString().length() >= 2 && palavra.getText().toString().length()<= 10) {
+            bd.inserirPalavra(new Palavra(bitmap, palavra.getText().toString().toUpperCase()));
             startActivity(new Intent(AdicionarPalavras.this,SettingsActivity.class));
             finish();
 

@@ -20,11 +20,6 @@ public class Palavra {
         this.imageBytes = imageBytes;
         this.image = DbBitmapUtility.getImage(imageBytes);
     }
-    public Palavra (byte[] imageBytes, String palavra){
-        this.palavra = palavra;
-        this.imageBytes = imageBytes;
-        this.image = DbBitmapUtility.getImage(imageBytes);
-    }
     public Palavra(Bitmap image, String palavra){
         this.palavra = palavra;
         this.image = image;
