@@ -14,12 +14,11 @@ import java.util.List;
  * Created by Jeferson on 10/11/2016.
  */
 
-public class PalavrasApplication extends Application {
+public class DataApplication extends Application {
 
     private List<Palavra> palavras;
     private List<Pontuação> pontuações;
     private BD bd;
-    static boolean isFirstStart;
 
     @Override
     public void onCreate() {
@@ -27,7 +26,7 @@ public class PalavrasApplication extends Application {
         bd = new BD(this);
         palavras = bd.buscarPalavras();
         pontuações = bd.buscarPontos();
-        if (palavras.isEmpty()){
+        if (palavras.isEmpty()) {
             criarPalavras();
             onCreate();
         }
@@ -48,13 +47,6 @@ public class PalavrasApplication extends Application {
         return palavras;
     }
 
-    public void addPalavras(byte[] byteImage, String text){
-        palavras.add(new Palavra(byteImage,text));
-    }
-
-    public void addPontuação(byte[] byteImage, int pontuação){
-        pontuações.add(new Pontuação(byteImage,pontuação));
-    }
 
     public void criarPalavras() {
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.esquilo),"ESQUILO"));
@@ -66,13 +58,13 @@ public class PalavrasApplication extends Application {
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.coala),"COALA"));
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.peixe),"PEIXE"));//7
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.panda),"PANDA"));//6
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.leao),"LEAO"));
+        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.leao),"LEÃO"));
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.car),"CARRO"));//10
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.borboleta),"BORBOLETA"));
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.mesa),"MESA"));//8
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.cadeira),"CADEIRA"));
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.sofa),"SOFA"));//11
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.clock),"RELOGIO"));//1
+        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.sofa),"SOFÁ"));//11
+        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.clock),"RELÓGIO"));//1
 
     }
 

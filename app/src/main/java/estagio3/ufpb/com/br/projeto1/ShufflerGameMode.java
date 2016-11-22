@@ -1,14 +1,15 @@
 package estagio3.ufpb.com.br.projeto1;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +31,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private Integer nivelAleatorio;
     private List<Palavra> palavras;
     private List<Pontuação> pontuações;
+    private BD bd;
     private int pontos;
     private ImageButton nextWord;
     private TextView textCountNivel;
@@ -43,9 +45,11 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         MyOnDragListener myOnDragListener = new MyOnDragListener();
         MyOnLongClickListener myOnLongClickListener = new MyOnLongClickListener();
-        PalavrasApplication palavrasApplication = (PalavrasApplication) ShufflerGameMode.this.getApplicationContext();
-        this.palavras = palavrasApplication.getPalavras();
-        this.pontuações = palavrasApplication.getPontuações();
+        //DataApplication dataApplication = (DataApplication) getApplicationContext();
+        this.bd = new BD(this);
+        this.palavras = bd.buscarPalavras();
+        this.pontuações = bd.buscarPontos();
+
         this.pontos = 10;
         count = 1;
         this.niveis = shufflerNíveis();
@@ -160,7 +164,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private List<Integer> shufflerNíveis(){
-        List<Integer> aux = new ArrayList<Integer>();
+        List<Integer> aux = new ArrayList<>();
         for(int i = 0; i < palavras.size(); i++){
             aux.add(i);
         }
@@ -172,9 +176,11 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         for (int i = 0; i< palavras.get(nivelAleatorio).getPalavra().length();i++){
             if (letras[i].getContentDescription().equals("f")){
                 ViewGroup dropLayout = (ViewGroup) letras[i].getParent();
+                dropLayout.setEnabled(true);
                 dropLayout.removeView(letras[i]);
                 dragContainer.addView(letras[i]);
                 letras[i].setVisibility(View.VISIBLE);
+                letras[i].setEnabled(true);
                 drops[i].setVisibility(View.VISIBLE);
             }
         }
@@ -195,19 +201,46 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private void setCount() {
         if(count < FINAL_NIVEL)
             this.count++;
-        else {
-            adicionarPontuação();
-        }
     }
 
-    private void adicionarPontuação() {
-        if(this.pontos <= 3){
-            this.pontuações.add(new Pontuação(ContextCompat.getDrawable(this,R.drawable.low_score),1));
-        }else if(this.pontos > 3 && this.pontos <= 7){
-            this.pontuações.add(new Pontuação(ContextCompat.getDrawable(this,R.drawable.medium_score),2));
-        }else{
-            this.pontuações.add(new Pontuação(ContextCompat.getDrawable(this,R.drawable.hight_score),3));
+    public void congratulationMessage() {
+        Dialog settingsDialog = new Dialog(this);
+        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.custom_dialog_box, null));
+        ImageView msg = (ImageView) settingsDialog.findViewById(R.id.congratulations);
+        ImageButton playDialog = (ImageButton)settingsDialog.findViewById(R.id.playAgain);
+        ImageButton exitGame = (ImageButton)settingsDialog.findViewById(R.id.exitGame);
+        if(this.pontos <= 3)
+            msg.setImageResource(R.drawable.low_score);
+        else if(this.pontos > 3 && this.pontos < 7)
+            msg.setImageResource(R.drawable.medium_score);
+        else msg.setImageResource(R.drawable.hight_score);
+        Pontuação p = new Pontuação(msg.getDrawable(),pontos);
+        inserirPontuação(p);
+        playDialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShufflerGameMode.this,ShufflerGameMode.class));
+                finish();
+            }
+        });
+        exitGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShufflerGameMode.this,MainActivity.class));
+                finish();
+            }
+        });
+        settingsDialog.show();
+    }
+
+    private void inserirPontuação(Pontuação p){
+        if(pontuações.size() == 11) {
+            pontuações.remove(0);
+            bd.deletarPontos(1);
         }
+        this.pontuações.add(new Pontuação(p.getImageScoreBytes(),this.pontos));
+        bd.inserirPontos(new Pontuação(p.getImageScoreBytes(),this.pontos));
     }
 
     private void clearNivel(){
@@ -216,7 +249,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             dropLayout.removeView(letras[i]);
             dragContainer.addView(letras[i]);
             letras[i].setVisibility(View.GONE);
+            letras[i].setEnabled(true);
             drops[i].setVisibility(View.GONE);
+            drops[i].setEnabled(true);
 
         }
     }
@@ -226,6 +261,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     public void loadWord(int pos){
+        if (count == FINAL_NIVEL)
+            this.nextWord.setVisibility(View.GONE);
         String n = "Palavra "+this.count+" de "+FINAL_NIVEL;
         this.textCountNivel.setText(n);
         this.nextWord.setEnabled(false);
@@ -234,7 +271,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         for (int i= 0; i < aux.length; i++){
             String letra = String.valueOf(aux[i]).toUpperCase();
             letras[i].setContentDescription("f");
+            letras[i].setEnabled(true);
             drops[i].setTag(aux2[i]);
+            drops[i].setEnabled(true);
             switch (letra){
                 case "A":
                     letras[i].setImageResource(R.drawable.a);
@@ -423,6 +462,55 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
                     letras[i].setTag("Ç");
                     letras[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
+                    continue;
+                case "Á":
+                    letras[i].setImageResource(R.drawable.aa);
+                    letras[i].setTag("Á");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
+                case "Â":
+                    letras[i].setImageResource(R.drawable.aaa);
+                    letras[i].setTag("Â");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
+                case "É":
+                    letras[i].setImageResource(R.drawable.ee);
+                    letras[i].setTag("É");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
+                case "Ê":
+                    letras[i].setImageResource(R.drawable.eee);
+                    letras[i].setTag("Ê");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
+                case "Í":
+                    letras[i].setImageResource(R.drawable.ii);
+                    letras[i].setTag("Í");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
+                case "Ó":
+                    letras[i].setImageResource(R.drawable.oo);
+                    letras[i].setTag("Ó");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
+                case "Ô":
+                    letras[i].setImageResource(R.drawable.ooo);
+                    letras[i].setTag("Ô");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
+                case "Ú":
+                    letras[i].setImageResource(R.drawable.uu);
+                    letras[i].setTag("Ú");
+                    letras[i].setVisibility(View.VISIBLE);
+                    drops[i].setVisibility(View.VISIBLE);
+                    continue;
             }
         }
 
@@ -470,17 +558,31 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         }
         if(correct.equals("v")){
             this.nextWord.setEnabled(true);
-            MediaPlayer mp = MediaPlayer.create(this,R.raw.correct);
-            mp.start();
-            mp.setVolume(200,200);
+            startSoundQuestionCorrect();
+            if(this.count == FINAL_NIVEL)
+                congratulationMessage();
         }else{
             this.pontos--;
-            MediaPlayer mp = MediaPlayer.create(this,R.raw.wrong);
-            mp.seekTo(1000);
-            mp.start();
-            mp.setVolume(300,300);
+            starSoundQuestionWrong();
             removeLettersWrong();
         }
 
+    }
+
+    private void starSoundQuestionWrong(){
+        if(BackgroundSoundService.ISPLAY) {
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.wrong);
+            mp.seekTo(1000);
+            mp.start();
+            mp.setVolume(300, 300);
+        }
+    }
+
+    private void startSoundQuestionCorrect(){
+        if(BackgroundSoundService.ISPLAY) {
+            MediaPlayer mp = MediaPlayer.create(this, R.raw.correct);
+            mp.start();
+            mp.setVolume(200, 200);
+        }
     }
 }

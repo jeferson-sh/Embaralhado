@@ -18,12 +18,13 @@ public class PontuaçãoAdapter extends BaseAdapter{
 
     private List<Pontuação> pontos;
     private Context context;
-    private PalavrasApplication palavrasApplication;
+    private BD bd;
 
     public PontuaçãoAdapter(Context context) {
         this.context = context;
-        this.palavrasApplication = (PalavrasApplication) context.getApplicationContext();
-        this.pontos = palavrasApplication.getPontuações();
+        this.bd = new BD(context);
+        this.pontos = bd.buscarPontos();
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -57,7 +58,10 @@ public class PontuaçãoAdapter extends BaseAdapter{
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
         Pontuação pontos = this.pontos.get(i);
-        String p = pontos.getPontos()+" Estrelas.";
+        String p = "";
+        if(pontos.getPontos()==1)
+            p = pontos.getPontos()+" ponto.";
+        else p = pontos.getPontos()+ " pontos.";
         textView.setText(p);
 
         imageView.setImageBitmap(this.pontos.get(i).getImage());

@@ -1,10 +1,11 @@
 package estagio3.ufpb.com.br.projeto1;
 
 import android.content.Intent;
-import android.support.design.widget.Snackbar;
+import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -73,9 +74,8 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.delete:
-                PalavrasApplication palavrasApplication = (PalavrasApplication) SettingsActivity.this.getApplicationContext();
-                bd.deletarPalavra(palavrasApplication.getPalavras().get(info.position));
-                palavrasApplication.getPalavras().remove(info.position);
+                PalavrasAdapter palavrasAdapter = new PalavrasAdapter(this);
+                bd.deletarPalavra((Palavra) palavrasAdapter.getItem(info.position));
                 recreate();
                 return true;
             default:

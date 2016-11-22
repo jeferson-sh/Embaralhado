@@ -19,8 +19,13 @@ class MyOnDragListener implements View.OnDragListener {
         switch(action) {
             case DragEvent.ACTION_DROP:
                 isDroped = true;
+                letra.setEnabled(false);
+                drop.setEnabled(false);
                 if(letra.getTag().toString().equalsIgnoreCase(drop.getTag().toString())){
                     letra.setContentDescription("v");
+                }
+                else{
+                    letra.setContentDescription("f");
                 }
                 ViewGroup dragLayout = (ViewGroup) letra.getParent();
                 dragLayout.removeView(letra);

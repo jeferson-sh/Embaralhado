@@ -61,6 +61,10 @@ public class BD {
         bd.delete("pontos", "_id = "+pontuação.getId(), null);
     }
 
+    public void deletarPontos(long id){
+        bd.delete("pontos", "_id = "+id, null);
+    }
+
 
     public List<Palavra> buscarPalavras(){
         List<Palavra> list = new ArrayList<Palavra>();

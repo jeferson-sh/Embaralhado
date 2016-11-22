@@ -18,12 +18,12 @@ public class PalavrasAdapter extends BaseAdapter{
 
     private List<Palavra> palavras;
     private Context context;
-    private PalavrasApplication palavrasApplication;
+    private BD bd;
 
     public PalavrasAdapter(Context context) {
         this.context = context;
-        this.palavrasApplication = (PalavrasApplication) context.getApplicationContext();
-        this.palavras = palavrasApplication.getPalavras();
+        this.bd = new BD(context);
+        this.palavras = bd.buscarPalavras();
         this.notifyDataSetChanged();
     }
 
@@ -61,7 +61,6 @@ public class PalavrasAdapter extends BaseAdapter{
         textView.setText(palavra.getPalavra());
 
         imageView.setImageBitmap(palavras.get(i).getImage());
-
         return layout;
     }
 }

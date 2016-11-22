@@ -1,15 +1,13 @@
 package estagio3.ufpb.com.br.projeto1;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -21,7 +19,6 @@ import java.io.IOException;
 public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private EditText palavra;
-    private PalavrasApplication palavrasApplication;
     private ImageView imagem;
     private byte [] imagemByte;
     private ImageButton menubt;
@@ -38,7 +35,6 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
         setContentView(R.layout.activity_adicionar_palavras);
         if(BackgroundSoundService.ISPLAY)
             startService(new Intent(this,BackgroundSoundService.class));
-        palavrasApplication = (PalavrasApplication) AdicionarPalavras.this.getApplicationContext();
         this.palavra = (EditText) findViewById(R.id.editText);
         this.imagem =(ImageView) findViewById(R.id.imageView1);
         this.menubt = (ImageButton) findViewById(R.id.menuButton);
@@ -79,7 +75,7 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
         this.salvarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                salvarFoto();
+                salvarFoto(v);
             }
         });
     }
@@ -117,12 +113,15 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
         }
     }
 
-    public void salvarFoto() {
-        if (this.imagemByte != null && this.palavra.getText().toString().length() >= 2) {
-            PalavrasApplication palavrasApplication = (PalavrasApplication) AdicionarPalavras.this.getApplicationContext();
+    public void salvarFoto(View v) {
+        if (this.palavra.getText().toString().length()>10)
+            Snackbar.make(v,"Palavra muito grande!",Snackbar.LENGTH_SHORT).setAction("OR",null).show();
+        if(this.palavra.getText().toString().length() < 2)
+            Snackbar.make(v,"Palavra muito pequena!",Snackbar.LENGTH_SHORT).setAction("OR",null).show();
+        if (this.imagemByte != null && this.palavra.getText().toString().length() >= 2 && palavra.getText().toString().length()<= 10) {
             bd.inserirPalavra(new Palavra(imagemByte, palavra.getText().toString().toUpperCase()));
-            palavrasApplication.getPalavras().add(new Palavra(imagemByte, palavra.getText().toString().toUpperCase()));
             startActivity(new Intent(AdicionarPalavras.this,SettingsActivity.class));
+            finish();
 
         }
     }
