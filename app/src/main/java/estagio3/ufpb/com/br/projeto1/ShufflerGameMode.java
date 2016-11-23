@@ -44,7 +44,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         setContentView(R.layout.activity_shuffler_game_mode);
 
         MyOnDragListener myOnDragListener = new MyOnDragListener();
-        MyOnLongClickListener myOnLongClickListener = new MyOnLongClickListener();
+        MyTouchListener myTouchListener = new MyTouchListener();
         //DataApplication dataApplication = (DataApplication) getApplicationContext();
         this.bd = new BD(this);
         this.palavras = bd.buscarPalavras();
@@ -93,16 +93,16 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         this.dragContainer = (LinearLayout)findViewById(R.id.drag);
 
-        letra0.setOnLongClickListener(myOnLongClickListener);
-        letra1.setOnLongClickListener(myOnLongClickListener);
-        letra2.setOnLongClickListener(myOnLongClickListener);
-        letra3.setOnLongClickListener(myOnLongClickListener);
-        letra4.setOnLongClickListener(myOnLongClickListener);
-        letra5.setOnLongClickListener(myOnLongClickListener);
-        letra6.setOnLongClickListener(myOnLongClickListener);
-        letra7.setOnLongClickListener(myOnLongClickListener);
-        letra8.setOnLongClickListener(myOnLongClickListener);
-        letra9.setOnLongClickListener(myOnLongClickListener);
+        letra0.setOnTouchListener(myTouchListener);
+        letra1.setOnTouchListener(myTouchListener);
+        letra2.setOnTouchListener(myTouchListener);
+        letra3.setOnTouchListener(myTouchListener);
+        letra4.setOnTouchListener(myTouchListener);
+        letra5.setOnTouchListener(myTouchListener);
+        letra6.setOnTouchListener(myTouchListener);
+        letra7.setOnTouchListener(myTouchListener);
+        letra8.setOnTouchListener(myTouchListener);
+        letra9.setOnTouchListener(myTouchListener);
 
         drop0.setOnDragListener(myOnDragListener);
         drop1.setOnDragListener(myOnDragListener);
@@ -570,9 +570,10 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         if(correct.equals("v")){
             this.nextWord.setEnabled(true);
             startSoundQuestionCorrect();
-            if(this.count == FINAL_NIVEL)
+            if(this.count == FINAL_NIVEL) {
                 onPause();
                 congratulationMessage();
+            }
         }else{
             this.pontos--;
             starSoundQuestionWrong();
