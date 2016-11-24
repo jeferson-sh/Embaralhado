@@ -135,7 +135,8 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     }
 
     public void salvarFoto(View v) {
-        if (this.bitmap != null && this.palavra.getText().toString().length() >= 2 && palavra.getText().toString().length()<= 10 && verifyWord()) {
+        boolean verify = verifyWord();
+        if (this.bitmap != null && this.palavra.getText().toString().length() >= 2 && palavra.getText().toString().length()<= 10 && verify) {
             bd.inserirPalavra(new Palavra(bitmap, palavra.getText().toString().toUpperCase()));
             startActivity(new Intent(AdicionarPalavras.this,SettingsActivity.class));
             finish();
@@ -144,7 +145,7 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
             Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
         }else if(this.palavra.getText().toString().length() < 2) {
             Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
-        }else if (!verifyWord()){
+        }else if (!verify){
             Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
         }
 
