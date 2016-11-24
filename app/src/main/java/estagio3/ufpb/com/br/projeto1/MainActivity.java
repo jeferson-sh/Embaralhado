@@ -2,6 +2,7 @@ package estagio3.ufpb.com.br.projeto1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private ImageButton scoreButton;
     private ImageButton menubt;
     private ImageButton soundbt;
+    private BD bd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +29,18 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         this.playButton = (ImageButton) findViewById(R.id.playButton);
         this.settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         this.scoreButton = (ImageButton) findViewById(R.id.scoreButton);
+        this.bd = new BD(this);
         if(!BackgroundSoundService.ISPLAY)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
         this.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startGame();
+                if(bd.buscarPalavras().isEmpty()){
+                    Snackbar.make(view, "Não existem palavras cadastradas!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
+                }else{
+                    startGame();
+                }
+
             }
         });
         this.settingsButton.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +66,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             @Override
             public void onClick(View v) {
                 showMenu(v);
-
-
             }
         });
     }
