@@ -71,6 +71,17 @@ public class ScoreActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 startActivity(intent);
                 finish();
                 return true;
+            case R.id.op2:
+                intent = new Intent(this,SettingsActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.op3:
+                return true;
+            case R.id.op4:
+                finish();
+                System.exit(0);
+                return true;
             default:
                 return false;
         }

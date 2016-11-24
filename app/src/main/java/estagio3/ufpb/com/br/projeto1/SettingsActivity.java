@@ -1,6 +1,7 @@
 package estagio3.ufpb.com.br.projeto1;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -113,6 +114,17 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
                 Intent intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
                 finish();
+                return true;
+            case R.id.op2:
+                return true;
+            case R.id.op3:
+                intent = new Intent(this,ScoreActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.op4:
+                finish();
+                System.exit(0);
                 return true;
             default:
                 return false;

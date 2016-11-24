@@ -188,6 +188,20 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
                 startActivity(intent);
                 finish();
                 return true;
+            case R.id.op2:
+                intent = new Intent(this,SettingsActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.op3:
+                intent = new Intent(this,ScoreActivity.class);
+                startActivity(intent);
+                finish();
+                return true;
+            case R.id.op4:
+                finish();
+                System.exit(0);
+                return true;
             default:
                 return false;
         }
