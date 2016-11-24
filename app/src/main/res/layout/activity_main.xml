@@ -3,15 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:orientation="vertical"
-    android:background="@drawable/backgroung"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ECEFF1"
     tools:context="estagio3.ufpb.com.br.projeto1.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="#004D40"
         android:id="@+id/settingsLinear">
 
         <ImageButton
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:layout_weight="1"
-            android:text="Nome da aplicação"
+            android:text="Embaralhando"
             android:layout_margin="5dp"
             android:gravity="center"
             android:id="@+id/textModeGame"
@@ -63,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Jogar"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:textSize="25sp"/>
         </LinearLayout>
 
@@ -90,8 +91,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Configurações"
+                    android:textColor="#000000"
                     android:textSize="25sp"
-                    android:textColor="#ffffff"
                     android:layout_gravity="center"/>
 
 
@@ -114,9 +115,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pontuação"
+                    android:textColor="#000000"
                     android:textSize="25sp"
-                    android:layout_gravity="center"
-                    android:textColor="#ffffff"/>
+                    android:layout_gravity="center"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

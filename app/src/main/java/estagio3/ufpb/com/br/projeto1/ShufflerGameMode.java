@@ -57,7 +57,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.pontos = 10;
         count = 1;
         this.niveis = shufflerNíveis();
-        nivelAleatorio = niveis.get(count);
+        nivelAleatorio = niveis.get(count-1);
 
 
         ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
@@ -218,6 +218,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         Intent intent = new Intent(ShufflerGameMode.this,CongratulationsMessage.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image",drawId);
+        bundle.putInt("pontos",pontos);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
@@ -251,7 +252,11 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     public void loadWord(int pos){
         String n = "Palavra "+this.count+" de "+FINAL_NIVEL;
         this.textCountNivel.setText(n);
-        char aux [] = shuffle(palavras.get(pos).getPalavra()).toCharArray();
+        String p = shuffle(palavras.get(pos).getPalavra());
+        while(p.equals(palavras.get(pos).getPalavra())) {
+            p = shuffle(palavras.get(pos).getPalavra());
+        }
+        char aux [] = p.toCharArray();
         char aux2 [] = palavras.get(pos).getPalavra().toCharArray();
         for (int i= 0; i < aux.length; i++){
             String letra = String.valueOf(aux[i]).toUpperCase();

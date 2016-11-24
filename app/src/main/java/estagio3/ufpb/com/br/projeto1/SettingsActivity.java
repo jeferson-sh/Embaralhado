@@ -1,6 +1,7 @@
 package estagio3.ufpb.com.br.projeto1;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -76,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
             case R.id.delete:
                 PalavrasAdapter palavrasAdapter = new PalavrasAdapter(this);
                 bd.deletarPalavra((Palavra) palavrasAdapter.getItem(info.position));
+                Toast.makeText(this,"Palavra Removida",Toast.LENGTH_LONG).show();
                 recreate();
                 return true;
             default:

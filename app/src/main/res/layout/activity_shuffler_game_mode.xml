@@ -4,7 +4,7 @@
     android:id="@+id/activity_shuffler_game_mode"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroung"
+    android:background="#ECEFF1"
     android:orientation="vertical"
     tools:context="estagio3.ufpb.com.br.projeto1.ShufflerGameMode">
 
@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="#004D40"
         android:id="@+id/settingsLinear">
 
         <ImageButton
@@ -50,9 +51,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="teste"
+            android:textColor="#000000"
             android:id="@+id/textCountNivel"
-            android:textSize="15sp"
-            android:textColor="#ffffff"/>
+            android:textSize="15sp"/>
 
         <ImageView
             android:layout_width="wrap_content"

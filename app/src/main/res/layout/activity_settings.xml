@@ -4,13 +4,14 @@
     android:id="@+id/activity_settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroung"
+    android:background="#ECEFF1"
     android:orientation="vertical"
     tools:context="estagio3.ufpb.com.br.projeto1.SettingsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#004D40"
         android:orientation="horizontal"
         android:id="@+id/settingsLinear">
 

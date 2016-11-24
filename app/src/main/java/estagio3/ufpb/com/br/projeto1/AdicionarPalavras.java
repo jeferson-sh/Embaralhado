@@ -142,11 +142,11 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
             finish();
 
         }else if (this.palavra.getText().toString().length()>10) {
-            Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
+            Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }else if(this.palavra.getText().toString().length() < 2) {
-            Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
+            Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }else if (!verify){
-            Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
+            Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }
 
     }

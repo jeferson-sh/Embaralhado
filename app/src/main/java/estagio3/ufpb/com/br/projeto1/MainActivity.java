@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             @Override
             public void onClick(View view) {
                 if(bd.buscarPalavras().isEmpty()){
-                    Snackbar.make(view, "Não existem palavras cadastradas!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
+                    Snackbar.make(view, "Não existem palavras cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 }else{
                     startGame();
                 }
