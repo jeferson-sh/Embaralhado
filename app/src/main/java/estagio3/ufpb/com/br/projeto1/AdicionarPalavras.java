@@ -135,16 +135,29 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     }
 
     public void salvarFoto(View v) {
-        if (this.palavra.getText().toString().length()>10)
-            Snackbar.make(v,"Palavra muito grande!",Snackbar.LENGTH_SHORT).setAction("OR",null).show();
-        if(this.palavra.getText().toString().length() < 2)
-            Snackbar.make(v,"Palavra muito pequena!",Snackbar.LENGTH_SHORT).setAction("OR",null).show();
-        if (this.bitmap != null && this.palavra.getText().toString().length() >= 2 && palavra.getText().toString().length()<= 10) {
+        if (this.bitmap != null && this.palavra.getText().toString().length() >= 2 && palavra.getText().toString().length()<= 10 && verifyWord()) {
             bd.inserirPalavra(new Palavra(bitmap, palavra.getText().toString().toUpperCase()));
             startActivity(new Intent(AdicionarPalavras.this,SettingsActivity.class));
             finish();
 
+        }else if (this.palavra.getText().toString().length()>10) {
+            Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
+        }else if(this.palavra.getText().toString().length() < 2) {
+            Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
+        }else if (!verifyWord()){
+            Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_SHORT).setAction("OR", null).show();
         }
+
+    }
+
+    private boolean verifyWord(){
+        char [] word = this.palavra.getText().toString().toCharArray();
+        boolean b = false;
+        for (int i = 0; i < word.length;i++){
+            b = Character.isLetter(word[i]);
+        }
+        return b;
+
     }
 
     private void showMenu(View v) {
