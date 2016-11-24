@@ -28,8 +28,8 @@ public class CongratulationsMessage extends AppCompatActivity {
         int pontos = bundle.getInt("pontos");
         String pontuação = "";
         if (pontos > 1)
-            pontuação = "Parabéns você fez "+pontos+" Pontos!";
-        else pontuação = "Parabéns você fez "+pontos+" Ponto!";
+            pontuação = "Você fez "+pontos+" Pontos!";
+        else pontuação = "Você fez "+pontos+" Ponto!";
         pontosText.setText(pontuação);
         play.setOnClickListener(new View.OnClickListener() {
             @Override

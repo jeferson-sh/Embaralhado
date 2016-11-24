@@ -256,8 +256,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     public void loadWord(int pos){
+        String n = "";
         int nivel = count+1;
-        String n = "Palavra "+nivel+" de "+FINAL_NIVEL;
+        n = "Palavra "+nivel+" de "+FINAL_NIVEL;
         this.textCountNivel.setText(n);
         String p = shuffle(palavras.get(pos).getPalavra());
         while(p.equals(palavras.get(pos).getPalavra())) {
