@@ -51,13 +51,13 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.palavras = bd.buscarPalavras();
         this.pontuações = bd.buscarPontos();
 
-        if(palavras.size()<FINAL_NIVEL){
+        if(palavras.size() < FINAL_NIVEL){
             FINAL_NIVEL = palavras.size();
         }
         this.pontos = 10;
-        count = 1;
+        count = 0;
         this.niveis = shufflerNíveis();
-        nivelAleatorio = niveis.get(count-1);
+        nivelAleatorio = niveis.get(count);
 
 
         ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
@@ -152,11 +152,15 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void toGetNextWord(){
-        clearNivel();
         setCount();
-        nivelAleatorio = niveis.get(count);
-        loadWord(nivelAleatorio);
-        setImage(nivelAleatorio);
+        if(count == FINAL_NIVEL){
+            congratulationMessage();
+        }else {
+            clearNivel();
+            nivelAleatorio = niveis.get(count);
+            loadWord(nivelAleatorio);
+            setImage(nivelAleatorio);
+        }
     }
 
     private List<Integer> shufflerNíveis(){
@@ -195,7 +199,9 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void setCount() {
-        this.count++;
+        if(count < FINAL_NIVEL) {
+            this.count++;
+        }
     }
 
     public void congratulationMessage() {
@@ -250,7 +256,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     public void loadWord(int pos){
-        String n = "Palavra "+this.count+" de "+FINAL_NIVEL;
+        int nivel = count+1;
+        String n = "Palavra "+nivel+" de "+FINAL_NIVEL;
         this.textCountNivel.setText(n);
         String p = shuffle(palavras.get(pos).getPalavra());
         while(p.equals(palavras.get(pos).getPalavra())) {
@@ -560,12 +567,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         }
         if(correct.equals("v")){
             startSoundQuestionCorrect();
-            if(this.count < FINAL_NIVEL ) {
-                toGetNextWord();
-            }
-            else if(this.count == FINAL_NIVEL) {
-                congratulationMessage();
-            }
+            toGetNextWord();
         }else{
             this.pontos--;
             starSoundQuestionWrong();
