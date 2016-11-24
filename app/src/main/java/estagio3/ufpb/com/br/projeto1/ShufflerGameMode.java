@@ -2,6 +2,9 @@ package estagio3.ufpb.com.br.projeto1;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,9 +36,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     private List<Pontuação> pontuações;
     private BD bd;
     private int pontos;
-    private ImageButton nextWord;
     private TextView textCountNivel;
-    private static final int FINAL_NIVEL = 10;
+    private static int FINAL_NIVEL = 10;
 
     private List<Integer> niveis;
     @Override
@@ -45,11 +47,13 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         MyOnDragListener myOnDragListener = new MyOnDragListener();
         MyTouchListener myTouchListener = new MyTouchListener();
-        //DataApplication dataApplication = (DataApplication) getApplicationContext();
         this.bd = new BD(this);
         this.palavras = bd.buscarPalavras();
         this.pontuações = bd.buscarPontos();
 
+        if(palavras.size()<FINAL_NIVEL){
+            FINAL_NIVEL = palavras.size();
+        }
         this.pontos = 10;
         count = 1;
         this.niveis = shufflerNíveis();
@@ -60,7 +64,6 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
         ImageButton restartButton = (ImageButton) findViewById(R.id.restart_button);
         ImageButton checkButon = (ImageButton) findViewById(R.id.checkButton);
-        this.nextWord = (ImageButton) findViewById(R.id.nextButton);
         this.soundbt = (ImageButton) findViewById(R.id.somButton);
         this.textCountNivel =(TextView) findViewById(R.id.textCountNivel);
 
@@ -136,13 +139,6 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
                 VerifyWord(palavras.get(nivelAleatorio).getPalavra());
             }
         });
-
-        this.nextWord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toGetNextWord();
-            }
-        });
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -199,39 +195,32 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void setCount() {
-        if(count < FINAL_NIVEL)
-            this.count++;
+        this.count++;
     }
 
     public void congratulationMessage() {
-        Dialog settingsDialog = new Dialog(this);
-        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        settingsDialog.setContentView(getLayoutInflater().inflate(R.layout.custom_dialog_box, null));
-        ImageView msg = (ImageView) settingsDialog.findViewById(R.id.congratulations);
-        ImageButton playDialog = (ImageButton)settingsDialog.findViewById(R.id.playAgain);
-        ImageButton exitGame = (ImageButton)settingsDialog.findViewById(R.id.exitGame);
-        if(this.pontos <= 3)
-            msg.setImageResource(R.drawable.low_score);
-        else if(this.pontos > 3 && this.pontos < 7)
-            msg.setImageResource(R.drawable.medium_score);
-        else msg.setImageResource(R.drawable.hight_score);
-        Pontuação p = new Pontuação(msg.getDrawable(),pontos);
+        int drawId = 0;
+        ImageView imageView = new ImageView(this);
+        if(this.pontos <= 3) {
+            drawId = R.drawable.low_score;
+            imageView.setImageResource(drawId);
+        }
+        else if(this.pontos > 3 && this.pontos < 7) {
+            drawId = R.drawable.medium_score;
+            imageView.setImageResource(drawId);
+        }
+        else  {
+            drawId = R.drawable.hight_score;
+            imageView.setImageResource(drawId);
+        }
+        Pontuação p = new Pontuação(imageView.getDrawable(),pontos);
         inserirPontuação(p);
-        playDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShufflerGameMode.this,ShufflerGameMode.class));
-                finish();
-            }
-        });
-        exitGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShufflerGameMode.this,MainActivity.class));
-                finish();
-            }
-        });
-        settingsDialog.show();
+        Intent intent = new Intent(ShufflerGameMode.this,CongratulationsMessage.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("image",drawId);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
     }
 
     private void inserirPontuação(Pontuação p){
@@ -260,11 +249,8 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     public void loadWord(int pos){
-        if (count == FINAL_NIVEL)
-            this.nextWord.setVisibility(View.GONE);
         String n = "Palavra "+this.count+" de "+FINAL_NIVEL;
         this.textCountNivel.setText(n);
-        this.nextWord.setEnabled(false);
         char aux [] = shuffle(palavras.get(pos).getPalavra()).toCharArray();
         char aux2 [] = palavras.get(pos).getPalavra().toCharArray();
         for (int i= 0; i < aux.length; i++){
@@ -568,10 +554,11 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             }
         }
         if(correct.equals("v")){
-            this.nextWord.setEnabled(true);
             startSoundQuestionCorrect();
-            if(this.count == FINAL_NIVEL) {
-                onPause();
+            if(this.count < FINAL_NIVEL ) {
+                toGetNextWord();
+            }
+            else if(this.count == FINAL_NIVEL) {
                 congratulationMessage();
             }
         }else{

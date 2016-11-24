@@ -9,6 +9,7 @@
 
     <application
         android:name=".DataApplication"
+        android:largeHeap="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -39,9 +40,10 @@
             android:exported="true"
             android:stopWithTask="true" />
 
-        <activity android:name=".AdicionarPalavras"
-            android:screenOrientation="landscape">
-        </activity>
+        <activity
+            android:name=".AdicionarPalavras"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".CongratulationsMessage"></activity>
     </application>
 
 </manifest>

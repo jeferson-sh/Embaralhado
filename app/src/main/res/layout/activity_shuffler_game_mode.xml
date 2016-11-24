@@ -297,13 +297,6 @@
                 android:layout_margin="5dp"
                 android:onClick="VerifyWord"/>
 
-            <ImageButton
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:id="@+id/nextButton"
-                android:layout_margin="5dp"
-                android:background="@drawable/next"/>
-
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
