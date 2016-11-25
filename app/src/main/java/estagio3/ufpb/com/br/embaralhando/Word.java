@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.projeto1;
+package estagio3.ufpb.com.br.embaralhando;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;

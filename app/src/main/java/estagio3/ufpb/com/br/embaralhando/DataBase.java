@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.projeto1;
+package estagio3.ufpb.com.br.embaralhando;
 
 import android.content.ContentValues;
 import android.content.Context;

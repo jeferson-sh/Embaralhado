@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="estagio3.ufpb.com.br.projeto1">
+    package="estagio3.ufpb.com.br.embaralhando">
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,7 +16,7 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity android:name="estagio3.ufpb.com.br.embaralhando.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,28 +24,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="estagio3.ufpb.com.br.embaralhando.MainActivity"
             android:screenOrientation="landscape"/>
         <activity
-            android:name=".SettingsActivity"
+            android:name="estagio3.ufpb.com.br.embaralhando.SettingsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ScoreActivity"
+            android:name="estagio3.ufpb.com.br.embaralhando.ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ShuffleGameMode"
+            android:name="estagio3.ufpb.com.br.embaralhando.ShuffleGameMode"
             android:screenOrientation="landscape" />
 
         <service
-            android:name=".BackgroundSoundService"
+            android:name="estagio3.ufpb.com.br.embaralhando.BackgroundSoundService"
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="true" />
 
         <activity
-            android:name=".InsertNewWord"
+            android:name="estagio3.ufpb.com.br.embaralhando.InsertNewWord"
             android:screenOrientation="landscape" />
-        <activity android:name=".CongratulationsMessage"
+        <activity android:name="estagio3.ufpb.com.br.embaralhando.CongratulationsMessage"
             android:screenOrientation="landscape"/>
     </application>
 

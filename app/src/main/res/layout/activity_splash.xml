@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="#004D40"
     android:gravity="center"
-    tools:context="estagio3.ufpb.com.br.projeto1.SplashActivity">
+    tools:context="estagio3.ufpb.com.br.embaralhando.SplashActivity">
 
     <ImageView
         android:layout_width="256dp"

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:context="estagio3.ufpb.com.br.projeto1.SettingsActivity">
+    tools:context="estagio3.ufpb.com.br.embaralhando.SettingsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

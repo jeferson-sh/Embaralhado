@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ECEFF1"
-    tools:context="estagio3.ufpb.com.br.projeto1.MainActivity">
+    tools:context="estagio3.ufpb.com.br.embaralhando.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
