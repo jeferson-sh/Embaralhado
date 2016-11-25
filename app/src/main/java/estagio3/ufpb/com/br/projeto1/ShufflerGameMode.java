@@ -592,19 +592,15 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void starSoundQuestionWrong(){
-        if(BackgroundSoundService.ISPLAY) {
             MediaPlayer mp = MediaPlayer.create(this, R.raw.wrong);
             mp.seekTo(1000);
             mp.start();
             mp.setVolume(300, 300);
-        }
     }
 
     private void startSoundQuestionCorrect(){
-        if(BackgroundSoundService.ISPLAY) {
             MediaPlayer mp = MediaPlayer.create(this, R.raw.correct);
             mp.start();
             mp.setVolume(200, 200);
-        }
     }
 }

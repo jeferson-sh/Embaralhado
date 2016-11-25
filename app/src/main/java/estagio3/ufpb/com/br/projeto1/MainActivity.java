@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                     Snackbar.make(view, "Não existem palavras cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 }else{
                     startGame();
+                    finish();
                 }
 
             }
@@ -47,12 +48,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             @Override
             public void onClick(View view) {
                 startSettingsActivity();
+                finish();
             }
         });
         this.scoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startScoreActivity();
+                finish();
             }
         });
         this.soundbt.setOnClickListener(new View.OnClickListener() {

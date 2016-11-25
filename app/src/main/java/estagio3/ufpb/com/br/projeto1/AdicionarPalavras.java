@@ -153,9 +153,12 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
 
     private boolean verifyWord(){
         char [] word = this.palavra.getText().toString().toCharArray();
-        boolean b = false;
-        for (int i = 0; i < word.length;i++){
-            b = Character.isLetter(word[i]);
+        boolean b = true;
+        for (char aWord : word) {
+            if(!Character.isLetter(aWord)) {
+                b = false;
+                break;
+            }
         }
         return b;
 
