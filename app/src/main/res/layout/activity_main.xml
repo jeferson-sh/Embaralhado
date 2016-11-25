@@ -36,7 +36,7 @@
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/somButton"
+            android:id="@+id/soundButton"
             android:layout_margin="5dp"
             android:background="@drawable/sound_button"/>
     </LinearLayout>
@@ -106,7 +106,7 @@
 
                 <ImageButton
                     android:id="@+id/scoreButton"
-                    android:text="@string/pontos"
+                    android:text="@string/score"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/ranking"/>

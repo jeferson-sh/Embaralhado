@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ECEFF1"
-    tools:context="estagio3.ufpb.com.br.projeto1.AdicionarPalavras">
+    tools:context="estagio3.ufpb.com.br.projeto1.InsertNewWord">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/somButton"
+            android:id="@+id/soundButton"
             android:layout_margin="5dp"
             android:background="@drawable/sound_button"/>
     </LinearLayout>
@@ -64,7 +64,7 @@
             android:layout_width="150dp"
             android:layout_height="100dp"
             android:layout_margin="5dp"
-            android:id="@+id/imageView1"/>
+            android:id="@+id/imageView"/>
 
     </LinearLayout>
 
@@ -86,8 +86,8 @@
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/ativar_camera"
-                android:id="@+id/ativar_camera"/>
+                android:background="@drawable/active_camera"
+                android:id="@+id/activeCameraButton"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -107,8 +107,8 @@
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/ativar_galeria"
-                android:background="@drawable/ativar_galleria"/>
+                android:id="@+id/activeGalleryButton"
+                android:background="@drawable/active_galleria"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/salvar_foto"
+                android:id="@+id/savePhotoButton"
                 android:background="@drawable/save"/>
 
             <TextView

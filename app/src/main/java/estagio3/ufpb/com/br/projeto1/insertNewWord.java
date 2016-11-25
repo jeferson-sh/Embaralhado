@@ -16,38 +16,32 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import java.io.IOException;
+public class InsertNewWord extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
-
-    private EditText palavra;
-    private ImageView imagem;
+    private EditText word;
+    private ImageView image;
     private Bitmap bitmap;
-    private ImageButton menubt;
     private ImageButton soundbt;
-    private ImageButton camera;
-    private ImageButton galeria;
-    private ImageButton salvarFoto;
-    private BD bd;
+    private DataBase dataBase;
     private String picturePath;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adicionar_palavras);
-        if(BackgroundSoundService.ISPLAY)
+        setContentView(R.layout.activity_insert_new_word);
+        if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
-        this.palavra = (EditText) findViewById(R.id.editText);
-        this.imagem =(ImageView) findViewById(R.id.imageView1);
-        this.menubt = (ImageButton) findViewById(R.id.menuButton);
-        this.soundbt = (ImageButton) findViewById(R.id.somButton);
-        this.camera = (ImageButton) findViewById(R.id.ativar_camera);
-        this.galeria = (ImageButton) findViewById(R.id.ativar_galeria);
-        this.salvarFoto = (ImageButton) findViewById(R.id.salvar_foto);
-        this.bd = new BD(this);
+        this.word = (EditText) findViewById(R.id.editText);
+        this.image =(ImageView) findViewById(R.id.imageView);
+        this.soundbt = (ImageButton) findViewById(R.id.soundButton);
+        this.dataBase = new DataBase(this);
+        ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
+        ImageButton camera = (ImageButton) findViewById(R.id.activeCameraButton);
+        ImageButton gallery = (ImageButton) findViewById(R.id.activeGalleryButton);
+        ImageButton savePhotobt = (ImageButton) findViewById(R.id.savePhotoButton);
 
-        if(!BackgroundSoundService.ISPLAY)
+        if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
         this.soundbt.setOnClickListener(new View.OnClickListener() {
@@ -57,38 +51,38 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
 
             }
         });
-        this.menubt.setOnClickListener(new View.OnClickListener() {
+        menubt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showMenu(v);
             }
         });
-        this.camera.setOnClickListener(new View.OnClickListener() {
+        camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ativarCamera();
+                activeCamera();
             }
         });
-        this.galeria.setOnClickListener(new View.OnClickListener() {
+        gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ativarGaleria();
+                activeGallery();
             }
         });
-        this.salvarFoto.setOnClickListener(new View.OnClickListener() {
+        savePhotobt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                salvarFoto(v);
+                savePhoto(v);
             }
         });
     }
 
-    public void ativarCamera(){
+    public void activeCamera(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, 0);
     }
 
-    private void ativarGaleria() {
+    private void activeGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 0);
     }
@@ -112,8 +106,8 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
 
     private void setPic() {
         // Get the dimensions of the View
-        int targetW = imagem.getWidth();
-        int targetH = imagem.getHeight();
+        int targetW = image.getWidth();
+        int targetH = image.getHeight();
 
         // Get the dimensions of the bitmap
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
@@ -131,20 +125,20 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
         bmOptions.inPurgeable = true;
 
         bitmap = BitmapFactory.decodeFile(picturePath, bmOptions);
-        imagem.setImageBitmap(bitmap);
+        image.setImageBitmap(bitmap);
     }
 
-    public void salvarFoto(View v) {
+    public void savePhoto(View v) {
         boolean verify = verifyWord();
-        if (this.bitmap != null && this.palavra.getText().toString().length() >= 2 && palavra.getText().toString().length()<= 10 && verify) {
-            bd.inserirPalavra(new Palavra(bitmap, palavra.getText().toString().toUpperCase()));
-            startActivity(new Intent(AdicionarPalavras.this,SettingsActivity.class));
+        if (this.bitmap != null && this.word.getText().toString().length() >= 2 && word.getText().toString().length()<= 10 && verify) {
+            dataBase.insertWord(new Word(bitmap, word.getText().toString().toUpperCase()));
+            startActivity(new Intent(InsertNewWord.this,SettingsActivity.class));
             finish();
 
-        }else if (this.palavra.getText().toString().length()>10) {
-            Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        }else if(this.palavra.getText().toString().length() < 2) {
-            Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
+        }else if (this.word.getText().toString().length()>10) {
+            Snackbar.make(v, "Word muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
+        }else if(this.word.getText().toString().length() < 2) {
+            Snackbar.make(v, "Word muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }else if (!verify){
             Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }
@@ -152,7 +146,7 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     }
 
     private boolean verifyWord(){
-        char [] word = this.palavra.getText().toString().toCharArray();
+        char [] word = this.word.getText().toString().toCharArray();
         boolean b = true;
         for (char aWord : word) {
             if(!Character.isLetter(aWord)) {
@@ -172,14 +166,14 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
     }
 
     private void stopMusic(View v) {
-        if(BackgroundSoundService.ISPLAY){
+        if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
-            stopService(new Intent(AdicionarPalavras.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = false;
+            stopService(new Intent(InsertNewWord.this, BackgroundSoundService.class));
+            BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.sound_button);
-            startService(new Intent(AdicionarPalavras.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = true;
+            startService(new Intent(InsertNewWord.this, BackgroundSoundService.class));
+            BackgroundSoundService.PLAYING = true;
         }
     }
 
@@ -208,10 +202,5 @@ public class AdicionarPalavras extends AppCompatActivity implements PopupMenu.On
             default:
                 return false;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

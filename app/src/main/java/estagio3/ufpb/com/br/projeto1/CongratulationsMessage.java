@@ -12,8 +12,8 @@ public class CongratulationsMessage extends AppCompatActivity {
 
     private ImageView imageView;
     private TextView pontosText;
-    private ImageButton play;
-    private ImageButton exit;
+    private ImageButton playbt;
+    private ImageButton exitbt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,24 +21,24 @@ public class CongratulationsMessage extends AppCompatActivity {
         setContentView(R.layout.activity_congratulations_message);
         imageView = (ImageView)findViewById(R.id.congratulations);
         pontosText = (TextView) findViewById(R.id.pontosText);
-        exit = (ImageButton) findViewById(R.id.exitGame);
-        play = (ImageButton) findViewById(R.id.playAgain);
+        exitbt = (ImageButton) findViewById(R.id.exitGame);
+        playbt = (ImageButton) findViewById(R.id.playAgain);
         Bundle bundle = getIntent().getExtras();
         imageView.setImageResource(bundle.getInt("image"));
-        int pontos = bundle.getInt("pontos");
-        String pontuação = "";
-        if (pontos > 1)
-            pontuação = "Você fez "+pontos+" Pontos!";
-        else pontuação = "Você fez "+pontos+" Ponto!";
-        pontosText.setText(pontuação);
-        play.setOnClickListener(new View.OnClickListener() {
+        int score = bundle.getInt("score");
+        String scoreMessage = "";
+        if (score > 1)
+            scoreMessage = "Você fez "+score+" Pontos!";
+        else scoreMessage = "Você fez "+score+" Ponto!";
+        pontosText.setText(scoreMessage);
+        playbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CongratulationsMessage.this,ShufflerGameMode.class));
+                startActivity(new Intent(CongratulationsMessage.this,ShuffleGameMode.class));
                 finish();
             }
         });
-        exit.setOnClickListener(new View.OnClickListener() {
+        exitbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(CongratulationsMessage.this,MainActivity.class));

@@ -9,7 +9,7 @@ import android.support.annotation.Nullable;
 public class BackgroundSoundService extends Service {
 
     private MediaPlayer player;
-    protected static boolean ISPLAY = true;
+    protected static boolean PLAYING = true;
 
     @Override
     public void onCreate() {

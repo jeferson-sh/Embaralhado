@@ -14,27 +14,27 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class PontuaçãoAdapter extends BaseAdapter{
+public class WordsAdapter extends BaseAdapter{
 
-    private List<Pontuação> pontos;
+    private List<Word> words;
     private Context context;
-    private BD bd;
+    private DataBase dataBase;
 
-    public PontuaçãoAdapter(Context context) {
+    public WordsAdapter(Context context) {
         this.context = context;
-        this.bd = new BD(context);
-        this.pontos = bd.buscarPontos();
+        this.dataBase = new DataBase(context);
+        this.words = dataBase.searchWordsDatabase();
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return this.pontos.size();
+        return this.words.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return this.pontos.get(i);
+        return this.words.get(i);
     }
 
     @Override
@@ -48,24 +48,19 @@ public class PontuaçãoAdapter extends BaseAdapter{
         View layout;
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.pontos_item_list, null);
+            layout = inflater.inflate(R.layout.word_item_list, null);
         }
         else{
             layout = view;
         }
 
-        ImageView imageView = (ImageView) layout.findViewById(R.id.ic_item);
+        ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
-        Pontuação pontos = this.pontos.get(i);
-        String p = "";
-        if(pontos.getPontos()==1)
-            p = pontos.getPontos()+" ponto.";
-        else p = pontos.getPontos()+ " pontos.";
-        textView.setText(p);
+        Word word = this.words.get(i);
+        textView.setText(word.getName());
 
-        imageView.setImageBitmap(this.pontos.get(i).getImage());
-
+        imageView.setImageBitmap(words.get(i).getImage());
         return layout;
     }
 }

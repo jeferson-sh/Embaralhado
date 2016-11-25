@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:context="estagio3.ufpb.com.br.projeto1.ShufflerGameMode">
+    tools:context="estagio3.ufpb.com.br.projeto1.ShuffleGameMode">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/somButton"
+            android:id="@+id/soundButton"
             android:layout_margin="5dp"
             android:background="@drawable/sound_button"/>
 

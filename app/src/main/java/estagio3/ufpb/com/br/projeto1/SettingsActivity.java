@@ -1,13 +1,9 @@
 package estagio3.ufpb.com.br.projeto1;
 
 import android.content.Intent;
-import android.provider.Settings;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.PopupMenu;
-import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,24 +18,24 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
     private ListView listView;
     private ImageButton menubt;
     private ImageButton soundbt;
-    private ImageButton add;
-    private BD bd;
+    private ImageButton addWordbt;
+    private DataBase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        if(BackgroundSoundService.ISPLAY)
+        if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
         this.menubt = (ImageButton) findViewById(R.id.menuButton);
-        this.bd = new BD(this);
-        this.soundbt = (ImageButton) findViewById(R.id.somButton);
-        this.add = (ImageButton) findViewById(R.id.add_palavra);
-        if(!BackgroundSoundService.ISPLAY)
+        this.dataBase = new DataBase(this);
+        this.soundbt = (ImageButton) findViewById(R.id.soundButton);
+        this.addWordbt = (ImageButton) findViewById(R.id.add_wordbt);
+        if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
-        listView = (ListView) findViewById(R.id.listViewPalavras);
-        listView.setAdapter(new PalavrasAdapter(this));
+        listView = (ListView) findViewById(R.id.listViewWords);
+        listView.setAdapter(new WordsAdapter(this));
         registerForContextMenu(listView);
 
         this.soundbt.setOnClickListener(new View.OnClickListener() {
@@ -55,10 +51,10 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
                 showMenu(v);
             }
         });
-        this.add.setOnClickListener(new View.OnClickListener() {
+        this.addWordbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent adicionarPalavra = new Intent(SettingsActivity.this,AdicionarPalavras.class);
+                Intent adicionarPalavra = new Intent(SettingsActivity.this,InsertNewWord.class);
                 startActivity(adicionarPalavra);
                 finish();
             }
@@ -77,8 +73,8 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.delete:
-                PalavrasAdapter palavrasAdapter = new PalavrasAdapter(this);
-                bd.deletarPalavra((Palavra) palavrasAdapter.getItem(info.position));
+                WordsAdapter wordsAdapter = new WordsAdapter(this);
+                dataBase.deleteWord((Word) wordsAdapter.getItem(info.position));
                 Toast.makeText(this,"Palavra Removida",Toast.LENGTH_LONG).show();
                 recreate();
                 return true;
@@ -96,14 +92,14 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void stopMusic(View v) {
-        if(BackgroundSoundService.ISPLAY){
+        if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
             stopService(new Intent(SettingsActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = false;
+            BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.sound_button);
             startService(new Intent(SettingsActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = true;
+            BackgroundSoundService.PLAYING = true;
         }
     }
 

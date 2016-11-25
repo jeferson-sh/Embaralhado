@@ -1,10 +1,6 @@
 package estagio3.ufpb.com.br.projeto1;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +8,6 @@ import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,21 +18,21 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private ImageButton soundbt;
     private ImageView imageQuestion;
     private LinearLayout [] drops;
     private LinearLayout dragContainer;
-    private ImageView [] letras;
+    private ImageView [] letters;
     private int count;
-    private Integer nivelAleatorio;
-    private List<Palavra> palavras;
-    private List<Pontuação> pontuações;
-    private BD bd;
-    private int pontos;
-    private TextView textCountNivel;
-    private static int FINAL_NIVEL = 10;
+    private Integer randomLevel;
+    private List<Word> words;
+    private List<Score> scores;
+    private DataBase dataBase;
+    private int score;
+    private TextView textCountLevel;
+    private int finalLevel;
 
     private List<Integer> niveis;
     @Override
@@ -47,27 +42,28 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
 
         MyOnDragListener myOnDragListener = new MyOnDragListener();
         MyTouchListener myTouchListener = new MyTouchListener();
-        this.bd = new BD(this);
-        this.palavras = bd.buscarPalavras();
-        this.pontuações = bd.buscarPontos();
+        this.dataBase = new DataBase(this);
+        this.words = dataBase.searchWordsDatabase();
+        this.scores = dataBase.searchScoresDatabase();
+        this.finalLevel = 10;
 
-        if(palavras.size() < FINAL_NIVEL){
-            FINAL_NIVEL = palavras.size();
+        if(words.size() < finalLevel){
+            finalLevel = words.size();
         }
-        this.pontos = 10;
+        this.score = 10;
         count = 0;
-        this.niveis = shufflerNíveis();
-        nivelAleatorio = niveis.get(count);
+        this.niveis = shufflerLevelIndex();
+        randomLevel = niveis.get(count);
 
 
         ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
         ImageButton restartButton = (ImageButton) findViewById(R.id.restart_button);
         ImageButton checkButon = (ImageButton) findViewById(R.id.checkButton);
-        this.soundbt = (ImageButton) findViewById(R.id.somButton);
-        this.textCountNivel =(TextView) findViewById(R.id.textCountNivel);
+        this.soundbt = (ImageButton) findViewById(R.id.soundButton);
+        this.textCountLevel =(TextView) findViewById(R.id.textCountNivel);
 
-        if(!BackgroundSoundService.ISPLAY)
+        if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
         ImageView letra0 = (ImageView) findViewById(R.id.letra0);
@@ -80,7 +76,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         ImageView letra7 = (ImageView) findViewById(R.id.letra7);
         ImageView letra8 = (ImageView) findViewById(R.id.letra8);
         ImageView letra9 = (ImageView) findViewById(R.id.letra9);
-        this.letras = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
+        this.letters = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
 
         LinearLayout drop0 = (LinearLayout) findViewById(R.id.drop0);
         LinearLayout drop1 = (LinearLayout) findViewById(R.id.drop1);
@@ -136,7 +132,7 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
         checkButon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VerifyWord(palavras.get(nivelAleatorio).getPalavra());
+                VerifyWord(words.get(randomLevel).getName());
             }
         });
         this.soundbt.setOnClickListener(new View.OnClickListener() {
@@ -147,25 +143,25 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             }
         });
 
-        loadWord(nivelAleatorio);
-        setImage(nivelAleatorio);
+        loadWord(randomLevel);
+        setImage(randomLevel);
     }
 
     private void toGetNextWord(){
         setCount();
-        if(count == FINAL_NIVEL){
+        if(count == finalLevel){
             congratulationMessage();
         }else {
-            clearNivel();
-            nivelAleatorio = niveis.get(count);
-            loadWord(nivelAleatorio);
-            setImage(nivelAleatorio);
+            clearLevel();
+            randomLevel = niveis.get(count);
+            loadWord(randomLevel);
+            setImage(randomLevel);
         }
     }
 
-    private List<Integer> shufflerNíveis(){
+    private List<Integer> shufflerLevelIndex(){
         List<Integer> aux = new ArrayList<>();
-        for(int i = 0; i < palavras.size(); i++){
+        for(int i = 0; i < words.size(); i++){
             aux.add(i);
         }
         Collections.shuffle(aux);
@@ -173,33 +169,33 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void removeLettersWrong() {
-        for (int i = 0; i< palavras.get(nivelAleatorio).getPalavra().length();i++){
-            if (letras[i].getContentDescription().equals("f")){
-                ViewGroup dropLayout = (ViewGroup) letras[i].getParent();
+        for (int i = 0; i< words.get(randomLevel).getName().length(); i++){
+            if (letters[i].getContentDescription().equals("f")){
+                ViewGroup dropLayout = (ViewGroup) letters[i].getParent();
                 dropLayout.setEnabled(true);
-                dropLayout.removeView(letras[i]);
-                dragContainer.addView(letras[i]);
-                letras[i].setVisibility(View.VISIBLE);
-                letras[i].setEnabled(true);
+                dropLayout.removeView(letters[i]);
+                dragContainer.addView(letters[i]);
+                letters[i].setVisibility(View.VISIBLE);
+                letters[i].setEnabled(true);
                 drops[i].setVisibility(View.VISIBLE);
             }
         }
     }
 
     private void stopMusic() {
-        if(BackgroundSoundService.ISPLAY){
+        if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
-            stopService(new Intent(ShufflerGameMode.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = false;
+            stopService(new Intent(ShuffleGameMode.this, BackgroundSoundService.class));
+            BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.sound_button);
-            startService(new Intent(ShufflerGameMode.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = true;
+            startService(new Intent(ShuffleGameMode.this, BackgroundSoundService.class));
+            BackgroundSoundService.PLAYING = true;
         }
     }
 
     private void setCount() {
-        if(count < FINAL_NIVEL) {
+        if(count < finalLevel) {
             this.count++;
         }
     }
@@ -207,11 +203,11 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     public void congratulationMessage() {
         int drawId = 0;
         ImageView imageView = new ImageView(this);
-        if(this.pontos <= 3) {
+        if(this.score <= 3) {
             drawId = R.drawable.low_score;
             imageView.setImageResource(drawId);
         }
-        else if(this.pontos > 3 && this.pontos < 7) {
+        else if(this.score > 3 && this.score < 7) {
             drawId = R.drawable.medium_score;
             imageView.setImageResource(drawId);
         }
@@ -219,32 +215,32 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
             drawId = R.drawable.hight_score;
             imageView.setImageResource(drawId);
         }
-        Pontuação p = new Pontuação(imageView.getDrawable(),pontos);
-        inserirPontuação(p);
-        Intent intent = new Intent(ShufflerGameMode.this,CongratulationsMessage.class);
+        Score p = new Score(imageView.getDrawable(), score);
+        insertScore(p);
+        Intent intent = new Intent(ShuffleGameMode.this,CongratulationsMessage.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image",drawId);
-        bundle.putInt("pontos",pontos);
+        bundle.putInt("score", score);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }
 
-    private void inserirPontuação(Pontuação p){
-        if(pontuações.size() == 11) {
-            pontuações.remove(0);
-            bd.deletarPontos(1);
+    private void insertScore(Score p){
+        if(scores.size() >= 11) {
+            scores.remove(0);
+            dataBase.deleteScore(1);
         }
-        bd.inserirPontos(p);
+        dataBase.insertScore(p);
     }
 
-    private void clearNivel(){
-        for(int i = 0; i < letras.length;i++){
-            ViewGroup dropLayout = (ViewGroup) letras[i].getParent();
-            dropLayout.removeView(letras[i]);
-            dragContainer.addView(letras[i]);
-            letras[i].setVisibility(View.GONE);
-            letras[i].setEnabled(true);
+    private void clearLevel(){
+        for(int i = 0; i < letters.length; i++){
+            ViewGroup dropLayout = (ViewGroup) letters[i].getParent();
+            dropLayout.removeView(letters[i]);
+            dragContainer.addView(letters[i]);
+            letters[i].setVisibility(View.GONE);
+            letters[i].setEnabled(true);
             drops[i].setVisibility(View.GONE);
             drops[i].setEnabled(true);
 
@@ -252,273 +248,273 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void setImage(int i) {
-        this.imageQuestion.setImageBitmap(palavras.get(i).getImage());
+        this.imageQuestion.setImageBitmap(words.get(i).getImage());
     }
 
     public void loadWord(int pos){
         String n = "";
         int nivel = count+1;
-        n = "Palavra "+nivel+" de "+FINAL_NIVEL;
-        this.textCountNivel.setText(n);
-        String p = shuffle(palavras.get(pos).getPalavra());
-        while(p.equals(palavras.get(pos).getPalavra())) {
-            p = shuffle(palavras.get(pos).getPalavra());
+        n = "Nível "+nivel+" de "+ finalLevel;
+        this.textCountLevel.setText(n);
+        String p = shuffle(words.get(pos).getName());
+        while(p.equals(words.get(pos).getName())) {
+            p = shuffle(words.get(pos).getName());
         }
         char aux [] = p.toCharArray();
-        char aux2 [] = palavras.get(pos).getPalavra().toCharArray();
+        char aux2 [] = words.get(pos).getName().toCharArray();
         for (int i= 0; i < aux.length; i++){
             String letra = String.valueOf(aux[i]).toUpperCase();
-            letras[i].setContentDescription("f");
-            letras[i].setEnabled(true);
+            letters[i].setContentDescription("f");
+            letters[i].setEnabled(true);
             drops[i].setTag(aux2[i]);
             drops[i].setEnabled(true);
             switch (letra){
                 case "A":
-                    letras[i].setImageResource(R.drawable.a);
-                    letras[i].setTag("A");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.a);
+                    letters[i].setTag("A");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "B":
-                    letras[i].setImageResource(R.drawable.b);
-                    letras[i].setTag("B");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.b);
+                    letters[i].setTag("B");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "C":
-                    letras[i].setImageResource(R.drawable.c);
-                    letras[i].setTag("C");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.c);
+                    letters[i].setTag("C");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "D":
-                    letras[i].setImageResource(R.drawable.d);
-                    letras[i].setTag("D");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.d);
+                    letters[i].setTag("D");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "E":
-                    letras[i].setImageResource(R.drawable.e);
-                    letras[i].setTag("E");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.e);
+                    letters[i].setTag("E");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "F":
-                    letras[i].setImageResource(R.drawable.f);
-                    letras[i].setTag("F");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.f);
+                    letters[i].setTag("F");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "G":
-                    letras[i].setImageResource(R.drawable.g);
-                    letras[i].setTag("G");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.g);
+                    letters[i].setTag("G");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "H":
-                    letras[i].setImageResource(R.drawable.h);
-                    letras[i].setTag("H");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.h);
+                    letters[i].setTag("H");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "I":
-                    letras[i].setImageResource(R.drawable.i);
-                    letras[i].setTag("I");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.i);
+                    letters[i].setTag("I");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "J":
-                    letras[i].setImageResource(R.drawable.j);
-                    letras[i].setTag("J");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.j);
+                    letters[i].setTag("J");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "K":
-                    letras[i].setImageResource(R.drawable.k);
-                    letras[i].setTag("K");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.k);
+                    letters[i].setTag("K");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "L":
-                    letras[i].setImageResource(R.drawable.l);
-                    letras[i].setTag("L");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.l);
+                    letters[i].setTag("L");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "M":
-                    letras[i].setImageResource(R.drawable.m);
-                    letras[i].setTag("M");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.m);
+                    letters[i].setTag("M");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "N":
-                    letras[i].setImageResource(R.drawable.n);
-                    letras[i].setTag("N");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.n);
+                    letters[i].setTag("N");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "O":
-                    letras[i].setImageResource(R.drawable.o);
-                    letras[i].setTag("O");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.o);
+                    letters[i].setTag("O");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "P":
-                    letras[i].setImageResource(R.drawable.p);
-                    letras[i].setTag("P");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.p);
+                    letters[i].setTag("P");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "Q":
-                    letras[i].setImageResource(R.drawable.q);
-                    letras[i].setTag("Q");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.q);
+                    letters[i].setTag("Q");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "R":
-                    letras[i].setImageResource(R.drawable.r);
-                    letras[i].setTag("R");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.r);
+                    letters[i].setTag("R");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "S":
-                    letras[i].setImageResource(R.drawable.s);
-                    letras[i].setTag("S");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.s);
+                    letters[i].setTag("S");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "T":
-                    letras[i].setImageResource(R.drawable.t);
-                    letras[i].setTag("T");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.t);
+                    letters[i].setTag("T");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "U":
-                    letras[i].setImageResource(R.drawable.u);
-                    letras[i].setTag("U");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.u);
+                    letters[i].setTag("U");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "V":
-                    letras[i].setImageResource(R.drawable.v);
-                    letras[i].setTag("V");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.v);
+                    letters[i].setTag("V");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "W":
-                    letras[i].setImageResource(R.drawable.w);
-                    letras[i].setTag("W");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.w);
+                    letters[i].setTag("W");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "X":
-                    letras[i].setImageResource(R.drawable.x);
-                    letras[i].setTag("X");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.x);
+                    letters[i].setTag("X");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "Y":
-                    letras[i].setImageResource(R.drawable.y);
-                    letras[i].setTag("Y");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.y);
+                    letters[i].setTag("Y");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "Z":
-                    letras[i].setImageResource(R.drawable.z);
-                    letras[i].setTag("Z");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.z);
+                    letters[i].setTag("Z");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
 
                 case "Ç":
-                    letras[i].setImageResource(R.drawable.cc);
-                    letras[i].setTag("Ç");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.cc);
+                    letters[i].setTag("Ç");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "Á":
-                    letras[i].setImageResource(R.drawable.aa);
-                    letras[i].setTag("Á");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.aa);
+                    letters[i].setTag("Á");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "Â":
-                    letras[i].setImageResource(R.drawable.aaa);
-                    letras[i].setTag("Â");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.aaa);
+                    letters[i].setTag("Â");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "Ã":
-                    letras[i].setImageResource(R.drawable.aaaa);
-                    letras[i].setTag("Ã");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.aaaa);
+                    letters[i].setTag("Ã");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "É":
-                    letras[i].setImageResource(R.drawable.ee);
-                    letras[i].setTag("É");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.ee);
+                    letters[i].setTag("É");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "Ê":
-                    letras[i].setImageResource(R.drawable.eee);
-                    letras[i].setTag("Ê");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.eee);
+                    letters[i].setTag("Ê");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "Í":
-                    letras[i].setImageResource(R.drawable.ii);
-                    letras[i].setTag("Í");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.ii);
+                    letters[i].setTag("Í");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "Ó":
-                    letras[i].setImageResource(R.drawable.oo);
-                    letras[i].setTag("Ó");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.oo);
+                    letters[i].setTag("Ó");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "Ô":
-                    letras[i].setImageResource(R.drawable.ooo);
-                    letras[i].setTag("Ô");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.ooo);
+                    letters[i].setTag("Ô");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "Õ":
-                    letras[i].setImageResource(R.drawable.oooo);
-                    letras[i].setTag("Õ");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.oooo);
+                    letters[i].setTag("Õ");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
                 case "Ú":
-                    letras[i].setImageResource(R.drawable.uu);
-                    letras[i].setTag("Ú");
-                    letras[i].setVisibility(View.VISIBLE);
+                    letters[i].setImageResource(R.drawable.uu);
+                    letters[i].setTag("Ú");
+                    letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
             }
@@ -527,10 +523,10 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private String shuffle(String s) {
-        List<String> letras = Arrays.asList(s.split(""));
-        Collections.shuffle(letras);
+        List<String> letters = Arrays.asList(s.split(""));
+        Collections.shuffle(letters);
         StringBuilder t = new StringBuilder(s.length());
-        for (String k : letras) {
+        for (String k : letters) {
             t.append(k);
         }
         return t.toString();
@@ -571,20 +567,20 @@ public class ShufflerGameMode extends AppCompatActivity implements PopupMenu.OnM
     }
 
     private void VerifyWord(String s) {
-        CharSequence correct = "f";
+        CharSequence verify = "";
         for (int i = 0; i< s.length();i++){
-            if(letras[i].getContentDescription().equals("f")) {
-                correct = letras[i].getContentDescription();
+            if(letters[i].getContentDescription().equals("f")) {
+                verify = letters[i].getContentDescription();
                 break;
             }else{
-                correct = letras[i].getContentDescription();
+                verify = letters[i].getContentDescription();
             }
         }
-        if(correct.equals("v")){
+        if(verify.equals("v")){
             startSoundQuestionCorrect();
             toGetNextWord();
         }else{
-            this.pontos--;
+            this.score--;
             starSoundQuestionWrong();
             removeLettersWrong();
         }

@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:layout_weight="1"
-            android:text="Melhores Pontuações"
+            android:text="Últimas Pontuações"
             android:layout_margin="5dp"
             android:gravity="center"
             android:id="@+id/textModeGame"
@@ -36,7 +36,7 @@
         <ImageButton
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/somButton"
+            android:id="@+id/soundButton"
             android:layout_margin="5dp"
             android:background="@drawable/sound_button"/>
     </LinearLayout>

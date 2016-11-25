@@ -20,15 +20,15 @@ public class ScoreActivity extends AppCompatActivity implements PopupMenu.OnMenu
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        if(BackgroundSoundService.ISPLAY)
+        if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
         this.menubt = (ImageButton) findViewById(R.id.menuButton);
-        this.soundbt = (ImageButton) findViewById(R.id.somButton);
-        if(!BackgroundSoundService.ISPLAY)
+        this.soundbt = (ImageButton) findViewById(R.id.soundButton);
+        if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
         listView = (ListView) findViewById(R.id.listViewPontos);
-        listView.setAdapter(new PontuaçãoAdapter(this));
+        listView.setAdapter(new ScoreAdapter(this));
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,14 +52,14 @@ public class ScoreActivity extends AppCompatActivity implements PopupMenu.OnMenu
     }
 
     private void stopMusic(View v) {
-        if(BackgroundSoundService.ISPLAY){
+        if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
             stopService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = false;
+            BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.sound_button);
             startService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = true;
+            BackgroundSoundService.PLAYING = true;
         }
     }
 

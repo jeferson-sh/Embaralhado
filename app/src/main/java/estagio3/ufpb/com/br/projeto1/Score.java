@@ -7,30 +7,30 @@ import android.graphics.drawable.Drawable;
 /**
  * Created by Jeferson on 10/11/2016.
  */
-public class Pontuação {
+public class Score {
 
     private byte[] imageScoreBytes;
-    private int pontos;
+    private int score;
     private Bitmap image;
     private long id;
 
-    public Pontuação(byte[] imageScoreBytes, int pontos){
-        this.pontos = pontos;
+    public Score(byte[] imageScoreBytes, int score){
+        this.score = score;
         this.imageScoreBytes = imageScoreBytes;
-        this.image = DbBitmapUtility.getImage(imageScoreBytes);
+        this.image = DatabaseBitmapUtility.getImage(imageScoreBytes);
     }
 
-    public Pontuação(Drawable drawable, int pontos) {
+    public Score(Drawable drawable, int score) {
         this.image = ((BitmapDrawable) drawable).getBitmap();
-        this.pontos = pontos;
-        this.imageScoreBytes = DbBitmapUtility.getBytes(this.image);
+        this.score = score;
+        this.imageScoreBytes = DatabaseBitmapUtility.getBytes(this.image);
     }
 
-    public Pontuação(long id, byte[] imageScoreBytes, int pontos) {
+    public Score(long id, byte[] imageScoreBytes, int score) {
         this.id = id;
-        this.pontos = pontos;
+        this.score = score;
         this.imageScoreBytes = imageScoreBytes;
-        this.image = DbBitmapUtility.getImage(imageScoreBytes);
+        this.image = DatabaseBitmapUtility.getImage(imageScoreBytes);
     }
 
     public long getId() {
@@ -49,12 +49,12 @@ public class Pontuação {
         this.image = image;
     }
 
-    public int getPontos() {
-        return pontos;
+    public int getScore() {
+        return score;
     }
 
-    public void setPontos(int pontos) {
-        this.pontos = pontos;
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public byte[] getImageScoreBytes() {

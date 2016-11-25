@@ -14,27 +14,27 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class PalavrasAdapter extends BaseAdapter{
+public class ScoreAdapter extends BaseAdapter{
 
-    private List<Palavra> palavras;
+    private List<Score> scores;
     private Context context;
-    private BD bd;
+    private DataBase dataBase;
 
-    public PalavrasAdapter(Context context) {
+    public ScoreAdapter(Context context) {
         this.context = context;
-        this.bd = new BD(context);
-        this.palavras = bd.buscarPalavras();
+        this.dataBase = new DataBase(context);
+        this.scores = dataBase.searchScoresDatabase();
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return this.palavras.size();
+        return this.scores.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return this.palavras.get(i);
+        return this.scores.get(i);
     }
 
     @Override
@@ -48,19 +48,24 @@ public class PalavrasAdapter extends BaseAdapter{
         View layout;
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.palavra_item_list, null);
+            layout = inflater.inflate(R.layout.score_item_list, null);
         }
         else{
             layout = view;
         }
 
-        ImageView imageView = (ImageView) layout.findViewById(R.id.ic_item);
+        ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
-        Palavra palavra = this.palavras.get(i);
-        textView.setText(palavra.getPalavra());
+        Score pontos = this.scores.get(i);
+        String p = "";
+        if(pontos.getScore()==1)
+            p = pontos.getScore()+" Ponto.";
+        else p = pontos.getScore()+ " Pontos.";
+        textView.setText(p);
 
-        imageView.setImageBitmap(palavras.get(i).getImage());
+        imageView.setImageBitmap(this.scores.get(i).getImage());
+
         return layout;
     }
 }

@@ -9,15 +9,15 @@ import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity implements Runnable {
 
-    private static final long delay = 4000;
-    private BD bd;
+    private static final long delay = 3000;
+    private DataBase dataBase;
     private SharedPreferences sPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        bd = new BD(this);
+        dataBase = new DataBase(this);
         sPreferences = getSharedPreferences("firstRun", MODE_PRIVATE);
         Handler handler = new Handler();
         handler.postDelayed(this,delay);
@@ -30,17 +30,17 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         finish();
     }
 
-    public void criarPalavras() {
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.esquilo),"ESQUILO"));
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.cat),"GATO"));//2
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.hipopotamo),"HIPOPÓTAMO"));//3
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.coala),"COALA"));
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.panda),"PANDA"));//6
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.leao),"LEÃO"));
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.car),"CARRO"));//10
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.borboleta),"BORBOLETA"));
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.sofa),"SOFÁ"));//11
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.clock),"RELÓGIO"));//1
+    public void createWords() {
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.esquilo),"ESQUILO"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.cat),"GATO"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.hipopotamo),"HIPOPÓTAMO"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.coala),"COALA"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.panda),"PANDA"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.leao),"LEÃO"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.car),"CARRO"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.borboleta),"BORBOLETA"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.sofa),"SOFÁ"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.clock),"RELÓGIO"));
     }
 
     @Override
@@ -48,7 +48,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         super.onResume();
         if (sPreferences.getBoolean("firstRun", true)) {
             sPreferences.edit().putBoolean("firstRun", false).apply();
-            criarPalavras();
+            createWords();
         }
     }
 }

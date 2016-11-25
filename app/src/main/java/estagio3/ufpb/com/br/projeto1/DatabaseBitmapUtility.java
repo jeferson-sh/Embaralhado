@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream;
  * Created by Jeferson on 18/11/2016.
  */
 
-public class DbBitmapUtility {
+public class DatabaseBitmapUtility {
     // convert from bitmap to byte array
     public static byte[] getBytes(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();

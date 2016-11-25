@@ -9,7 +9,7 @@
     <ImageView
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:id="@+id/ic_item"
+        android:id="@+id/image_item"
         android:layout_margin="16dp"
         />
 

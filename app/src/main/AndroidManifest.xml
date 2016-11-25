@@ -33,7 +33,7 @@
             android:name=".ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ShufflerGameMode"
+            android:name=".ShuffleGameMode"
             android:screenOrientation="landscape" />
 
         <service
@@ -43,7 +43,7 @@
             android:stopWithTask="true" />
 
         <activity
-            android:name=".AdicionarPalavras"
+            android:name=".InsertNewWord"
             android:screenOrientation="landscape" />
         <activity android:name=".CongratulationsMessage"
             android:screenOrientation="landscape"/>

@@ -16,26 +16,26 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private ImageButton scoreButton;
     private ImageButton menubt;
     private ImageButton soundbt;
-    private BD bd;
+    private DataBase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if(BackgroundSoundService.ISPLAY)
+        if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
         this.menubt = (ImageButton) findViewById(R.id.menuButton);
-        this.soundbt = (ImageButton) findViewById(R.id.somButton);
+        this.soundbt = (ImageButton) findViewById(R.id.soundButton);
         this.playButton = (ImageButton) findViewById(R.id.playButton);
         this.settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         this.scoreButton = (ImageButton) findViewById(R.id.scoreButton);
-        this.bd = new BD(this);
-        if(!BackgroundSoundService.ISPLAY)
+        this.dataBase = new DataBase(this);
+        if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
         this.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(bd.buscarPalavras().isEmpty()){
+                if(dataBase.searchWordsDatabase().isEmpty()){
                     Snackbar.make(view, "Não existem palavras cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 }else{
                     startGame();
@@ -105,19 +105,19 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void stopMusic(View v) {
-        if(BackgroundSoundService.ISPLAY){
+        if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
             stopService(new Intent(MainActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = false;
+            BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.sound_button);
             startService(new Intent(MainActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.ISPLAY = true;
+            BackgroundSoundService.PLAYING = true;
         }
     }
 
     private void startGame(){
-        Intent intent = new Intent(this,ShufflerGameMode.class);
+        Intent intent = new Intent(this,ShuffleGameMode.class);
         startActivity(intent);
         finish();
     }
