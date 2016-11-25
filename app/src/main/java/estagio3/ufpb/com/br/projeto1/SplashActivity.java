@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
     public void criarPalavras() {
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.esquilo),"ESQUILO"));
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.cat),"GATO"));//2
-        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.hipopotamo),"HIPOPOTAMO"));//3
+        bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.hipopotamo),"HIPOPÓTAMO"));//3
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.coala),"COALA"));
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.panda),"PANDA"));//6
         bd.inserirPalavra(new Palavra(ContextCompat.getDrawable(this,R.drawable.leao),"LEÃO"));
