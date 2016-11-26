@@ -229,7 +229,7 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
 
     private void insertScore(Score p){
         ScoreAdapter scoreAdapter = new ScoreAdapter(this);
-        if(scoreAdapter.getCount() >= 11) {
+        if(scoreAdapter.getCount() >= 10) {
             dataBase.deleteScore((Score) scoreAdapter.getItem(0));
         }
         dataBase.insertScore(p);
