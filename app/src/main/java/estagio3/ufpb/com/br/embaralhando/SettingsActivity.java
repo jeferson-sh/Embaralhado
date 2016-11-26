@@ -54,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         this.addWordbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent adicionarPalavra = new Intent(SettingsActivity.this,InsertNewWord.class);
+                Intent adicionarPalavra = new Intent(SettingsActivity.this,InsertNewWordActivity.class);
                 startActivity(adicionarPalavra);
                 finish();
             }

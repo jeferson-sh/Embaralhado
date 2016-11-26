@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:context="estagio3.ufpb.com.br.embaralhando.ShuffleGameMode">
+    tools:context="estagio3.ufpb.com.br.embaralhando.ShuffleGameActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

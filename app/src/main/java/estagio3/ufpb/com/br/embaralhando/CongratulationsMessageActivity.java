@@ -8,7 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class CongratulationsMessage extends AppCompatActivity {
+public class CongratulationsMessageActivity extends AppCompatActivity {
 
     private ImageView imageView;
     private TextView pontosText;
@@ -34,14 +34,14 @@ public class CongratulationsMessage extends AppCompatActivity {
         playbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CongratulationsMessage.this,ShuffleGameMode.class));
+                startActivity(new Intent(CongratulationsMessageActivity.this,ShuffleGameActivity.class));
                 finish();
             }
         });
         exitbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CongratulationsMessage.this,MainActivity.class));
+                startActivity(new Intent(CongratulationsMessageActivity.this,MainActivity.class));
                 finish();
             }
         });

@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void startGame(){
-        Intent intent = new Intent(this,ShuffleGameMode.class);
+        Intent intent = new Intent(this,ShuffleGameActivity.class);
         startActivity(intent);
         finish();
     }

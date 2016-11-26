@@ -33,7 +33,7 @@
             android:name="estagio3.ufpb.com.br.embaralhando.ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.ShuffleGameMode"
+            android:name="estagio3.ufpb.com.br.embaralhando.ShuffleGameActivity"
             android:screenOrientation="landscape" />
 
         <service
@@ -43,9 +43,9 @@
             android:stopWithTask="true" />
 
         <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.InsertNewWord"
+            android:name="estagio3.ufpb.com.br.embaralhando.InsertNewWordActivity"
             android:screenOrientation="landscape" />
-        <activity android:name="estagio3.ufpb.com.br.embaralhando.CongratulationsMessage"
+        <activity android:name="estagio3.ufpb.com.br.embaralhando.CongratulationsMessageActivity"
             android:screenOrientation="landscape"/>
     </application>
 

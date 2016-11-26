@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class InsertNewWord extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class InsertNewWordActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private EditText word;
     private ImageView image;
@@ -132,7 +132,7 @@ public class InsertNewWord extends AppCompatActivity implements PopupMenu.OnMenu
         boolean verify = verifyWord();
         if (this.bitmap != null && this.word.getText().toString().length() >= 2 && word.getText().toString().length()<= 10 && verify) {
             dataBase.insertWord(new Word(bitmap, word.getText().toString().toUpperCase()));
-            startActivity(new Intent(InsertNewWord.this,SettingsActivity.class));
+            startActivity(new Intent(InsertNewWordActivity.this,SettingsActivity.class));
             finish();
 
         }else if (this.word.getText().toString().length()>10) {
@@ -168,11 +168,11 @@ public class InsertNewWord extends AppCompatActivity implements PopupMenu.OnMenu
     private void stopMusic(View v) {
         if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
-            stopService(new Intent(InsertNewWord.this, BackgroundSoundService.class));
+            stopService(new Intent(InsertNewWordActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.sound_button);
-            startService(new Intent(InsertNewWord.this, BackgroundSoundService.class));
+            startService(new Intent(InsertNewWordActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
     }

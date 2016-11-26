@@ -18,7 +18,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     private ImageButton soundbt;
     private ImageView imageQuestion;
@@ -185,11 +185,11 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
     private void stopMusic() {
         if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
-            stopService(new Intent(ShuffleGameMode.this, BackgroundSoundService.class));
+            stopService(new Intent(ShuffleGameActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.sound_button);
-            startService(new Intent(ShuffleGameMode.this, BackgroundSoundService.class));
+            startService(new Intent(ShuffleGameActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
     }
@@ -217,7 +217,7 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
         }
         Score p = new Score(imageView.getDrawable(), score);
         insertScore(p);
-        Intent intent = new Intent(ShuffleGameMode.this,CongratulationsMessage.class);
+        Intent intent = new Intent(ShuffleGameActivity.this,CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image",drawId);
         bundle.putInt("score", score);
