@@ -131,9 +131,8 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
                 return false;
         }
     }
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onBackPressed() {
+        super.moveTaskToBack(true);
     }
 }

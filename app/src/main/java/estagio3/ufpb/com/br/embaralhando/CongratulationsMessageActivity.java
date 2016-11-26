@@ -47,6 +47,8 @@ public class CongratulationsMessageActivity extends AppCompatActivity {
         });
     }
 
-
-
+    @Override
+    public void onBackPressed() {
+        super.moveTaskToBack(true);
+    }
 }

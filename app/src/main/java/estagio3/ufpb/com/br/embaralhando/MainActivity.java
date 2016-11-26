@@ -129,9 +129,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         Intent intent = new Intent(this,ScoreActivity.class);
         startActivity(intent);
     }
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onBackPressed() {
+        super.moveTaskToBack(true);
     }
 }

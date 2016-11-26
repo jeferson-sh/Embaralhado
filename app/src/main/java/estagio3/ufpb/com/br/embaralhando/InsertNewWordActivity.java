@@ -203,4 +203,9 @@ public class InsertNewWordActivity extends AppCompatActivity implements PopupMen
                 return false;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.moveTaskToBack(true);
+    }
 }

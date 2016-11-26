@@ -227,7 +227,7 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
     private void insertScore(Score p){
         ScoreAdapter scoreAdapter = new ScoreAdapter(this);
         if(scoreAdapter.getCount() >= 11) {
-            dataBase.deleteScore((Score) scoreAdapter.getItem(1));
+            dataBase.deleteScore((Score) scoreAdapter.getItem(0));
         }
         dataBase.insertScore(p);
     }
@@ -596,5 +596,10 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
             MediaPlayer mp = MediaPlayer.create(this, R.raw.correct);
             mp.start();
             mp.setVolume(200, 200);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.moveTaskToBack(true);
     }
 }

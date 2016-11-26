@@ -59,7 +59,7 @@ public class DataBase {
         List<Word> list = new ArrayList<>();
         String[] columns = new String[]{"_id", "name", "image"};
 
-        Cursor cursor = bd.query("words", columns, null, null, null, null, null);
+        Cursor cursor = bd.query("words", columns, null, null, null, null, "name ASC");
 
         if(cursor.getCount() > 0){
             cursor.moveToFirst();

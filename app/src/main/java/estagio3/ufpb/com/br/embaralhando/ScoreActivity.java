@@ -86,10 +86,9 @@ public class ScoreActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 return false;
         }
     }
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onBackPressed() {
+        super.moveTaskToBack(true);
     }
 }
 
