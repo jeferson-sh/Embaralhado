@@ -38,7 +38,7 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shuffler_game_mode);
+        setContentView(R.layout.activity_shuffle_game_mode);
 
         MyOnDragListener myOnDragListener = new MyOnDragListener();
         MyTouchListener myTouchListener = new MyTouchListener();
@@ -52,7 +52,7 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
         }
         this.score = 10;
         count = 0;
-        this.niveis = shufflerLevelIndex();
+        this.niveis = shuffleLevelIndex();
         randomLevel = niveis.get(count);
 
 
@@ -159,7 +159,7 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
         }
     }
 
-    private List<Integer> shufflerLevelIndex(){
+    private List<Integer> shuffleLevelIndex(){
         List<Integer> aux = new ArrayList<>();
         for(int i = 0; i < words.size(); i++){
             aux.add(i);
