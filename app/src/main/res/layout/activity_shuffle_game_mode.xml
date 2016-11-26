@@ -50,7 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="teste"
+            android:text="test"
             android:textColor="#000000"
             android:id="@+id/textCountNivel"
             android:textSize="15sp"/>
@@ -199,21 +199,21 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/letra0"
+            android:id="@+id/letter0"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/letra1"
+            android:id="@+id/letter1"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/letra2"
+            android:id="@+id/letter2"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
@@ -221,41 +221,41 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:visibility="gone"
-            android:id="@+id/letra3"
+            android:id="@+id/letter3"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/letra4"
+            android:id="@+id/letter4"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/letra5"
+            android:id="@+id/letter5"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/letra6"
+            android:id="@+id/letter6"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/letra7"
+            android:id="@+id/letter7"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/letra8"
+            android:id="@+id/letter8"
             android:visibility="gone"
             android:layout_margin="5dp"/>
 
@@ -263,7 +263,7 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/letra9"
+            android:id="@+id/letter9"
             android:visibility="gone"
             android:layout_margin="5dp"
             />

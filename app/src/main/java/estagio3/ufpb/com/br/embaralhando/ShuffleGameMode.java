@@ -66,17 +66,17 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
         if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
 
-        ImageView letra0 = (ImageView) findViewById(R.id.letra0);
-        ImageView letra1 = (ImageView) findViewById(R.id.letra1);
-        ImageView letra2 = (ImageView) findViewById(R.id.letra2);
-        ImageView letra3 = (ImageView) findViewById(R.id.letra3);
-        ImageView letra4 = (ImageView) findViewById(R.id.letra4);
-        ImageView letra5 = (ImageView) findViewById(R.id.letra5);
-        ImageView letra6 = (ImageView) findViewById(R.id.letra6);
-        ImageView letra7 = (ImageView) findViewById(R.id.letra7);
-        ImageView letra8 = (ImageView) findViewById(R.id.letra8);
-        ImageView letra9 = (ImageView) findViewById(R.id.letra9);
-        this.letters = new ImageView[]{letra0, letra1, letra2, letra3, letra4, letra5, letra6, letra7, letra8, letra9};
+        ImageView letter0 = (ImageView) findViewById(R.id.letter0);
+        ImageView letter1 = (ImageView) findViewById(R.id.letter1);
+        ImageView letter2 = (ImageView) findViewById(R.id.letter2);
+        ImageView letter3 = (ImageView) findViewById(R.id.letter3);
+        ImageView letter4 = (ImageView) findViewById(R.id.letter4);
+        ImageView letter5 = (ImageView) findViewById(R.id.letter5);
+        ImageView letter6 = (ImageView) findViewById(R.id.letter6);
+        ImageView letter7 = (ImageView) findViewById(R.id.letter7);
+        ImageView letter8 = (ImageView) findViewById(R.id.letter8);
+        ImageView letter9 = (ImageView) findViewById(R.id.letter9);
+        this.letters = new ImageView[]{letter0, letter1, letter2, letter3, letter4, letter5, letter6, letter7, letter8, letter9};
 
         LinearLayout drop0 = (LinearLayout) findViewById(R.id.drop0);
         LinearLayout drop1 = (LinearLayout) findViewById(R.id.drop1);
@@ -92,16 +92,16 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
 
         this.dragContainer = (LinearLayout)findViewById(R.id.drag);
 
-        letra0.setOnTouchListener(myTouchListener);
-        letra1.setOnTouchListener(myTouchListener);
-        letra2.setOnTouchListener(myTouchListener);
-        letra3.setOnTouchListener(myTouchListener);
-        letra4.setOnTouchListener(myTouchListener);
-        letra5.setOnTouchListener(myTouchListener);
-        letra6.setOnTouchListener(myTouchListener);
-        letra7.setOnTouchListener(myTouchListener);
-        letra8.setOnTouchListener(myTouchListener);
-        letra9.setOnTouchListener(myTouchListener);
+        letter0.setOnTouchListener(myTouchListener);
+        letter1.setOnTouchListener(myTouchListener);
+        letter2.setOnTouchListener(myTouchListener);
+        letter3.setOnTouchListener(myTouchListener);
+        letter4.setOnTouchListener(myTouchListener);
+        letter5.setOnTouchListener(myTouchListener);
+        letter6.setOnTouchListener(myTouchListener);
+        letter7.setOnTouchListener(myTouchListener);
+        letter8.setOnTouchListener(myTouchListener);
+        letter9.setOnTouchListener(myTouchListener);
 
         drop0.setOnDragListener(myOnDragListener);
         drop1.setOnDragListener(myOnDragListener);
@@ -263,12 +263,12 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
         char aux [] = p.toCharArray();
         char aux2 [] = words.get(pos).getName().toCharArray();
         for (int i= 0; i < aux.length; i++){
-            String letra = String.valueOf(aux[i]).toUpperCase();
+            String letter = String.valueOf(aux[i]).toUpperCase();
             letters[i].setContentDescription("f");
             letters[i].setEnabled(true);
             drops[i].setTag(aux2[i]);
             drops[i].setEnabled(true);
-            switch (letra){
+            switch (letter){
                 case "A":
                     letters[i].setImageResource(R.drawable.a);
                     letters[i].setTag("A");
