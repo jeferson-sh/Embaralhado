@@ -34,7 +34,7 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
     private TextView textCountLevel;
     private int finalLevel;
 
-    private List<Integer> niveis;
+    private List<Integer> levelsIndex;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +52,8 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
         }
         this.score = 10;
         count = 0;
-        this.niveis = shuffleLevelIndex();
-        randomLevel = niveis.get(count);
+        this.levelsIndex = shuffleLevelIndex();
+        randomLevel = levelsIndex.get(count);
 
 
         ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
@@ -153,7 +153,7 @@ public class ShuffleGameMode extends AppCompatActivity implements PopupMenu.OnMe
             congratulationMessage();
         }else {
             clearLevel();
-            randomLevel = niveis.get(count);
+            randomLevel = levelsIndex.get(count);
             loadWord(randomLevel);
             setImage(randomLevel);
         }
