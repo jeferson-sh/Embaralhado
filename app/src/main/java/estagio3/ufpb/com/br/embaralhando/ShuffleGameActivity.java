@@ -201,10 +201,10 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
     public void congratulationMessage() {
         int drawId = 0;
         ImageView imageView = new ImageView(this);
-        if(this.score < 0){
-            this.score = 0;
-        }
         if(this.score <= 3) {
+            if(this.score < 0){
+                this.score = 0;
+            }
             drawId = R.drawable.low_score;
             imageView.setImageResource(drawId);
         }
