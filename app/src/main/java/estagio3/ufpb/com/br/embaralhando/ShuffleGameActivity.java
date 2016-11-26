@@ -28,7 +28,6 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
     private int count;
     private Integer randomLevel;
     private List<Word> words;
-    private List<Score> scores;
     private DataBase dataBase;
     private int score;
     private TextView textCountLevel;
@@ -44,7 +43,6 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
         MyTouchListener myTouchListener = new MyTouchListener();
         this.dataBase = new DataBase(this);
         this.words = dataBase.searchWordsDatabase();
-        this.scores = dataBase.searchScoresDatabase();
         this.finalLevel = 10;
 
         if(words.size() < finalLevel){
@@ -227,9 +225,9 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
     }
 
     private void insertScore(Score p){
-        if(scores.size() >= 11) {
-            scores.remove(0);
-            dataBase.deleteScore(1);
+        ScoreAdapter scoreAdapter = new ScoreAdapter(this);
+        if(scoreAdapter.getCount() >= 11) {
+            dataBase.deleteScore((Score) scoreAdapter.getItem(1));
         }
         dataBase.insertScore(p);
     }

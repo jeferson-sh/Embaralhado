@@ -20,6 +20,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
     private ImageButton soundbt;
     private ImageButton addWordbt;
     private DataBase dataBase;
+    private static final int MAX_COUNT_WORDS = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +55,13 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         this.addWordbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent adicionarPalavra = new Intent(SettingsActivity.this,InsertNewWordActivity.class);
-                startActivity(adicionarPalavra);
-                finish();
+                if(listView.getAdapter().getCount() <= MAX_COUNT_WORDS) {
+                    Intent adicionarPalavra = new Intent(SettingsActivity.this, InsertNewWordActivity.class);
+                    startActivity(adicionarPalavra);
+                    finish();
+                }else{
+                    Toast.makeText(SettingsActivity.this,"Memoria Cheia!",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }

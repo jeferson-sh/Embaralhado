@@ -50,8 +50,8 @@ public class DataBase {
         bd.delete("words", "_id = "+ word.getId(), null);
     }
 
-    public void deleteScore(long id){
-        bd.delete("scores", "_id = "+id, null);
+    public void deleteScore(Score score){
+        bd.delete("scores", "_id = "+score.getId(), null);
     }
 
 
