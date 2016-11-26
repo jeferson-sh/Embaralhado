@@ -7,13 +7,14 @@
     android:background="#004D40">
 
     <TextView
+        android:id="@+id/congratulationsMessageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Parabéns!"
         android:textSize="25sp"
         android:textColor="#ffffff"/>
     <ImageView
-        android:id="@+id/congratulations"
+        android:id="@+id/congratulationsImage"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
     <TextView

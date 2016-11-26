@@ -73,6 +73,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.context_menu, menu);
     }
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -131,6 +132,7 @@ public class SettingsActivity extends AppCompatActivity implements PopupMenu.OnM
                 return false;
         }
     }
+
     @Override
     public void onBackPressed() {
         super.moveTaskToBack(true);
