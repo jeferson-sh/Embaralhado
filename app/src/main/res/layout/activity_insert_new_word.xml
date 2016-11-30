@@ -84,8 +84,8 @@
             android:layout_gravity="end">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:background="@drawable/active_camera"
                 android:id="@+id/activeCameraButton"/>
             <TextView
@@ -105,8 +105,8 @@
             android:layout_gravity="end">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:id="@+id/activeGalleryButton"
                 android:background="@drawable/active_galleria"/>
 
@@ -128,8 +128,8 @@
             android:layout_gravity="end">
 
             <ImageButton
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:id="@+id/savePhotoButton"
                 android:background="@drawable/save"/>
 

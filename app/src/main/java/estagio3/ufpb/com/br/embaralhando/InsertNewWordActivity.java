@@ -136,11 +136,13 @@ public class InsertNewWordActivity extends AppCompatActivity implements PopupMen
             finish();
 
         }else if (this.word.getText().toString().length()>10) {
-            Snackbar.make(v, "Word muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
+            Snackbar.make(v, "Palavra cadastrada muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }else if(this.word.getText().toString().length() < 2) {
-            Snackbar.make(v, "Word muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
+            Snackbar.make(v, "Palavra cadastrada muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }else if (!verify){
             Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
+        }else if(this.bitmap == null){
+            Snackbar.make(v, "Adicione a imagem da palavra!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }
 
     }

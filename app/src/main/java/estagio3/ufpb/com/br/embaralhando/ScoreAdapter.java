@@ -57,11 +57,11 @@ public class ScoreAdapter extends BaseAdapter{
         ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
-        Score pontos = this.scores.get(i);
+        Score score = this.scores.get(i);
         String p = "";
-        if(pontos.getScore()==1)
-            p = pontos.getScore()+" Ponto.";
-        else p = pontos.getScore()+ " Pontos.";
+        if(score.getScore()==1)
+            p = score.getScore()+" Ponto.";
+        else p = score.getScore()+ " Pontos.";
         textView.setText(p);
 
         imageView.setImageBitmap(this.scores.get(i).getImage());

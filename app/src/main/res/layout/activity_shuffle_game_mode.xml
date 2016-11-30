@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:layout_weight="1"
-            android:text="Organize as Letras"
+            android:text="Organize as Letras Abaixo"
             android:layout_margin="5dp"
             android:gravity="center"
             android:id="@+id/textModeGame"
@@ -284,15 +284,15 @@
             android:gravity="center|bottom">
 
             <ImageButton
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/restart_button"
                 android:layout_margin="5dp"
                 android:background="@drawable/refresh"/>
 
             <ImageButton
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/checkButton"
                 android:background="@drawable/checked"
                 android:layout_margin="5dp"
