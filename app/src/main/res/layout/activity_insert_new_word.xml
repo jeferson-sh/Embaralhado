@@ -61,8 +61,8 @@
             android:id="@+id/editText"/>
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/newImageWidth"
+            android:layout_height="@dimen/newImageHeight"
             android:layout_margin="5dp"
             android:id="@+id/imageView"/>
 
