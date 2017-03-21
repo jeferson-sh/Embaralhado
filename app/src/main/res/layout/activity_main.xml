@@ -8,38 +8,29 @@
     android:background="#ECEFF1"
     tools:context="estagio3.ufpb.com.br.embaralhando.MainActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="#004D40"
-        android:id="@+id/settingsLinear">
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/menuButton"
-            android:layout_margin="5dp"
-            android:background="@drawable/menu"/>
+        android:title="Adicionar Palavras">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:layout_weight="1"
+            android:layout_below="@+id/tool_bar"
             android:text="Embaralhando"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:id="@+id/textModeGame"
+            android:textColor="#FFFFFF"
             android:textSize="25sp"/>
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/soundButton"
-            android:layout_margin="5dp"
-            android:background="@drawable/sound_button"/>
-    </LinearLayout>
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_volume_up_white_24dp"/>
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"

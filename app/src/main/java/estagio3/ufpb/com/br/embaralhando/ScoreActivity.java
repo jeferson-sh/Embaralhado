@@ -1,18 +1,20 @@
 package estagio3.ufpb.com.br.embaralhando;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-public class ScoreActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener{
+public class ScoreActivity extends AppCompatActivity{
 
     private ListView listView;
-    private ImageButton menubt;
     private ImageButton soundbt;
 
     @Override
@@ -22,49 +24,62 @@ public class ScoreActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
-        this.menubt = (ImageButton) findViewById(R.id.menuButton);
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
         if(!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.not_speaker);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
+
+        //toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.inflateMenu(R.menu.main_menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp,getTheme()));
+        }else{
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp));
+        }
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ScoreActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         listView = (ListView) findViewById(R.id.listViewPontos);
         listView.setAdapter(new ScoreAdapter(this));
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopMusic(v);
+                controlMusic(v);
 
-            }
-        });
-        this.menubt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMenu(v);
             }
         });
     }
 
-    private void showMenu(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.main_menu);
-        popup.show();
-    }
-
-    private void stopMusic(View v) {
+    private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
-            this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
             stopService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
-            this.soundbt.setBackgroundResource(R.drawable.sound_button);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white_24dp);
             startService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.op1:
                 Intent intent = new Intent(this,MainActivity.class);

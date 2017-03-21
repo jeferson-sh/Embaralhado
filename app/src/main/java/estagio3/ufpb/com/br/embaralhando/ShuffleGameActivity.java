@@ -1,10 +1,14 @@
 package estagio3.ufpb.com.br.embaralhando;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +22,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class ShuffleGameActivity extends AppCompatActivity {
 
     private ImageButton soundbt;
     private ImageView imageQuestion;
@@ -54,12 +58,33 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
         randomLevel = levelsIndex.get(count);
 
 
-        ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
+
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
         ImageButton restartButton = (ImageButton) findViewById(R.id.restart_button);
         ImageButton checkButon = (ImageButton) findViewById(R.id.checkButton);
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
         this.textCountLevel =(TextView) findViewById(R.id.textCountNivel);
+
+        //toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.inflateMenu(R.menu.main_menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp,getTheme()));
+        }else{
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp));
+        }
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShuffleGameActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.not_speaker);
@@ -112,13 +137,6 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
         drop8.setOnDragListener(myOnDragListener);
         drop9.setOnDragListener(myOnDragListener);
 
-        menubt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMenu(v);
-
-            }
-        });
 
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -533,15 +551,15 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
         return t.toString();
     }
 
-    public void showMenu(View v) {
-        PopupMenu popup = new PopupMenu(this, v);
-        popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.main_menu);
-        popup.show();
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.op1:
                 Intent intent = new Intent(this,MainActivity.class);
@@ -549,7 +567,7 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
                 finish();
                 return true;
             case R.id.op2:
-                intent = new Intent(this,SettingsActivity.class);
+                intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
@@ -566,6 +584,7 @@ public class ShuffleGameActivity extends AppCompatActivity implements PopupMenu.
                 return false;
         }
     }
+
 
     private void VerifyWord(String s) {
         CharSequence verify = "";

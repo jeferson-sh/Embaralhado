@@ -21,6 +21,7 @@ public class DataBaseCore extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase bd) {
         bd.execSQL("create table words(_id integer primary key autoincrement, name text not null, image BLOB not null);");
         bd.execSQL("create table scores(_id integer primary key autoincrement, score int not null, image BLOB not null);");
+        bd.execSQL("create table categories(_id integer primary key autoincrement, score int not null, image BLOB not null);");
     }
 
     @Override
@@ -29,5 +30,4 @@ public class DataBaseCore extends SQLiteOpenHelper {
         bd.execSQL("drop table scores;");
         onCreate(bd);
     }
-
 }

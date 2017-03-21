@@ -4,19 +4,22 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class InsertNewWordActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class InsertNewWordActivity extends AppCompatActivity{
 
     private EditText word;
     private ImageView image;
@@ -36,27 +39,44 @@ public class InsertNewWordActivity extends AppCompatActivity implements PopupMen
         this.image =(ImageView) findViewById(R.id.imageView);
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
         this.dataBase = new DataBase(this);
-        ImageButton menubt = (ImageButton) findViewById(R.id.menuButton);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.inflateMenu(R.menu.main_menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp,getTheme()));
+        }else{
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp));
+        }
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(InsertNewWordActivity.this,SettingsActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         ImageButton camera = (ImageButton) findViewById(R.id.activeCameraButton);
         ImageButton gallery = (ImageButton) findViewById(R.id.activeGalleryButton);
         ImageButton savePhotobt = (ImageButton) findViewById(R.id.savePhotoButton);
 
+
+
         if(!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.not_speaker);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
 
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopMusic(v);
+                controlMusic(v);
 
             }
         });
-        menubt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showMenu(v);
-            }
-        });
+
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,28 +177,20 @@ public class InsertNewWordActivity extends AppCompatActivity implements PopupMen
         return b;
 
     }
-
-    private void showMenu(View v) {
-        PopupMenu popup = new PopupMenu(this,v);
-        popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.main_menu);
-        popup.show();
-    }
-
-    private void stopMusic(View v) {
+    private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
-            this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
             stopService(new Intent(InsertNewWordActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
-            this.soundbt.setBackgroundResource(R.drawable.sound_button);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white_24dp);
             startService(new Intent(InsertNewWordActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
     }
 
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.op1:
                 Intent intent = new Intent(this,MainActivity.class);
@@ -204,6 +216,11 @@ public class InsertNewWordActivity extends AppCompatActivity implements PopupMen
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
     @Override
     public void onBackPressed() {
         super.moveTaskToBack(true);
