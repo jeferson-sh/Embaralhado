@@ -31,16 +31,13 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
     }
 
     public void createWords() {
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.esquilo),"ESQUILO"));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.cat),"GATO"));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.hipopotamo),"HIPOPÓTAMO"));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.coala),"COALA"));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.panda),"PANDA"));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.leao),"LEÃO"));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.car),"CARRO"));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.borboleta),"BORBOLETA"));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.sofa),"SOFÁ"));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.clock),"RELÓGIO"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.esquilo),"ESQUILO","ANIMAIS"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.cat),"GATO","ANIMAIS"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.hipopotamo),"HIPOPÓTAMO","ANIMAIS"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.coala),"COALA","ANIMAIS"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.panda),"PANDA","ANIMAIS"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.leao),"LEÃO","ANIMAIS"));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.borboleta),"BORBOLETA","ANIMAIS"));
     }
 
     @Override

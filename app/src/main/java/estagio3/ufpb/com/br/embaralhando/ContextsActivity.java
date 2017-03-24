@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -17,23 +16,23 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class SettingsActivity extends AppCompatActivity{
+public class ContextsActivity extends AppCompatActivity{
 
     private ListView listView;
     private ImageButton soundbt;
-    private ImageButton addWordbt;
+    private ImageButton addContextbt;
     private DataBase dataBase;
     private static final int MAX_COUNT_WORDS = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_contexts);
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
         this.dataBase = new DataBase(this);
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
-        this.addWordbt = (ImageButton) findViewById(R.id.add_wordbt);
+        this.addContextbt = (ImageButton) findViewById(R.id.add_wordbt);
         if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
 
@@ -52,15 +51,29 @@ public class SettingsActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SettingsActivity.this,MainActivity.class);
+                Intent intent = new Intent(ContextsActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
         listView = (ListView) findViewById(R.id.listViewWords);
-        listView.setAdapter(new WordsAdapter(this));
+        listView.setAdapter(new ContextAdapter(this));
         registerForContextMenu(listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ContextAdapter contextAdapter = new ContextAdapter(ContextsActivity.this);
+                Context context = (Context) contextAdapter.getItem(position);
+                String nameContext = context.getName();
+                Bundle bundle = new Bundle();
+                bundle.putString("nameContext",nameContext);
+                Intent intent = new Intent(ContextsActivity.this,WordsActivity.class);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,15 +82,15 @@ public class SettingsActivity extends AppCompatActivity{
 
             }
         });
-        this.addWordbt.setOnClickListener(new View.OnClickListener() {
+        this.addContextbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(listView.getAdapter().getCount() <= MAX_COUNT_WORDS) {
-                    Intent adicionarPalavra = new Intent(SettingsActivity.this, InsertNewWordActivity.class);
-                    startActivity(adicionarPalavra);
+                    Intent adicionarContext = new Intent(ContextsActivity.this, InsertNewContextActivity.class);
+                    startActivity(adicionarContext);
                     finish();
                 }else{
-                    Toast.makeText(SettingsActivity.this,"Memoria Cheia!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(ContextsActivity.this,"Memoria Cheia!",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -96,9 +109,10 @@ public class SettingsActivity extends AppCompatActivity{
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.delete:
-                WordsAdapter wordsAdapter = new WordsAdapter(this);
-                dataBase.deleteWord((Word) wordsAdapter.getItem(info.position));
-                Toast.makeText(this,"Palavra Removida",Toast.LENGTH_LONG).show();
+                ContextAdapter contextAdapter = new ContextAdapter(this);
+                Context context = (Context) contextAdapter.getItem(info.position);
+                dataBase.deleteContext(context);
+                Toast.makeText(this,"Contexto Removido",Toast.LENGTH_LONG).show();
                 recreate();
                 return true;
             default:
@@ -109,11 +123,11 @@ public class SettingsActivity extends AppCompatActivity{
     private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
-            stopService(new Intent(SettingsActivity.this, BackgroundSoundService.class));
+            stopService(new Intent(ContextsActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white_24dp);
-            startService(new Intent(SettingsActivity.this, BackgroundSoundService.class));
+            startService(new Intent(ContextsActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
     }

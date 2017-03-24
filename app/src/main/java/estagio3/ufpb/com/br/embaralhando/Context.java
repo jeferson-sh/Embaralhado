@@ -7,41 +7,29 @@ import android.graphics.drawable.Drawable;
 /**
  * Created by Jeferson on 10/11/2016.
  */
-public class Word {
+public class Context {
 
     private byte[] imageBytes;
     private String name;
     private Bitmap image;
     private long id;
-    private String context;
 
-    public String getContext() {
-        return context;
-    }
-
-    public void setContext(String context) {
-        this.context = context;
-    }
-
-    public Word(long id, byte[] imageBytes, String name, String context){
+    public Context(long id, byte[] imageBytes, String name){
         this.id = id;
         this.name = name;
         this.imageBytes = imageBytes;
         this.image = DatabaseBitmapUtility.getImage(imageBytes);
-        this.context = context;
     }
-    public Word(Bitmap image, String name,String context){
+    public Context(Bitmap image, String name){
         this.name = name;
         this.image = image;
         this.imageBytes = DatabaseBitmapUtility.getBytes(this.image);
-        this.context = context;
     }
 
-    public Word(Drawable drawable, String name, String context) {
+    public Context(Drawable drawable, String name) {
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.name = name;
         this.imageBytes = DatabaseBitmapUtility.getBytes(this.image);
-        this.context = context;
     }
 
     public long getId() {

@@ -6,7 +6,6 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,7 +45,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         MyOnDragListener myOnDragListener = new MyOnDragListener();
         MyTouchListener myTouchListener = new MyTouchListener();
         this.dataBase = new DataBase(this);
-        this.words = dataBase.searchWordsDatabase();
+        this.words = dataBase.searchWordsDatabase("sdfhdfjhasdgasdfdsafgsfghdfjsdfgasdf");
         this.finalLevel = 10;
 
         if(words.size() < finalLevel){
@@ -87,7 +86,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         });
 
         if(!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.not_speaker);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
 
         ImageView letter0 = (ImageView) findViewById(R.id.letter0);
         ImageView letter1 = (ImageView) findViewById(R.id.letter1);
@@ -154,7 +153,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopMusic();
+                controlMusic();
 
             }
         });
@@ -198,13 +197,13 @@ public class ShuffleGameActivity extends AppCompatActivity {
         }
     }
 
-    private void stopMusic() {
+    private void controlMusic() {
         if(BackgroundSoundService.PLAYING){
-            this.soundbt.setBackgroundResource(R.drawable.not_sound_button);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
             stopService(new Intent(ShuffleGameActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
-            this.soundbt.setBackgroundResource(R.drawable.sound_button);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white_24dp);
             startService(new Intent(ShuffleGameActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
@@ -567,7 +566,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.op2:
-                intent = new Intent(this, SettingsActivity.class);
+                intent = new Intent(this, ContextsActivity.class);
                 startActivity(intent);
                 finish();
                 return true;

@@ -1,7 +1,6 @@
 package estagio3.ufpb.com.br.embaralhando;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         this.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(dataBase.searchWordsDatabase().isEmpty()){
+                if(dataBase.searchWordsDatabase("asdgasgdsdfhgdfghdfgjfgjhfghksdfgASDF").isEmpty()){
                     Snackbar.make(view, "Não existem palavras cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 }else{
                     startGame();
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.op1:
                 return true;
             case R.id.op2:
-                Intent intent = new Intent(this,SettingsActivity.class);
+                Intent intent = new Intent(this,ContextsActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
@@ -126,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
     private void startSettingsActivity(){
-        Intent intent = new Intent(this,SettingsActivity.class);
+        Intent intent = new Intent(this,ContextsActivity.class);
         startActivity(intent);
     }
     private void startScoreActivity(){

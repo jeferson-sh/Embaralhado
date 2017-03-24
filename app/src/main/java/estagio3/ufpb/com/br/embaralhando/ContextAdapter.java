@@ -4,9 +4,6 @@ package estagio3.ufpb.com.br.embaralhando;
  * Created by Jeferson on 17/11/2016.
  */
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,29 +11,34 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class WordsAdapter extends BaseAdapter{
+public class ContextAdapter extends BaseAdapter{
 
-    private List<Word> words;
-    private Context context;
+    private List<Context> contexts;
+    private android.content.Context context;
     private DataBase dataBase;
 
-    public WordsAdapter(Context context,String nameContext) {
+    public ContextAdapter(android.content.Context context) {
         this.context = context;
         this.dataBase = new DataBase(context);
-        this.words = dataBase.searchWordsDatabase(nameContext);
+        try {
+            this.contexts = dataBase.searchMyContextsDatabase();
+        }catch (Exception e){
+            this.contexts = new ArrayList<Context>();
+        }
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return this.words.size();
+        return this.contexts.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return this.words.get(i);
+        return this.contexts.get(i);
     }
 
     @Override
@@ -49,8 +51,8 @@ public class WordsAdapter extends BaseAdapter{
 
         View layout;
         if(view == null){
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.word_item_list, null);
+            LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);
+            layout = inflater.inflate(R.layout.context_item_list, null);
         }
         else{
             layout = view;
@@ -59,10 +61,10 @@ public class WordsAdapter extends BaseAdapter{
         ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
-        Word word = this.words.get(i);
-        textView.setText(word.getName());
+        Context context = this.contexts.get(i);
+        textView.setText(context.getName());
 
-        imageView.setImageBitmap(words.get(i).getImage());
+        imageView.setImageBitmap(contexts.get(i).getImage());
         return layout;
     }
 }

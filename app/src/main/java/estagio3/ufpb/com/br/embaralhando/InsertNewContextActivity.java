@@ -7,10 +7,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,9 +19,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class InsertNewWordActivity extends AppCompatActivity{
+public class InsertNewContextActivity extends AppCompatActivity{
 
-    private EditText word;
+    private EditText contexrtName;
     private ImageView image;
     private Bitmap bitmap;
     private ImageButton soundbt;
@@ -32,10 +32,10 @@ public class InsertNewWordActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insert_new_word);
+        setContentView(R.layout.activity_insert_new_context);
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
-        this.word = (EditText) findViewById(R.id.editText);
+        this.contexrtName = (EditText) findViewById(R.id.editText);
         this.image =(ImageView) findViewById(R.id.imageView);
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
         this.dataBase = new DataBase(this);
@@ -54,7 +54,7 @@ public class InsertNewWordActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InsertNewWordActivity.this,ContextsActivity.class);
+                Intent intent = new Intent(InsertNewContextActivity.this,ContextsActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -92,7 +92,7 @@ public class InsertNewWordActivity extends AppCompatActivity{
         savePhotobt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                savePhoto(v);
+                saveContext(v);
             }
         });
     }
@@ -103,7 +103,7 @@ public class InsertNewWordActivity extends AppCompatActivity{
     }
 
     private void activeGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, 0);
     }
 
@@ -148,17 +148,16 @@ public class InsertNewWordActivity extends AppCompatActivity{
         image.setImageBitmap(bitmap);
     }
 
-    public void savePhoto(View v) {
+    public void saveContext(View v) {
         boolean verify = verifyWord();
-        Bundle bundle = getIntent().getExtras();
-        if (this.bitmap != null && this.word.getText().toString().length() >= 2 && word.getText().toString().length()<= 10 && verify) {
-            dataBase.insertWord(new Word(bitmap, word.getText().toString().toUpperCase(),bundle.getString("nameContext")));
-            startActivity(new Intent(InsertNewWordActivity.this,ContextsActivity.class));
+        if (this.bitmap != null && this.contexrtName.getText().toString().length() >= 2 && contexrtName.getText().toString().length()<= 10 && verify) {
+            dataBase.insertContext(new Context(bitmap, contexrtName.getText().toString().toUpperCase()));
+            startActivity(new Intent(InsertNewContextActivity.this,ContextsActivity.class));
             finish();
 
-        }else if (this.word.getText().toString().length()>10) {
+        }else if (this.contexrtName.getText().toString().length()>10) {
             Snackbar.make(v, "Word muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        }else if(this.word.getText().toString().length() < 2) {
+        }else if(this.contexrtName.getText().toString().length() < 2) {
             Snackbar.make(v, "Word muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }else if (!verify){
             Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
@@ -167,7 +166,7 @@ public class InsertNewWordActivity extends AppCompatActivity{
     }
 
     private boolean verifyWord(){
-        char [] word = this.word.getText().toString().toCharArray();
+        char [] word = this.contexrtName.getText().toString().toCharArray();
         boolean b = true;
         for (char aWord : word) {
             if(!Character.isLetter(aWord)) {
@@ -181,11 +180,11 @@ public class InsertNewWordActivity extends AppCompatActivity{
     private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
-            stopService(new Intent(InsertNewWordActivity.this, BackgroundSoundService.class));
+            stopService(new Intent(InsertNewContextActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white_24dp);
-            startService(new Intent(InsertNewWordActivity.this, BackgroundSoundService.class));
+            startService(new Intent(InsertNewContextActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
     }

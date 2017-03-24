@@ -1,7 +1,6 @@
 package estagio3.ufpb.com.br.embaralhando;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -15,7 +14,7 @@ import java.util.List;
 public class DataBase {
     private SQLiteDatabase bd;
 
-    public DataBase(Context context){
+    public DataBase(android.content.Context context){
         DataBaseCore auxBd = new DataBaseCore(context);
         bd = auxBd.getWritableDatabase();
     }
@@ -25,8 +24,16 @@ public class DataBase {
         ContentValues valores = new ContentValues();
         valores.put("name", word.getName());
         valores.put("image", word.getImageBytes());
+        valores.put("context", word.getContext());
 
         bd.insert("words", null, valores);
+    }
+    public void insertContext(Context context){
+        ContentValues valores = new ContentValues();
+        valores.put("name", context.getName());
+        valores.put("image", context.getImageBytes());
+
+        bd.insert("contexts", null, valores);
     }
     public void insertScore(Score score){
         ContentValues valores = new ContentValues();
@@ -47,7 +54,12 @@ public class DataBase {
 
 
     public void deleteWord(Word word){
-        bd.delete("words", "_id = "+ word.getId(), null);
+        bd.delete("words", "_id = ?"+ word.getId(), null);
+    }
+
+    public void deleteContext(Context context){
+        bd.delete("words","context = ?",new String[]{ context.getName()});
+        bd.delete("contexts", "_id = "+ context.getId(), null);
     }
 
     public void deleteScore(Score score){
@@ -55,11 +67,11 @@ public class DataBase {
     }
 
 
-    public List<Word> searchWordsDatabase(){
-        List<Word> list = new ArrayList<>();
-        String[] columns = new String[]{"_id", "name", "image"};
+    public List<Word> searchWordsDatabase(String nameContext){
+        final List<Word> list = new ArrayList<>();
+        String[] columns = new String[]{"_id", "name", "image", "context"};
 
-        Cursor cursor = bd.query("words", columns, null, null, null, null, "name ASC");
+        final Cursor cursor = bd.query("words", columns, "context = ?", new String[]{"" + nameContext}, null, null, "name ASC");
 
         if(cursor.getCount() > 0){
             cursor.moveToFirst();
@@ -69,7 +81,30 @@ public class DataBase {
                 long id = cursor.getLong(0);
                 String name = cursor.getString(1);
                 byte [] image = cursor.getBlob(2);
-                Word w = new Word(id,image,name);
+                String context = cursor.getString(3);
+                Word w = new Word(id,image,name,context);
+                list.add(w);
+
+            }while(cursor.moveToNext());
+        }
+
+        return(list);
+    }
+    public List<Context> searchMyContextsDatabase(){
+        List<Context> list = new ArrayList<>();
+        String[] columns = new String[]{"_id", "name", "image"};
+
+        Cursor cursor = bd.query("contexts", columns, null, null, null, null, "name ASC");
+
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+
+            do{
+
+                long id = cursor.getLong(0);
+                String name = cursor.getString(1);
+                byte [] image = cursor.getBlob(2);
+                Context w = new Context(id,image,name);
                 list.add(w);
 
             }while(cursor.moveToNext());

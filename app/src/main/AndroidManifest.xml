@@ -27,7 +27,10 @@
             android:name="estagio3.ufpb.com.br.embaralhando.MainActivity"
             android:screenOrientation="landscape"/>
         <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.SettingsActivity"
+            android:name="estagio3.ufpb.com.br.embaralhando.ContextsActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name="estagio3.ufpb.com.br.embaralhando.WordsActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="estagio3.ufpb.com.br.embaralhando.ScoreActivity"
@@ -35,7 +38,9 @@
         <activity
             android:name="estagio3.ufpb.com.br.embaralhando.ShuffleGameActivity"
             android:screenOrientation="landscape" />
-
+        <activity
+            android:name="estagio3.ufpb.com.br.embaralhando.InsertNewContextActivity"
+            android:screenOrientation="landscape" />
         <service
             android:name="estagio3.ufpb.com.br.embaralhando.BackgroundSoundService"
             android:enabled="true"
