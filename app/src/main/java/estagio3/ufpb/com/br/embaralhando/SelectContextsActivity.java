@@ -3,8 +3,9 @@ package estagio3.ufpb.com.br.embaralhando;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -16,23 +17,19 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ContextsActivity extends AppCompatActivity{
+public class SelectContextsActivity extends AppCompatActivity{
 
     private ListView listView;
     private ImageButton soundbt;
-    private ImageButton addContextbt;
     private DataBase dataBase;
-    private static final int MAX_COUNT_CONTEXTS = 20;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contexts);
+        setContentView(R.layout.activity_select_contexts);
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
-        this.dataBase = new DataBase(this);
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
-        this.addContextbt = (ImageButton) findViewById(R.id.add_wordbt);
         if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
 
@@ -51,27 +48,29 @@ public class ContextsActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ContextsActivity.this,MainActivity.class);
+                Intent intent = new Intent(SelectContextsActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
+        dataBase = new DataBase(this);
         listView = (ListView) findViewById(R.id.listViewWords);
         listView.setAdapter(new ContextAdapter(this));
         registerForContextMenu(listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ContextAdapter contextAdapter = new ContextAdapter(ContextsActivity.this);
+                ContextAdapter contextAdapter = new ContextAdapter(SelectContextsActivity.this);
                 Context context = (Context) contextAdapter.getItem(position);
                 String nameContext = context.getName();
-                Bundle bundle = new Bundle();
-                bundle.putString("nameContext",nameContext);
-                Intent intent = new Intent(ContextsActivity.this,WordsActivity.class);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                finish();
+                if (dataBase.searchWordsDatabase(nameContext).isEmpty()){
+                    Snackbar.make(view, "Não Existem Palavras Cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
+                }else{
+                    startGame(nameContext);
+                }
+
+
             }
         });
 
@@ -82,52 +81,25 @@ public class ContextsActivity extends AppCompatActivity{
 
             }
         });
-        this.addContextbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(listView.getAdapter().getCount() <= MAX_COUNT_CONTEXTS) {
-                    Intent adicionarContext = new Intent(ContextsActivity.this, InsertNewContextActivity.class);
-                    startActivity(adicionarContext);
-                    finish();
-                }else{
-                    Toast.makeText(ContextsActivity.this,"Memoria Cheia!",Toast.LENGTH_LONG).show();
-                }
-            }
-        });
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.delete:
-                ContextAdapter contextAdapter = new ContextAdapter(this);
-                Context context = (Context) contextAdapter.getItem(info.position);
-                dataBase.deleteContext(context);
-                Toast.makeText(this,"Contexto Removido",Toast.LENGTH_LONG).show();
-                recreate();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
+    private void startGame(String nameContext){
+        Bundle bundle = new Bundle();
+        bundle.putString("nameContext",nameContext);
+        Intent intent = new Intent(SelectContextsActivity.this,ShuffleGameActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
     }
 
     private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
-            stopService(new Intent(ContextsActivity.this, BackgroundSoundService.class));
+            stopService(new Intent(SelectContextsActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white_24dp);
-            startService(new Intent(ContextsActivity.this, BackgroundSoundService.class));
+            startService(new Intent(SelectContextsActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
     }

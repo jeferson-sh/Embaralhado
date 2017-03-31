@@ -30,6 +30,10 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         finish();
     }
 
+    public void createContext() {
+        dataBase.insertContext(new Context(ContextCompat.getDrawable(this,R.drawable.animals),"ANIMAIS"));
+    }
+
     public void createWords() {
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.esquilo),"ESQUILO","ANIMAIS"));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this,R.drawable.cat),"GATO","ANIMAIS"));
@@ -46,6 +50,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         if (sPreferences.getBoolean("firstRun", true)) {
             sPreferences.edit().putBoolean("firstRun", false).apply();
             createWords();
+            createContext();
         }
     }
 }

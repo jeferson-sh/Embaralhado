@@ -54,7 +54,7 @@ public class DataBase {
 
 
     public void deleteWord(Word word){
-        bd.delete("words", "_id = ?"+ word.getId(), null);
+        bd.delete("words", "_id = "+ word.getId(), null);
     }
 
     public void deleteContext(Context context){

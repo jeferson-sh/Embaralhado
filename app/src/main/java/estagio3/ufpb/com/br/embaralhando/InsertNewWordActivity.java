@@ -153,13 +153,15 @@ public class InsertNewWordActivity extends AppCompatActivity{
         Bundle bundle = getIntent().getExtras();
         if (this.bitmap != null && this.word.getText().toString().length() >= 2 && word.getText().toString().length()<= 10 && verify) {
             dataBase.insertWord(new Word(bitmap, word.getText().toString().toUpperCase(),bundle.getString("nameContext")));
-            startActivity(new Intent(InsertNewWordActivity.this,ContextsActivity.class));
+            Intent intent = new Intent(InsertNewWordActivity.this,WordsActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
             finish();
 
         }else if (this.word.getText().toString().length()>10) {
-            Snackbar.make(v, "Word muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
+            Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }else if(this.word.getText().toString().length() < 2) {
-            Snackbar.make(v, "Word muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
+            Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }else if (!verify){
             Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }

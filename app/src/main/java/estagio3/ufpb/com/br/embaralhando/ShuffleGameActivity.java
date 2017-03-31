@@ -45,7 +45,8 @@ public class ShuffleGameActivity extends AppCompatActivity {
         MyOnDragListener myOnDragListener = new MyOnDragListener();
         MyTouchListener myTouchListener = new MyTouchListener();
         this.dataBase = new DataBase(this);
-        this.words = dataBase.searchWordsDatabase("sdfhdfjhasdgasdfdsafgsfghdfjsdfgasdf");
+        Bundle bundle = getIntent().getExtras();
+        this.words = dataBase.searchWordsDatabase(bundle.getString("nameContext"));
         this.finalLevel = 10;
 
         if(words.size() < finalLevel){

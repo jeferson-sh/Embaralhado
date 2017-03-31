@@ -154,15 +154,7 @@ public class InsertNewContextActivity extends AppCompatActivity{
             dataBase.insertContext(new Context(bitmap, contexrtName.getText().toString().toUpperCase()));
             startActivity(new Intent(InsertNewContextActivity.this,ContextsActivity.class));
             finish();
-
-        }else if (this.contexrtName.getText().toString().length()>10) {
-            Snackbar.make(v, "Word muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        }else if(this.contexrtName.getText().toString().length() < 2) {
-            Snackbar.make(v, "Word muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        }else if (!verify){
-            Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }
-
     }
 
     private boolean verifyWord(){

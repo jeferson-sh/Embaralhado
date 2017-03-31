@@ -27,7 +27,7 @@ public class WordsActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contexts);
+        setContentView(R.layout.activity_words);
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
         this.dataBase = new DataBase(this);
@@ -51,7 +51,7 @@ public class WordsActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WordsActivity.this,MainActivity.class);
+                Intent intent = new Intent(WordsActivity.this,ContextsActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -97,8 +97,9 @@ public class WordsActivity extends AppCompatActivity{
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.delete:
-                ContextAdapter contextAdapter = new ContextAdapter(this);
-                dataBase.deleteContext((Context) contextAdapter.getItem(info.position));
+                Bundle bundle = getIntent().getExtras();
+                WordsAdapter wordsAdapter = new WordsAdapter(this,bundle.getString("nameContext"));
+                dataBase.deleteWord((Word) wordsAdapter.getItem(info.position));
                 Toast.makeText(this,"Palavra Removida",Toast.LENGTH_LONG).show();
                 recreate();
                 return true;

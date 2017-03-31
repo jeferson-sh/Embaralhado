@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:context="estagio3.ufpb.com.br.embaralhando.ContextsActivity">
+    tools:context="estagio3.ufpb.com.br.embaralhando.WordsActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_main"
@@ -36,7 +36,7 @@
     </android.support.v7.widget.Toolbar>
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ListView
             android:id="@+id/listViewWords"

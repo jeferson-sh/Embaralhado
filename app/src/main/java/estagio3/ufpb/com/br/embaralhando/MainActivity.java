@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity {
         this.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(dataBase.searchWordsDatabase("asdgasgdsdfhgdfghdfgjfgjhfghksdfgASDF").isEmpty()){
-                    Snackbar.make(view, "Não existem palavras cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
+                if(dataBase.searchMyContextsDatabase().isEmpty()){
+                    Snackbar.make(view, "Não existem Contextos cadastrados!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 }else{
-                    startGame();
+                    selectContext();
                     finish();
                 }
 
@@ -119,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void startGame(){
-        Intent intent = new Intent(this,ShuffleGameActivity.class);
+    private void selectContext(){
+        Intent intent = new Intent(this,SelectContextsActivity.class);
         startActivity(intent);
         finish();
     }

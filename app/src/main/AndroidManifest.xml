@@ -33,6 +33,9 @@
             android:name="estagio3.ufpb.com.br.embaralhando.WordsActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name="estagio3.ufpb.com.br.embaralhando.SelectContextsActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name="estagio3.ufpb.com.br.embaralhando.ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
