@@ -48,7 +48,7 @@ public class CongratulationsMessageActivity extends AppCompatActivity {
         playbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CongratulationsMessageActivity.this,ShuffleGameActivity.class));
+                startActivity(new Intent(CongratulationsMessageActivity.this,SelectContextsActivity.class));
                 finish();
             }
         });
