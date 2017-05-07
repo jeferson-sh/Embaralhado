@@ -31,9 +31,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.inflateMenu(R.menu.main_menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp,getTheme()));
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon,getTheme()));
         }else{
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp));
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon));
         }
 
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         this.scoreButton = (ImageButton) findViewById(R.id.scoreButton);
         this.dataBase = new DataBase(this);
         if(!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
         this.playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,11 +109,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
             stopService(new Intent(MainActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white_24dp);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white);
             startService(new Intent(MainActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }

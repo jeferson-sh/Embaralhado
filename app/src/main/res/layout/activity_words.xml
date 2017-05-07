@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:context="estagio3.ufpb.com.br.embaralhando.WordsActivity">
+    tools:categorie="estagio3.ufpb.com.br.embaralhando.WordsActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_main"
@@ -30,7 +30,7 @@
             android:id="@+id/soundButton"
             android:layout_gravity="right"
             android:layout_margin="10dp"
-            android:background="@drawable/ic_volume_up_white_24dp"/>
+            android:background="@drawable/ic_volume_up_white"/>
 
 
     </android.support.v7.widget.Toolbar>
@@ -52,7 +52,7 @@
             android:clickable="true"
             app:fabSize="mini"
             android:layout_gravity="bottom|end"
-            app:srcCompat="@drawable/ic_add_white_24dp" />
+            app:srcCompat="@drawable/ic_add_white" />
 
     </FrameLayout>
 </LinearLayout>

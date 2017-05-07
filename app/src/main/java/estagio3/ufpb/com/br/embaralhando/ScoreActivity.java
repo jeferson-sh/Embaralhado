@@ -26,7 +26,7 @@ public class ScoreActivity extends AppCompatActivity{
             startService(new Intent(this,BackgroundSoundService.class));
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
         if(!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
 
         //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
@@ -35,11 +35,11 @@ public class ScoreActivity extends AppCompatActivity{
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.inflateMenu(R.menu.main_menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp,getTheme()));
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon,getTheme()));
         }else{
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp));
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon));
         }
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,11 +62,11 @@ public class ScoreActivity extends AppCompatActivity{
 
     private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
             stopService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white_24dp);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white);
             startService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }

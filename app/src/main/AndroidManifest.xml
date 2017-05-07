@@ -11,12 +11,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="estagio3.ufpb.com.br.embaralhando.SplashActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,37 +24,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.MainActivity"
-            android:screenOrientation="landscape"/>
-        <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.ContextsActivity"
+            android:name=".MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.WordsActivity"
+            android:name=".ContextsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.SelectContextsActivity"
+            android:name=".WordsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.ScoreActivity"
+            android:name=".SelectContextsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.ShuffleGameActivity"
+            android:name=".ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.InsertNewContextActivity"
+            android:name=".ShuffleGameActivity"
             android:screenOrientation="landscape" />
+        <activity
+            android:name=".InsertNewContextActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".InsertNewWordActivity"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".CongratulationsMessageActivity"
+            android:screenOrientation="landscape" />
+
         <service
-            android:name="estagio3.ufpb.com.br.embaralhando.BackgroundSoundService"
+            android:name=".BackgroundSoundService"
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="true" />
 
-        <activity
-            android:name="estagio3.ufpb.com.br.embaralhando.InsertNewWordActivity"
-            android:screenOrientation="landscape" />
-        <activity android:name="estagio3.ufpb.com.br.embaralhando.CongratulationsMessageActivity"
-            android:screenOrientation="landscape"/>
+        <supports-screens
+            android:anyDensity="true"
+            android:largeScreens="true"
+            android:normalScreens="true"
+            android:smallScreens="true" />
+
     </application>
 
 </manifest>

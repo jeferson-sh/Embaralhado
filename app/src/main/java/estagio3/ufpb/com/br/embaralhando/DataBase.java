@@ -28,10 +28,10 @@ public class DataBase {
 
         bd.insert("words", null, valores);
     }
-    public void insertContext(Context context){
+    public void insertContext(Categorie categorie){
         ContentValues valores = new ContentValues();
-        valores.put("name", context.getName());
-        valores.put("image", context.getImageBytes());
+        valores.put("name", categorie.getName());
+        valores.put("image", categorie.getImageBytes());
 
         bd.insert("contexts", null, valores);
     }
@@ -57,9 +57,9 @@ public class DataBase {
         bd.delete("words", "_id = "+ word.getId(), null);
     }
 
-    public void deleteContext(Context context){
-        bd.delete("words","context = ?",new String[]{ context.getName()});
-        bd.delete("contexts", "_id = "+ context.getId(), null);
+    public void deleteContext(Categorie categorie){
+        bd.delete("words","context = ?",new String[]{ categorie.getName()});
+        bd.delete("contexts", "_id = "+ categorie.getId(), null);
     }
 
     public void deleteScore(Score score){
@@ -90,8 +90,8 @@ public class DataBase {
 
         return(list);
     }
-    public List<Context> searchMyContextsDatabase(){
-        List<Context> list = new ArrayList<>();
+    public List<Categorie> searchMyContextsDatabase(){
+        List<Categorie> list = new ArrayList<>();
         String[] columns = new String[]{"_id", "name", "image"};
 
         Cursor cursor = bd.query("contexts", columns, null, null, null, null, "name ASC");
@@ -104,7 +104,7 @@ public class DataBase {
                 long id = cursor.getLong(0);
                 String name = cursor.getString(1);
                 byte [] image = cursor.getBlob(2);
-                Context w = new Context(id,image,name);
+                Categorie w = new Categorie(id,image,name);
                 list.add(w);
 
             }while(cursor.moveToNext());

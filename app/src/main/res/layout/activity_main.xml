@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ECEFF1"
-    tools:context="estagio3.ufpb.com.br.embaralhando.MainActivity">
+    tools:categorie="estagio3.ufpb.com.br.embaralhando.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_main"
@@ -29,7 +29,7 @@
             android:id="@+id/soundButton"
             android:layout_gravity="right"
             android:layout_margin="10dp"
-            android:background="@drawable/ic_volume_up_white_24dp"/>
+            android:background="@drawable/ic_volume_up_white"/>
     </android.support.v7.widget.Toolbar>
 
     <LinearLayout

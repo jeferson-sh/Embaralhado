@@ -4,7 +4,7 @@ android {
     compileSdkVersion 24
     buildToolsVersion '25.0.0'
     defaultConfig {
-        applicationId "estagio3.ufpb.com.br.projeto1"
+        applicationId "estagio3.ufpb.com.br.embaralhando"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -19,6 +19,9 @@ android {
     }
 }
 
+
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -28,5 +31,6 @@ dependencies {
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
     testCompile 'junit:junit:4.12'
 }

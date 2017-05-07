@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ContextAdapter extends BaseAdapter{
 
-    private List<Context> contexts;
+    private List<Categorie> categories;
     private android.content.Context context;
     private DataBase dataBase;
 
@@ -24,21 +24,21 @@ public class ContextAdapter extends BaseAdapter{
         this.context = context;
         this.dataBase = new DataBase(context);
         try {
-            this.contexts = dataBase.searchMyContextsDatabase();
+            this.categories = dataBase.searchMyContextsDatabase();
         }catch (Exception e){
-            this.contexts = new ArrayList<Context>();
+            this.categories = new ArrayList<Categorie>();
         }
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return this.contexts.size();
+        return this.categories.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return this.contexts.get(i);
+        return this.categories.get(i);
     }
 
     @Override
@@ -61,10 +61,10 @@ public class ContextAdapter extends BaseAdapter{
         ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
-        Context context = this.contexts.get(i);
-        textView.setText(context.getName());
+        Categorie categorie = this.categories.get(i);
+        textView.setText(categorie.getName());
 
-        imageView.setImageBitmap(contexts.get(i).getImage());
+        imageView.setImageBitmap(categories.get(i).getImage());
         return layout;
     }
 }

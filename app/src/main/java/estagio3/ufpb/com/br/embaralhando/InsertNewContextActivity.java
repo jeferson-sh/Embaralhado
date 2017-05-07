@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -46,11 +45,11 @@ public class InsertNewContextActivity extends AppCompatActivity{
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.inflateMenu(R.menu.main_menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp,getTheme()));
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon,getTheme()));
         }else{
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_more_vert_white_24dp));
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon));
         }
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +66,7 @@ public class InsertNewContextActivity extends AppCompatActivity{
 
 
         if(!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
 
         this.soundbt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,7 +150,7 @@ public class InsertNewContextActivity extends AppCompatActivity{
     public void saveContext(View v) {
         boolean verify = verifyWord();
         if (this.bitmap != null && this.contexrtName.getText().toString().length() >= 2 && contexrtName.getText().toString().length()<= 10 && verify) {
-            dataBase.insertContext(new Context(bitmap, contexrtName.getText().toString().toUpperCase()));
+            dataBase.insertContext(new Categorie(bitmap, contexrtName.getText().toString().toUpperCase()));
             startActivity(new Intent(InsertNewContextActivity.this,ContextsActivity.class));
             finish();
         }
@@ -171,11 +170,11 @@ public class InsertNewContextActivity extends AppCompatActivity{
     }
     private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white_24dp);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
             stopService(new Intent(InsertNewContextActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white_24dp);
+            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white);
             startService(new Intent(InsertNewContextActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
