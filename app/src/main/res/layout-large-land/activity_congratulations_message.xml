@@ -1,0 +1,75 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_gravity="center"
+    android:background="#004D40">
+
+    <TextView
+        android:id="@+id/congratulationsMessageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Parabéns!"
+        android:textSize="50sp"
+        android:textColor="#ffffff"/>
+    <ImageView
+        android:id="@+id/congratulationsImage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"/>
+    <TextView
+        android:id="@+id/pontosText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:textSize="36sp"
+        android:text="score"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/playAgain"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/play2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jogar"
+                android:textSize="36sp"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/exitGame"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/exit"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sair"
+                android:textSize="36sp"
+                android:textColor="#ffffff"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
