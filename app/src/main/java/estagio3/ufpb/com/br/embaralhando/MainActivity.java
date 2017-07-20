@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
-        //Toolbar
+        //Toolbar settings
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
