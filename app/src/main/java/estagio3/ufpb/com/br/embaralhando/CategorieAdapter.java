@@ -4,6 +4,7 @@ package estagio3.ufpb.com.br.embaralhando;
  * Created by Jeferson on 17/11/2016.
  */
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +15,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContextAdapter extends BaseAdapter{
+public class CategorieAdapter extends BaseAdapter{
 
     private List<Categorie> categories;
-    private android.content.Context context;
+    private Context context;
     private DataBase dataBase;
 
-    public ContextAdapter(android.content.Context context) {
+    public CategorieAdapter(Context context) {
         this.context = context;
         this.dataBase = new DataBase(context);
         try {

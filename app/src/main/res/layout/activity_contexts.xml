@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:categorie="estagio3.ufpb.com.br.embaralhando.ContextsActivity">
+    tools:categorie="estagio3.ufpb.com.br.embaralhando.CategorieActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_main"

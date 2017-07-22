@@ -27,7 +27,7 @@
             android:name=".MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ContextsActivity"
+            android:name=".CategorieActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".WordsActivity"

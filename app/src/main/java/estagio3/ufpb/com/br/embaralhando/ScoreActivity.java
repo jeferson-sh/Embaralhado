@@ -87,7 +87,7 @@ public class ScoreActivity extends AppCompatActivity{
                 finish();
                 return true;
             case R.id.op2:
-                intent = new Intent(this,ContextsActivity.class);
+                intent = new Intent(this,CategorieActivity.class);
                 startActivity(intent);
                 finish();
                 return true;

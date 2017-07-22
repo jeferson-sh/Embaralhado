@@ -53,7 +53,7 @@ public class InsertNewContextActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InsertNewContextActivity.this,ContextsActivity.class);
+                Intent intent = new Intent(InsertNewContextActivity.this,CategorieActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -151,7 +151,7 @@ public class InsertNewContextActivity extends AppCompatActivity{
         boolean verify = verifyWord();
         if (this.bitmap != null && this.contexrtName.getText().toString().length() >= 2 && contexrtName.getText().toString().length()<= 10 && verify) {
             dataBase.insertContext(new Categorie(bitmap, contexrtName.getText().toString().toUpperCase()));
-            startActivity(new Intent(InsertNewContextActivity.this,ContextsActivity.class));
+            startActivity(new Intent(InsertNewContextActivity.this,CategorieActivity.class));
             finish();
         }
     }
@@ -189,7 +189,7 @@ public class InsertNewContextActivity extends AppCompatActivity{
                 finish();
                 return true;
             case R.id.op2:
-                intent = new Intent(this,ContextsActivity.class);
+                intent = new Intent(this,CategorieActivity.class);
                 startActivity(intent);
                 finish();
                 return true;

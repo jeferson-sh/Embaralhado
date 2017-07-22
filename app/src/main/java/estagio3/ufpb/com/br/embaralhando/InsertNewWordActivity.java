@@ -54,7 +54,7 @@ public class InsertNewWordActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InsertNewWordActivity.this,ContextsActivity.class);
+                Intent intent = new Intent(InsertNewWordActivity.this,CategorieActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -201,7 +201,7 @@ public class InsertNewWordActivity extends AppCompatActivity{
                 finish();
                 return true;
             case R.id.op2:
-                intent = new Intent(this,ContextsActivity.class);
+                intent = new Intent(this,CategorieActivity.class);
                 startActivity(intent);
                 finish();
                 return true;

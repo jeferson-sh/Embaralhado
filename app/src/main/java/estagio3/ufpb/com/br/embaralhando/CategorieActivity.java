@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class ContextsActivity extends AppCompatActivity{
+public class CategorieActivity extends AppCompatActivity{
 
     private ListView listView;
     private ImageButton soundbt;
@@ -51,24 +51,24 @@ public class ContextsActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ContextsActivity.this,MainActivity.class);
+                Intent intent = new Intent(CategorieActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
 
         listView = (ListView) findViewById(R.id.listViewWords);
-        listView.setAdapter(new ContextAdapter(this));
+        listView.setAdapter(new CategorieAdapter(this));
         registerForContextMenu(listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ContextAdapter contextAdapter = new ContextAdapter(ContextsActivity.this);
-                Categorie categorie = (Categorie) contextAdapter.getItem(position);
+                CategorieAdapter categorieAdapter = new CategorieAdapter(CategorieActivity.this);
+                Categorie categorie = (Categorie) categorieAdapter.getItem(position);
                 String nameContext = categorie.getName();
                 Bundle bundle = new Bundle();
                 bundle.putString("nameContext",nameContext);
-                Intent intent = new Intent(ContextsActivity.this,WordsActivity.class);
+                Intent intent = new Intent(CategorieActivity.this,WordsActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
                 finish();
@@ -86,11 +86,11 @@ public class ContextsActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if(listView.getAdapter().getCount() <= MAX_COUNT_CONTEXTS) {
-                    Intent adicionarContext = new Intent(ContextsActivity.this, InsertNewContextActivity.class);
+                    Intent adicionarContext = new Intent(CategorieActivity.this, InsertNewContextActivity.class);
                     startActivity(adicionarContext);
                     finish();
                 }else{
-                    Toast.makeText(ContextsActivity.this,"Memoria Cheia!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(CategorieActivity.this,"Memoria Cheia!",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -109,8 +109,8 @@ public class ContextsActivity extends AppCompatActivity{
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.delete:
-                ContextAdapter contextAdapter = new ContextAdapter(this);
-                Categorie categorie = (Categorie) contextAdapter.getItem(info.position);
+                CategorieAdapter categorieAdapter = new CategorieAdapter(this);
+                Categorie categorie = (Categorie) categorieAdapter.getItem(info.position);
                 dataBase.deleteContext(categorie);
                 Toast.makeText(this,"Contexto Removido",Toast.LENGTH_LONG).show();
                 recreate();
@@ -123,11 +123,11 @@ public class ContextsActivity extends AppCompatActivity{
     private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(ContextsActivity.this, BackgroundSoundService.class));
+            stopService(new Intent(CategorieActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         }else{
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white);
-            startService(new Intent(ContextsActivity.this, BackgroundSoundService.class));
+            startService(new Intent(CategorieActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
     }

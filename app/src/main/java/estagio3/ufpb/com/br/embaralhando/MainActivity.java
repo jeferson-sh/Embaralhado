@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.op1:
                 return true;
             case R.id.op2:
-                Intent intent = new Intent(this,ContextsActivity.class);
+                Intent intent = new Intent(this,CategorieActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
     private void startSettingsActivity(){
-        Intent intent = new Intent(this,ContextsActivity.class);
+        Intent intent = new Intent(this,CategorieActivity.class);
         startActivity(intent);
     }
     private void startScoreActivity(){

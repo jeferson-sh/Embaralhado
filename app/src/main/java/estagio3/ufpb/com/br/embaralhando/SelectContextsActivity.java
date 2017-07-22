@@ -53,13 +53,13 @@ public class SelectContextsActivity extends AppCompatActivity{
 
         dataBase = new DataBase(this);
         listView = (ListView) findViewById(R.id.listViewWords);
-        listView.setAdapter(new ContextAdapter(this));
+        listView.setAdapter(new CategorieAdapter(this));
         registerForContextMenu(listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ContextAdapter contextAdapter = new ContextAdapter(SelectContextsActivity.this);
-                Categorie categorie = (Categorie) contextAdapter.getItem(position);
+                CategorieAdapter categorieAdapter = new CategorieAdapter(SelectContextsActivity.this);
+                Categorie categorie = (Categorie) categorieAdapter.getItem(position);
                 String nameContext = categorie.getName();
                 if (dataBase.searchWordsDatabase(nameContext).isEmpty()){
                     Snackbar.make(view, "Não Existem Palavras Cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
