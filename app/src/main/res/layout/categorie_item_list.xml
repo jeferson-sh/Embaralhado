@@ -3,13 +3,15 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     android:gravity="center"
     android:padding="16dp">
 
-    <android.support.v7.widget.AppCompatCheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+    <ImageButton
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/delete_categorie"
+        android:background="#000000"/>
 
     <ImageView
         android:layout_width="72dp"

@@ -27,7 +27,7 @@ public class CategorieActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contexts);
+        setContentView(R.layout.activity_categories);
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
         this.dataBase = new DataBase(this);

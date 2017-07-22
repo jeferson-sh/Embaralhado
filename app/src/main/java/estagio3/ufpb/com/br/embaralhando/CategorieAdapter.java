@@ -9,13 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategorieAdapter extends BaseAdapter{
+public class CategorieAdapter extends BaseAdapter {
 
     private List<Categorie> categories;
     private Context context;
@@ -26,7 +28,7 @@ public class CategorieAdapter extends BaseAdapter{
         this.dataBase = new DataBase(context);
         try {
             this.categories = dataBase.searchMyContextsDatabase();
-        }catch (Exception e){
+        } catch (Exception e) {
             this.categories = new ArrayList<Categorie>();
         }
         this.notifyDataSetChanged();
@@ -51,21 +53,29 @@ public class CategorieAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
 
         View layout;
-        if(view == null){
+        if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.context_item_list, null);
-        }
-        else{
+            layout = inflater.inflate(R.layout.categorie_item_list, null);
+        } else {
             layout = view;
         }
 
         ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
+        ImageButton removeCategorie = (ImageButton) layout.findViewById(R.id.delete_categorie);
 
-        Categorie categorie = this.categories.get(i);
+        final Categorie categorie = this.categories.get(i);
         textView.setText(categorie.getName());
 
         imageView.setImageBitmap(categories.get(i).getImage());
+
+        removeCategorie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"Clicou!",Toast.LENGTH_LONG).show();
+            }
+        });
+
         return layout;
     }
 }
