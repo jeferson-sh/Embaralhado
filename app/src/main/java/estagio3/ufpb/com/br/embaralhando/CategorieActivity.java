@@ -14,14 +14,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CategorieActivity extends AppCompatActivity{
 
     private ListView listView;
     private ImageButton soundbt;
-    private ImageButton addContextbt;
-    private DataBase dataBase;
+    private ImageButton addCategoriebt;
+    private ImageButton deleteCategoriebt;
+    private ImageButton finishDeleteCategoriesbt;
+    private TextView tooblbarTitle;
     private static final int MAX_COUNT_CONTEXTS = 20;
 
     @Override
@@ -30,9 +33,11 @@ public class CategorieActivity extends AppCompatActivity{
         setContentView(R.layout.activity_categories);
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
-        this.dataBase = new DataBase(this);
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
-        this.addContextbt = (ImageButton) findViewById(R.id.add_wordbt);
+        this.addCategoriebt = (ImageButton) findViewById(R.id.add_wordbt);
+        this.deleteCategoriebt = (ImageButton) findViewById(R.id.edit_categorie_bt);
+        this.finishDeleteCategoriesbt = (ImageButton) findViewById(R.id.finish_edit_categorie_bt);
+        this.tooblbarTitle = (TextView) findViewById(R.id.toolbar_categorie_title);
         if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
 
@@ -58,8 +63,8 @@ public class CategorieActivity extends AppCompatActivity{
         });
 
         listView = (ListView) findViewById(R.id.listViewWords);
-        listView.setAdapter(new CategorieAdapter(this));
-        registerForContextMenu(listView);
+        final CategorieAdapter categorieAdapter = new CategorieAdapter(this);
+        listView.setAdapter(categorieAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -82,7 +87,7 @@ public class CategorieActivity extends AppCompatActivity{
 
             }
         });
-        this.addContextbt.setOnClickListener(new View.OnClickListener() {
+        this.addCategoriebt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(listView.getAdapter().getCount() <= MAX_COUNT_CONTEXTS) {
@@ -94,30 +99,33 @@ public class CategorieActivity extends AppCompatActivity{
                 }
             }
         });
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        switch (item.getItemId()) {
-            case R.id.delete:
-                CategorieAdapter categorieAdapter = new CategorieAdapter(this);
-                Categorie categorie = (Categorie) categorieAdapter.getItem(info.position);
-                dataBase.deleteContext(categorie);
-                Toast.makeText(this,"Contexto Removido",Toast.LENGTH_LONG).show();
-                recreate();
-                return true;
-            default:
-                return super.onContextItemSelected(item);
-        }
+        final EditCategorieAdapter editCategorieAdapter = new EditCategorieAdapter(CategorieActivity.this);
+        this.deleteCategoriebt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteCategoriebt.setVisibility(View.GONE);
+                deleteCategoriebt.setEnabled(false);
+                addCategoriebt.setVisibility(View.GONE);
+                addCategoriebt.setEnabled(false);
+                tooblbarTitle.setText(R.string.deletar_contextos);
+                finishDeleteCategoriesbt.setVisibility(View.VISIBLE);
+                finishDeleteCategoriesbt.setEnabled(true);
+                listView.setAdapter(editCategorieAdapter);
+            }
+        });
+        this.finishDeleteCategoriesbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteCategoriebt.setVisibility(View.VISIBLE);
+                deleteCategoriebt.setEnabled(true);
+                addCategoriebt.setVisibility(View.VISIBLE);
+                addCategoriebt.setEnabled(true);
+                tooblbarTitle.setText(R.string.contextos_cadastrados_txt);
+                finishDeleteCategoriesbt.setVisibility(View.INVISIBLE);
+                finishDeleteCategoriesbt.setEnabled(false);
+                listView.setAdapter(categorieAdapter);
+            }
+        });
     }
 
     private void controlMusic(View v) {
@@ -165,5 +173,10 @@ public class CategorieActivity extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         super.moveTaskToBack(true);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

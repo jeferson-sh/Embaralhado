@@ -6,6 +6,14 @@
     android:gravity="center"
     android:padding="16dp">
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/delete_word"
+        android:visibility="gone"
+        android:background="@mipmap/ic_remove_button"
+        android:saveEnabled="false"/>
+
     <ImageView
         android:layout_width="72dp"
         android:layout_height="72dp"

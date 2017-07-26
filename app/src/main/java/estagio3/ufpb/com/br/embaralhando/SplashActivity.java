@@ -85,4 +85,9 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
             createContext();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

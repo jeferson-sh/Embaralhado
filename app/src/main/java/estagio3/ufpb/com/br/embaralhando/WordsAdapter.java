@@ -65,4 +65,28 @@ public class WordsAdapter extends BaseAdapter{
         imageView.setImageBitmap(words.get(i).getImage());
         return layout;
     }
+
+    public List<Word> getWords() {
+        return words;
+    }
+
+    public void setWords(List<Word> words) {
+        this.words = words;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public DataBase getDataBase() {
+        return dataBase;
+    }
+
+    public void setDataBase(DataBase dataBase) {
+        this.dataBase = dataBase;
+    }
 }

@@ -4,4 +4,13 @@
     <string name="jogar">Jogar</string>
     <string name="configurar">Configurar</string>
     <string name="score">score</string>
+    <string name="deletar_contextos">Apagar Contextos</string>
+    <string name="contextos_cadastrados_txt">Contextos Cadastrados</string>
+    <string name="deletar_palavras">Apagar Palavras</string>
+    <string name="image_score">image score</string>
+    <string name="cancel_button_again">Cancel button again</string>
+    <string name="sair">Sair</string>
+    <string name="contextos_cadastrados">Contextos Cadastrados</string>
+    <string name="sound_button">sound button</string>
+    <string name="delete_button">delete button</string>
 </resources>

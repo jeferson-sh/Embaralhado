@@ -228,4 +228,9 @@ public class InsertNewWordActivity extends AppCompatActivity{
     public void onBackPressed() {
         super.moveTaskToBack(true);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
