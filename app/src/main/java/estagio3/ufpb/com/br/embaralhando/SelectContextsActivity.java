@@ -45,9 +45,7 @@ public class SelectContextsActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SelectContextsActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                startMainActivity();
             }
         });
 
@@ -78,6 +76,12 @@ public class SelectContextsActivity extends AppCompatActivity{
 
             }
         });
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(SelectContextsActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void startGame(String nameContext){

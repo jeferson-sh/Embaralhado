@@ -1,10 +1,13 @@
 package estagio3.ufpb.com.br.embaralhando;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,18 +29,19 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
     private ImageButton soundbt;
     private ImageView imageQuestion;
-    private LinearLayout [] drops;
+    private LinearLayout[] drops;
     private LinearLayout dragContainer;
-    private ImageView [] letters;
+    private ImageView[] letters;
     private int count;
     private Integer randomLevel;
     private List<Word> words;
     private DataBase dataBase;
     private int score;
     private TextView textCountLevel;
-    private int finalLevel;
+    private int finalChallenge;
 
     private List<Integer> levelsIndex;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,10 +52,10 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.dataBase = new DataBase(this);
         Bundle bundle = getIntent().getExtras();
         this.words = dataBase.searchWordsDatabase(bundle.getString("nameContext"));
-        this.finalLevel = 10;
+        this.finalChallenge = 10;
 
-        if(words.size() < finalLevel){
-            finalLevel = words.size();
+        if (words.size() < finalChallenge) {
+            finalChallenge = words.size();
         }
         this.score = 10;
         count = 0;
@@ -58,12 +63,11 @@ public class ShuffleGameActivity extends AppCompatActivity {
         randomLevel = levelsIndex.get(count);
 
 
-
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
         ImageButton restartButton = (ImageButton) findViewById(R.id.restart_button);
         ImageButton checkButon = (ImageButton) findViewById(R.id.checkButton);
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
-        this.textCountLevel =(TextView) findViewById(R.id.textCountNivel);
+        this.textCountLevel = (TextView) findViewById(R.id.textCountNivel);
 
         //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
@@ -72,21 +76,19 @@ public class ShuffleGameActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         toolbar.inflateMenu(R.menu.main_menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon,getTheme()));
-        }else{
+            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon, getTheme()));
+        } else {
             toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon));
         }
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShuffleGameActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                starMainActivity();
             }
         });
 
-        if(!BackgroundSoundService.PLAYING)
+        if (!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
 
         ImageView letter0 = (ImageView) findViewById(R.id.letter0);
@@ -113,7 +115,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         LinearLayout drop9 = (LinearLayout) findViewById(R.id.drop9);
         this.drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
 
-        this.dragContainer = (LinearLayout)findViewById(R.id.drag);
+        this.dragContainer = (LinearLayout) findViewById(R.id.drag);
 
         letter0.setOnTouchListener(myTouchListener);
         letter1.setOnTouchListener(myTouchListener);
@@ -163,11 +165,11 @@ public class ShuffleGameActivity extends AppCompatActivity {
         setImage(randomLevel);
     }
 
-    private void toGetNextWord(){
+    private void toGetNextWord() {
         setCount();
-        if(count == finalLevel){
-            congratulationMessage();
-        }else {
+        if (count == finalChallenge) {
+            startCongratulationMessage();
+        } else {
             clearLevel();
             randomLevel = levelsIndex.get(count);
             loadWord(randomLevel);
@@ -175,9 +177,31 @@ public class ShuffleGameActivity extends AppCompatActivity {
         }
     }
 
-    private List<Integer> shuffleLevelIndex(){
+    private void starMainActivity() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Tem certeza que quer sair?");
+        builder.setMessage("Todo o progresso será perdido.");
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(ShuffleGameActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private List<Integer> shuffleLevelIndex() {
         List<Integer> aux = new ArrayList<>();
-        for(int i = 0; i < words.size(); i++){
+        for (int i = 0; i < words.size(); i++) {
             aux.add(i);
         }
         Collections.shuffle(aux);
@@ -185,8 +209,8 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private void removeLettersWrong() {
-        for (int i = 0; i< words.get(randomLevel).getName().length(); i++){
-            if (letters[i].getContentDescription().equals("f")){
+        for (int i = 0; i < words.get(randomLevel).getName().length(); i++) {
+            if (letters[i].getContentDescription().equals("f")) {
                 ViewGroup dropLayout = (ViewGroup) letters[i].getParent();
                 dropLayout.setEnabled(true);
                 dropLayout.removeView(letters[i]);
@@ -199,11 +223,11 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private void controlMusic() {
-        if(BackgroundSoundService.PLAYING){
+        if (BackgroundSoundService.PLAYING) {
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
             stopService(new Intent(ShuffleGameActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
-        }else{
+        } else {
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white);
             startService(new Intent(ShuffleGameActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
@@ -211,50 +235,49 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private void setCount() {
-        if(count < finalLevel) {
+        if (count < finalChallenge) {
             this.count++;
         }
     }
 
-    public void congratulationMessage() {
-        int drawId = 0;
+    public void startCongratulationMessage() {
+        int drawId = getIdImageViewScore();
         ImageView imageView = new ImageView(this);
-        if(this.score <= 3) {
-            if(this.score < 0){
-                this.score = 0;
-            }
-            drawId = R.drawable.low_score;
-            imageView.setImageResource(drawId);
-        }
-        else if(this.score > 3 && this.score < 7) {
-            drawId = R.drawable.medium_score;
-            imageView.setImageResource(drawId);
-        }
-        else  {
-            drawId = R.drawable.hight_score;
-            imageView.setImageResource(drawId);
-        }
+        imageView.setImageResource(drawId);
         Score p = new Score(imageView.getDrawable(), score);
         insertScore(p);
-        Intent intent = new Intent(ShuffleGameActivity.this,CongratulationsMessageActivity.class);
+        Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("image",drawId);
+        bundle.putInt("image", drawId);
         bundle.putInt("score", score);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }
 
-    private void insertScore(Score p){
+    private int getIdImageViewScore() {
+        if (this.score <= 3) {
+            if (this.score < 0) {
+                this.score = 0;
+            }
+            return R.drawable.low_score;
+        } else if (this.score > 3 && this.score < 7) {
+            return R.drawable.medium_score;
+        } else {
+            return R.drawable.hight_score;
+        }
+    }
+
+    private void insertScore(Score p) {
         ScoreAdapter scoreAdapter = new ScoreAdapter(this);
-        if(scoreAdapter.getCount() >= 10) {
+        if (scoreAdapter.getCount() >= 10) {
             dataBase.deleteScore((Score) scoreAdapter.getItem(0));
         }
         dataBase.insertScore(p);
     }
 
-    private void clearLevel(){
-        for(int i = 0; i < letters.length; i++){
+    private void clearLevel() {
+        for (int i = 0; i < letters.length; i++) {
             ViewGroup dropLayout = (ViewGroup) letters[i].getParent();
             dropLayout.removeView(letters[i]);
             dragContainer.addView(letters[i]);
@@ -270,24 +293,23 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.imageQuestion.setImageBitmap(words.get(i).getImage());
     }
 
-    public void loadWord(int pos){
-        String n = "";
-        int nivel = count+1;
-        n = "Nível "+nivel+" de "+ finalLevel;
+    public void loadWord(int pos) {
+        int challenge = count + 1;
+        String n = "Desafio " + challenge + " de " + finalChallenge;
         this.textCountLevel.setText(n);
         String p = shuffle(words.get(pos).getName());
-        while(p.equals(words.get(pos).getName())) {
+        while (p.equals(words.get(pos).getName())) {
             p = shuffle(words.get(pos).getName());
         }
-        char aux [] = p.toCharArray();
-        char aux2 [] = words.get(pos).getName().toCharArray();
-        for (int i= 0; i < aux.length; i++){
+        char aux[] = p.toCharArray();
+        char aux2[] = words.get(pos).getName().toCharArray();
+        for (int i = 0; i < aux.length; i++) {
             String letter = String.valueOf(aux[i]).toUpperCase();
             letters[i].setContentDescription("f");
             letters[i].setEnabled(true);
             drops[i].setTag(aux2[i]);
             drops[i].setEnabled(true);
-            switch (letter){
+            switch (letter) {
                 case "A":
                     letters[i].setImageResource(R.drawable.a);
                     letters[i].setTag("A");
@@ -562,7 +584,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.op1:
-                Intent intent = new Intent(this,MainActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
@@ -572,7 +594,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.op3:
-                intent = new Intent(this,ScoreActivity.class);
+                intent = new Intent(this, ScoreActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
@@ -588,18 +610,18 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
     private void VerifyWord(String s) {
         CharSequence verify = "";
-        for (int i = 0; i< s.length();i++){
-            if(letters[i].getContentDescription().equals("f")) {
+        for (int i = 0; i < s.length(); i++) {
+            if (letters[i].getContentDescription().equals("f")) {
                 verify = letters[i].getContentDescription();
                 break;
-            }else{
+            } else {
                 verify = letters[i].getContentDescription();
             }
         }
-        if(verify.equals("v")){
+        if (verify.equals("v")) {
             startSoundQuestionCorrect();
             toGetNextWord();
-        }else{
+        } else {
             this.score--;
             starSoundQuestionWrong();
             removeLettersWrong();
@@ -607,22 +629,22 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
     }
 
-    private void starSoundQuestionWrong(){
-            MediaPlayer mp = MediaPlayer.create(this, R.raw.wrong);
-            mp.seekTo(1000);
-            mp.start();
-            mp.setVolume(300, 300);
+    private void starSoundQuestionWrong() {
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.wrong);
+        mp.seekTo(1000);
+        mp.start();
+        mp.setVolume(300, 300);
     }
 
-    private void startSoundQuestionCorrect(){
-            MediaPlayer mp = MediaPlayer.create(this, R.raw.correct);
-            mp.start();
-            mp.setVolume(200, 200);
+    private void startSoundQuestionCorrect() {
+        MediaPlayer mp = MediaPlayer.create(this, R.raw.correct);
+        mp.start();
+        mp.setVolume(200, 200);
     }
 
     @Override
     public void onBackPressed() {
-        super.moveTaskToBack(true);
+        starMainActivity();
     }
 
     @Override

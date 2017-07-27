@@ -56,9 +56,7 @@ public class CategorieActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CategorieActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                starMainActivity();
             }
         });
 
@@ -128,6 +126,12 @@ public class CategorieActivity extends AppCompatActivity{
         });
     }
 
+    private void starMainActivity() {
+        Intent intent = new Intent(CategorieActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void controlMusic(View v) {
         if(BackgroundSoundService.PLAYING){
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
@@ -172,7 +176,7 @@ public class CategorieActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        super.moveTaskToBack(true);
+        starMainActivity();
     }
 
     @Override

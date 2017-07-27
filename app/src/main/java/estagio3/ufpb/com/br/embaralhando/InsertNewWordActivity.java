@@ -54,9 +54,7 @@ public class InsertNewWordActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InsertNewWordActivity.this,CategorieActivity.class);
-                startActivity(intent);
-                finish();
+                startWordsActivity();
             }
         });
 
@@ -95,6 +93,12 @@ public class InsertNewWordActivity extends AppCompatActivity{
                 savePhoto(v);
             }
         });
+    }
+
+    private void startWordsActivity() {
+        Intent intent = new Intent(InsertNewWordActivity.this,CategorieActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void activeCamera(){
@@ -226,11 +230,11 @@ public class InsertNewWordActivity extends AppCompatActivity{
     }
     @Override
     public void onBackPressed() {
-        super.moveTaskToBack(true);
+        startWordsActivity();
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+
     }
 }

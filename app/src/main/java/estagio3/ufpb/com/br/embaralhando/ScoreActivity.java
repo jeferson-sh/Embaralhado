@@ -43,9 +43,7 @@ public class ScoreActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ScoreActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                startMainActivity();
             }
         });
 
@@ -58,6 +56,12 @@ public class ScoreActivity extends AppCompatActivity{
 
             }
         });
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(ScoreActivity.this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     private void controlMusic(View v) {
@@ -103,7 +107,7 @@ public class ScoreActivity extends AppCompatActivity{
     }
     @Override
     public void onBackPressed() {
-        super.moveTaskToBack(true);
+        startMainActivity();
     }
 
     @Override

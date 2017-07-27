@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton scoreButton;
     private ImageButton soundbt;
     private DataBase dataBase;
+    private MyCountDownTimer myCountDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         this.settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         this.scoreButton = (ImageButton) findViewById(R.id.scoreButton);
         this.dataBase = new DataBase(this);
+        this.myCountDownTimer = new MyCountDownTimer(MainActivity.this,2000,1000);
         if(!BackgroundSoundService.PLAYING)
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
         this.playButton.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +137,12 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        super.moveTaskToBack(true);
+        if (!myCountDownTimer.isStart()) {
+            myCountDownTimer.start();
+        }else{
+            finish();
+            System.exit(0);
+        }
     }
 
     @Override

@@ -53,9 +53,7 @@ public class InsertNewContextActivity extends AppCompatActivity{
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(InsertNewContextActivity.this,CategorieActivity.class);
-                startActivity(intent);
-                finish();
+                startCategorieActivity();
             }
         });
 
@@ -94,6 +92,12 @@ public class InsertNewContextActivity extends AppCompatActivity{
                 saveContext(v);
             }
         });
+    }
+
+    private void startCategorieActivity() {
+        Intent intent = new Intent(InsertNewContextActivity.this,CategorieActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void activeCamera(){
@@ -214,7 +218,7 @@ public class InsertNewContextActivity extends AppCompatActivity{
     }
     @Override
     public void onBackPressed() {
-        super.moveTaskToBack(true);
+        startCategorieActivity();
     }
 
     @Override

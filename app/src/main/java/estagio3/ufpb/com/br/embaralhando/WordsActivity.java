@@ -58,9 +58,7 @@ public class WordsActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WordsActivity.this, CategorieActivity.class);
-                startActivity(intent);
-                finish();
+                startCategoiesActivity();
             }
         });
 
@@ -117,6 +115,12 @@ public class WordsActivity extends AppCompatActivity {
         });
     }
 
+    private void startCategoiesActivity() {
+        Intent intent = new Intent(WordsActivity.this, CategorieActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     private void controlMusic(View v) {
         if (BackgroundSoundService.PLAYING) {
             this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
@@ -161,7 +165,7 @@ public class WordsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.moveTaskToBack(true);
+        startCategoiesActivity();
     }
 
     @Override
