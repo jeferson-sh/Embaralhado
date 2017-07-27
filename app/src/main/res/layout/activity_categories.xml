@@ -47,8 +47,7 @@
             android:layout_gravity="right"
             android:background="@drawable/finish_delete_button"
             android:visibility="gone"
-            android:saveEnabled="false"
-            android:contentDescription="finish delete" />
+            android:saveEnabled="false"/>
 
 
     </android.support.v7.widget.Toolbar>
@@ -57,20 +56,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ListView
+            android:id="@+id/listViewWords"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none|vertical" />
+
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/add_wordbt"
+            android:id="@+id/add_categoriebt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:clickable="true"
             app:fabSize="mini"
             app:srcCompat="@drawable/ic_add_white" />
-
-        <ListView
-            android:id="@+id/listViewWords"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none|vertical" />
 
     </FrameLayout>
 </LinearLayout>

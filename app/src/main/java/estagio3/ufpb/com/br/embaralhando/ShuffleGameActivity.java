@@ -180,7 +180,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private void starMainActivity() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
-        builder.setTitle("Tem certeza que quer sair?");
+        builder.setTitle("Deseja sair?");
         builder.setMessage("Todo o progresso será perdido.");
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override

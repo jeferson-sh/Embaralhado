@@ -6,9 +6,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -34,7 +32,7 @@ public class CategorieActivity extends AppCompatActivity{
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
         this.soundbt = (ImageButton) findViewById(R.id.soundButton);
-        this.addCategoriebt = (ImageButton) findViewById(R.id.add_wordbt);
+        this.addCategoriebt = (ImageButton) findViewById(R.id.add_categoriebt);
         this.deleteCategoriebt = (ImageButton) findViewById(R.id.edit_categorie_bt);
         this.finishDeleteCategoriesbt = (ImageButton) findViewById(R.id.finish_edit_categorie_bt);
         this.tooblbarTitle = (TextView) findViewById(R.id.toolbar_categorie_title);

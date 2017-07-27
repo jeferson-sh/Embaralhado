@@ -46,8 +46,8 @@ public class EditCategorieAdapter extends CategorieAdapter {
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setCancelable(true);
-                builder.setTitle("Apagar Contexto");
-                builder.setMessage("Tem certeza que deseja apagar o contexto " + categorie.getName() + "?\nTodas as palavras serão apagadas!");
+                builder.setTitle("Deseja apagar o contexto "+categorie.getName()+"?");
+                builder.setMessage("Todas as palavras serão apagadas!");
                 builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

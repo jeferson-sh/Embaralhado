@@ -96,7 +96,9 @@ public class InsertNewWordActivity extends AppCompatActivity{
     }
 
     private void startWordsActivity() {
-        Intent intent = new Intent(InsertNewWordActivity.this,CategorieActivity.class);
+        Bundle bundle = getIntent().getExtras();
+        Intent intent = new Intent(InsertNewWordActivity.this,WordsActivity.class);
+        intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }
@@ -235,6 +237,6 @@ public class InsertNewWordActivity extends AppCompatActivity{
 
     @Override
     protected void onDestroy() {
-
+        super.onDestroy();
     }
 }

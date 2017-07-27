@@ -46,8 +46,7 @@ public class EditWordAdapter extends WordsAdapter {
             public void onClick(View v) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setCancelable(true);
-                builder.setTitle("Apagar Palavra");
-                builder.setMessage("Tem certeza que deseja apagar a palavra " + word.getName() + "?");
+                builder.setTitle("Deseja apagar a palavra "+word.getName()+"?");
                 builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
