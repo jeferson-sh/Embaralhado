@@ -8,29 +8,9 @@
     android:orientation="vertical"
     tools:categorie="estagio3.ufpb.com.br.embaralhando.ShuffleGameActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#004D40"
-        android:title="Adicionar Palavras">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tool_bar"
-            android:text="Organize as Letras"
-            android:textColor="#FFFFFF"
-            android:textSize="25sp"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/soundButton"
-            android:layout_gravity="right"
-            android:layout_margin="10dp"
-            android:background="@drawable/ic_volume_up_white"/>
-    </android.support.v7.widget.Toolbar>
+   <include
+       android:id="@+id/toolbar_shuffler_game_mode"
+       layout="@layout/toolbar"/>
 
     <LinearLayout
         android:layout_width="match_parent"

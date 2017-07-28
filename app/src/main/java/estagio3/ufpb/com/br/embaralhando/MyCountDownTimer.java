@@ -22,7 +22,7 @@ public class MyCountDownTimer extends CountDownTimer {
     @Override
     public void onTick(long millisUntilFinished) {
         this.start = true;
-        Toast.makeText(context, "Pressione sair novamente!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Pressione novamente para sair!", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -29,7 +29,6 @@ public class CategorieAdapter extends BaseAdapter {
         } catch (Exception e) {
             this.categories = new ArrayList<Categorie>();
         }
-
     }
 
     @Override
@@ -69,16 +68,6 @@ public class CategorieAdapter extends BaseAdapter {
         return layout;
     }
 
-    public void showDeleteButton() {
-
-
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-    }
-
     public List<Categorie> getCategories() {
         return categories;
     }
@@ -102,4 +91,5 @@ public class CategorieAdapter extends BaseAdapter {
     public void setDataBase(DataBase dataBase) {
         this.dataBase = dataBase;
     }
+
 }

@@ -4,13 +4,18 @@
     <string name="jogar">Jogar</string>
     <string name="configurar">Configurar</string>
     <string name="score">score</string>
-    <string name="deletar_contextos">Apagar Contextos</string>
-    <string name="contextos_cadastrados_txt">Contextos Cadastrados</string>
-    <string name="deletar_palavras">Apagar Palavras</string>
+    <string name="delete_categorie">Apagar Contextos</string>
+    <string name="delete_word">Apagar Palavras</string>
     <string name="image_score">image score</string>
     <string name="cancel_button_again">Cancel button again</string>
     <string name="sair">Sair</string>
-    <string name="contextos_cadastrados">Contextos Cadastrados</string>
+    <string name="registered_categories">Contextos Cadastrados</string>
     <string name="sound_button">sound button</string>
     <string name="delete_button">delete button</string>
+    <string name="delete">Delete</string>
+    <string name="finish">Concluído</string>
+    <string name="register_new_categorie">Cadastrar novo contexto</string>
+    <string name="select_categorie">Selecione o contexto</string>
+    <string name="registered_words">Palavras cadastradas</string>
+    <string name="register_new_word">Cadastrar nova palavra</string>
 </resources>

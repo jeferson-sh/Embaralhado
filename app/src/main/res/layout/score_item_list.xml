@@ -19,7 +19,6 @@
         android:id="@+id/text_item"
         android:text="AAAAA"
         android:textColor="#000000"
-        android:textSize="20sp"
-        />
+        android:textSize="20sp"/>
 
 </LinearLayout>

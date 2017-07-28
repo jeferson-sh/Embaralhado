@@ -17,13 +17,6 @@
         android:id="@+id/congratulationsImage"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
-    <TextView
-        android:id="@+id/pontosText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#ffffff"
-        android:textSize="18sp"
-        android:text="@string/score"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

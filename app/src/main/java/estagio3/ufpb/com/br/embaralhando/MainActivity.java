@@ -1,7 +1,6 @@
 package estagio3.ufpb.com.br.embaralhando;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton playButton;
-    private ImageButton settingsButton;
-    private ImageButton scoreButton;
-    private ImageButton soundbt;
     private DataBase dataBase;
     private MyCountDownTimer myCountDownTimer;
 
@@ -30,23 +24,14 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbar.inflateMenu(R.menu.main_menu);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon,getTheme()));
-        }else{
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon));
-        }
 
-        this.soundbt = (ImageButton) findViewById(R.id.soundButton);
-        this.playButton = (ImageButton) findViewById(R.id.playButton);
-        this.settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-        this.scoreButton = (ImageButton) findViewById(R.id.scoreButton);
+        ImageButton playButton = (ImageButton) findViewById(R.id.playButton);
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        ImageButton scoreButton = (ImageButton) findViewById(R.id.scoreButton);
         this.dataBase = new DataBase(this);
         this.myCountDownTimer = new MyCountDownTimer(MainActivity.this,2000,1000);
-        if(!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
-        this.playButton.setOnClickListener(new View.OnClickListener() {
+        playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(dataBase.searchMyContextsDatabase().isEmpty()){
@@ -58,25 +43,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        this.settingsButton.setOnClickListener(new View.OnClickListener() {
+        settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startSettingsActivity();
                 finish();
             }
         });
-        this.scoreButton.setOnClickListener(new View.OnClickListener() {
+        scoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startScoreActivity();
                 finish();
-            }
-        });
-        this.soundbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controlMusic(v);
-
             }
         });
     }
@@ -84,21 +62,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.op1:
-                return true;
-            case R.id.op2:
-                Intent intent = new Intent(this,CategorieActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-            case R.id.op3:
-                intent = new Intent(this,ScoreActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-            case R.id.op4:
-                finish();
-                System.exit(0);
+            case R.id.soundControl:
+                controlMusic(item);
                 return true;
             default:
                 return false;
@@ -107,16 +72,19 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        if(!BackgroundSoundService.PLAYING) {
+            menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
+        }
         return true;
     }
 
-    private void controlMusic(View v) {
-        if(BackgroundSoundService.PLAYING){
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
+    private void controlMusic(MenuItem item) {
+        if (BackgroundSoundService.PLAYING) {
+            item.setIcon(R.drawable.ic_volume_mute_white);
             stopService(new Intent(MainActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
-        }else{
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white);
+        } else {
+            item.setIcon(R.drawable.ic_volume_up_white);
             startService(new Intent(MainActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
@@ -128,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
     private void startSettingsActivity(){
-        Intent intent = new Intent(this,CategorieActivity.class);
+        Intent intent = new Intent(this,CategoriesActivity.class);
         startActivity(intent);
     }
     private void startScoreActivity(){

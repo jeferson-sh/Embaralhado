@@ -3,22 +3,20 @@ package estagio3.ufpb.com.br.embaralhando;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,7 +25,6 @@ import java.util.List;
 
 public class ShuffleGameActivity extends AppCompatActivity {
 
-    private ImageButton soundbt;
     private ImageView imageQuestion;
     private LinearLayout[] drops;
     private LinearLayout dragContainer;
@@ -41,6 +38,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private int finalChallenge;
 
     private List<Integer> levelsIndex;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,30 +64,16 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
         ImageButton restartButton = (ImageButton) findViewById(R.id.restart_button);
         ImageButton checkButon = (ImageButton) findViewById(R.id.checkButton);
-        this.soundbt = (ImageButton) findViewById(R.id.soundButton);
         this.textCountLevel = (TextView) findViewById(R.id.textCountNivel);
 
         //toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar_shuffler_game_mode);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.inflateMenu(R.menu.main_menu);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon, getTheme()));
-        } else {
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon));
+        this.toolbar.inflateMenu(R.menu.main_menu);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Organize as letras");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                starMainActivity();
-            }
-        });
-
-        if (!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
 
         ImageView letter0 = (ImageView) findViewById(R.id.letter0);
         ImageView letter1 = (ImageView) findViewById(R.id.letter1);
@@ -153,13 +137,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
                 VerifyWord(words.get(randomLevel).getName());
             }
         });
-        this.soundbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controlMusic();
-
-            }
-        });
 
         loadWord(randomLevel);
         setImage(randomLevel);
@@ -168,7 +145,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private void toGetNextWord() {
         setCount();
         if (count == finalChallenge) {
-            startCongratulationMessage();
+            imputName();
         } else {
             clearLevel();
             randomLevel = levelsIndex.get(count);
@@ -177,7 +154,30 @@ public class ShuffleGameActivity extends AppCompatActivity {
         }
     }
 
-    private void starMainActivity() {
+    private String imputName() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final EditText editText = new EditText(this);
+        final String[] youEditTextValue = {""};
+        builder.setCancelable(true);
+        builder.setTitle("Insira seu nome");
+        builder.setView(editText);
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startCongratulationMessage(editText.getText().toString());
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        return youEditTextValue[0];
+    }
+
+    private void startMainActivity() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("Deseja sair?");
@@ -222,13 +222,13 @@ public class ShuffleGameActivity extends AppCompatActivity {
         }
     }
 
-    private void controlMusic() {
+    private void controlMusic(MenuItem item) {
         if (BackgroundSoundService.PLAYING) {
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
+            item.setIcon(R.drawable.ic_volume_mute_white);
             stopService(new Intent(ShuffleGameActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
         } else {
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white);
+            item.setIcon(R.drawable.ic_volume_up_white);
             startService(new Intent(ShuffleGameActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
@@ -240,28 +240,29 @@ public class ShuffleGameActivity extends AppCompatActivity {
         }
     }
 
-    public void startCongratulationMessage() {
+    public void startCongratulationMessage(String name) {
         int drawId = getIdImageViewScore();
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(drawId);
-        Score p = new Score(imageView.getDrawable(), score);
+        Score p = new Score(imageView.getDrawable(), score, name);
         insertScore(p);
         Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image", drawId);
         bundle.putInt("score", score);
+        bundle.putString("name", name);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }
 
     private int getIdImageViewScore() {
-        if (this.score <= 3) {
+        if (this.score <= 5) {
             if (this.score < 0) {
                 this.score = 0;
             }
             return R.drawable.low_score;
-        } else if (this.score > 3 && this.score < 7) {
+        } else if (this.score > 5 && this.score <= 8) {
             return R.drawable.medium_score;
         } else {
             return R.drawable.hight_score;
@@ -563,6 +564,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
     }
 
+    @NonNull
     private String shuffle(String s) {
         List<String> letters = Arrays.asList(s.split(""));
         Collections.shuffle(letters);
@@ -577,30 +579,20 @@ public class ShuffleGameActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        if (!BackgroundSoundService.PLAYING) {
+            menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.op1:
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-                finish();
+            case android.R.id.home:
+                startMainActivity();
                 return true;
-            case R.id.op2:
-                intent = new Intent(this, CategorieActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-            case R.id.op3:
-                intent = new Intent(this, ScoreActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-            case R.id.op4:
-                finish();
-                System.exit(0);
+            case R.id.soundControl:
+                controlMusic(item);
                 return true;
             default:
                 return false;
@@ -644,7 +636,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        starMainActivity();
+        startMainActivity();
     }
 
     @Override

@@ -9,28 +9,9 @@
     android:orientation="vertical"
     tools:categorie="estagio3.ufpb.com.br.embaralhando.SelectContextsActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#004D40">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tool_bar"
-            android:text="Selecione o Contexto"
-            android:textColor="#FFFFFF"
-            android:textSize="50sp"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/soundButton"
-            android:layout_gravity="right"
-            android:layout_margin="10dp"
-            android:background="@drawable/ic_volume_up_white"/>
-    </android.support.v7.widget.Toolbar>
+    <include
+        android:id="@+id/toolbar_select_categorie"
+        layout="@layout/toolbar"/>
 
     <ListView
         android:id="@+id/listViewWords"

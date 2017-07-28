@@ -20,42 +20,46 @@ public class CongratulationsMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_congratulations_message);
-        imageView = (ImageView)findViewById(R.id.congratulationsImage);
+        imageView = (ImageView) findViewById(R.id.congratulationsImage);
         this.congratulationsMessage = (TextView) findViewById(R.id.congratulationsMessageText);
-        pontosText = (TextView) findViewById(R.id.pontosText);
+        //pontosText = (TextView) findViewById(R.id.pontosText);
         exitbt = (ImageButton) findViewById(R.id.exitGame);
         playbt = (ImageButton) findViewById(R.id.playAgain);
         Bundle bundle = getIntent().getExtras();
         imageView.setImageResource(bundle.getInt("image"));
         int score = bundle.getInt("score");
         String scoreMessage = "";
-        if (score <= 3) {
-            if(score == 1){
-                this.congratulationsMessage.setText("Que pena!");
+        String name = bundle.getString("name");
+        if (score <= 5) {
+            if (score == 1) {
+                this.congratulationsMessage.setText("Continue praticando " + name+".");
                 scoreMessage = "Você fez " + score + " Ponto!";
-            }else {
-                this.congratulationsMessage.setText("Que pena!");
+            } else {
+                this.congratulationsMessage.setText("Continue praticando " + name+".");
                 scoreMessage = "Você fez " + score + " Pontos!";
             }
-        }else if(score > 3 && score < 7){
-            this.congratulationsMessage.setText("Você pode fazer melhor!");
+        } else if (score > 5 && score < 7) {
+            this.congratulationsMessage.setText("Parabéns " + name + "! Mas pratique um pouco mais!");
+            scoreMessage = "Você fez " + score + " Pontos!";
+        } else if (score >= 7 && score < 10) {
+            this.congratulationsMessage.setText("Muito bom " + name + "! Parabéns!");
+            scoreMessage = "Você fez " + score + " Pontos!";
+        } else {
+            this.congratulationsMessage.setText("Excelente " + name+"!");
             scoreMessage = "Você fez " + score + " Pontos!";
         }
-        else {
-            scoreMessage = "Você fez " + score + " Pontos!";
-        }
-        pontosText.setText(scoreMessage);
+        //pontosText.setText(scoreMessage);
         playbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CongratulationsMessageActivity.this,SelectContextsActivity.class));
+                startActivity(new Intent(CongratulationsMessageActivity.this, SelectContextsActivity.class));
                 finish();
             }
         });
         exitbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CongratulationsMessageActivity.this,MainActivity.class));
+                startActivity(new Intent(CongratulationsMessageActivity.this, MainActivity.class));
                 finish();
             }
         });

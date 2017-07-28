@@ -15,7 +15,7 @@ import android.widget.ListView;
 public class ScoreActivity extends AppCompatActivity{
 
     private ListView listView;
-    private ImageButton soundbt;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,38 +24,19 @@ public class ScoreActivity extends AppCompatActivity{
 
         if(BackgroundSoundService.PLAYING)
             startService(new Intent(this,BackgroundSoundService.class));
-        this.soundbt = (ImageButton) findViewById(R.id.soundButton);
-        if(!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
 
         //toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        this.toolbar = (Toolbar) findViewById(R.id.toolbar_score);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.inflateMenu(R.menu.main_menu);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon,getTheme()));
-        }else{
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon));
+        this.toolbar.inflateMenu(R.menu.main_menu);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Últimas pontuações");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startMainActivity();
-            }
-        });
+
 
         listView = (ListView) findViewById(R.id.listViewPontos);
         listView.setAdapter(new ScoreAdapter(this));
-        this.soundbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controlMusic(v);
-
-            }
-        });
     }
 
     private void startMainActivity() {
@@ -64,13 +45,13 @@ public class ScoreActivity extends AppCompatActivity{
         finish();
     }
 
-    private void controlMusic(View v) {
-        if(BackgroundSoundService.PLAYING){
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
+    private void controlMusic(MenuItem item) {
+        if (BackgroundSoundService.PLAYING) {
+            item.setIcon(R.drawable.ic_volume_mute_white);
             stopService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
-        }else{
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white);
+        } else {
+            item.setIcon(R.drawable.ic_volume_up_white);
             startService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
@@ -79,27 +60,20 @@ public class ScoreActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        if (!BackgroundSoundService.PLAYING) {
+            menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.op1:
-                Intent intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
-                finish();
+            case android.R.id.home:
+                startMainActivity();
                 return true;
-            case R.id.op2:
-                intent = new Intent(this,CategorieActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-            case R.id.op3:
-                return true;
-            case R.id.op4:
-                finish();
-                System.exit(0);
+            case R.id.soundControl:
+                controlMusic(item);
                 return true;
             default:
                 return false;

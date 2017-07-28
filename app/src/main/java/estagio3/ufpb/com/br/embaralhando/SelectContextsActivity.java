@@ -1,8 +1,6 @@
 package estagio3.ufpb.com.br.embaralhando;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,46 +9,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
-public class SelectContextsActivity extends AppCompatActivity{
+public class SelectContextsActivity extends AppCompatActivity {
 
-    private ListView listView;
-    private ImageButton soundbt;
     private DataBase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_contexts);
-        if(BackgroundSoundService.PLAYING)
-            startService(new Intent(this,BackgroundSoundService.class));
-        this.soundbt = (ImageButton) findViewById(R.id.soundButton);
-        if(!BackgroundSoundService.PLAYING)
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
+
+        if (BackgroundSoundService.PLAYING)
+            startService(new Intent(this, BackgroundSoundService.class));
 
         //toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_select_categorie);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-        toolbar.setTitleTextColor(Color.WHITE);
         toolbar.inflateMenu(R.menu.main_menu);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon,getTheme()));
-        }else{
-            toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.menu_button_icon));
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.select_categorie);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startMainActivity();
-            }
-        });
-
+        //end
         dataBase = new DataBase(this);
-        listView = (ListView) findViewById(R.id.listViewWords);
+        ListView listView = (ListView) findViewById(R.id.listViewWords);
         listView.setAdapter(new CategorieAdapter(this));
         registerForContextMenu(listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -59,47 +42,37 @@ public class SelectContextsActivity extends AppCompatActivity{
                 CategorieAdapter categorieAdapter = new CategorieAdapter(SelectContextsActivity.this);
                 Categorie categorie = (Categorie) categorieAdapter.getItem(position);
                 String nameContext = categorie.getName();
-                if (dataBase.searchWordsDatabase(nameContext).isEmpty()){
+                if (dataBase.searchWordsDatabase(nameContext).isEmpty()) {
                     Snackbar.make(view, "Não Existem Palavras Cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-                }else{
+                } else {
                     startGame(nameContext);
                 }
-
-
-            }
-        });
-
-        this.soundbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controlMusic(v);
-
             }
         });
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent(SelectContextsActivity.this,MainActivity.class);
+        Intent intent = new Intent(SelectContextsActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
 
-    private void startGame(String nameContext){
+    private void startGame(String nameContext) {
         Bundle bundle = new Bundle();
-        bundle.putString("nameContext",nameContext);
-        Intent intent = new Intent(SelectContextsActivity.this,ShuffleGameActivity.class);
+        bundle.putString("nameContext", nameContext);
+        Intent intent = new Intent(SelectContextsActivity.this, ShuffleGameActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }
 
-    private void controlMusic(View v) {
-        if(BackgroundSoundService.PLAYING){
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_mute_white);
+    private void controlMusic(MenuItem item) {
+        if (BackgroundSoundService.PLAYING) {
+            item.setIcon(R.drawable.ic_volume_mute_white);
             stopService(new Intent(SelectContextsActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = false;
-        }else{
-            this.soundbt.setBackgroundResource(R.drawable.ic_volume_up_white);
+        } else {
+            item.setIcon(R.drawable.ic_volume_up_white);
             startService(new Intent(SelectContextsActivity.this, BackgroundSoundService.class));
             BackgroundSoundService.PLAYING = true;
         }
@@ -108,27 +81,20 @@ public class SelectContextsActivity extends AppCompatActivity{
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        if(!BackgroundSoundService.PLAYING) {
+            menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
+        }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.op1:
-                Intent intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
-                finish();
+            case android.R.id.home:
+                startMainActivity();
                 return true;
-            case R.id.op2:
-                return true;
-            case R.id.op3:
-                intent = new Intent(this,ScoreActivity.class);
-                startActivity(intent);
-                finish();
-                return true;
-            case R.id.op4:
-                finish();
-                System.exit(0);
+            case R.id.soundControl:
+                controlMusic(item);
                 return true;
             default:
                 return false;
@@ -137,7 +103,7 @@ public class SelectContextsActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        super.moveTaskToBack(true);
+        startMainActivity();
     }
 
     @Override

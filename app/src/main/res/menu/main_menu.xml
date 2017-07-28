@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/op1"
-        android:title="Início">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    </item>
     <item
-        android:id="@+id/op2"
-        android:title="Configurações">
-    </item>
-    <item
-        android:id="@+id/op3"
-        android:title="Pontuação">
-    </item>
-    <item
-        android:id="@+id/op4"
-        android:title="Sair">
-    </item>
-
-</menu>
+        android:id="@+id/soundControl"
+        android:icon="@drawable/ic_volume_up_white"
+        app:showAsAction="ifRoom"
+        android:title="@string/sound_button" />
+    </menu>
