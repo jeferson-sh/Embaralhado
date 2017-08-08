@@ -8,7 +8,7 @@ import android.support.annotation.Nullable;
 
 import estagio3.ufpb.com.br.embaralhando.R;
 
-public class BackgroundSoundService extends Service {
+public class BackgroundSoundServiceUtil extends Service {
 
     private MediaPlayer player;
     public static boolean PLAYING = true;

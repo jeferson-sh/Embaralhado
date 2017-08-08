@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtility;
+import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtil;
 
 /**
  * Created by Jeferson on 10/11/2016.
@@ -20,18 +20,18 @@ public class Categorie {
         this.id = id;
         this.name = name;
         this.imageBytes = imageBytes;
-        this.image = DatabaseBitmapUtility.getImage(imageBytes);
+        this.image = DatabaseBitmapUtil.getImage(imageBytes);
     }
     public Categorie(Bitmap image, String name){
         this.name = name;
         this.image = image;
-        this.imageBytes = DatabaseBitmapUtility.getBytes(this.image);
+        this.imageBytes = DatabaseBitmapUtil.getBytes(this.image);
     }
 
     public Categorie(Drawable drawable, String name) {
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.name = name;
-        this.imageBytes = DatabaseBitmapUtility.getBytes(this.image);
+        this.imageBytes = DatabaseBitmapUtil.getBytes(this.image);
     }
 
     public long getId() {

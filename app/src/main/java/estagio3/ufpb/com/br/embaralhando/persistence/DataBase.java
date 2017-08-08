@@ -1,6 +1,7 @@
 package estagio3.ufpb.com.br.embaralhando.persistence;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -18,9 +19,9 @@ import estagio3.ufpb.com.br.embaralhando.model.Word;
 public class DataBase {
     private SQLiteDatabase bd;
 
-    public DataBase(android.content.Context context){
-        DataBaseCore auxBd = new DataBaseCore(context);
-        bd = auxBd.getWritableDatabase();
+    public DataBase(Context context){
+        DataBaseOpenHelper dataBaseOpenHelper = DataBaseOpenHelper.getInstanceDataBaseOpenHelper(context);
+        bd = dataBaseOpenHelper.getWritableDatabase();
     }
 
 

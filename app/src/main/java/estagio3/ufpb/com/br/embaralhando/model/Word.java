@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtility;
+import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtil;
 
 /**
  * Created by Jeferson on 10/11/2016.
@@ -29,20 +29,20 @@ public class Word {
         this.id = id;
         this.name = name;
         this.imageBytes = imageBytes;
-        this.image = DatabaseBitmapUtility.getImage(imageBytes);
+        this.image = DatabaseBitmapUtil.getImage(imageBytes);
         this.context = context;
     }
     public Word(Bitmap image, String name,String context){
         this.name = name;
         this.image = image;
-        this.imageBytes = DatabaseBitmapUtility.getBytes(this.image);
+        this.imageBytes = DatabaseBitmapUtil.getBytes(this.image);
         this.context = context;
     }
 
     public Word(Drawable drawable, String name, String context) {
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.name = name;
-        this.imageBytes = DatabaseBitmapUtility.getBytes(this.image);
+        this.imageBytes = DatabaseBitmapUtil.getBytes(this.image);
         this.context = context;
     }
 

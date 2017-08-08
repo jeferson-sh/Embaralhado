@@ -1,5 +1,7 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -20,7 +22,7 @@ import android.widget.ImageView;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.model.Word;
 import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
-import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundService;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class InsertNewWordActivity extends AppCompatActivity {
 
@@ -36,8 +38,8 @@ public class InsertNewWordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_new_word);
-        if (BackgroundSoundService.PLAYING)
-            startService(new Intent(this, BackgroundSoundService.class));
+        if (BackgroundSoundServiceUtil.PLAYING)
+            startService(new Intent(this, BackgroundSoundServiceUtil.class));
         this.word = (EditText) findViewById(R.id.editText);
         this.image = (ImageView) findViewById(R.id.imageView);
         this.dataBase = new DataBase(this);
@@ -53,7 +55,6 @@ public class InsertNewWordActivity extends AppCompatActivity {
         ImageButton camera = (ImageButton) findViewById(R.id.activeCameraButton);
         ImageButton gallery = (ImageButton) findViewById(R.id.activeGalleryButton);
         ImageButton savePhotobt = (ImageButton) findViewById(R.id.savePhotoButton);
-
 
 
         camera.setOnClickListener(new View.OnClickListener() {
@@ -171,21 +172,21 @@ public class InsertNewWordActivity extends AppCompatActivity {
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundService.PLAYING) {
+        if (BackgroundSoundServiceUtil.PLAYING) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(InsertNewWordActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = false;
+            stopService(new Intent(InsertNewWordActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(InsertNewWordActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = true;
+            startService(new Intent(InsertNewWordActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = true;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (!BackgroundSoundService.PLAYING) {
+        if (!BackgroundSoundServiceUtil.PLAYING) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
@@ -200,10 +201,35 @@ public class InsertNewWordActivity extends AppCompatActivity {
             case R.id.soundControl:
                 controlMusic(item);
                 return true;
+            case R.id.exitGame:
+                exitApp();
+                return true;
             default:
                 return false;
         }
     }
+
+    private void exitApp() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Deseja sair do jogo?");
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                System.exit(0);
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
 
     @Override
     public void onBackPressed() {

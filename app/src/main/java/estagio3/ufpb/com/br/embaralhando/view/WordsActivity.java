@@ -1,5 +1,7 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +16,7 @@ import android.widget.Toast;
 import estagio3.ufpb.com.br.embaralhando.adapter.EditWordAdapter;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.adapter.WordsAdapter;
-import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundService;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class WordsActivity extends AppCompatActivity {
 
@@ -22,7 +24,6 @@ public class WordsActivity extends AppCompatActivity {
     private ImageButton addWordbt;
     private static final int MAX_COUNT_WORDS = 200;
     private Toolbar toolbar;
-    private Menu menu;
     private EditWordAdapter editWordAdapter;
     private WordsAdapter wordsAdapter;
     private Bundle bundle;
@@ -32,8 +33,8 @@ public class WordsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
 
-        if (BackgroundSoundService.PLAYING)
-            startService(new Intent(this, BackgroundSoundService.class));
+        if (BackgroundSoundServiceUtil.PLAYING)
+            startService(new Intent(this, BackgroundSoundServiceUtil.class));
         this.addWordbt = (ImageButton) findViewById(R.id.add_wordbt);
 
         //toolbar
@@ -67,20 +68,24 @@ public class WordsActivity extends AppCompatActivity {
     }
 
     private void startCategoriesActivity() {
-        Intent intent = new Intent(WordsActivity.this, CategoriesActivity.class);
-        startActivity(intent);
-        finish();
+        if (this.listView.getAdapter().getClass().equals(EditWordAdapter.class)){
+            setWordAdapter(toolbar.getMenu().getItem(1));
+        }else {
+            Intent intent = new Intent(WordsActivity.this, CategoriesActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void controlMusic(MenuItem item) {
-        if(BackgroundSoundService.PLAYING){
+        if(BackgroundSoundServiceUtil.PLAYING){
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(WordsActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = false;
+            stopService(new Intent(WordsActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = false;
         }else{
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(WordsActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = true;
+            startService(new Intent(WordsActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = true;
         }
     }
 
@@ -88,8 +93,7 @@ public class WordsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.delete_menu, menu);
-        this.menu = menu;
-        if(!BackgroundSoundService.PLAYING) {
+        if(!BackgroundSoundServiceUtil.PLAYING) {
             menu.getItem(2).setIcon(R.drawable.ic_volume_mute_white);
         }
         menu.getItem(1).setVisible(false);
@@ -102,26 +106,54 @@ public class WordsActivity extends AppCompatActivity {
             case android.R.id.home:
                 startCategoriesActivity();
                 return true;
-            case R.id.delete_button:
+            case R.id.edite_categorie:
                 setEditWordAdapter(item);
                 return true;
             case R.id.soundControl:
                 controlMusic(item);
                 return true;
-            case R.id.finish_delete:
+            case R.id.finish_edite:
                 setWordAdapter(item);
+                return true;
+            case R.id.exitGame:
+                exitApp();
                 return true;
             default:
                 return false;
         }
     }
 
+    private void exitApp() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Deseja sair do jogo?");
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                System.exit(0);
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+
     private void setEditWordAdapter(MenuItem item) {
         item.setVisible(false);
         this.addWordbt.setVisibility(View.GONE);
         this.addWordbt.setEnabled(false);
         this.toolbar.setTitle(R.string.delete_word);
-        this.menu.getItem(1).setVisible(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+        this.toolbar.getMenu().getItem(1).setVisible(true);
         this.listView.setAdapter(editWordAdapter);
     }
 
@@ -130,7 +162,10 @@ public class WordsActivity extends AppCompatActivity {
         this.addWordbt.setVisibility(View.VISIBLE);
         this.addWordbt.setEnabled(true);
         this.toolbar.setTitle(R.string.registered_words);
-        this.menu.getItem(0).setVisible(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        this.toolbar.getMenu().getItem(0).setVisible(true);
         this.wordsAdapter = new WordsAdapter(this,bundle.getString("nameContext"));
         this.listView.setAdapter(wordsAdapter);
     }

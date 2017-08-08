@@ -8,12 +8,12 @@ import android.widget.Toast;
  * Created by Jeferson on 26/07/2017.
  */
 
-public class MyCountDownTimer extends CountDownTimer {
+public class MyCountDownTimerUtil extends CountDownTimer {
 
     private boolean start;
     private Context context;
 
-    public MyCountDownTimer(Context context,long millisInFuture, long countDownInterval) {
+    public MyCountDownTimerUtil(Context context, long millisInFuture, long countDownInterval) {
         super(millisInFuture, countDownInterval);
         this.start = false;
         this.context = context;

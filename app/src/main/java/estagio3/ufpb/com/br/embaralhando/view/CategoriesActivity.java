@@ -1,5 +1,7 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +18,7 @@ import estagio3.ufpb.com.br.embaralhando.adapter.CategorieAdapter;
 import estagio3.ufpb.com.br.embaralhando.adapter.EditCategorieAdapter;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
-import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundService;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class CategoriesActivity extends AppCompatActivity {
 
@@ -24,7 +26,6 @@ public class CategoriesActivity extends AppCompatActivity {
     private ImageButton addCategoriebt;
     private static final int MAX_COUNT_CONTEXTS = 20;
     private Toolbar toolbar;
-    private Menu menu;
     private EditCategorieAdapter editCategorieAdapter;
     private CategorieAdapter categorieAdapter;
 
@@ -32,8 +33,8 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        if (BackgroundSoundService.PLAYING)
-            startService(new Intent(this, BackgroundSoundService.class));
+        if (BackgroundSoundServiceUtil.PLAYING)
+            startService(new Intent(this, BackgroundSoundServiceUtil.class));
         this.addCategoriebt = (ImageButton) findViewById(R.id.add_categoriebt);
 
         //toolbar
@@ -81,28 +82,31 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     private void starMainActivity() {
-        Intent intent = new Intent(CategoriesActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        if (this.listView.getAdapter().getClass().equals(EditCategorieAdapter.class)){
+            setCategorieAdapter(toolbar.getMenu().getItem(1));
+        }else {
+            Intent intent = new Intent(CategoriesActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundService.PLAYING) {
+        if (BackgroundSoundServiceUtil.PLAYING) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(CategoriesActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = false;
+            stopService(new Intent(CategoriesActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(CategoriesActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = true;
+            startService(new Intent(CategoriesActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = true;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.delete_menu, menu);
-        this.menu = menu;
-        if (!BackgroundSoundService.PLAYING) {
+        if (!BackgroundSoundServiceUtil.PLAYING) {
             menu.getItem(2).setIcon(R.drawable.ic_volume_mute_white);
         }
         menu.getItem(1).setVisible(false);
@@ -115,14 +119,17 @@ public class CategoriesActivity extends AppCompatActivity {
             case android.R.id.home:
                 starMainActivity();
                 return true;
-            case R.id.delete_button:
+            case R.id.edite_categorie:
                 setEditCategorieAdapter(item);
                 return true;
             case R.id.soundControl:
                 controlMusic(item);
                 return true;
-            case R.id.finish_delete:
+            case R.id.finish_edite:
                 setCategorieAdapter(item);
+                return true;
+            case R.id.exitGame:
+                exitApp();
                 return true;
             default:
                 return false;
@@ -134,7 +141,10 @@ public class CategoriesActivity extends AppCompatActivity {
         this.addCategoriebt.setVisibility(View.GONE);
         this.addCategoriebt.setEnabled(false);
         this.toolbar.setTitle(R.string.delete_categorie);
-        this.menu.getItem(1).setVisible(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+        this.toolbar.getMenu().getItem(1).setVisible(true);
         this.listView.setAdapter(editCategorieAdapter);
     }
 
@@ -142,11 +152,36 @@ public class CategoriesActivity extends AppCompatActivity {
         item.setVisible(false);
         this.addCategoriebt.setVisibility(View.VISIBLE);
         this.addCategoriebt.setEnabled(true);
-        this.toolbar.setTitle("Contextos cadastrados");
-        this.menu.getItem(0).setVisible(true);
+        this.toolbar.setTitle(R.string.registered_categories);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        this.toolbar.getMenu().getItem(0).setVisible(true);
         this.categorieAdapter = new CategorieAdapter(this);
         this.listView.setAdapter(categorieAdapter);
     }
+
+    private void exitApp() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Deseja sair do jogo?");
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                System.exit(0);
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
 
     @Override
     public void onBackPressed() {

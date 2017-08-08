@@ -12,10 +12,11 @@
     <string name="registered_categories">Contextos Cadastrados</string>
     <string name="sound_button">sound button</string>
     <string name="delete_button">delete button</string>
-    <string name="delete">Delete</string>
-    <string name="finish">Concluído</string>
+    <string name="editar">Editar</string>
+    <string name="finish"> Concluído</string>
     <string name="register_new_categorie">Cadastrar novo contexto</string>
     <string name="select_categorie">Selecione o contexto</string>
     <string name="registered_words">Palavras cadastradas</string>
     <string name="register_new_word">Cadastrar nova palavra</string>
+    <string name="exit_app">Exit app</string>
 </resources>

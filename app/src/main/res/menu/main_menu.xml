@@ -7,4 +7,9 @@
         android:icon="@drawable/ic_volume_up_white"
         app:showAsAction="ifRoom"
         android:title="@string/sound_button" />
+    <item
+        android:id="@+id/exitGame"
+        app:showAsAction="ifRoom"
+        android:title="@string/exit_app"
+        android:icon="@drawable/ic_action_exit"/>
     </menu>

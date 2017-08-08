@@ -1,5 +1,7 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -15,7 +17,7 @@ import estagio3.ufpb.com.br.embaralhando.adapter.CategorieAdapter;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
-import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundService;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class SelectContextsActivity extends AppCompatActivity {
 
@@ -26,8 +28,8 @@ public class SelectContextsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_contexts);
 
-        if (BackgroundSoundService.PLAYING)
-            startService(new Intent(this, BackgroundSoundService.class));
+        if (BackgroundSoundServiceUtil.PLAYING)
+            startService(new Intent(this, BackgroundSoundServiceUtil.class));
 
         //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_select_categorie);
@@ -73,21 +75,21 @@ public class SelectContextsActivity extends AppCompatActivity {
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundService.PLAYING) {
+        if (BackgroundSoundServiceUtil.PLAYING) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(SelectContextsActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = false;
+            stopService(new Intent(SelectContextsActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(SelectContextsActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = true;
+            startService(new Intent(SelectContextsActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = true;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        if(!BackgroundSoundService.PLAYING) {
+        if(!BackgroundSoundServiceUtil.PLAYING) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
@@ -102,10 +104,35 @@ public class SelectContextsActivity extends AppCompatActivity {
             case R.id.soundControl:
                 controlMusic(item);
                 return true;
+            case R.id.exitGame:
+                exitApp();
+                return true;
             default:
                 return false;
         }
     }
+
+    private void exitApp() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Deseja sair do jogo?");
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                System.exit(0);
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
 
     @Override
     public void onBackPressed() {

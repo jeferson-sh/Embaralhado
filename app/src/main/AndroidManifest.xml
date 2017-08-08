@@ -53,7 +53,7 @@
             android:screenOrientation="landscape" />
 
         <service
-            android:name=".util.BackgroundSoundService"
+            android:name=".util.BackgroundSoundServiceUtil"
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="true" />

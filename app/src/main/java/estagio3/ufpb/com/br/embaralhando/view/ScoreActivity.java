@@ -1,5 +1,7 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,7 +12,7 @@ import android.widget.ListView;
 
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.adapter.ScoreAdapter;
-import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundService;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class ScoreActivity extends AppCompatActivity{
 
@@ -22,8 +24,8 @@ public class ScoreActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        if(BackgroundSoundService.PLAYING)
-            startService(new Intent(this,BackgroundSoundService.class));
+        if(BackgroundSoundServiceUtil.PLAYING)
+            startService(new Intent(this,BackgroundSoundServiceUtil.class));
 
         //toolbar
         this.toolbar = (Toolbar) findViewById(R.id.toolbar_score);
@@ -46,21 +48,21 @@ public class ScoreActivity extends AppCompatActivity{
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundService.PLAYING) {
+        if (BackgroundSoundServiceUtil.PLAYING) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = false;
+            stopService(new Intent(ScoreActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(ScoreActivity.this, BackgroundSoundService.class));
-            BackgroundSoundService.PLAYING = true;
+            startService(new Intent(ScoreActivity.this, BackgroundSoundServiceUtil.class));
+            BackgroundSoundServiceUtil.PLAYING = true;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (!BackgroundSoundService.PLAYING) {
+        if (!BackgroundSoundServiceUtil.PLAYING) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
@@ -75,10 +77,35 @@ public class ScoreActivity extends AppCompatActivity{
             case R.id.soundControl:
                 controlMusic(item);
                 return true;
+            case R.id.exitGame:
+                exitApp();
+                return true;
             default:
                 return false;
         }
     }
+
+    private void exitApp() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Deseja sair do jogo?");
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                System.exit(0);
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
     @Override
     public void onBackPressed() {
         startMainActivity();

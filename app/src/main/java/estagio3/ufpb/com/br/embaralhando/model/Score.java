@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtility;
+import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtil;
 
 /**
  * Created by Jeferson on 10/11/2016.
@@ -20,27 +20,27 @@ public class Score {
     public Score(byte[] imageScoreBytes, int score) {
         this.score = score;
         this.imageScoreBytes = imageScoreBytes;
-        this.image = DatabaseBitmapUtility.getImage(imageScoreBytes);
+        this.image = DatabaseBitmapUtil.getImage(imageScoreBytes);
     }
 
     public Score(Drawable drawable, int score) {
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.score = score;
-        this.imageScoreBytes = DatabaseBitmapUtility.getBytes(this.image);
+        this.imageScoreBytes = DatabaseBitmapUtil.getBytes(this.image);
     }
 
     public Score(Drawable drawable, int score, String name) {
         this.name = name;
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.score = score;
-        this.imageScoreBytes = DatabaseBitmapUtility.getBytes(this.image);
+        this.imageScoreBytes = DatabaseBitmapUtil.getBytes(this.image);
     }
 
     public Score(long id, byte[] imageScoreBytes, int score) {
         this.id = id;
         this.score = score;
         this.imageScoreBytes = imageScoreBytes;
-        this.image = DatabaseBitmapUtility.getImage(imageScoreBytes);
+        this.image = DatabaseBitmapUtil.getImage(imageScoreBytes);
     }
 
     public String getName() {
