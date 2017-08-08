@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.persistence;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

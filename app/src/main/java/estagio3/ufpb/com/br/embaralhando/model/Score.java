@@ -1,8 +1,10 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.model;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+
+import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtility;
 
 /**
  * Created by Jeferson on 10/11/2016.

@@ -1,35 +1,49 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.model;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtility;
+
 /**
  * Created by Jeferson on 10/11/2016.
  */
-public class Categorie {
+public class Word {
 
     private byte[] imageBytes;
     private String name;
     private Bitmap image;
     private long id;
+    private String context;
 
-    public Categorie(long id, byte[] imageBytes, String name){
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public Word(long id, byte[] imageBytes, String name, String context){
         this.id = id;
         this.name = name;
         this.imageBytes = imageBytes;
         this.image = DatabaseBitmapUtility.getImage(imageBytes);
+        this.context = context;
     }
-    public Categorie(Bitmap image, String name){
+    public Word(Bitmap image, String name,String context){
         this.name = name;
         this.image = image;
         this.imageBytes = DatabaseBitmapUtility.getBytes(this.image);
+        this.context = context;
     }
 
-    public Categorie(Drawable drawable, String name) {
+    public Word(Drawable drawable, String name, String context) {
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.name = name;
         this.imageBytes = DatabaseBitmapUtility.getBytes(this.image);
+        this.context = context;
     }
 
     public long getId() {

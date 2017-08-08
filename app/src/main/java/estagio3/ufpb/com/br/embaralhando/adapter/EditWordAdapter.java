@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,6 +10,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.model.Word;
 
 /**
  * Created by Jeferson on 25/07/2017.

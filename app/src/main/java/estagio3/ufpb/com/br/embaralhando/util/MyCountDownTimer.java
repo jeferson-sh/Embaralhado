@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.util;
 
 import android.content.Context;
 import android.os.CountDownTimer;

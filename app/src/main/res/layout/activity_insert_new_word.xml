@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ECEFF1"
-    tools:categorie="estagio3.ufpb.com.br.embaralhando.InsertNewWordActivity">
+    tools:categorie="estagio3.ufpb.com.br.embaralhando.view.InsertNewWordActivity">
 
 
     <include

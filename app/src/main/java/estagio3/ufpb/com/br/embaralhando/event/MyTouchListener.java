@@ -1,11 +1,11 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.event;
 
 import android.content.ClipData;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 
-class MyTouchListener implements View.OnTouchListener {
+ public class MyTouchListener implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             ClipData data = ClipData.newPlainText("", "");

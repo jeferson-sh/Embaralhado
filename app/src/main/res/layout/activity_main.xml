@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ECEFF1"
-    tools:categorie="estagio3.ufpb.com.br.embaralhando.MainActivity">
+    tools:categorie="estagio3.ufpb.com.br.embaralhando.view.MainActivity">
 
     <include
         android:id="@+id/toolbar_main"

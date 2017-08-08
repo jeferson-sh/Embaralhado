@@ -16,7 +16,8 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity">
+        <activity android:name=".view.SplashActivity"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,35 +25,35 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".CategoriesActivity"
+            android:name=".view.CategoriesActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".WordsActivity"
+            android:name=".view.WordsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".SelectContextsActivity"
+            android:name=".view.SelectContextsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ScoreActivity"
+            android:name=".view.ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".ShuffleGameActivity"
+            android:name=".view.ShuffleGameActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".InsertNewContextActivity"
+            android:name=".view.InsertNewContextActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".InsertNewWordActivity"
+            android:name=".view.InsertNewWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".CongratulationsMessageActivity"
+            android:name=".view.CongratulationsMessageActivity"
             android:screenOrientation="landscape" />
 
         <service
-            android:name=".BackgroundSoundService"
+            android:name=".util.BackgroundSoundService"
             android:enabled="true"
             android:exported="true"
             android:stopWithTask="true" />

@@ -1,12 +1,10 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.adapter;
 
 /**
  * Created by Jeferson on 17/11/2016.
  */
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,27 +14,31 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class WordsAdapter extends BaseAdapter{
+import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.model.Score;
+import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
 
-    private List<Word> words;
+public class ScoreAdapter extends BaseAdapter{
+
+    private List<Score> scores;
     private Context context;
     private DataBase dataBase;
 
-    public WordsAdapter(Context context,String nameContext) {
+    public ScoreAdapter(Context context) {
         this.context = context;
         this.dataBase = new DataBase(context);
-        this.words = dataBase.searchWordsDatabase(nameContext);
+        this.scores = dataBase.searchScoresDatabase();
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return this.words.size();
+        return this.scores.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return this.words.get(i);
+        return this.scores.get(i);
     }
 
     @Override
@@ -50,7 +52,7 @@ public class WordsAdapter extends BaseAdapter{
         View layout;
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.word_item_list, null);
+            layout = inflater.inflate(R.layout.score_item_list, null);
         }
         else{
             layout = view;
@@ -59,34 +61,15 @@ public class WordsAdapter extends BaseAdapter{
         ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
-        Word word = this.words.get(i);
-        textView.setText(word.getName());
+        Score pontos = this.scores.get(i);
+        String p = "";
+        if(pontos.getScore()==1)
+            p = pontos.getScore()+" Ponto.";
+        else p = pontos.getScore()+ " Pontos.";
+        textView.setText(p);
 
-        imageView.setImageBitmap(words.get(i).getImage());
+        imageView.setImageBitmap(this.scores.get(i).getImage());
+
         return layout;
-    }
-
-    public List<Word> getWords() {
-        return words;
-    }
-
-    public void setWords(List<Word> words) {
-        this.words = words;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public DataBase getDataBase() {
-        return dataBase;
-    }
-
-    public void setDataBase(DataBase dataBase) {
-        this.dataBase = dataBase;
     }
 }

@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.persistence;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -6,6 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import estagio3.ufpb.com.br.embaralhando.model.Categorie;
+import estagio3.ufpb.com.br.embaralhando.model.Score;
+import estagio3.ufpb.com.br.embaralhando.model.Word;
 
 /**
  * Created by Jeferson on 20/11/2016.

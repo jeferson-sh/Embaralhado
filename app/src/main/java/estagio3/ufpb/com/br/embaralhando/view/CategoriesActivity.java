@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import estagio3.ufpb.com.br.embaralhando.adapter.CategorieAdapter;
+import estagio3.ufpb.com.br.embaralhando.adapter.EditCategorieAdapter;
+import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.model.Categorie;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundService;
 
 public class CategoriesActivity extends AppCompatActivity {
 

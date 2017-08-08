@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.util;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,10 +6,12 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import estagio3.ufpb.com.br.embaralhando.R;
+
 public class BackgroundSoundService extends Service {
 
     private MediaPlayer player;
-    protected static boolean PLAYING = true;
+    public static boolean PLAYING = true;
 
     @Override
     public void onCreate() {

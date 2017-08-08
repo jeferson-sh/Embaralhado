@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -6,6 +6,11 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.model.Categorie;
+import estagio3.ufpb.com.br.embaralhando.model.Word;
+import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
 
 public class SplashActivity extends AppCompatActivity implements Runnable {
 

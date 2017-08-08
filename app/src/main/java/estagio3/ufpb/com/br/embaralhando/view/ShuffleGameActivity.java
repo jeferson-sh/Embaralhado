@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.view;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -22,6 +22,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import estagio3.ufpb.com.br.embaralhando.event.MyOnDragListener;
+import estagio3.ufpb.com.br.embaralhando.event.MyTouchListener;
+import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.adapter.ScoreAdapter;
+import estagio3.ufpb.com.br.embaralhando.model.Score;
+import estagio3.ufpb.com.br.embaralhando.model.Word;
+import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundService;
 
 public class ShuffleGameActivity extends AppCompatActivity {
 

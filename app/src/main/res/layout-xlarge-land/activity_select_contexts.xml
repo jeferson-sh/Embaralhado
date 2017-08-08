@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:categorie="estagio3.ufpb.com.br.embaralhando.SelectContextsActivity">
+    tools:categorie="estagio3.ufpb.com.br.embaralhando.view.SelectContextsActivity">
 
     <include
         android:id="@+id/toolbar_select_categorie"

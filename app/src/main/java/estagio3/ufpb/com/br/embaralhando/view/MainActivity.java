@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+
+import estagio3.ufpb.com.br.embaralhando.util.MyCountDownTimer;
+import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundService;
 
 public class MainActivity extends AppCompatActivity {
 

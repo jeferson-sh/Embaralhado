@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.event;
 
 import android.view.DragEvent;
 import android.view.View;
@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-class MyOnDragListener implements View.OnDragListener {
+public class MyOnDragListener implements View.OnDragListener {
 
 
     @Override

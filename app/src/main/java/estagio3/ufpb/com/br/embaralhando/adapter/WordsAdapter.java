@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando;
+package estagio3.ufpb.com.br.embaralhando.adapter;
 
 /**
  * Created by Jeferson on 17/11/2016.
@@ -14,27 +14,31 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class ScoreAdapter extends BaseAdapter{
+import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.model.Word;
+import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
 
-    private List<Score> scores;
+public class WordsAdapter extends BaseAdapter{
+
+    private List<Word> words;
     private Context context;
     private DataBase dataBase;
 
-    public ScoreAdapter(Context context) {
+    public WordsAdapter(Context context,String nameContext) {
         this.context = context;
         this.dataBase = new DataBase(context);
-        this.scores = dataBase.searchScoresDatabase();
+        this.words = dataBase.searchWordsDatabase(nameContext);
         this.notifyDataSetChanged();
     }
 
     @Override
     public int getCount() {
-        return this.scores.size();
+        return this.words.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return this.scores.get(i);
+        return this.words.get(i);
     }
 
     @Override
@@ -48,7 +52,7 @@ public class ScoreAdapter extends BaseAdapter{
         View layout;
         if(view == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.score_item_list, null);
+            layout = inflater.inflate(R.layout.word_item_list, null);
         }
         else{
             layout = view;
@@ -57,15 +61,34 @@ public class ScoreAdapter extends BaseAdapter{
         ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
-        Score pontos = this.scores.get(i);
-        String p = "";
-        if(pontos.getScore()==1)
-            p = pontos.getScore()+" Ponto.";
-        else p = pontos.getScore()+ " Pontos.";
-        textView.setText(p);
+        Word word = this.words.get(i);
+        textView.setText(word.getName());
 
-        imageView.setImageBitmap(this.scores.get(i).getImage());
-
+        imageView.setImageBitmap(words.get(i).getImage());
         return layout;
+    }
+
+    public List<Word> getWords() {
+        return words;
+    }
+
+    public void setWords(List<Word> words) {
+        this.words = words;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public DataBase getDataBase() {
+        return dataBase;
+    }
+
+    public void setDataBase(DataBase dataBase) {
+        this.dataBase = dataBase;
     }
 }
