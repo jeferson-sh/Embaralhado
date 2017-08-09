@@ -49,11 +49,11 @@ public class SelectContextsActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CategorieAdapter categorieAdapter = new CategorieAdapter(SelectContextsActivity.this);
                 Categorie categorie = (Categorie) categorieAdapter.getItem(position);
-                String nameContext = categorie.getName();
-                if (dataBase.searchWordsDatabase(nameContext).isEmpty()) {
+                Integer contextID = categorie.getId();
+                if (dataBase.searchWordsDatabase(contextID).isEmpty()) {
                     Snackbar.make(view, "Não Existem Palavras Cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 } else {
-                    startGame(nameContext);
+                    startGame(contextID);
                 }
             }
         });
@@ -65,9 +65,9 @@ public class SelectContextsActivity extends AppCompatActivity {
         finish();
     }
 
-    private void startGame(String nameContext) {
+    private void startGame(Integer contextID) {
         Bundle bundle = new Bundle();
-        bundle.putString("nameContext", nameContext);
+        bundle.putInt("contextID", contextID);
         Intent intent = new Intent(SelectContextsActivity.this, ShuffleGameActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);

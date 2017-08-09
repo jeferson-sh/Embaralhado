@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import estagio3.ufpb.com.br.embaralhando.util.MyCountDownTimerUtil;
 import estagio3.ufpb.com.br.embaralhando.R;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (dataBase.searchMyContextsDatabase().isEmpty()) {
+                if (dataBase.searchMyCategoriesDatabase().isEmpty()) {
                     Snackbar.make(view, "Não existem Contextos cadastrados!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 } else {
                     selectContext();

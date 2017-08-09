@@ -3,6 +3,7 @@ package estagio3.ufpb.com.br.embaralhando.persistence;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
 
 /**
  * Created by Jeferson on 20/11/2016.
@@ -20,7 +21,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase bd) {
-        bd.execSQL("create table words(_id integer primary key autoincrement, name text not null, image BLOB not null, context text not null );");
+        bd.execSQL("create table words(_id integer primary key autoincrement, name text not null, image BLOB not null, context_id int not null, FOREIGN KEY(context_id) REFERENCES contexts(_id));");
         bd.execSQL("create table scores(_id integer primary key autoincrement, score int not null, image BLOB not null);");
         bd.execSQL("create table contexts(_id integer primary key autoincrement, name text not null, image BLOB not null);");
     }
@@ -38,6 +39,13 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
             MYDATABASECORE = new DataBaseOpenHelper(ctx.getApplicationContext());
         }
         return MYDATABASECORE;
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            db.setForeignKeyConstraintsEnabled(true);
+        }
     }
 
 }

@@ -7,6 +7,9 @@ package estagio3.ufpb.com.br.embaralhando.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,8 @@ import android.widget.Toast;
 
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
+import estagio3.ufpb.com.br.embaralhando.view.EditContextActivity;
+import estagio3.ufpb.com.br.embaralhando.view.InsertNewContextActivity;
 
 public class EditCategorieAdapter extends CategorieAdapter {
 
@@ -38,6 +43,8 @@ public class EditCategorieAdapter extends CategorieAdapter {
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
         ImageButton removeCategorie = (ImageButton) layout.findViewById(R.id.delete_categorie);
         removeCategorie.setVisibility(View.VISIBLE);
+        ImageButton editeCategorie = (ImageButton) layout.findViewById(R.id.edite_categorie);
+        editeCategorie.setVisibility(View.VISIBLE);
 
         final Categorie categorie = getCategories().get(i);
         textView.setText(categorie.getName());
@@ -63,10 +70,23 @@ public class EditCategorieAdapter extends CategorieAdapter {
                 builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
                     }
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
+            }
+        });
+
+        editeCategorie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("categorieName", categorie.getId());
+                Intent intent = new Intent(getContext(), EditContextActivity.class);
+                intent.putExtras(bundle);
+                getContext().startActivities(new Intent[]{intent});
+
             }
         });
         return layout;

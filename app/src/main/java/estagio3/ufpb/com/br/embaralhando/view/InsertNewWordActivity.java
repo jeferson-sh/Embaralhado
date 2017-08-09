@@ -140,7 +140,7 @@ public class InsertNewWordActivity extends AppCompatActivity {
         boolean verify = verifyWord();
         Bundle bundle = getIntent().getExtras();
         if (this.bitmap != null && this.word.getText().toString().length() >= 2 && word.getText().toString().length() <= 10 && verify) {
-            dataBase.insertWord(new Word(bitmap, word.getText().toString().toUpperCase(), bundle.getString("nameContext")));
+            dataBase.insertWord(new Word(bitmap, word.getText().toString().toUpperCase(), bundle.getInt("contextID")));
             Intent intent = new Intent(InsertNewWordActivity.this, WordsActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);

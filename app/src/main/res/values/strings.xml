@@ -19,4 +19,6 @@
     <string name="registered_words">Palavras cadastradas</string>
     <string name="register_new_word">Cadastrar nova palavra</string>
     <string name="exit_app">Exit app</string>
+    <string name="description_button_delete_item">Description: Button delete item</string>
+    <string name="description_edite_categorie">Description: edite categorie</string>
 </resources>

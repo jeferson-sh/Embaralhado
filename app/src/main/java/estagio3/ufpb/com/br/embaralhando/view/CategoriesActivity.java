@@ -57,9 +57,9 @@ public class CategoriesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CategorieAdapter categorieAdapter = new CategorieAdapter(CategoriesActivity.this);
                 Categorie categorie = (Categorie) categorieAdapter.getItem(position);
-                String nameContext = categorie.getName();
+                Integer contextID = categorie.getId();
                 Bundle bundle = new Bundle();
-                bundle.putString("nameContext", nameContext);
+                bundle.putInt("contextID", contextID);
                 Intent intent = new Intent(CategoriesActivity.this, WordsActivity.class);
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -119,7 +119,7 @@ public class CategoriesActivity extends AppCompatActivity {
             case android.R.id.home:
                 starMainActivity();
                 return true;
-            case R.id.edite_categorie:
+            case R.id.edite_categories:
                 setEditCategorieAdapter(item);
                 return true;
             case R.id.soundControl:

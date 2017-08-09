@@ -4,19 +4,21 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import java.io.Serializable;
+
 import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtil;
 
 /**
  * Created by Jeferson on 10/11/2016.
  */
-public class Categorie {
+public class Categorie implements Serializable {
 
     private byte[] imageBytes;
     private String name;
     private Bitmap image;
-    private long id;
+    private Integer id;
 
-    public Categorie(long id, byte[] imageBytes, String name){
+    public Categorie(Integer id, byte[] imageBytes, String name){
         this.id = id;
         this.name = name;
         this.imageBytes = imageBytes;
@@ -34,11 +36,19 @@ public class Categorie {
         this.imageBytes = DatabaseBitmapUtil.getBytes(this.image);
     }
 
-    public long getId() {
+    public Categorie(int id, Drawable drawable, String animais) {
+        this.name = null;
+        this.image = null;
+        this.id = null;
+        this.imageBytes = null;
+
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -48,6 +58,7 @@ public class Categorie {
 
     public void setImage(Bitmap image) {
         this.image = image;
+        this.setImageBytes(DatabaseBitmapUtil.getBytes(image));
     }
 
     public String getName() {

@@ -15,31 +15,31 @@ public class Word {
     private String name;
     private Bitmap image;
     private long id;
-    private String context;
+    private Integer context;
 
-    public String getContext() {
+    public Integer getContext() {
         return context;
     }
 
-    public void setContext(String context) {
+    public void setContext(Integer context) {
         this.context = context;
     }
 
-    public Word(long id, byte[] imageBytes, String name, String context){
+    public Word(long id, byte[] imageBytes, String name, Integer context){
         this.id = id;
         this.name = name;
         this.imageBytes = imageBytes;
         this.image = DatabaseBitmapUtil.getImage(imageBytes);
         this.context = context;
     }
-    public Word(Bitmap image, String name,String context){
+    public Word(Bitmap image, String name,Integer context){
         this.name = name;
         this.image = image;
         this.imageBytes = DatabaseBitmapUtil.getBytes(this.image);
         this.context = context;
     }
 
-    public Word(Drawable drawable, String name, String context) {
+    public Word(Drawable drawable, String name, Integer context) {
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.name = name;
         this.imageBytes = DatabaseBitmapUtil.getBytes(this.image);
@@ -60,6 +60,7 @@ public class Word {
 
     public void setImage(Bitmap image) {
         this.image = image;
+        setImageBytes(DatabaseBitmapUtil.getBytes(image));
     }
 
     public String getName() {

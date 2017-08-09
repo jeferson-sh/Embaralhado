@@ -24,10 +24,10 @@ public class WordsAdapter extends BaseAdapter{
     private Context context;
     private DataBase dataBase;
 
-    public WordsAdapter(Context context,String nameContext) {
+    public WordsAdapter(Context context,Integer contextID) {
         this.context = context;
         this.dataBase = new DataBase(context);
-        this.words = dataBase.searchWordsDatabase(nameContext);
+        this.words = dataBase.searchWordsDatabase(contextID);
         this.notifyDataSetChanged();
     }
 

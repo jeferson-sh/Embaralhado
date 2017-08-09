@@ -26,9 +26,9 @@ import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class InsertNewContextActivity extends AppCompatActivity {
 
-    private EditText contexrtName;
+    private EditText contextName;
     private ImageView image;
-    private Bitmap bitmap;
+    private Bitmap bitmapCaptured;
     private DataBase dataBase;
     private String picturePath;
     private Toolbar toolbar;
@@ -40,7 +40,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insert_new_context);
         if (BackgroundSoundServiceUtil.PLAYING)
             startService(new Intent(this, BackgroundSoundServiceUtil.class));
-        this.contexrtName = (EditText) findViewById(R.id.editText);
+        this.contextName = (EditText) findViewById(R.id.editText);
         this.image = (ImageView) findViewById(R.id.imageView);
         this.dataBase = new DataBase(this);
 
@@ -109,12 +109,12 @@ public class InsertNewContextActivity extends AppCompatActivity {
         return cursor.getString(idx);
     }
 
-    private void setPic() {
+    protected void setPic() {
         // Get the dimensions of the View
         float targetW = getResources().getDimension(R.dimen.newImageWidth);
         float targetH = getResources().getDimension(R.dimen.newImageHeight);
 
-        // Get the dimensions of the bitmap
+        // Get the dimensions of the bitmapCaptured
         BitmapFactory.Options bmOptions = new BitmapFactory.Options();
         bmOptions.inJustDecodeBounds = true;
         BitmapFactory.decodeFile(picturePath, bmOptions);
@@ -129,29 +129,29 @@ public class InsertNewContextActivity extends AppCompatActivity {
         bmOptions.inSampleSize = scaleFactor;
         //bmOptions.inPurgeable = true;
 
-        bitmap = BitmapFactory.decodeFile(picturePath, bmOptions);
-        image.setImageBitmap(bitmap);
+        bitmapCaptured = BitmapFactory.decodeFile(picturePath, bmOptions);
+        image.setImageBitmap(bitmapCaptured);
     }
 
     public void saveContext(View v) {
         boolean verify = verifyWord();
-        if (this.bitmap != null && this.contexrtName.getText().toString().length() >= 2 && contexrtName.getText().toString().length() <= 10 && verify) {
-            dataBase.insertContext(new Categorie(bitmap, contexrtName.getText().toString().toUpperCase()));
+        if (this.bitmapCaptured != null && this.contextName.getText().toString().length() >= 2 && contextName.getText().toString().length() <= 10 && verify) {
+            dataBase.insertContext(new Categorie(bitmapCaptured, contextName.getText().toString().toUpperCase()));
             startActivity(new Intent(InsertNewContextActivity.this, CategoriesActivity.class));
             finish();
-        } else if (this.contexrtName.getText().toString().length() > 10) {
+        } else if (this.contextName.getText().toString().length() > 10) {
             Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        } else if (this.contexrtName.getText().toString().length() < 2) {
+        } else if (this.contextName.getText().toString().length() < 2) {
             Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         } else if (!verify) {
             Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        }else if(this.bitmap==null){
+        }else if(this.bitmapCaptured ==null){
             Snackbar.make(v, "Por favor, insira uma foto da galeria ou use a câmera!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }
     }
 
     private boolean verifyWord() {
-        char[] word = this.contexrtName.getText().toString().toCharArray();
+        char[] word = this.contextName.getText().toString().toCharArray();
         boolean b = true;
         for (char aWord : word) {
             if (!Character.isLetter(aWord)) {
@@ -230,5 +230,53 @@ public class InsertNewContextActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public EditText getContextName() {
+        return contextName;
+    }
+
+    public void setContextName(EditText contextName) {
+        this.contextName = contextName;
+    }
+
+    public ImageView getImage() {
+        return image;
+    }
+
+    public void setImage(ImageView image) {
+        this.image = image;
+    }
+
+    public Bitmap getBitmapCaptured() {
+        return bitmapCaptured;
+    }
+
+    public void setBitmapCaptured(Bitmap bitmapCaptured) {
+        this.bitmapCaptured = bitmapCaptured;
+    }
+
+    public DataBase getDataBase() {
+        return dataBase;
+    }
+
+    public void setDataBase(DataBase dataBase) {
+        this.dataBase = dataBase;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    public void setToolbar(Toolbar toolbar) {
+        this.toolbar = toolbar;
     }
 }

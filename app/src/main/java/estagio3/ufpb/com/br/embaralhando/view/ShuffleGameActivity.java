@@ -3,9 +3,9 @@ package estagio3.ufpb.com.br.embaralhando.view;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -47,7 +47,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private int finalChallenge;
 
     private List<Integer> levelsIndex;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         MyTouchListener myTouchListener = new MyTouchListener();
         this.dataBase = new DataBase(this);
         Bundle bundle = getIntent().getExtras();
-        this.words = dataBase.searchWordsDatabase(bundle.getString("nameContext"));
+        this.words = dataBase.searchWordsDatabase(bundle.getInt("contextID"));
         this.finalChallenge = 10;
 
         if (words.size() < finalChallenge) {
@@ -76,9 +75,9 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.textCountLevel = (TextView) findViewById(R.id.textCountNivel);
 
         //toolbar
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar_shuffler_game_mode);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_shuffler_game_mode);
         setSupportActionBar(toolbar);
-        this.toolbar.inflateMenu(R.menu.main_menu);
+        toolbar.inflateMenu(R.menu.main_menu);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Organize as letras");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -303,13 +302,22 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.imageQuestion.setImageBitmap(words.get(i).getImage());
     }
 
+    public String simpleShufflerWord(String p) {
+        char[] x = p.toCharArray();
+        char y = x[0];
+        char z = x[1];
+        x[0] = z;
+        x[1] = y;
+        return Arrays.toString(x);
+    }
+
     public void loadWord(int pos) {
         int challenge = count + 1;
         String n = "Desafio " + challenge + " de " + finalChallenge;
         this.textCountLevel.setText(n);
         String p = shuffle(words.get(pos).getName());
-        while (p.equals(words.get(pos).getName())) {
-            p = shuffle(words.get(pos).getName());
+        if (p.equals(words.get(pos).getName())) {
+            p = simpleShufflerWord(p);
         }
         char aux[] = p.toCharArray();
         char aux2[] = words.get(pos).getName().toCharArray();
@@ -568,12 +576,12 @@ public class ShuffleGameActivity extends AppCompatActivity {
                     letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
+                default:
+                        break;
             }
         }
-
     }
 
-    @NonNull
     private String shuffle(String s) {
         List<String> letters = Arrays.asList(s.split(""));
         Collections.shuffle(letters);
@@ -633,7 +641,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
 
-
     private void VerifyWord(String s) {
         CharSequence verify = "";
         for (int i = 0; i < s.length(); i++) {
@@ -660,12 +667,14 @@ public class ShuffleGameActivity extends AppCompatActivity {
         mp.seekTo(1000);
         mp.start();
         mp.setVolume(300, 300);
+        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
     private void startSoundQuestionCorrect() {
         MediaPlayer mp = MediaPlayer.create(this, R.raw.correct);
         mp.start();
         mp.setVolume(200, 200);
+        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
     @Override

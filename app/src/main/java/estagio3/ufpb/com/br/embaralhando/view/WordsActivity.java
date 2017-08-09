@@ -47,8 +47,8 @@ public class WordsActivity extends AppCompatActivity {
         }
         //adapters
         bundle = getIntent().getExtras();
-        this.editWordAdapter = new EditWordAdapter(this, bundle.getString("nameContext"));
-        this.wordsAdapter = new WordsAdapter(this,bundle.getString("nameContext"));
+        this.editWordAdapter = new EditWordAdapter(this, bundle.getInt("contextID"));
+        this.wordsAdapter = new WordsAdapter(this,bundle.getInt("contextID"));
 
         listView = (ListView) findViewById(R.id.listViewWords);
         listView.setAdapter(wordsAdapter);
@@ -106,7 +106,7 @@ public class WordsActivity extends AppCompatActivity {
             case android.R.id.home:
                 startCategoriesActivity();
                 return true;
-            case R.id.edite_categorie:
+            case R.id.edite_categories:
                 setEditWordAdapter(item);
                 return true;
             case R.id.soundControl:
@@ -166,7 +166,7 @@ public class WordsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         this.toolbar.getMenu().getItem(0).setVisible(true);
-        this.wordsAdapter = new WordsAdapter(this,bundle.getString("nameContext"));
+        this.wordsAdapter = new WordsAdapter(this,bundle.getInt("contextID"));
         this.listView.setAdapter(wordsAdapter);
     }
     @Override

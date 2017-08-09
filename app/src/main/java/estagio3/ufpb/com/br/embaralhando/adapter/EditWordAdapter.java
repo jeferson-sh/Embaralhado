@@ -19,8 +19,8 @@ import estagio3.ufpb.com.br.embaralhando.model.Word;
  */
 
 public class EditWordAdapter extends WordsAdapter {
-    public EditWordAdapter(Context context, String nameContext) {
-        super(context, nameContext);
+    public EditWordAdapter(Context context, Integer contextID) {
+        super(context, contextID);
     }
 
     @Override

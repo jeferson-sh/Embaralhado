@@ -29,7 +29,7 @@ public class CategorieAdapter extends BaseAdapter {
         this.context = context;
         this.dataBase = new DataBase(context);
         try {
-            this.categories = dataBase.searchMyContextsDatabase();
+            this.categories = dataBase.searchMyCategoriesDatabase();
         } catch (Exception e) {
             this.categories = new ArrayList<Categorie>();
         }

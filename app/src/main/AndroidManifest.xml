@@ -28,6 +28,9 @@
             android:name=".view.MainActivity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".view.EditContextActivity"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".view.CategoriesActivity"
             android:screenOrientation="landscape" />
         <activity
