@@ -178,6 +178,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
             }
         });
         AlertDialog dialog = builder.create();
@@ -302,22 +303,15 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.imageQuestion.setImageBitmap(words.get(i).getImage());
     }
 
-    public String simpleShufflerWord(String p) {
-        char[] x = p.toCharArray();
-        char y = x[0];
-        char z = x[1];
-        x[0] = z;
-        x[1] = y;
-        return Arrays.toString(x);
-    }
+
 
     public void loadWord(int pos) {
         int challenge = count + 1;
         String n = "Desafio " + challenge + " de " + finalChallenge;
         this.textCountLevel.setText(n);
         String p = shuffle(words.get(pos).getName());
-        if (p.equals(words.get(pos).getName())) {
-            p = simpleShufflerWord(p);
+        if(p.equals(words.get(pos).getName())) {
+            p = shuffle(p);
         }
         char aux[] = p.toCharArray();
         char aux2[] = words.get(pos).getName().toCharArray();
@@ -576,8 +570,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
                     letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
                     continue;
-                default:
-                        break;
             }
         }
     }
