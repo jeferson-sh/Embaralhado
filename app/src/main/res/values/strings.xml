@@ -4,8 +4,8 @@
     <string name="jogar">Jogar</string>
     <string name="configurar">Configurar</string>
     <string name="score">score</string>
-    <string name="delete_categorie">Apagar Contextos</string>
-    <string name="delete_word">Apagar Palavras</string>
+    <string name="edite_categorie">Editar Contextos</string>
+    <string name="edit_word">Editar Palavras</string>
     <string name="image_score">image score</string>
     <string name="cancel_button_again">Cancel button again</string>
     <string name="sair">Sair</string>

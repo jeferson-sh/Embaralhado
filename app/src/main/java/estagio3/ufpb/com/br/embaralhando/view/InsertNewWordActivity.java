@@ -72,7 +72,7 @@ public class InsertNewWordActivity extends AppCompatActivity {
         savePhotobt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                savePhoto(v);
+                saveWord(v);
             }
         });
     }
@@ -136,7 +136,7 @@ public class InsertNewWordActivity extends AppCompatActivity {
         image.setImageBitmap(bitmap);
     }
 
-    public void savePhoto(View v) {
+    public void saveWord(View v) {
         boolean verify = verifyWord();
         Bundle bundle = getIntent().getExtras();
         if (this.bitmap != null && this.word.getText().toString().length() >= 2 && word.getText().toString().length() <= 10 && verify) {
@@ -239,5 +239,53 @@ public class InsertNewWordActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public EditText getWord() {
+        return word;
+    }
+
+    public void setWord(EditText word) {
+        this.word = word;
+    }
+
+    public ImageView getImage() {
+        return image;
+    }
+
+    public void setImage(ImageView image) {
+        this.image = image;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    public DataBase getDataBase() {
+        return dataBase;
+    }
+
+    public void setDataBase(DataBase dataBase) {
+        this.dataBase = dataBase;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    public void setToolbar(Toolbar toolbar) {
+        this.toolbar = toolbar;
     }
 }

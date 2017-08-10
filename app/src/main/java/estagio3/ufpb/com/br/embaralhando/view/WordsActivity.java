@@ -149,7 +149,7 @@ public class WordsActivity extends AppCompatActivity {
         item.setVisible(false);
         this.addWordbt.setVisibility(View.GONE);
         this.addWordbt.setEnabled(false);
-        this.toolbar.setTitle(R.string.delete_word);
+        this.toolbar.setTitle(R.string.edit_word);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }

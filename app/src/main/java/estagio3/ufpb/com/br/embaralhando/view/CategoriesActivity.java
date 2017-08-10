@@ -140,7 +140,7 @@ public class CategoriesActivity extends AppCompatActivity {
         item.setVisible(false);
         this.addCategoriebt.setVisibility(View.GONE);
         this.addCategoriebt.setEnabled(false);
-        this.toolbar.setTitle(R.string.delete_categorie);
+        this.toolbar.setTitle(R.string.edite_categorie);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }

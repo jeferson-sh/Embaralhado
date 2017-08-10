@@ -14,7 +14,7 @@ public class Word {
     private byte[] imageBytes;
     private String name;
     private Bitmap image;
-    private long id;
+    private Integer id;
     private Integer context;
 
     public Integer getContext() {
@@ -25,7 +25,7 @@ public class Word {
         this.context = context;
     }
 
-    public Word(long id, byte[] imageBytes, String name, Integer context){
+    public Word(Integer id, byte[] imageBytes, String name, Integer context){
         this.id = id;
         this.name = name;
         this.imageBytes = imageBytes;
@@ -46,11 +46,11 @@ public class Word {
         this.context = context;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

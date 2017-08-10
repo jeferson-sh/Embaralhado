@@ -1,45 +1,46 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-import estagio3.ufpb.com.br.embaralhando.model.Categorie;
+import estagio3.ufpb.com.br.embaralhando.model.Word;
 
 /**
- * Created by Jeferson on 08/08/2017.
+ * Created by Jeferson on 10/08/2017.
  */
 
-public class EditContextActivity extends InsertNewContextActivity {
-
-    private Categorie categorie;
+public class EditWordActivity extends InsertNewWordActivity {
+    private Word word;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = getIntent().getExtras();
-        categorie = getDataBase().searchCategorieDatabase(bundle.getInt("categorieName"));
-        getToolbar().setTitle("Editar contexto " + categorie.getName());
-        getImage().setImageBitmap(categorie.getImage());
-        getContextName().setText(categorie.getName());
+        word = getDataBase().searchWordDatabase(bundle.getInt("wordID"));
+        getToolbar().setTitle("Editar palavra " + word.getName());
+        getImage().setImageBitmap(word.getImage());
+        getWord().setText(word.getName());
 
     }
-
-    public void saveContext(View v) {
+    @Override
+    public void saveWord(View v) {
         boolean verify = verifyWord();
-        if (getContextName().getText().toString().length() >= 2 && getContextName().getText().toString().length() <= 10 && verify) {
+        Bundle bundle = getIntent().getExtras();
+        if (getWord().getText().toString().length() >= 2 && getWord().getText().toString().length() <= 10 && verify) {
             if(getPicturePath()!= null){
-                this.categorie.setImage(getBitmapCaptured());
+                this.word.setImage(getBitmap());
             }
-            this.categorie.setName(getContextName().getText().toString().toUpperCase());
-            getDataBase().updateContext(categorie);
-            startActivity(new Intent(EditContextActivity.this, CategoriesActivity.class));
+            this.word.setName(getWord().getText().toString().toUpperCase());
+            getDataBase().updateWord(word);
+            Intent intent = new Intent(EditWordActivity.this, WordsActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
             finish();
-        } else if (getContextName().getText().toString().length() > 10) {
+        } else if (getWord().getText().toString().length() > 10) {
             Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        } else if (getContextName().getText().toString().length() < 2) {
+        } else if (getWord().getText().toString().length() < 2) {
             Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         } else if (!verify) {
             Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
@@ -47,7 +48,7 @@ public class EditContextActivity extends InsertNewContextActivity {
     }
 
     private boolean verifyWord() {
-        char[] word = categorie.getName().toCharArray();
+        char[] word = this.word.getName().toCharArray();
         boolean b = true;
         for (char aWord : word) {
             if (!Character.isLetter(aWord)) {

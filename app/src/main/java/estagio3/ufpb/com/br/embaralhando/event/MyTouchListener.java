@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
  public class MyTouchListener implements View.OnTouchListener {
+
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
             ClipData data = ClipData.newPlainText("", "");

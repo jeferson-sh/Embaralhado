@@ -14,27 +14,27 @@ public class MyOnDragListener implements View.OnDragListener {
         int action = event.getAction();
         boolean isDroped = false;
         LinearLayout drop = (LinearLayout)v;
-        ImageView letra = (ImageView) event.getLocalState();
+        ImageView letter = (ImageView) event.getLocalState();
 
         switch(action) {
             case DragEvent.ACTION_DROP:
                 isDroped = true;
-                letra.setEnabled(false);
+                letter.setEnabled(false);
                 drop.setEnabled(false);
-                if(letra.getTag().toString().equalsIgnoreCase(drop.getTag().toString())){
-                    letra.setContentDescription("v");
+                if(letter.getTag().toString().equalsIgnoreCase(drop.getTag().toString())){
+                    letter.setContentDescription("v");
                 }
                 else{
-                    letra.setContentDescription("f");
+                    letter.setContentDescription("f");
                 }
-                ViewGroup dragLayout = (ViewGroup) letra.getParent();
-                dragLayout.removeView(letra);
-                drop.addView(letra);
-                letra.setVisibility(View.VISIBLE);
+                ViewGroup dragLayout = (ViewGroup) letter.getParent();
+                dragLayout.removeView(letter);
+                drop.addView(letter);
+                letter.setVisibility(View.VISIBLE);
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
                 if(!isDroped)
-                    letra.setVisibility(View.VISIBLE);
+                    letter.setVisibility(View.VISIBLE);
                 break;
         }
 

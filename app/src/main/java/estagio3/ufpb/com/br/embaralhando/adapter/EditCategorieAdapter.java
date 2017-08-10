@@ -4,12 +4,12 @@ package estagio3.ufpb.com.br.embaralhando.adapter;
  * Created by Jeferson on 17/11/2016.
  */
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +21,6 @@ import android.widget.Toast;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.view.EditContextActivity;
-import estagio3.ufpb.com.br.embaralhando.view.InsertNewContextActivity;
 
 public class EditCategorieAdapter extends CategorieAdapter {
 
@@ -85,7 +84,8 @@ public class EditCategorieAdapter extends CategorieAdapter {
                 bundle.putInt("categorieName", categorie.getId());
                 Intent intent = new Intent(getContext(), EditContextActivity.class);
                 intent.putExtras(bundle);
-                getContext().startActivities(new Intent[]{intent});
+                getContext().startActivity(intent);
+                ((Activity) getContext()).finish();
 
             }
         });

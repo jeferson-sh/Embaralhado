@@ -1,8 +1,11 @@
 package estagio3.ufpb.com.br.embaralhando.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,9 @@ import android.widget.Toast;
 
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.model.Word;
+import estagio3.ufpb.com.br.embaralhando.view.EditContextActivity;
+import estagio3.ufpb.com.br.embaralhando.view.EditWordActivity;
+import estagio3.ufpb.com.br.embaralhando.view.WordsActivity;
 
 /**
  * Created by Jeferson on 25/07/2017.
@@ -38,6 +44,9 @@ public class EditWordAdapter extends WordsAdapter {
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
         ImageButton removeWord = (ImageButton) layout.findViewById(R.id.delete_word);
         removeWord.setVisibility(View.VISIBLE);
+        ImageButton editeWord = (ImageButton) layout.findViewById(R.id.edite_word);
+        editeWord.setVisibility(View.VISIBLE);
+
 
         final Word word = getWords().get(i);
         textView.setText(word.getName());
@@ -66,6 +75,20 @@ public class EditWordAdapter extends WordsAdapter {
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
+            }
+        });
+
+        editeWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("contextID", getContextID());
+                bundle.putInt("wordID",word.getId());
+                Intent intent = new Intent(getContext(), EditWordActivity.class);
+                intent.putExtras(bundle);
+                getContext().startActivity(intent);
+                ((Activity) getContext()).finish();
+
             }
         });
         return layout;

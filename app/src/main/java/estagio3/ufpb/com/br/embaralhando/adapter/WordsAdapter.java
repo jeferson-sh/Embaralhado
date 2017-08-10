@@ -23,9 +23,11 @@ public class WordsAdapter extends BaseAdapter{
     private List<Word> words;
     private Context context;
     private DataBase dataBase;
+    private Integer contextID;
 
     public WordsAdapter(Context context,Integer contextID) {
         this.context = context;
+        this.contextID = contextID;
         this.dataBase = new DataBase(context);
         this.words = dataBase.searchWordsDatabase(contextID);
         this.notifyDataSetChanged();
@@ -90,5 +92,13 @@ public class WordsAdapter extends BaseAdapter{
 
     public void setDataBase(DataBase dataBase) {
         this.dataBase = dataBase;
+    }
+
+    public Integer getContextID() {
+        return contextID;
+    }
+
+    public void setContextID(Integer contextID) {
+        this.contextID = contextID;
     }
 }

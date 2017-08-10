@@ -85,7 +85,7 @@ public class DataBase {
 
             do {
 
-                long id = cursor.getLong(0);
+                Integer id = cursor.getInt(0);
                 String name = cursor.getString(1);
                 byte[] image = cursor.getBlob(2);
                 Integer context = cursor.getInt(3);
@@ -97,31 +97,6 @@ public class DataBase {
 
         return (list);
     }
-
-    public List<Word> searchWordsDatabase(Categorie categorieID) {
-        final List<Word> list = new ArrayList<>();
-        String[] columns = new String[]{"_id", "name", "image", "context_id"};
-
-        final Cursor cursor = bd.query("words", columns, "context_id = ?", new String[]{"" + categorieID.getId()}, null, null, "name ASC", null);
-
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-
-            do {
-
-                long id = cursor.getLong(0);
-                String name = cursor.getString(1);
-                byte[] image = cursor.getBlob(2);
-                Integer context = cursor.getInt(3);
-                Word w = new Word(id, image, name, context);
-                list.add(w);
-
-            } while (cursor.moveToNext());
-        }
-
-        return (list);
-    }
-
 
     public List<Categorie> searchMyCategoriesDatabase() {
         List<Categorie> list = new ArrayList<>();
@@ -169,9 +144,9 @@ public class DataBase {
         return (list);
     }
 
-    public Categorie searchCategorieDatabase(Integer nameContext) {
+    public Categorie searchCategorieDatabase(Integer categorieID) {
         String[] columns = new String[]{"_id", "name", "image"};
-        Cursor cursor = bd.query("contexts", columns, "_id = ?", new String[]{"" + nameContext}, null, null, null, null);
+        Cursor cursor = bd.query("contexts", columns, "_id = ?", new String[]{"" + categorieID}, null, null, null, null);
         cursor.moveToFirst();
         int id = cursor.getInt(0);
         String name = cursor.getString(1);
@@ -180,6 +155,20 @@ public class DataBase {
         cursor.close();
         return (categorie);
     }
+
+    public Word searchWordDatabase(Integer wordID) {
+        String[] columns = new String[]{"_id", "name", "image", "context_id"};
+        Cursor cursor = bd.query("words", columns, "_id = ?", new String[]{"" + wordID}, null, null, null, null);
+        cursor.moveToFirst();
+        int id = cursor.getInt(0);
+        String name = cursor.getString(1);
+        byte[] image = cursor.getBlob(2);
+        Integer contextID = cursor.getInt(3);
+        Word word = new Word(id, image, name, contextID);
+        cursor.close();
+        return (word);
+    }
+
 
     public Categorie searchCategorieDatabase(String nameContext) {
         String[] columns = new String[]{"_id", "name", "image"};
