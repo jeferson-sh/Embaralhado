@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,6 +47,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private int score;
     private TextView textCountLevel;
     private int finalChallenge;
+    private boolean scoreSubtration;
 
     private List<Integer> levelsIndex;
     private ImageButton checkWordButton;
@@ -66,10 +68,11 @@ public class ShuffleGameActivity extends AppCompatActivity {
         if (words.size() < finalChallenge) {
             finalChallenge = words.size();
         }
-        this.score = 10;
+        this.score = 100;
         count = 0;
         this.levelsIndex = shuffleLevelIndex();
         randomLevel = levelsIndex.get(count);
+        this.scoreSubtration = false;
 
 
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
@@ -269,12 +272,12 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private int getIdImageViewScore() {
-        if (this.score <= 5) {
+        if (this.score <= 50) {
             if (this.score < 0) {
-                this.score = 0;
+                this.score = 10;
             }
             return R.drawable.low_score;
-        } else if (this.score > 5 && this.score <= 8) {
+        } else if (this.score > 50 && this.score <= 70) {
             return R.drawable.medium_score;
         } else {
             return R.drawable.hight_score;
@@ -307,13 +310,13 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
 
-
     public void loadWord(int pos) {
+        setScoreSubtration(false);
         int challenge = count + 1;
         String n = "Desafio " + challenge + " de " + finalChallenge;
         this.textCountLevel.setText(n);
         String p = shuffle(words.get(pos).getName());
-        if(p.equals(words.get(pos).getName())) {
+        if (p.equals(words.get(pos).getName())) {
             p = shuffle(p);
         }
         char aux[] = p.toCharArray();
@@ -650,10 +653,14 @@ public class ShuffleGameActivity extends AppCompatActivity {
             startSoundQuestionCorrect();
             toGetNextWord();
         } else {
-            this.score--;
+            if (!getScoreSubtration()) {
+                this.score = this.score - 10;
+                setScoreSubtration(true);
+            }
             starSoundQuestionWrong();
             removeLettersWrong();
         }
+        Log.d("Score = ",String.valueOf(this.score));
 
     }
 
@@ -680,5 +687,13 @@ public class ShuffleGameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public boolean getScoreSubtration() {
+        return scoreSubtration;
+    }
+
+    public void setScoreSubtration(boolean scoreSubtration) {
+        this.scoreSubtration = scoreSubtration;
     }
 }

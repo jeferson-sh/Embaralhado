@@ -36,6 +36,9 @@ public class MyOnDragListener implements View.OnDragListener {
                 if(!isDroped)
                     letter.setVisibility(View.VISIBLE);
                 break;
+            default:
+                isDroped = false;
+                break;
         }
 
         return true;
