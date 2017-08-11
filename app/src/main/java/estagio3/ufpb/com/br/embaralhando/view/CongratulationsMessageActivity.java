@@ -1,6 +1,7 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -80,8 +81,13 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
     }
 
     private void speakMessage() {
-        tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null);
-        tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null,null);
+            tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null,null);
+        } else {
+            tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null);
+            tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null);
+        }
 
 
     }
