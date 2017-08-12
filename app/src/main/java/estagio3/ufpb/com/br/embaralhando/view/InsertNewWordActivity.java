@@ -1,6 +1,7 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.model.Word;
 import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
 import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
@@ -141,6 +143,7 @@ public class InsertNewWordActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (this.bitmap != null && this.word.getText().toString().length() >= 2 && word.getText().toString().length() <= 10 && verify) {
             dataBase.insertWord(new Word(bitmap, word.getText().toString().toUpperCase(), bundle.getInt("contextID")));
+            updateCategorie(bundle.getInt("contextID"));
             Intent intent = new Intent(InsertNewWordActivity.this, WordsActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -156,6 +159,12 @@ public class InsertNewWordActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void updateCategorie(int contextID) {
+        Categorie categorie = dataBase.searchCategorieDatabase(contextID);
+        categorie.setElements("true");
+        dataBase.updateCategorie(categorie);
     }
 
     private boolean verifyWord() {

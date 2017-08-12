@@ -136,7 +136,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
     public void saveContext(View v) {
         boolean verify = verifyWord();
         if (this.bitmapCaptured != null && this.contextName.getText().toString().length() >= 2 && contextName.getText().toString().length() <= 10 && verify) {
-            dataBase.insertContext(new Categorie(bitmapCaptured, contextName.getText().toString().toUpperCase()));
+            dataBase.insertCategorie(new Categorie(bitmapCaptured, contextName.getText().toString().toUpperCase()));
             startActivity(new Intent(InsertNewContextActivity.this, CategoriesActivity.class));
             finish();
         } else if (this.contextName.getText().toString().length() > 10) {

@@ -34,6 +34,17 @@ public class CategorieAdapter extends BaseAdapter {
             this.categories = new ArrayList<Categorie>();
         }
     }
+    public CategorieAdapter(Context context, List<Categorie> categories) {
+        this.context = context;
+        this.dataBase = new DataBase(context);
+        try {
+            this.categories = categories;
+        } catch (Exception e) {
+            this.categories = new ArrayList<Categorie>();
+        }
+    }
+
+
 
     @Override
     public int getCount() {

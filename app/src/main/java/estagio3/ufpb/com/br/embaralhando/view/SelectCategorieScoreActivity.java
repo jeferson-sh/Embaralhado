@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.AdapterView;
 
+import estagio3.ufpb.com.br.embaralhando.adapter.CategoriesScoresAdapter;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 
 /**
@@ -18,6 +19,7 @@ public class SelectCategorieScoreActivity extends SelectCategoriesToPlayActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getToolbar().setTitle("Contextos pontuados");
+        getListView().setAdapter(new CategoriesScoresAdapter(this,"true"));
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import estagio3.ufpb.com.br.embaralhando.adapter.CategorieAdapter;
 import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.adapter.CategorieWordsAdapter;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
 import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
@@ -44,7 +45,7 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
         //end
         dataBase = new DataBase(this);
         listView = (ListView) findViewById(R.id.listViewWords);
-        listView.setAdapter(new CategorieAdapter(this));
+        listView.setAdapter(new CategorieWordsAdapter(this,"true"));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -28,6 +28,7 @@ import estagio3.ufpb.com.br.embaralhando.event.MyOnDragListener;
 import estagio3.ufpb.com.br.embaralhando.event.MyTouchListener;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.adapter.ScoreAdapter;
+import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.model.Letters;
 import estagio3.ufpb.com.br.embaralhando.model.Score;
 import estagio3.ufpb.com.br.embaralhando.model.Word;
@@ -291,6 +292,9 @@ public class ShuffleGameActivity extends AppCompatActivity {
             dataBase.deleteScore((Score) scoreAdapter.getItem(0));
         }
         dataBase.insertScore(p);
+        Categorie categorie = dataBase.searchCategorieDatabase(contextID);
+        categorie.setScores("true");
+        dataBase.updateCategorie(categorie);
     }
 
     private void clearLevel() {

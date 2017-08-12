@@ -1,6 +1,5 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -38,15 +37,15 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
 
     public void createContext() {
         Categorie animals = new Categorie(ContextCompat.getDrawable(this, R.drawable.animals), "ANIMAIS");
-        dataBase.insertContext(animals);
+        dataBase.insertCategorie(animals);
         createAnimals(dataBase.searchCategorieDatabase(animals.getName()));
 
         Categorie fruits = new Categorie(ContextCompat.getDrawable(this, R.drawable.fruits), "FRUTAS");
-        dataBase.insertContext(fruits);
+        dataBase.insertCategorie(fruits);
         createFruits(dataBase.searchCategorieDatabase(fruits.getName()));
 
         Categorie circus = new Categorie(ContextCompat.getDrawable(this, R.drawable.circus), "CIRCO");
-        dataBase.insertContext(circus);
+        dataBase.insertCategorie(circus);
         createCircus(dataBase.searchCategorieDatabase(circus.getName()));
     }
 

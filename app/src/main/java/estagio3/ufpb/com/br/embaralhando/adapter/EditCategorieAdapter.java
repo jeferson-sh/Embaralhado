@@ -61,7 +61,7 @@ public class EditCategorieAdapter extends CategorieAdapter {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         getCategories().remove(categorie);
-                        getDataBase().deleteContext(categorie);
+                        getDataBase().deleteCategorie(categorie);
                         Toast.makeText(getContext(), "Contexto " + categorie.getName() + " apagado!", Toast.LENGTH_LONG).show();
                         notifyDataSetChanged();
                     }
