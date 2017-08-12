@@ -23,11 +23,13 @@ public class ScoreAdapter extends BaseAdapter{
     private List<Score> scores;
     private Context context;
     private DataBase dataBase;
+    private Integer contextID;
 
-    public ScoreAdapter(Context context) {
+    public ScoreAdapter(Context context, Integer contextID) {
         this.context = context;
+        this.contextID = contextID;
         this.dataBase = new DataBase(context);
-        this.scores = dataBase.searchScoresDatabase();
+        this.scores = dataBase.searchScoresDatabase(contextID);
         this.notifyDataSetChanged();
     }
 
@@ -61,12 +63,10 @@ public class ScoreAdapter extends BaseAdapter{
         ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
-        Score pontos = this.scores.get(i);
-        String p = "";
-        if(pontos.getScore()==1)
-            p = pontos.getScore()+" Ponto.";
-        else p = pontos.getScore()+ " Pontos.";
-        textView.setText(p);
+        Score score = this.scores.get(i);
+        String scoreString = "";
+        scoreString = score.getScore()+ " Pontos.";
+        textView.setText(score.getUser()+" fez "+scoreString);
 
         imageView.setImageBitmap(this.scores.get(i).getImage());
 

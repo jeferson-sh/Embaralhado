@@ -255,17 +255,18 @@ public class ShuffleGameActivity extends AppCompatActivity {
         }
     }
 
-    public void startCongratulationMessage(String name) {
+    public void startCongratulationMessage(String user) {
         int drawId = getIdImageViewScore();
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(drawId);
-        Score p = new Score(imageView.getDrawable(), score, name);
-        insertScore(p);
+        Integer contextID = getIntent().getExtras().getInt("contextID");
+        Score p = new Score(imageView.getDrawable(), score, user,contextID);
+        insertScore(p,contextID);
         Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image", drawId);
         bundle.putInt("score", score);
-        bundle.putString("name", name);
+        bundle.putString("name", user);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
@@ -284,8 +285,8 @@ public class ShuffleGameActivity extends AppCompatActivity {
         }
     }
 
-    private void insertScore(Score p) {
-        ScoreAdapter scoreAdapter = new ScoreAdapter(this);
+    private void insertScore(Score p, Integer contextID) {
+        ScoreAdapter scoreAdapter = new ScoreAdapter(this,contextID);
         if (scoreAdapter.getCount() >= 10) {
             dataBase.deleteScore((Score) scoreAdapter.getItem(0));
         }

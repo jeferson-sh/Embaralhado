@@ -38,7 +38,7 @@ public class ScoreActivity extends AppCompatActivity{
 
 
         listView = (ListView) findViewById(R.id.listViewPontos);
-        listView.setAdapter(new ScoreAdapter(this));
+        listView.setAdapter(new ScoreAdapter(this,getIntent().getExtras().getInt("contextID")));
     }
 
     private void startMainActivity() {

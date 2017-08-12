@@ -14,41 +14,33 @@ public class Score {
     private byte[] imageScoreBytes;
     private int score;
     private Bitmap image;
-    private long id;
-    private String name;
+    private Integer id;
+    private String user;
+    private Integer contextId;
 
-    public Score(byte[] imageScoreBytes, int score) {
-        this.score = score;
-        this.imageScoreBytes = imageScoreBytes;
-        this.image = DatabaseBitmapUtil.getImage(imageScoreBytes);
-    }
-
-    public Score(Drawable drawable, int score) {
+    public Score(Drawable drawable, int score, String name, Integer contextId) {
+        this.contextId = contextId;
+        this.user = name;
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.score = score;
         this.imageScoreBytes = DatabaseBitmapUtil.getBytes(this.image);
     }
 
-    public Score(Drawable drawable, int score, String name) {
-        this.name = name;
-        this.image = ((BitmapDrawable) drawable).getBitmap();
-        this.score = score;
-        this.imageScoreBytes = DatabaseBitmapUtil.getBytes(this.image);
-    }
-
-    public Score(long id, byte[] imageScoreBytes, int score) {
+    public Score(Integer id, byte[] imageScoreBytes, int score, String name, Integer contextId) {
+        this.user = name;
+        this.contextId = contextId;
         this.id = id;
         this.score = score;
         this.imageScoreBytes = imageScoreBytes;
         this.image = DatabaseBitmapUtil.getImage(imageScoreBytes);
     }
 
-    public String getName() {
-        return name;
+    public String getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser(String name) {
+        this.user = name;
     }
 
 
@@ -56,7 +48,7 @@ public class Score {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -66,6 +58,7 @@ public class Score {
 
     public void setImage(Bitmap image) {
         this.image = image;
+        setImageScoreBytes(DatabaseBitmapUtil.getBytes(image));
     }
 
     public int getScore() {
@@ -82,5 +75,13 @@ public class Score {
 
     public void setImageScoreBytes(byte[] imageScoreBytes) {
         this.imageScoreBytes = imageScoreBytes;
+    }
+
+    public Integer getContextId() {
+        return contextId;
+    }
+
+    public void setContextId(Integer contextId) {
+        this.contextId = contextId;
     }
 }

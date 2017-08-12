@@ -19,9 +19,11 @@ import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.persistence.DataBase;
 import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
-public class SelectContextsActivity extends AppCompatActivity {
+public class SelectCategoriesToPlayActivity extends AppCompatActivity {
 
     private DataBase dataBase;
+    private Toolbar toolbar;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class SelectContextsActivity extends AppCompatActivity {
             startService(new Intent(this, BackgroundSoundServiceUtil.class));
 
         //toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_select_categorie);
+        toolbar = (Toolbar) findViewById(R.id.toolbar_select_categorie);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.main_menu);
         if (getSupportActionBar() != null) {
@@ -41,14 +43,12 @@ public class SelectContextsActivity extends AppCompatActivity {
         }
         //end
         dataBase = new DataBase(this);
-        ListView listView = (ListView) findViewById(R.id.listViewWords);
+        listView = (ListView) findViewById(R.id.listViewWords);
         listView.setAdapter(new CategorieAdapter(this));
-        registerForContextMenu(listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CategorieAdapter categorieAdapter = new CategorieAdapter(SelectContextsActivity.this);
-                Categorie categorie = (Categorie) categorieAdapter.getItem(position);
+                Categorie categorie = (Categorie) listView.getAdapter().getItem(position);
                 Integer contextID = categorie.getId();
                 if (dataBase.searchWordsDatabase(contextID).isEmpty()) {
                     Snackbar.make(view, "Não Existem Palavras Cadastradas!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
@@ -60,7 +60,7 @@ public class SelectContextsActivity extends AppCompatActivity {
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent(SelectContextsActivity.this, MainActivity.class);
+        Intent intent = new Intent(SelectCategoriesToPlayActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -68,7 +68,7 @@ public class SelectContextsActivity extends AppCompatActivity {
     private void startGame(Integer contextID) {
         Bundle bundle = new Bundle();
         bundle.putInt("contextID", contextID);
-        Intent intent = new Intent(SelectContextsActivity.this, ShuffleGameActivity.class);
+        Intent intent = new Intent(SelectCategoriesToPlayActivity.this, ShuffleGameActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
@@ -77,11 +77,11 @@ public class SelectContextsActivity extends AppCompatActivity {
     private void controlMusic(MenuItem item) {
         if (BackgroundSoundServiceUtil.PLAYING) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(SelectContextsActivity.this, BackgroundSoundServiceUtil.class));
+            stopService(new Intent(SelectCategoriesToPlayActivity.this, BackgroundSoundServiceUtil.class));
             BackgroundSoundServiceUtil.PLAYING = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(SelectContextsActivity.this, BackgroundSoundServiceUtil.class));
+            startService(new Intent(SelectCategoriesToPlayActivity.this, BackgroundSoundServiceUtil.class));
             BackgroundSoundServiceUtil.PLAYING = true;
         }
     }
@@ -142,5 +142,17 @@ public class SelectContextsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public DataBase getDataBase() {
+        return dataBase;
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    public ListView getListView() {
+        return listView;
     }
 }

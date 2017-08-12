@@ -67,7 +67,7 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         playbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CongratulationsMessageActivity.this, SelectContextsActivity.class));
+                startActivity(new Intent(CongratulationsMessageActivity.this, SelectCategoriesToPlayActivity.class));
                 finish();
             }
         });

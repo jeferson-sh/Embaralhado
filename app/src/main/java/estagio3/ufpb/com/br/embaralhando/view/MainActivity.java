@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void selectContext() {
-        Intent intent = new Intent(this, SelectContextsActivity.class);
+        Intent intent = new Intent(this, SelectCategoriesToPlayActivity.class);
         startActivity(intent);
         finish();
     }
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startScoreActivity() {
-        Intent intent = new Intent(this, ScoreActivity.class);
+        Intent intent = new Intent(this, SelectCategorieScoreActivity.class);
         startActivity(intent);
     }
 

@@ -38,7 +38,6 @@ public class DataBase {
         ContentValues valores = new ContentValues();
         valores.put("name", categorie.getName());
         valores.put("image", categorie.getImageBytes());
-
         bd.insert("contexts", null, valores);
     }
 
@@ -46,7 +45,8 @@ public class DataBase {
         ContentValues valores = new ContentValues();
         valores.put("score", score.getScore());
         valores.put("image", score.getImageScoreBytes());
-
+        valores.put("user", score.getUser());
+        valores.put("context_id", score.getContextId());
         bd.insert("scores", null, valores);
     }
 
@@ -55,7 +55,6 @@ public class DataBase {
         ContentValues valores = new ContentValues();
         valores.put("name", word.getName());
         valores.put("image", word.getImageBytes());
-
         bd.update("words", valores, "_id = ?", new String[]{"" + word.getId()});
     }
 
@@ -121,21 +120,23 @@ public class DataBase {
         return (list);
     }
 
-    public List<Score> searchScoresDatabase() {
+    public List<Score> searchScoresDatabase(Integer contextID) {
         List<Score> list = new ArrayList<>();
-        String[] columns = new String[]{"_id", "score", "image"};
+        String[] columns = new String[]{"_id", "score", "image","user","context_id"};
 
-        Cursor cursor = bd.query("scores", columns, null, null, null, null, null);
+        final Cursor cursor = bd.query("scores", columns, "context_id = ?", new String[]{"" + contextID}, null, null, "score ASC", null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
 
             do {
 
-                long id = cursor.getLong(0);
+                Integer id = cursor.getInt(0);
                 int score = cursor.getInt(1);
                 byte[] image = cursor.getBlob(2);
-                Score s = new Score(id, image, score);
+                String user = cursor.getString(3);
+                Integer contextId = cursor.getInt(4);
+                Score s = new Score(id, image, score,user,contextId);
                 list.add(s);
 
             } while (cursor.moveToNext());
