@@ -3,10 +3,12 @@ package estagio3.ufpb.com.br.embaralhando.view;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private DataBase dataBase;
     private MyCountDownTimerUtil myCountDownTimerUtil;
+    private ImageButton aboutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +39,15 @@ public class MainActivity extends AppCompatActivity {
         ImageButton playButton = (ImageButton) findViewById(R.id.playButton);
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         ImageButton scoreButton = (ImageButton) findViewById(R.id.scoreButton);
+        aboutButton = (ImageButton) findViewById(R.id.about_button);
         this.dataBase = new DataBase(this);
         this.myCountDownTimerUtil = new MyCountDownTimerUtil(MainActivity.this, 2000, 1000);
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abouMessage();
+            }
+        });
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,6 +75,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void abouMessage() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Informações sobre o aplicativo");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setView(R.layout.about_dialog);
+        }else{
+            builder.setView(getLayoutInflater().inflate(R.layout.about_dialog,null));
+        }
+        builder.setNegativeButton("Fechar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                // dismiss dialog
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

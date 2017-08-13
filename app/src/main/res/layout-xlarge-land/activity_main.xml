@@ -2,97 +2,113 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ECEFF1"
+    android:orientation="vertical"
     tools:categorie="estagio3.ufpb.com.br.embaralhando.view.MainActivity">
 
     <include
         android:id="@+id/toolbar_main"
-        layout="@layout/toolbar">
-    </include>
+        layout="@layout/toolbar" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_margin="20dp"
-        android:orientation="vertical">
-
+        android:layout_margin="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/playButton"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:text="@string/jogar"
-                android:background="@drawable/play"
-                android:layout_gravity="center"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jogar"
-                android:textColor="#000000"
-                android:textSize="50sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/settingsButton"
-                    android:text="@string/configurar"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:background="@drawable/settings"/>
+                    android:id="@+id/playButton"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/play"
+                    android:text="@string/jogar" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Configurações"
+                    android:text="Jogar"
                     android:textColor="#000000"
-                    android:textSize="50sp"
-                    android:layout_gravity="center"/>
-
-
+                    android:textSize="70sp" />
             </LinearLayout>
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/scoreButton"
-                    android:text="@string/score"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:background="@drawable/ranking"/>
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pontuação"
-                    android:textColor="#000000"
-                    android:textSize="50sp"
-                    android:layout_gravity="center"/>
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/settingsButton"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:background="@drawable/settings"
+                        android:text="@string/configurar" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Configurações"
+                        android:textColor="#000000"
+                        android:textSize="70sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/scoreButton"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:background="@drawable/ranking"
+                        android:text="@string/score" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Pontuação"
+                        android:textColor="#000000"
+                        android:textSize="70sp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/about_button"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:background="@mipmap/ic_about" />
+
+    </FrameLayout>
+
 </LinearLayout>
