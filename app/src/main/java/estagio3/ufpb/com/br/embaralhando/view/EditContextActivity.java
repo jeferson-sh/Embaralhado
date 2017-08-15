@@ -22,30 +22,28 @@ public class EditContextActivity extends InsertNewContextActivity {
         categorie = getDataBase().searchCategorieDatabase(bundle.getInt("categorieName"));
         getToolbar().setTitle("Editar contexto " + categorie.getName());
         getImage().setImageBitmap(categorie.getImage());
-        getContextName().setText(categorie.getName());
+        getEditText().setText(categorie.getName());
 
     }
 
     public void saveContext(View v) {
         boolean verify = verifyWord();
-        if (getContextName().getText().toString().length() >= 2 && getContextName().getText().toString().length() <= 10 && verify) {
-            if(getPicturePath()!= null){
-                this.categorie.setImage(getBitmapCaptured());
-            }
-            this.categorie.setName(getContextName().getText().toString().toUpperCase());
+        if (getEditText().getText().toString().length() >= 2 && getEditText().getText().toString().length() <= 10 && verify) {
+            this.categorie.setImage(getBitmapCaptured());
+            this.categorie.setName(getEditText().getText().toString().toUpperCase());
             getDataBase().updateCategorie(categorie);
             startActivity(new Intent(EditContextActivity.this, CategoriesActivity.class));
             finish();
-        } else if (getContextName().getText().toString().length() > 10) {
+        } else if (getEditText().getText().toString().length() > 10) {
             Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        } else if (getContextName().getText().toString().length() < 2) {
+        } else if (getEditText().getText().toString().length() < 2) {
             Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         } else if (!verify) {
             Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }
     }
 
-    private boolean verifyWord() {
+    protected boolean verifyWord() {
         char[] word = categorie.getName().toCharArray();
         boolean b = true;
         for (char aWord : word) {

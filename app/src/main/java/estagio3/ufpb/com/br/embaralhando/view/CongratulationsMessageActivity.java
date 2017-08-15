@@ -47,7 +47,7 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         } else if (score > 50 && score < 70) {
             this.congratulationsMessage.setText("Parabéns " + name + "! Mas pratique um pouco mais!");
             scoreMessage = "Você fez " + score + " Pontos!";
-        } else if (score >= 7 && score < 10) {
+        } else if (score >= 70 && score < 100) {
             this.congratulationsMessage.setText("Muito bom " + name + "! Parabéns!");
             scoreMessage = "Você fez " + score + " Pontos!";
         } else {
