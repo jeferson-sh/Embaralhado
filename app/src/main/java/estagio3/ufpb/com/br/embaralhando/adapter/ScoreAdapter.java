@@ -65,8 +65,8 @@ public class ScoreAdapter extends BaseAdapter{
 
         Score score = this.scores.get(i);
         String scoreString = "";
-        scoreString = score.getScore()+ " Pontos.";
-        textView.setText(score.getUser()+" fez "+scoreString);
+        scoreString = score.getScore()+ "%.";
+        textView.setText(score.getUser()+" acertou "+scoreString);
 
         imageView.setImageBitmap(this.scores.get(i).getImage());
 

@@ -8,7 +8,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,10 +44,11 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private Integer randomLevel;
     private List<Word> words;
     private DataBase dataBase;
-    private int score;
+    private double score;
+    private double correctCount;
     private TextView textCountLevel;
     private int finalChallenge;
-    private boolean scoreSubtration;
+    private boolean verifyWord;
 
     private List<Integer> levelsIndex;
     private ImageButton checkWordButton;
@@ -69,11 +69,12 @@ public class ShuffleGameActivity extends AppCompatActivity {
         if (words.size() < finalChallenge) {
             finalChallenge = words.size();
         }
-        this.score = 100;
+        this.score = words.size();
+        this.correctCount = 0;
         count = 0;
         this.levelsIndex = shuffleLevelIndex();
         randomLevel = levelsIndex.get(count);
-        this.scoreSubtration = false;
+        this.verifyWord = false;
 
 
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
@@ -149,7 +150,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         checkWordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VerifyWord(words.get(randomLevel).getName());
+                verifyWord(words.get(randomLevel).getName());
             }
         });
 
@@ -261,12 +262,12 @@ public class ShuffleGameActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(drawId);
         Integer contextID = getIntent().getExtras().getInt("contextID");
-        Score p = new Score(imageView.getDrawable(), score, user,contextID);
-        insertScore(p,contextID);
+        Score p = new Score(imageView.getDrawable(), (int)this.score, user, contextID);
+        insertScore(p, contextID);
         Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image", drawId);
-        bundle.putInt("score", score);
+        bundle.putInt("score", (int)this.score);
         bundle.putString("name", user);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -274,12 +275,10 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private int getIdImageViewScore() {
-        if (this.score <= 50) {
-            if (this.score < 0) {
-                this.score = 10;
-            }
+        setScore((this.correctCount / this.words.size()) * 100);
+        if (score < 50) {
             return R.drawable.low_score;
-        } else if (this.score > 50 && this.score <= 70) {
+        } else if (this.score >= 50 && this.score <= 70) {
             return R.drawable.medium_score;
         } else {
             return R.drawable.hight_score;
@@ -287,9 +286,9 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private void insertScore(Score p, Integer contextID) {
-        ScoreAdapter scoreAdapter = new ScoreAdapter(this,contextID);
+        ScoreAdapter scoreAdapter = new ScoreAdapter(this, contextID);
         if (scoreAdapter.getCount() >= 10) {
-            dataBase.deleteScore((Score) scoreAdapter.getItem(0));
+            dataBase.deleteScore((Score) scoreAdapter.getItem(scoreAdapter.getCount() - 1));
         }
         dataBase.insertScore(p);
         Categorie categorie = dataBase.searchCategorieDatabase(contextID);
@@ -316,7 +315,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
 
     public void loadWord(int pos) {
-        setScoreSubtration(false);
+        setVerifyWord(false);
         int challenge = count + 1;
         String n = "Desafio " + challenge + " de " + finalChallenge;
         this.textCountLevel.setText(n);
@@ -644,7 +643,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
 
-    private void VerifyWord(String s) {
+    private void verifyWord(String s) {
         CharSequence verify = "";
         for (int i = 0; i < s.length(); i++) {
             if (letters[i].getContentDescription().equals("f")) {
@@ -655,17 +654,16 @@ public class ShuffleGameActivity extends AppCompatActivity {
             }
         }
         if (verify.equals("v")) {
+            if (!verifyWord()) {
+                this.correctCount = correctCount + 1;
+            }
             startSoundQuestionCorrect();
             toGetNextWord();
         } else {
-            if (!getScoreSubtration()) {
-                this.score = this.score - 10;
-                setScoreSubtration(true);
-            }
+            setVerifyWord(true);
             starSoundQuestionWrong();
             removeLettersWrong();
         }
-        Log.d("Score = ",String.valueOf(this.score));
 
     }
 
@@ -694,11 +692,15 @@ public class ShuffleGameActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public boolean getScoreSubtration() {
-        return scoreSubtration;
+    public boolean verifyWord() {
+        return verifyWord;
     }
 
-    public void setScoreSubtration(boolean scoreSubtration) {
-        this.scoreSubtration = scoreSubtration;
+    public void setVerifyWord(boolean verifyWord) {
+        this.verifyWord = verifyWord;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
     }
 }
