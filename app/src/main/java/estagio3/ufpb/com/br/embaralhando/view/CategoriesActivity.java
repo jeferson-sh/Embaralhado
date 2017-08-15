@@ -44,6 +44,7 @@ public class CategoriesActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.registered_categories);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
         //Adapters
         this.editCategorieAdapter = new EditCategorieAdapter(this);

@@ -89,6 +89,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Organize as letras");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
 
         ImageView letter0 = (ImageView) findViewById(R.id.letter0);

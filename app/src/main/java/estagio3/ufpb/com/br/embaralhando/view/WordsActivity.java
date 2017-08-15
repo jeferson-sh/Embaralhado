@@ -44,6 +44,7 @@ public class WordsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.registered_words);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
         //adapters
         bundle = getIntent().getExtras();
@@ -77,6 +78,13 @@ public class WordsActivity extends AppCompatActivity {
         }
     }
 
+    private void startMainActivity() {
+            Intent intent = new Intent(WordsActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+    }
+
+
     private void controlMusic(MenuItem item) {
         if(BackgroundSoundServiceUtil.PLAYING){
             item.setIcon(R.drawable.ic_volume_mute_white);
@@ -104,7 +112,7 @@ public class WordsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startCategoriesActivity();
+                startMainActivity();
                 return true;
             case R.id.edite_categories:
                 setEditWordAdapter(item);

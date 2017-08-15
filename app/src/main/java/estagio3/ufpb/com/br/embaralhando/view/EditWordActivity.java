@@ -57,15 +57,15 @@ public class EditWordActivity extends InsertNewContextActivity {
         }
         return b;
     }
+
     @Override
-    protected void startCategorieActivity() {
+    public void onBackPressed() {
         Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent(EditWordActivity.this, WordsActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
         finish();
     }
-
 
     @Override
     protected void onDestroy() {

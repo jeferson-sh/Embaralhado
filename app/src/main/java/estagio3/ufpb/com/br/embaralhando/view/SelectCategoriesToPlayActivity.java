@@ -41,6 +41,7 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.select_categorie);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
         //end
         dataBase = new DataBase(this);

@@ -34,6 +34,7 @@ public class ScoreActivity extends AppCompatActivity{
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Últimas pontuações");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
 
 
@@ -43,6 +44,12 @@ public class ScoreActivity extends AppCompatActivity{
 
     private void startSelectCategoriScoreActivity() {
         Intent intent = new Intent(ScoreActivity.this,SelectCategorieScoreActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void startMainActivity() {
+        Intent intent = new Intent(ScoreActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -72,7 +79,7 @@ public class ScoreActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startSelectCategoriScoreActivity();
+                startMainActivity();
                 return true;
             case R.id.soundControl:
                 controlMusic(item);

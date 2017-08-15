@@ -62,6 +62,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.register_new_categorie);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
 
         ImageButton camera = (ImageButton) findViewById(R.id.activeCameraButton);
@@ -101,7 +102,12 @@ public class InsertNewContextActivity extends AppCompatActivity {
     }
 
     protected void startCategorieActivity() {
-        Intent intent = new Intent(InsertNewContextActivity.this, CategoriesActivity.class);
+        Intent intent = new Intent(InsertNewContextActivity.this,CategoriesActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    protected void startMainActivity() {
+        Intent intent = new Intent(InsertNewContextActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
     }
@@ -228,7 +234,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startCategorieActivity();
+                startMainActivity();
                 return true;
             case R.id.soundControl:
                 controlMusic(item);
