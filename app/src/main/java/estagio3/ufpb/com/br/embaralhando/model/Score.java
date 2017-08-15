@@ -17,22 +17,29 @@ public class Score {
     private Integer id;
     private String user;
     private Integer contextId;
+    private Integer answerCount;
+    private Integer answerTotal;
 
-    public Score(Drawable drawable, int score, String name, Integer contextId) {
+    public Score(Drawable drawable, int score, String name, Integer contextId, Integer answerCount, Integer answerTotal) {
         this.contextId = contextId;
         this.user = name;
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.score = score;
         this.imageScoreBytes = DatabaseBitmapUtil.getBytes(this.image);
+        this.answerCount = answerCount;
+        this.answerTotal = answerTotal;
+
     }
 
-    public Score(Integer id, byte[] imageScoreBytes, int score, String name, Integer contextId) {
+    public Score(Integer id, byte[] imageScoreBytes, int score, String name, Integer contextId, Integer answerCount, Integer answerTotal) {
         this.user = name;
         this.contextId = contextId;
         this.id = id;
         this.score = score;
         this.imageScoreBytes = imageScoreBytes;
         this.image = DatabaseBitmapUtil.getImage(imageScoreBytes);
+        this.answerCount = answerCount;
+        this.answerTotal = answerTotal;
     }
 
     public String getUser() {
@@ -83,5 +90,13 @@ public class Score {
 
     public void setContextId(Integer contextId) {
         this.contextId = contextId;
+    }
+
+    public Integer getAnswerCount() {
+        return answerCount;
+    }
+
+    public Integer getAnswerTotal() {
+        return answerTotal;
     }
 }

@@ -41,8 +41,8 @@ public class ScoreActivity extends AppCompatActivity{
         listView.setAdapter(new ScoreAdapter(this,getIntent().getExtras().getInt("contextID")));
     }
 
-    private void startMainActivity() {
-        Intent intent = new Intent(ScoreActivity.this,MainActivity.class);
+    private void startSelectCategoriScoreActivity() {
+        Intent intent = new Intent(ScoreActivity.this,SelectCategorieScoreActivity.class);
         startActivity(intent);
         finish();
     }
@@ -72,7 +72,7 @@ public class ScoreActivity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startMainActivity();
+                startSelectCategoriScoreActivity();
                 return true;
             case R.id.soundControl:
                 controlMusic(item);
@@ -108,7 +108,7 @@ public class ScoreActivity extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
-        startMainActivity();
+        startSelectCategoriScoreActivity();
     }
 
     @Override

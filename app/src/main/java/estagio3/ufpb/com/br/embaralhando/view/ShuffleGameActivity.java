@@ -262,7 +262,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(drawId);
         Integer contextID = getIntent().getExtras().getInt("contextID");
-        Score p = new Score(imageView.getDrawable(), (int)this.score, user, contextID);
+        Score p = new Score(imageView.getDrawable(), (int)this.score, user, contextID, (int) correctCount,words.size());
         insertScore(p, contextID);
         Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
@@ -276,9 +276,9 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
     private int getIdImageViewScore() {
         setScore((this.correctCount / this.words.size()) * 100);
-        if (score < 50) {
+        if (score < 50.0) {
             return R.drawable.low_score;
-        } else if (this.score >= 50 && this.score <= 70) {
+        } else if (this.score >= 50.0 && this.score <= 70.0) {
             return R.drawable.medium_score;
         } else {
             return R.drawable.hight_score;

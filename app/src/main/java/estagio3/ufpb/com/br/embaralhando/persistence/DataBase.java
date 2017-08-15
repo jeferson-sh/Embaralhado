@@ -49,6 +49,8 @@ public class DataBase {
         valores.put("image", score.getImageScoreBytes());
         valores.put("user", score.getUser());
         valores.put("context_id", score.getContextId());
+        valores.put("answer_count", score.getAnswerCount());
+        valores.put("answer_total",score.getAnswerTotal());
         bd.insert("scores", null, valores);
     }
 
@@ -66,6 +68,7 @@ public class DataBase {
     }
 
     public void deleteCategorie(Categorie categorie) {
+        bd.delete("scores", "context_id = ?", new String[]{categorie.getId().toString()});
         bd.delete("words", "context_id = ?", new String[]{categorie.getId().toString()});
         bd.delete("contexts", "_id = " + categorie.getId(), null);
     }
@@ -96,12 +99,14 @@ public class DataBase {
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
+
         return (list);
     }
 
     public List<Categorie> searchMyCategoriesDatabase() {
         List<Categorie> list = new ArrayList<>();
-        String[] columns = new String[]{"_id", "name", "image","elements","scores"};
+        String[] columns = new String[]{"_id", "name", "image", "elements", "scores"};
 
         Cursor cursor = bd.query("contexts", columns, null, null, null, null, "name ASC");
 
@@ -115,18 +120,20 @@ public class DataBase {
                 byte[] image = cursor.getBlob(2);
                 String elements = cursor.getString(3);
                 String scores = cursor.getString(4);
-                Categorie w = new Categorie(id, image, name, elements,scores);
+                Categorie w = new Categorie(id, image, name, elements, scores);
                 list.add(w);
 
             } while (cursor.moveToNext());
         }
+
+        cursor.close();
 
         return (list);
     }
 
     public List<Categorie> searchMyCategoriesWordsDatabase(String elements) {
         List<Categorie> list = new ArrayList<>();
-        String[] columns = new String[]{"_id", "name", "image","elements","scores"};
+        String[] columns = new String[]{"_id", "name", "image", "elements", "scores"};
 
         final Cursor cursor = bd.query("contexts", columns, "elements = ?", new String[]{"" + elements}, null, null, "name ASC", null);
 
@@ -140,18 +147,20 @@ public class DataBase {
                 byte[] image = cursor.getBlob(2);
                 String ele = cursor.getString(3);
                 String scores = cursor.getString(4);
-                Categorie w = new Categorie(id, image, name, ele,scores);
-                    list.add(w);
+                Categorie w = new Categorie(id, image, name, ele, scores);
+                list.add(w);
 
             } while (cursor.moveToNext());
         }
+
+        cursor.close();
 
         return (list);
     }
 
     public List<Categorie> searchMyCategoriesScoresDatabase(String scores) {
         List<Categorie> list = new ArrayList<>();
-        String[] columns = new String[]{"_id", "name", "image","elements","scores"};
+        String[] columns = new String[]{"_id", "name", "image", "elements", "scores"};
 
         final Cursor cursor = bd.query("contexts", columns, "scores = ?", new String[]{"" + scores}, null, null, "name ASC", null);
 
@@ -165,11 +174,13 @@ public class DataBase {
                 byte[] image = cursor.getBlob(2);
                 String elements = cursor.getString(3);
                 String score = cursor.getString(4);
-                Categorie w = new Categorie(id, image, name, elements,scores);
-                    list.add(w);
+                Categorie w = new Categorie(id, image, name, elements, score);
+                list.add(w);
 
             } while (cursor.moveToNext());
         }
+
+        cursor.close();
 
         return (list);
     }
@@ -177,9 +188,9 @@ public class DataBase {
 
     public List<Score> searchScoresDatabase(Integer contextID) {
         List<Score> list = new ArrayList<>();
-        String[] columns = new String[]{"_id", "score", "image", "user", "context_id"};
+        String[] columns = new String[]{"_id", "score", "image", "user", "context_id", "answer_count","answer_total"};
 
-        final Cursor cursor = bd.query("scores", columns, "context_id = ?", new String[]{"" + contextID}, null, null, "score ASC", null);
+        final Cursor cursor = bd.query("scores", columns, "context_id = ?", new String[]{"" + contextID}, null, null, "score DESC, answer_count DESC, answer_total DESC", null);
 
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -191,17 +202,21 @@ public class DataBase {
                 byte[] image = cursor.getBlob(2);
                 String user = cursor.getString(3);
                 Integer contextId = cursor.getInt(4);
-                Score s = new Score(id, image, score, user, contextId);
+                Integer answerCount = cursor.getInt(5);
+                Integer answerTotal = cursor.getInt(6);
+                Score s = new Score(id, image, score, user, contextId,answerCount,answerTotal);
                 list.add(s);
 
             } while (cursor.moveToNext());
         }
 
+        cursor.close();
+
         return (list);
     }
 
     public Categorie searchCategorieDatabase(Integer categorieID) {
-        String[] columns = new String[]{"_id", "name", "image","elements","scores"};
+        String[] columns = new String[]{"_id", "name", "image", "elements", "scores"};
         Cursor cursor = bd.query("contexts", columns, "_id = ?", new String[]{"" + categorieID}, null, null, null, null);
         cursor.moveToFirst();
         int id = cursor.getInt(0);
@@ -209,7 +224,7 @@ public class DataBase {
         byte[] image = cursor.getBlob(2);
         String elements = cursor.getString(3);
         String scores = cursor.getString(4);
-        Categorie categorie = new Categorie(id, image, name, elements,scores);
+        Categorie categorie = new Categorie(id, image, name, elements, scores);
         cursor.close();
         return (categorie);
     }
@@ -229,7 +244,7 @@ public class DataBase {
 
 
     public Categorie searchCategorieDatabase(String nameContext) {
-        String[] columns = new String[]{"_id", "name", "image","elements","scores"};
+        String[] columns = new String[]{"_id", "name", "image", "elements", "scores"};
         Cursor cursor = bd.query("contexts", columns, "name = ?", new String[]{"" + nameContext}, null, null, null, null);
         cursor.moveToFirst();
         int id = cursor.getInt(0);
@@ -237,7 +252,7 @@ public class DataBase {
         byte[] image = cursor.getBlob(2);
         String elements = cursor.getString(3);
         String scores = cursor.getString(4);
-        Categorie categorie = new Categorie(id, image, name, elements,scores);
+        Categorie categorie = new Categorie(id, image, name, elements, scores);
         cursor.close();
         return (categorie);
     }
@@ -248,7 +263,7 @@ public class DataBase {
         valores.put("name", categorie.getName());
         valores.put("image", categorie.getImageBytes());
         valores.put("elements", categorie.getElements());
-        valores.put("scores",categorie.getScores());
+        valores.put("scores", categorie.getScores());
         bd.update("contexts", valores, "_id = ?", new String[]{"" + categorie.getId()});
     }
 }

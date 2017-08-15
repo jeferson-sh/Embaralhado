@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.model.Word;
 import estagio3.ufpb.com.br.embaralhando.view.EditContextActivity;
 import estagio3.ufpb.com.br.embaralhando.view.EditWordActivity;
@@ -64,6 +65,9 @@ public class EditWordAdapter extends WordsAdapter {
                     public void onClick(DialogInterface dialog, int which) {
                         getWords().remove(word);
                         getDataBase().deleteWord(word);
+                        if(getWords().isEmpty()){
+                            updateCategorie(getContextID());
+                        }
                         Toast.makeText(getContext(), "Palavra " +word.getName() + " apagada!", Toast.LENGTH_LONG).show();
                         notifyDataSetChanged();
                     }
@@ -92,6 +96,12 @@ public class EditWordAdapter extends WordsAdapter {
             }
         });
         return layout;
+    }
+
+    private void updateCategorie(int contextID) {
+        Categorie categorie = getDataBase().searchCategorieDatabase(contextID);
+        categorie.setElements("false");
+        getDataBase().updateCategorie(categorie);
     }
 
     @Override

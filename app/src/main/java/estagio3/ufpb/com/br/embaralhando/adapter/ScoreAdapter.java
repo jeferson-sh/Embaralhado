@@ -64,12 +64,14 @@ public class ScoreAdapter extends BaseAdapter{
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
         Score score = this.scores.get(i);
-        String scoreString = "";
-        scoreString = score.getScore()+ "%.";
-        textView.setText(score.getUser()+" acertou "+scoreString);
+        textView.setText(score.getUser()+" acertou "+score.getAnswerCount()+" de "+score.getAnswerTotal()+" = "+score.getScore()+"%");
 
         imageView.setImageBitmap(this.scores.get(i).getImage());
 
         return layout;
+    }
+
+    public Integer getContextID() {
+        return contextID;
     }
 }

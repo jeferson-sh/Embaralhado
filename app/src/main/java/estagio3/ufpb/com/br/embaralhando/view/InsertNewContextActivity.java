@@ -42,7 +42,6 @@ public class InsertNewContextActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private File file;
     private Uri uri;
-    private Intent CropIntent;
     private final int RequestPermissionCode = 1;
     private ImageButton savePhotobt;
 
@@ -101,7 +100,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
         }
     }
 
-    private void startCategorieActivity() {
+    protected void startCategorieActivity() {
         Intent intent = new Intent(InsertNewContextActivity.this, CategoriesActivity.class);
         startActivity(intent);
         finish();
@@ -143,18 +142,18 @@ public class InsertNewContextActivity extends AppCompatActivity {
 
     private void CropImage() {
         try {
-            CropIntent = new Intent("com.android.camera.action.CROP");
-            CropIntent.setDataAndType(uri, "image/*");
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            cropIntent.setDataAndType(uri, "image/*");
 
-            CropIntent.putExtra("crop", "true");
-            CropIntent.putExtra("outputX", 180);
-            CropIntent.putExtra("outputY", 180);
-            CropIntent.putExtra("aspectX", 4);
-            CropIntent.putExtra("aspectY", 4);
-            CropIntent.putExtra("scaleUpIfNeeded", true);
-            CropIntent.putExtra("return-data", true);
+            cropIntent.putExtra("crop", "true");
+            cropIntent.putExtra("outputX", 150);
+            cropIntent.putExtra("outputY", 100);
+            //cropIntent.putExtra("aspectX", 4);
+            //cropIntent.putExtra("aspectY", 4);
+            //cropIntent.putExtra("scaleUpIfNeeded", true);
+            cropIntent.putExtra("return-data", true);
 
-            startActivityForResult(CropIntent, 1);
+            startActivityForResult(cropIntent, 1);
         } catch (ActivityNotFoundException ex) {
             Toast.makeText(this, "ActivityNotFound", Toast.LENGTH_SHORT).show();
         }
@@ -278,10 +277,6 @@ public class InsertNewContextActivity extends AppCompatActivity {
         return editText;
     }
 
-    public void setEditText(EditText editText) {
-        this.editText = editText;
-    }
-
     public ImageView getImage() {
         return image;
     }
@@ -294,16 +289,8 @@ public class InsertNewContextActivity extends AppCompatActivity {
         return bitmapCaptured;
     }
 
-    public void setBitmapCaptured(Bitmap bitmapCaptured) {
-        this.bitmapCaptured = bitmapCaptured;
-    }
-
     public DataBase getDataBase() {
         return dataBase;
-    }
-
-    public void setDataBase(DataBase dataBase) {
-        this.dataBase = dataBase;
     }
 
     public Toolbar getToolbar() {
@@ -322,31 +309,8 @@ public class InsertNewContextActivity extends AppCompatActivity {
         this.file = file;
     }
 
-    public Uri getUri() {
-        return uri;
-    }
-
-    public void setUri(Uri uri) {
-        this.uri = uri;
-    }
-
-    public Intent getCropIntent() {
-        return CropIntent;
-    }
-
-    public void setCropIntent(Intent cropIntent) {
-        CropIntent = cropIntent;
-    }
-
-    public int getRequestPermissionCode() {
-        return RequestPermissionCode;
-    }
-
     public ImageButton getSavePhotobt() {
         return savePhotobt;
     }
 
-    public void setSavePhotobt(ImageButton savePhotobt) {
-        this.savePhotobt = savePhotobt;
-    }
 }

@@ -56,7 +56,7 @@ public class EditCategorieAdapter extends CategorieAdapter {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setCancelable(true);
                 builder.setTitle("Deseja apagar o contexto "+categorie.getName()+"?");
-                builder.setMessage("Todas as palavras serão apagadas!");
+                builder.setMessage("Todas as palavras e pontuações serão apagadas!");
                 builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
