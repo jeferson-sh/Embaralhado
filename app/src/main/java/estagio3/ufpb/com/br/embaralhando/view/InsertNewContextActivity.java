@@ -50,8 +50,8 @@ public class InsertNewContextActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_new_context);
-        if (BackgroundSoundServiceUtil.PLAYING)
-            startService(new Intent(this, BackgroundSoundServiceUtil.class));
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
+
         this.editText = (EditText) findViewById(R.id.editText);
         this.image = (ImageView) findViewById(R.id.imageView);
         this.dataBase = new DataBase(this);
@@ -102,12 +102,15 @@ public class InsertNewContextActivity extends AppCompatActivity {
     }
 
     protected void startCategorieActivity() {
-        Intent intent = new Intent(InsertNewContextActivity.this,CategoriesActivity.class);
+        Intent intent = new Intent(InsertNewContextActivity.this, CategoriesActivity.class);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
         finish();
     }
+
     protected void startMainActivity() {
-        Intent intent = new Intent(InsertNewContextActivity.this,MainActivity.class);
+        Intent intent = new Intent(InsertNewContextActivity.this, MainActivity.class);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
         finish();
     }
@@ -152,13 +155,12 @@ public class InsertNewContextActivity extends AppCompatActivity {
             cropIntent.setDataAndType(uri, "image/*");
 
             cropIntent.putExtra("crop", "true");
-            cropIntent.putExtra("outputX", 150);
-            cropIntent.putExtra("outputY", 100);
+            //cropIntent.putExtra("outputX", 180);
+            //cropIntent.putExtra("outputY", 180);
             //cropIntent.putExtra("aspectX", 4);
             //cropIntent.putExtra("aspectY", 4);
-            //cropIntent.putExtra("scaleUpIfNeeded", true);
+            //cropIntent.putExtra("scaleUpIfNeeded", false);
             cropIntent.putExtra("return-data", true);
-
             startActivityForResult(cropIntent, 1);
         } catch (ActivityNotFoundException ex) {
             Toast.makeText(this, "ActivityNotFound", Toast.LENGTH_SHORT).show();
@@ -183,6 +185,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
         boolean verify = verifyWord();
         if (this.bitmapCaptured != null && this.editText.getText().toString().length() >= 2 && editText.getText().toString().length() <= 10 && verify) {
             dataBase.insertCategorie(new Categorie(bitmapCaptured, editText.getText().toString().toUpperCase()));
+            BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
             startActivity(new Intent(InsertNewContextActivity.this, CategoriesActivity.class));
             finish();
         } else if (this.editText.getText().toString().length() > 10) {
@@ -209,22 +212,22 @@ public class InsertNewContextActivity extends AppCompatActivity {
 
     }
 
-    protected void controlMusic(MenuItem item) {
-        if (BackgroundSoundServiceUtil.PLAYING) {
+    private void controlMusic(MenuItem item) {
+        if (BackgroundSoundServiceUtil.ISPLAYNG) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(InsertNewContextActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = false;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+            BackgroundSoundServiceUtil.ISPLAYNG = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(InsertNewContextActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = true;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+            BackgroundSoundServiceUtil.ISPLAYNG = true;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (!BackgroundSoundServiceUtil.PLAYING) {
+        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
@@ -317,6 +320,20 @@ public class InsertNewContextActivity extends AppCompatActivity {
 
     public ImageButton getSavePhotobt() {
         return savePhotobt;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 
 }

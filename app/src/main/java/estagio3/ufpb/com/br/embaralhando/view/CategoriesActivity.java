@@ -33,10 +33,8 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        if (BackgroundSoundServiceUtil.PLAYING)
-            startService(new Intent(this, BackgroundSoundServiceUtil.class));
         this.addCategoriebt = (ImageButton) findViewById(R.id.add_categoriebt);
-
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
         //toolbar
         this.toolbar = (Toolbar) findViewById(R.id.toobar_categoie);
         setSupportActionBar(toolbar);
@@ -63,6 +61,7 @@ public class CategoriesActivity extends AppCompatActivity {
                 bundle.putInt("contextID", contextID);
                 Intent intent = new Intent(CategoriesActivity.this, WordsActivity.class);
                 intent.putExtras(bundle);
+                BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
                 startActivity(intent);
                 finish();
             }
@@ -73,6 +72,7 @@ public class CategoriesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (listView.getAdapter().getCount() <= MAX_COUNT_CONTEXTS) {
                     Intent adicionarContext = new Intent(CategoriesActivity.this, InsertNewContextActivity.class);
+                    BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
                     startActivity(adicionarContext);
                     finish();
                 } else {
@@ -83,31 +83,32 @@ public class CategoriesActivity extends AppCompatActivity {
     }
 
     private void starMainActivity() {
-        if (this.listView.getAdapter().getClass().equals(EditCategorieAdapter.class)){
+        if (this.listView.getAdapter().getClass().equals(EditCategorieAdapter.class)) {
             setCategorieAdapter(toolbar.getMenu().getItem(1));
-        }else {
+        } else {
             Intent intent = new Intent(CategoriesActivity.this, MainActivity.class);
+            BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
             startActivity(intent);
             finish();
         }
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundServiceUtil.PLAYING) {
+        if (BackgroundSoundServiceUtil.ISPLAYNG) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(CategoriesActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = false;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+            BackgroundSoundServiceUtil.ISPLAYNG = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(CategoriesActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = true;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+            BackgroundSoundServiceUtil.ISPLAYNG = true;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.delete_menu, menu);
-        if (!BackgroundSoundServiceUtil.PLAYING) {
+        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
             menu.getItem(2).setIcon(R.drawable.ic_volume_mute_white);
         }
         menu.getItem(1).setVisible(false);
@@ -192,5 +193,19 @@ public class CategoriesActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 }

@@ -59,6 +59,8 @@ public class ShuffleGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shuffle_game_mode);
 
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
+
         MyOnDragListener myOnDragListener = new MyOnDragListener();
         MyTouchListener myTouchListener = new MyTouchListener();
         this.dataBase = new DataBase(this);
@@ -204,6 +206,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(ShuffleGameActivity.this, MainActivity.class);
+                BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
                 startActivity(intent);
                 finish();
             }
@@ -241,14 +244,14 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundServiceUtil.PLAYING) {
+        if (BackgroundSoundServiceUtil.ISPLAYNG) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(ShuffleGameActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = false;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+            BackgroundSoundServiceUtil.ISPLAYNG = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(ShuffleGameActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = true;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+            BackgroundSoundServiceUtil.ISPLAYNG = true;
         }
     }
 
@@ -263,14 +266,15 @@ public class ShuffleGameActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(drawId);
         Integer contextID = getIntent().getExtras().getInt("contextID");
-        Score p = new Score(imageView.getDrawable(), (int)this.score, user, contextID, (int) correctCount,words.size());
+        Score p = new Score(imageView.getDrawable(), (int) this.score, user, contextID, (int) correctCount, words.size());
         insertScore(p, contextID);
         Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image", drawId);
-        bundle.putInt("score", (int)this.score);
+        bundle.putInt("score", (int) this.score);
         bundle.putString("name", user);
         intent.putExtras(bundle);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE=false;
         startActivity(intent);
         finish();
     }
@@ -599,7 +603,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (!BackgroundSoundServiceUtil.PLAYING) {
+        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
@@ -703,5 +707,19 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
     public void setScore(double score) {
         this.score = score;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 }

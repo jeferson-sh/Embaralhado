@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import estagio3.ufpb.com.br.embaralhando.adapter.CategorieAdapter;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.adapter.CategorieWordsAdapter;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
@@ -31,8 +30,8 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_contexts);
 
-        if (BackgroundSoundServiceUtil.PLAYING)
-            startService(new Intent(this, BackgroundSoundServiceUtil.class));
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
+
 
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar_select_categorie);
@@ -46,7 +45,7 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
         //end
         dataBase = new DataBase(this);
         listView = (ListView) findViewById(R.id.listViewWords);
-        listView.setAdapter(new CategorieWordsAdapter(this,"true"));
+        listView.setAdapter(new CategorieWordsAdapter(this, "true"));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -63,6 +62,7 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
 
     private void startMainActivity() {
         Intent intent = new Intent(SelectCategoriesToPlayActivity.this, MainActivity.class);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
         finish();
     }
@@ -72,26 +72,27 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
         bundle.putInt("contextID", contextID);
         Intent intent = new Intent(SelectCategoriesToPlayActivity.this, ShuffleGameActivity.class);
         intent.putExtras(bundle);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
         finish();
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundServiceUtil.PLAYING) {
+        if (BackgroundSoundServiceUtil.ISPLAYNG) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(SelectCategoriesToPlayActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = false;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+            BackgroundSoundServiceUtil.ISPLAYNG = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(SelectCategoriesToPlayActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = true;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+            BackgroundSoundServiceUtil.ISPLAYNG = true;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        if(!BackgroundSoundServiceUtil.PLAYING) {
+        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
@@ -156,5 +157,19 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
 
     public ListView getListView() {
         return listView;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 }

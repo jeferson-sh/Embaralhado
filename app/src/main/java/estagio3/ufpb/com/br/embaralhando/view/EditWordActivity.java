@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import estagio3.ufpb.com.br.embaralhando.model.Word;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 /**
  * Created by Jeferson on 10/08/2017.
@@ -17,6 +18,7 @@ public class EditWordActivity extends InsertNewContextActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
         Bundle bundle = getIntent().getExtras();
         word = getDataBase().searchWordDatabase(bundle.getInt("wordID"));
         getToolbar().setTitle("Editar palavra " + word.getName());
@@ -35,6 +37,7 @@ public class EditWordActivity extends InsertNewContextActivity {
             getDataBase().updateWord(word);
             Intent intent = new Intent(EditWordActivity.this, WordsActivity.class);
             intent.putExtras(bundle);
+            BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
             startActivity(intent);
             finish();
         } else if (getEditText().getText().toString().length() > 10) {
@@ -70,5 +73,19 @@ public class EditWordActivity extends InsertNewContextActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 }

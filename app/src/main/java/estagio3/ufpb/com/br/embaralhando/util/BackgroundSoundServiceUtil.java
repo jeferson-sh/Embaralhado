@@ -11,25 +11,26 @@ import estagio3.ufpb.com.br.embaralhando.R;
 
 public class BackgroundSoundServiceUtil extends Service {
 
-    private MediaPlayer player;
-    public static boolean PLAYING = true;
+    public static MediaPlayer MEDIA_PLAYER;
+    public static boolean STOP_BACKGROUND_MUSIC_ENABLE = true;
+    public static boolean ISPLAYNG= true;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        player = MediaPlayer.create(this, R.raw.back_step);
-        player.setLooping(true);
-        player.setVolume(100,100);
-        player.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        MEDIA_PLAYER = MediaPlayer.create(this, R.raw.back_step);
+        MEDIA_PLAYER.setLooping(true);
+        MEDIA_PLAYER.setVolume(100,100);
+        MEDIA_PLAYER.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
     public int onStartCommand(Intent intent, int flags, int startId) {
-        player.start();
+        MEDIA_PLAYER.start();
         return flags;
     }
     @Override
     public void onDestroy() {
-        player.stop();
-        player.release();
+        MEDIA_PLAYER.stop();
+        MEDIA_PLAYER.release();
         super.onDestroy();
     }
 

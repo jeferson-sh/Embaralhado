@@ -8,15 +8,16 @@ import android.view.View;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.model.Word;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class InsertNewWordActivity extends InsertNewContextActivity {
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.register_new_word);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -37,6 +38,7 @@ public class InsertNewWordActivity extends InsertNewContextActivity {
         Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent(InsertNewWordActivity.this, WordsActivity.class);
         intent.putExtras(bundle);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
         finish();
     }
@@ -49,6 +51,7 @@ public class InsertNewWordActivity extends InsertNewContextActivity {
             updateCategorie(bundle.getInt("contextID"));
             Intent intent = new Intent(InsertNewWordActivity.this, WordsActivity.class);
             intent.putExtras(bundle);
+            BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
             startActivity(intent);
             finish();
         } else if (getEditText().getText().toString().length() > 10) {
@@ -78,5 +81,19 @@ public class InsertNewWordActivity extends InsertNewContextActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 }

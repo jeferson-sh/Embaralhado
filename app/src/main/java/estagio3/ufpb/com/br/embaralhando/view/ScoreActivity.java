@@ -14,7 +14,7 @@ import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.adapter.ScoreAdapter;
 import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
-public class ScoreActivity extends AppCompatActivity{
+public class ScoreActivity extends AppCompatActivity {
 
     private ListView listView;
     private Toolbar toolbar;
@@ -24,8 +24,7 @@ public class ScoreActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score);
 
-        if(BackgroundSoundServiceUtil.PLAYING)
-            startService(new Intent(this,BackgroundSoundServiceUtil.class));
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
 
         //toolbar
         this.toolbar = (Toolbar) findViewById(R.id.toolbar_score);
@@ -39,37 +38,39 @@ public class ScoreActivity extends AppCompatActivity{
 
 
         listView = (ListView) findViewById(R.id.listViewPontos);
-        listView.setAdapter(new ScoreAdapter(this,getIntent().getExtras().getInt("contextID")));
+        listView.setAdapter(new ScoreAdapter(this, getIntent().getExtras().getInt("contextID")));
     }
 
     private void startSelectCategoriScoreActivity() {
-        Intent intent = new Intent(ScoreActivity.this,SelectCategorieScoreActivity.class);
+        Intent intent = new Intent(ScoreActivity.this, SelectCategorieScoreActivity.class);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
         finish();
     }
 
     private void startMainActivity() {
-        Intent intent = new Intent(ScoreActivity.this,MainActivity.class);
+        Intent intent = new Intent(ScoreActivity.this, MainActivity.class);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
         finish();
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundServiceUtil.PLAYING) {
+        if (BackgroundSoundServiceUtil.ISPLAYNG) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(ScoreActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = false;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+            BackgroundSoundServiceUtil.ISPLAYNG = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(ScoreActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = true;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+            BackgroundSoundServiceUtil.ISPLAYNG = true;
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (!BackgroundSoundServiceUtil.PLAYING) {
+        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
@@ -121,6 +122,20 @@ public class ScoreActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 }
 

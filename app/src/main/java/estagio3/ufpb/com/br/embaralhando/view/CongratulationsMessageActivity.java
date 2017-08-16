@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import estagio3.ufpb.com.br.embaralhando.R;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class CongratulationsMessageActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, Runnable {
 
@@ -30,6 +31,7 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_congratulations_message);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
         imageView = (ImageView) findViewById(R.id.congratulationsImage);
         this.congratulationsMessage = (TextView) findViewById(R.id.congratulationsMessageText);
         pontosText = (TextView) findViewById(R.id.pontosText);
@@ -67,6 +69,7 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         playbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
                 startActivity(new Intent(CongratulationsMessageActivity.this, SelectCategoriesToPlayActivity.class));
                 finish();
             }
@@ -74,6 +77,7 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         exitbt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
                 startActivity(new Intent(CongratulationsMessageActivity.this, MainActivity.class));
                 finish();
             }
@@ -82,8 +86,8 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
 
     private void speakMessage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null,null);
-            tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null,null);
+            tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
+            tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null, null);
         } else {
             tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null);
             tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null);
@@ -116,5 +120,19 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
             this.tts.shutdown();
         }
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 }

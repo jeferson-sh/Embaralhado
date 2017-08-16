@@ -32,9 +32,8 @@ public class WordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
 
-        if (BackgroundSoundServiceUtil.PLAYING)
-            startService(new Intent(this, BackgroundSoundServiceUtil.class));
         this.addWordbt = (ImageButton) findViewById(R.id.add_wordbt);
 
         //toolbar
@@ -49,7 +48,7 @@ public class WordsActivity extends AppCompatActivity {
         //adapters
         bundle = getIntent().getExtras();
         this.editWordAdapter = new EditWordAdapter(this, bundle.getInt("contextID"));
-        this.wordsAdapter = new WordsAdapter(this,bundle.getInt("contextID"));
+        this.wordsAdapter = new WordsAdapter(this, bundle.getInt("contextID"));
 
         listView = (ListView) findViewById(R.id.listViewWords);
         listView.setAdapter(wordsAdapter);
@@ -59,6 +58,7 @@ public class WordsActivity extends AppCompatActivity {
                 if (listView.getAdapter().getCount() <= MAX_COUNT_WORDS) {
                     Intent adicionarPalavra = new Intent(WordsActivity.this, InsertNewWordActivity.class);
                     adicionarPalavra.putExtras(bundle);
+                    BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
                     startActivity(adicionarPalavra);
                     finish();
                 } else {
@@ -69,39 +69,40 @@ public class WordsActivity extends AppCompatActivity {
     }
 
     private void startCategoriesActivity() {
-        if (this.listView.getAdapter().getClass().equals(EditWordAdapter.class)){
+        if (this.listView.getAdapter().getClass().equals(EditWordAdapter.class)) {
             setWordAdapter(toolbar.getMenu().getItem(1));
-        }else {
+        } else {
             Intent intent = new Intent(WordsActivity.this, CategoriesActivity.class);
+            BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
             startActivity(intent);
             finish();
         }
     }
 
     private void startMainActivity() {
-            Intent intent = new Intent(WordsActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+        Intent intent = new Intent(WordsActivity.this, MainActivity.class);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+        startActivity(intent);
+        finish();
     }
 
 
     private void controlMusic(MenuItem item) {
-        if(BackgroundSoundServiceUtil.PLAYING){
+        if (BackgroundSoundServiceUtil.ISPLAYNG) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(WordsActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = false;
-        }else{
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+            BackgroundSoundServiceUtil.ISPLAYNG = false;
+        } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(WordsActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = true;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+            BackgroundSoundServiceUtil.ISPLAYNG = true;
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.delete_menu, menu);
-        if(!BackgroundSoundServiceUtil.PLAYING) {
+        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
             menu.getItem(2).setIcon(R.drawable.ic_volume_mute_white);
         }
         menu.getItem(1).setVisible(false);
@@ -174,9 +175,10 @@ public class WordsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         this.toolbar.getMenu().getItem(0).setVisible(true);
-        this.wordsAdapter = new WordsAdapter(this,bundle.getInt("contextID"));
+        this.wordsAdapter = new WordsAdapter(this, bundle.getInt("contextID"));
         this.listView.setAdapter(wordsAdapter);
     }
+
     @Override
     public void onBackPressed() {
         startCategoriesActivity();
@@ -185,5 +187,19 @@ public class WordsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 }

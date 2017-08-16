@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,13 +23,16 @@ public class MainActivity extends AppCompatActivity {
     private DataBase dataBase;
     private MyCountDownTimerUtil myCountDownTimerUtil;
     private ImageButton aboutButton;
+    private Intent intentService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (BackgroundSoundServiceUtil.PLAYING)
-            startService(new Intent(this, BackgroundSoundServiceUtil.class));
+        intentService = new Intent(this, BackgroundSoundServiceUtil.class);
+        if (BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            startService(intentService);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
@@ -55,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                     Snackbar.make(view, "Não existem Contextos cadastrados!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 } else {
                     selectContext();
-                    finish();
                 }
 
             }
@@ -64,14 +65,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startSettingsActivity();
-                finish();
             }
         });
         scoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startScoreActivity();
-                finish();
             }
         });
     }
@@ -81,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
         builder.setTitle("Informações sobre o aplicativo");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder.setView(R.layout.about_dialog);
-        }else{
-            builder.setView(getLayoutInflater().inflate(R.layout.about_dialog,null));
+        } else {
+            builder.setView(getLayoutInflater().inflate(R.layout.about_dialog, null));
         }
         builder.setNegativeButton("Fechar", new DialogInterface.OnClickListener() {
             @Override
@@ -93,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         });
         builder.show();
     }
-
 
 
     @Override
@@ -112,38 +110,43 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (!BackgroundSoundServiceUtil.PLAYING) {
+        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundServiceUtil.PLAYING) {
+        if (BackgroundSoundServiceUtil.ISPLAYNG) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            stopService(new Intent(MainActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = false;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+            BackgroundSoundServiceUtil.ISPLAYNG = false;
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            startService(new Intent(MainActivity.this, BackgroundSoundServiceUtil.class));
-            BackgroundSoundServiceUtil.PLAYING = true;
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+            BackgroundSoundServiceUtil.ISPLAYNG = true;
         }
     }
 
     private void selectContext() {
         Intent intent = new Intent(this, SelectCategoriesToPlayActivity.class);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
         finish();
     }
 
     private void startSettingsActivity() {
         Intent intent = new Intent(this, CategoriesActivity.class);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
+        finish();
     }
 
     private void startScoreActivity() {
         Intent intent = new Intent(this, SelectCategorieScoreActivity.class);
+        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -180,5 +183,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
+            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
     }
 }
