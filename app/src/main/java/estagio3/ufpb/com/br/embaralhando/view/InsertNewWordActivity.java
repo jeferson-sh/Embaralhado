@@ -22,6 +22,8 @@ public class InsertNewWordActivity extends InsertNewContextActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        getEditText().setHint("Digite a palavra aqui");
+
 
         getSavePhotobt().setOnClickListener(new View.OnClickListener() {
             @Override
