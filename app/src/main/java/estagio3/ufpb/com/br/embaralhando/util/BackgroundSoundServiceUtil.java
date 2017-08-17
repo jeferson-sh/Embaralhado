@@ -11,9 +11,9 @@ import estagio3.ufpb.com.br.embaralhando.R;
 
 public class BackgroundSoundServiceUtil extends Service {
 
-    public static MediaPlayer MEDIA_PLAYER;
-    public static boolean STOP_BACKGROUND_MUSIC_ENABLE = true;
-    public static boolean ISPLAYNG= true;
+    private static MediaPlayer MEDIA_PLAYER;
+    private static boolean STOP_BACKGROUND_MUSIC_ENABLE = true;
+    private static boolean ISPLAYNG = true;
 
     @Override
     public void onCreate() {
@@ -27,12 +27,6 @@ public class BackgroundSoundServiceUtil extends Service {
         MEDIA_PLAYER.start();
         return flags;
     }
-    @Override
-    public void onDestroy() {
-        MEDIA_PLAYER.stop();
-        MEDIA_PLAYER.release();
-        super.onDestroy();
-    }
 
     @Override
     public void onLowMemory() {
@@ -43,5 +37,36 @@ public class BackgroundSoundServiceUtil extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Override
+    public void onDestroy() {
+        MEDIA_PLAYER.stop();
+        MEDIA_PLAYER.release();
+        super.onDestroy();
+    }
+
+    public static MediaPlayer getMediaPlayer() {
+        return MEDIA_PLAYER;
+    }
+
+    public static void setMediaPlayer(MediaPlayer mediaPlayer) {
+        MEDIA_PLAYER = mediaPlayer;
+    }
+
+    public static boolean isStopBackgroundMusicEnable() {
+        return STOP_BACKGROUND_MUSIC_ENABLE;
+    }
+
+    public static void setStopBackgroundMusicEnable(boolean stopBackgroundMusicEnable) {
+        STOP_BACKGROUND_MUSIC_ENABLE = stopBackgroundMusicEnable;
+    }
+
+    public static boolean isPlaying() {
+        return ISPLAYNG;
+    }
+
+    public static void setIsPlaying(boolean isPlaying) {
+        BackgroundSoundServiceUtil.ISPLAYNG = isPlaying;
     }
 }

@@ -30,7 +30,7 @@
             android:layout_margin="10dp"
             android:layout_gravity="bottom|end"
             android:clickable="true"
-            app:fabSize="mini"
+            app:fabSize="normal"
             app:srcCompat="@drawable/ic_add_white" />
 
     </FrameLayout>

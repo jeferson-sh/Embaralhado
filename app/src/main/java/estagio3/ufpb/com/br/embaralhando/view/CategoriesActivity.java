@@ -34,7 +34,7 @@ public class CategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
         this.addCategoriebt = (ImageButton) findViewById(R.id.add_categoriebt);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(true);
         //toolbar
         this.toolbar = (Toolbar) findViewById(R.id.toobar_categoie);
         setSupportActionBar(toolbar);
@@ -61,7 +61,7 @@ public class CategoriesActivity extends AppCompatActivity {
                 bundle.putInt("contextID", contextID);
                 Intent intent = new Intent(CategoriesActivity.this, WordsActivity.class);
                 intent.putExtras(bundle);
-                BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+                BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
                 startActivity(intent);
                 finish();
             }
@@ -72,7 +72,7 @@ public class CategoriesActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (listView.getAdapter().getCount() <= MAX_COUNT_CONTEXTS) {
                     Intent adicionarContext = new Intent(CategoriesActivity.this, InsertNewContextActivity.class);
-                    BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+                    BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
                     startActivity(adicionarContext);
                     finish();
                 } else {
@@ -87,28 +87,28 @@ public class CategoriesActivity extends AppCompatActivity {
             setCategorieAdapter(toolbar.getMenu().getItem(1));
         } else {
             Intent intent = new Intent(CategoriesActivity.this, MainActivity.class);
-            BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+            BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
             startActivity(intent);
             finish();
         }
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundServiceUtil.ISPLAYNG) {
+        if (BackgroundSoundServiceUtil.isPlaying()) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
-            BackgroundSoundServiceUtil.ISPLAYNG = false;
+            BackgroundSoundServiceUtil.getMediaPlayer().pause();
+            BackgroundSoundServiceUtil.setIsPlaying(false);
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
-            BackgroundSoundServiceUtil.ISPLAYNG = true;
+            BackgroundSoundServiceUtil.getMediaPlayer().start();
+            BackgroundSoundServiceUtil.setIsPlaying(true);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.delete_menu, menu);
-        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
+        if (!BackgroundSoundServiceUtil.isPlaying()) {
             menu.getItem(2).setIcon(R.drawable.ic_volume_mute_white);
         }
         menu.getItem(1).setVisible(false);
@@ -170,6 +170,7 @@ public class CategoriesActivity extends AppCompatActivity {
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                stopService(new Intent(CategoriesActivity.this,BackgroundSoundServiceUtil.class));
                 finish();
                 System.exit(0);
             }
@@ -177,6 +178,7 @@ public class CategoriesActivity extends AppCompatActivity {
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
         AlertDialog dialog = builder.create();
@@ -198,14 +200,14 @@ public class CategoriesActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isStopBackgroundMusicEnable())
+            BackgroundSoundServiceUtil.getMediaPlayer().pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isPlaying())
+            BackgroundSoundServiceUtil.getMediaPlayer().start();
     }
 }

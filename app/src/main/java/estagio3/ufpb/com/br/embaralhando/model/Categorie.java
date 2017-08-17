@@ -11,7 +11,7 @@ import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtil;
 /**
  * Created by Jeferson on 10/11/2016.
  */
-public class Categorie implements Serializable {
+public class Categorie {
 
     private byte[] imageBytes;
     private String name;

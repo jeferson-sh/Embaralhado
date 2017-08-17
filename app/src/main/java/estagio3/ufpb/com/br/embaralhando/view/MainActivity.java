@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         intentService = new Intent(this, BackgroundSoundServiceUtil.class);
-        if (BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
+        if (BackgroundSoundServiceUtil.isStopBackgroundMusicEnable())
             startService(intentService);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(true);
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
@@ -110,41 +110,41 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
+        if (!BackgroundSoundServiceUtil.isPlaying()) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
     }
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundServiceUtil.ISPLAYNG) {
+        if (BackgroundSoundServiceUtil.isPlaying()) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
-            BackgroundSoundServiceUtil.ISPLAYNG = false;
+            BackgroundSoundServiceUtil.getMediaPlayer().pause();
+            BackgroundSoundServiceUtil.setIsPlaying(false);
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
-            BackgroundSoundServiceUtil.ISPLAYNG = true;
+            BackgroundSoundServiceUtil.getMediaPlayer().start();
+            BackgroundSoundServiceUtil.setIsPlaying(true);
         }
     }
 
     private void selectContext() {
         Intent intent = new Intent(this, SelectCategoriesToPlayActivity.class);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
     private void startSettingsActivity() {
         Intent intent = new Intent(this, CategoriesActivity.class);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
     private void startScoreActivity() {
         Intent intent = new Intent(this, SelectCategorieScoreActivity.class);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                stopService(new Intent(MainActivity.this,BackgroundSoundServiceUtil.class));
                 finish();
                 System.exit(0);
             }
@@ -173,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
             }
         });
         AlertDialog dialog = builder.create();
@@ -188,14 +190,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isStopBackgroundMusicEnable())
+            BackgroundSoundServiceUtil.getMediaPlayer().pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isPlaying())
+            BackgroundSoundServiceUtil.getMediaPlayer().start();
     }
 }

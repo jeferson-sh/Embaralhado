@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 import estagio3.ufpb.com.br.embaralhando.view.EditContextActivity;
 
 public class EditCategorieAdapter extends CategorieAdapter {
@@ -84,6 +85,7 @@ public class EditCategorieAdapter extends CategorieAdapter {
                 bundle.putInt("categorieName", categorie.getId());
                 Intent intent = new Intent(getContext(), EditContextActivity.class);
                 intent.putExtras(bundle);
+                BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
                 getContext().startActivity(intent);
                 ((Activity) getContext()).finish();
 

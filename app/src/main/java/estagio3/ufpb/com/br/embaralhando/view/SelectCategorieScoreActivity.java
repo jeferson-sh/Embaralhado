@@ -19,7 +19,7 @@ public class SelectCategorieScoreActivity extends SelectCategoriesToPlayActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(true);
         getToolbar().setTitle("Contextos pontuados");
         getListView().setAdapter(new CategoriesScoresAdapter(this, "true"));
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -41,7 +41,7 @@ public class SelectCategorieScoreActivity extends SelectCategoriesToPlayActivity
         bundle.putInt("contextID", contextID);
         Intent intent = new Intent(SelectCategorieScoreActivity.this, ScoreActivity.class);
         intent.putExtras(bundle);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
@@ -54,14 +54,14 @@ public class SelectCategorieScoreActivity extends SelectCategoriesToPlayActivity
     @Override
     protected void onPause() {
         super.onPause();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isStopBackgroundMusicEnable())
+            BackgroundSoundServiceUtil.getMediaPlayer().pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isPlaying())
+            BackgroundSoundServiceUtil.getMediaPlayer().start();
     }
 }

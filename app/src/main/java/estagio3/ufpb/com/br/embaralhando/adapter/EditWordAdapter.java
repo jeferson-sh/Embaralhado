@@ -17,9 +17,8 @@ import android.widget.Toast;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.model.Word;
-import estagio3.ufpb.com.br.embaralhando.view.EditContextActivity;
+import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 import estagio3.ufpb.com.br.embaralhando.view.EditWordActivity;
-import estagio3.ufpb.com.br.embaralhando.view.WordsActivity;
 
 /**
  * Created by Jeferson on 25/07/2017.
@@ -90,6 +89,7 @@ public class EditWordAdapter extends WordsAdapter {
                 bundle.putInt("wordID",word.getId());
                 Intent intent = new Intent(getContext(), EditWordActivity.class);
                 intent.putExtras(bundle);
+                BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
                 getContext().startActivity(intent);
                 ((Activity) getContext()).finish();
 

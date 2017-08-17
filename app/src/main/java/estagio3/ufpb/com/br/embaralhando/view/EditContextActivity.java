@@ -19,7 +19,7 @@ public class EditContextActivity extends InsertNewContextActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(true);
         Bundle bundle = getIntent().getExtras();
         categorie = getDataBase().searchCategorieDatabase(bundle.getInt("categorieName"));
         getToolbar().setTitle("Editar contexto " + categorie.getName());
@@ -34,7 +34,7 @@ public class EditContextActivity extends InsertNewContextActivity {
             this.categorie.setImage(getBitmapCaptured());
             this.categorie.setName(getEditText().getText().toString().toUpperCase());
             getDataBase().updateCategorie(categorie);
-            BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+            BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
             startActivity(new Intent(EditContextActivity.this, CategoriesActivity.class));
             finish();
         } else if (getEditText().getText().toString().length() > 10) {
@@ -66,14 +66,14 @@ public class EditContextActivity extends InsertNewContextActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isStopBackgroundMusicEnable())
+            BackgroundSoundServiceUtil.getMediaPlayer().pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isPlaying())
+            BackgroundSoundServiceUtil.getMediaPlayer().start();
     }
 }

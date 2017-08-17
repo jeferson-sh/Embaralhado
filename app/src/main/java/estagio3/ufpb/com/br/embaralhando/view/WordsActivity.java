@@ -32,7 +32,7 @@ public class WordsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(true);
 
         this.addWordbt = (ImageButton) findViewById(R.id.add_wordbt);
 
@@ -58,7 +58,7 @@ public class WordsActivity extends AppCompatActivity {
                 if (listView.getAdapter().getCount() <= MAX_COUNT_WORDS) {
                     Intent adicionarPalavra = new Intent(WordsActivity.this, InsertNewWordActivity.class);
                     adicionarPalavra.putExtras(bundle);
-                    BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+                    BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
                     startActivity(adicionarPalavra);
                     finish();
                 } else {
@@ -73,7 +73,7 @@ public class WordsActivity extends AppCompatActivity {
             setWordAdapter(toolbar.getMenu().getItem(1));
         } else {
             Intent intent = new Intent(WordsActivity.this, CategoriesActivity.class);
-            BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+            BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
             startActivity(intent);
             finish();
         }
@@ -81,28 +81,28 @@ public class WordsActivity extends AppCompatActivity {
 
     private void startMainActivity() {
         Intent intent = new Intent(WordsActivity.this, MainActivity.class);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
 
     private void controlMusic(MenuItem item) {
-        if (BackgroundSoundServiceUtil.ISPLAYNG) {
+        if (BackgroundSoundServiceUtil.isPlaying()) {
             item.setIcon(R.drawable.ic_volume_mute_white);
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
-            BackgroundSoundServiceUtil.ISPLAYNG = false;
+            BackgroundSoundServiceUtil.getMediaPlayer().pause();
+            BackgroundSoundServiceUtil.setIsPlaying(false);
         } else {
             item.setIcon(R.drawable.ic_volume_up_white);
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
-            BackgroundSoundServiceUtil.ISPLAYNG = true;
+            BackgroundSoundServiceUtil.getMediaPlayer().start();
+            BackgroundSoundServiceUtil.setIsPlaying(true);
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.delete_menu, menu);
-        if (!BackgroundSoundServiceUtil.ISPLAYNG) {
+        if (!BackgroundSoundServiceUtil.isPlaying()) {
             menu.getItem(2).setIcon(R.drawable.ic_volume_mute_white);
         }
         menu.getItem(1).setVisible(false);
@@ -192,14 +192,14 @@ public class WordsActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isStopBackgroundMusicEnable())
+            BackgroundSoundServiceUtil.getMediaPlayer().pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isPlaying())
+            BackgroundSoundServiceUtil.getMediaPlayer().start();
     }
 }

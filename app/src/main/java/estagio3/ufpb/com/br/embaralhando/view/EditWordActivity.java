@@ -18,7 +18,7 @@ public class EditWordActivity extends InsertNewContextActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = true;
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(true);
         Bundle bundle = getIntent().getExtras();
         word = getDataBase().searchWordDatabase(bundle.getInt("wordID"));
         getToolbar().setTitle("Editar palavra " + word.getName());
@@ -37,7 +37,7 @@ public class EditWordActivity extends InsertNewContextActivity {
             getDataBase().updateWord(word);
             Intent intent = new Intent(EditWordActivity.this, WordsActivity.class);
             intent.putExtras(bundle);
-            BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE = false;
+            BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
             startActivity(intent);
             finish();
         } else if (getEditText().getText().toString().length() > 10) {
@@ -66,6 +66,7 @@ public class EditWordActivity extends InsertNewContextActivity {
         Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent(EditWordActivity.this, WordsActivity.class);
         intent.putExtras(bundle);
+        BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
@@ -78,14 +79,14 @@ public class EditWordActivity extends InsertNewContextActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.STOP_BACKGROUND_MUSIC_ENABLE)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.pause();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isStopBackgroundMusicEnable())
+            BackgroundSoundServiceUtil.getMediaPlayer().pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (BackgroundSoundServiceUtil.MEDIA_PLAYER != null && BackgroundSoundServiceUtil.ISPLAYNG)
-            BackgroundSoundServiceUtil.MEDIA_PLAYER.start();
+        if (BackgroundSoundServiceUtil.getMediaPlayer() != null && BackgroundSoundServiceUtil.isPlaying())
+            BackgroundSoundServiceUtil.getMediaPlayer().start();
     }
 }
