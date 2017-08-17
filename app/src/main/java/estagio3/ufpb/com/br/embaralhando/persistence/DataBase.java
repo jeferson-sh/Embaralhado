@@ -12,7 +12,7 @@ import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.model.Score;
 import estagio3.ufpb.com.br.embaralhando.model.Word;
 
-/**
+/*
  * Created by Jeferson on 20/11/2016.
  */
 

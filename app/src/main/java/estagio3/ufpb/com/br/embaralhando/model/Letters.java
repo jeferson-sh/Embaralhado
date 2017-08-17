@@ -1,6 +1,6 @@
 package estagio3.ufpb.com.br.embaralhando.model;
 
-/**
+/*
  * Created by Jeferson on 09/08/2017.
  */
 

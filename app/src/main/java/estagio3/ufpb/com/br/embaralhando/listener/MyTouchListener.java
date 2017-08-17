@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando.event;
+package estagio3.ufpb.com.br.embaralhando.listener;
 
 import android.content.ClipData;
 import android.os.Build;
@@ -14,6 +14,7 @@ import android.view.View;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 view.startDragAndDrop(data,shadowBuilder,view,0);
             }else {
+                //noinspection deprecation
                 view.startDrag(data, shadowBuilder, view, 0);
             }
             view.setVisibility(View.INVISIBLE);

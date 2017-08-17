@@ -8,7 +8,7 @@ import android.view.View;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
-/**
+/*
  * Created by Jeferson on 08/08/2017.
  */
 
@@ -23,14 +23,15 @@ public class EditContextActivity extends InsertNewContextActivity {
         Bundle bundle = getIntent().getExtras();
         categorie = getDataBase().searchCategorieDatabase(bundle.getInt("categorieName"));
         getToolbar().setTitle("Editar contexto " + categorie.getName());
-        getImage().setImageBitmap(categorie.getImage());
+        getImageView().setImageBitmap(categorie.getImage());
         getEditText().setText(categorie.getName());
+        setBitmapCaptured(categorie.getImage());
 
     }
 
     public void saveContext(View v) {
         boolean verify = verifyWord();
-        if (getEditText().getText().toString().length() >= 2 && getEditText().getText().toString().length() <= 10 && verify) {
+        if (getBitmapCaptured() != null &&getEditText().getText().toString().length() >= 2 && getEditText().getText().toString().length() <= 10 && verify) {
             this.categorie.setImage(getBitmapCaptured());
             this.categorie.setName(getEditText().getText().toString().toUpperCase());
             getDataBase().updateCategorie(categorie);

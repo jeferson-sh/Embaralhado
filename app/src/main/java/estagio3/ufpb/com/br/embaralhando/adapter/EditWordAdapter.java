@@ -1,5 +1,6 @@
 package estagio3.ufpb.com.br.embaralhando.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -20,7 +21,7 @@ import estagio3.ufpb.com.br.embaralhando.model.Word;
 import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 import estagio3.ufpb.com.br.embaralhando.view.EditWordActivity;
 
-/**
+/*
  * Created by Jeferson on 25/07/2017.
  */
 
@@ -29,6 +30,7 @@ public class EditWordAdapter extends WordsAdapter {
         super(context, contextID);
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
 

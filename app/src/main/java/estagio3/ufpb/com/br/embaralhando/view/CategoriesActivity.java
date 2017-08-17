@@ -46,7 +46,7 @@ public class CategoriesActivity extends AppCompatActivity {
         }
         //Adapters
         this.editCategorieAdapter = new EditCategorieAdapter(this);
-        ;
+
         this.categorieAdapter = new CategorieAdapter(this);
         //end
         this.listView = (ListView) findViewById(R.id.listViewWords);

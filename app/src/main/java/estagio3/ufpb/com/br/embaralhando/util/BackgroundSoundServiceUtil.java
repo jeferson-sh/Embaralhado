@@ -20,7 +20,6 @@ public class BackgroundSoundServiceUtil extends Service {
         super.onCreate();
         MEDIA_PLAYER = MediaPlayer.create(this, R.raw.back_step);
         MEDIA_PLAYER.setLooping(true);
-        MEDIA_PLAYER.setVolume(100,100);
         MEDIA_PLAYER.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -48,10 +47,6 @@ public class BackgroundSoundServiceUtil extends Service {
 
     public static MediaPlayer getMediaPlayer() {
         return MEDIA_PLAYER;
-    }
-
-    public static void setMediaPlayer(MediaPlayer mediaPlayer) {
-        MEDIA_PLAYER = mediaPlayer;
     }
 
     public static boolean isStopBackgroundMusicEnable() {

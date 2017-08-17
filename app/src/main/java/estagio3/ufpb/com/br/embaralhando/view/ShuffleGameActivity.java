@@ -23,8 +23,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import estagio3.ufpb.com.br.embaralhando.event.MyOnDragListener;
-import estagio3.ufpb.com.br.embaralhando.event.MyTouchListener;
+import estagio3.ufpb.com.br.embaralhando.listener.MyOnDragListener;
+import estagio3.ufpb.com.br.embaralhando.listener.MyTouchListener;
 import estagio3.ufpb.com.br.embaralhando.R;
 import estagio3.ufpb.com.br.embaralhando.adapter.ScoreAdapter;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
@@ -51,8 +51,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private boolean verifyWord;
 
     private List<Integer> levelsIndex;
-    private ImageButton checkWordButton;
-    private ImageButton restartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +78,8 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
 
         this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
-        this.restartButton = (ImageButton) findViewById(R.id.restart_button);
-        this.checkWordButton = (ImageButton) findViewById(R.id.checkButton);
+        ImageButton restartButton = (ImageButton) findViewById(R.id.restart_button);
+        ImageButton checkWordButton = (ImageButton) findViewById(R.id.checkButton);
         this.textCountLevel = (TextView) findViewById(R.id.textCountNivel);
 
         //toolbar
@@ -584,7 +582,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
                     letters[i].setTag(Letters.Ú);
                     letters[i].setVisibility(View.VISIBLE);
                     drops[i].setVisibility(View.VISIBLE);
-                    continue;
             }
         }
     }

@@ -1,4 +1,4 @@
-package estagio3.ufpb.com.br.embaralhando.event;
+package estagio3.ufpb.com.br.embaralhando.listener;
 
 import android.view.DragEvent;
 import android.view.View;
@@ -33,6 +33,7 @@ public class MyOnDragListener implements View.OnDragListener {
                 letter.setVisibility(View.VISIBLE);
                 break;
             case DragEvent.ACTION_DRAG_ENDED:
+                //noinspection ConstantConditions
                 if(!isDroped)
                     letter.setVisibility(View.VISIBLE);
                 break;

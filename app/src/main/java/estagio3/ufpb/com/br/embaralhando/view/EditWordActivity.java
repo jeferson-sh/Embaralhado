@@ -8,7 +8,7 @@ import android.view.View;
 import estagio3.ufpb.com.br.embaralhando.model.Word;
 import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
-/**
+/*
  * Created by Jeferson on 10/08/2017.
  */
 
@@ -22,8 +22,9 @@ public class EditWordActivity extends InsertNewContextActivity {
         Bundle bundle = getIntent().getExtras();
         word = getDataBase().searchWordDatabase(bundle.getInt("wordID"));
         getToolbar().setTitle("Editar palavra " + word.getName());
-        getImage().setImageBitmap(word.getImage());
+        getImageView().setImageBitmap(word.getImage());
         getEditText().setText(word.getName());
+        setBitmapCaptured(word.getImage());
 
     }
 
@@ -31,7 +32,7 @@ public class EditWordActivity extends InsertNewContextActivity {
     public void saveContext(View v) {
         boolean verify = verifyWord();
         Bundle bundle = getIntent().getExtras();
-        if (getEditText().getText().toString().length() >= 2 && getEditText().getText().toString().length() <= 10 && verify) {
+        if (getBitmapCaptured() != null && getEditText().getText().toString().length() >= 2 && getEditText().getText().toString().length() <= 10 && verify) {
             this.word.setImage(getBitmapCaptured());
             this.word.setName(getEditText().getText().toString().toUpperCase());
             getDataBase().updateWord(word);

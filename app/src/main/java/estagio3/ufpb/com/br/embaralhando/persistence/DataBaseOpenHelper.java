@@ -5,10 +5,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 
-/**
+/*
  * Created by Jeferson on 20/11/2016.
  */
-public class DataBaseOpenHelper extends SQLiteOpenHelper {
+class DataBaseOpenHelper extends SQLiteOpenHelper {
     private static final String NAME_DATABASE = "DATABASE";
     private static final int VERSION_DATABASE = 1;
     private static DataBaseOpenHelper MYDATABASECORE = null;
@@ -34,7 +34,7 @@ public class DataBaseOpenHelper extends SQLiteOpenHelper {
         onCreate(bd);
     }
 
-    public static DataBaseOpenHelper getInstanceDataBaseOpenHelper(Context ctx) {
+    static DataBaseOpenHelper getInstanceDataBaseOpenHelper(Context ctx) {
         if (MYDATABASECORE == null) {
             MYDATABASECORE = new DataBaseOpenHelper(ctx.getApplicationContext());
         }

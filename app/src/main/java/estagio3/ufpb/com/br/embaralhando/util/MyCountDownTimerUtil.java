@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.CountDownTimer;
 import android.widget.Toast;
 
-/**
+/*
  * Created by Jeferson on 26/07/2017.
  */
 

@@ -10,7 +10,7 @@ import estagio3.ufpb.com.br.embaralhando.adapter.CategoriesScoresAdapter;
 import estagio3.ufpb.com.br.embaralhando.model.Categorie;
 import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
-/**
+/*
  * Created by Jeferson on 11/08/2017.
  */
 

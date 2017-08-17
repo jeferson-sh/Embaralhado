@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 
 import java.io.ByteArrayOutputStream;
 
-/**
+/*
  * Created by Jeferson on 18/11/2016.
  */
 

@@ -1,9 +1,10 @@
 package estagio3.ufpb.com.br.embaralhando.adapter;
 
-/**
+/*
  * Created by Jeferson on 17/11/2016.
  */
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +49,7 @@ public class WordsAdapter extends BaseAdapter{
         return 0;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
 
@@ -70,12 +72,8 @@ public class WordsAdapter extends BaseAdapter{
         return layout;
     }
 
-    public List<Word> getWords() {
+    List<Word> getWords() {
         return words;
-    }
-
-    public void setWords(List<Word> words) {
-        this.words = words;
     }
 
     public Context getContext() {
@@ -88,10 +86,6 @@ public class WordsAdapter extends BaseAdapter{
 
     public DataBase getDataBase() {
         return dataBase;
-    }
-
-    public void setDataBase(DataBase dataBase) {
-        this.dataBase = dataBase;
     }
 
     public Integer getContextID() {

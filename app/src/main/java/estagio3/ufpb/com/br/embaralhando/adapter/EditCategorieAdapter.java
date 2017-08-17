@@ -1,9 +1,10 @@
 package estagio3.ufpb.com.br.embaralhando.adapter;
 
-/**
+/*
  * Created by Jeferson on 17/11/2016.
  */
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -28,6 +29,7 @@ public class EditCategorieAdapter extends CategorieAdapter {
     public EditCategorieAdapter(Context context) {
         super(context);
     }
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
 

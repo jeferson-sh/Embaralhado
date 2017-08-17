@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 
 import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtil;
 
-/**
+/*
  * Created by Jeferson on 10/11/2016.
  */
 public class Word {
@@ -75,7 +75,7 @@ public class Word {
         return imageBytes;
     }
 
-    public void setImageBytes(byte[] imageBytes) {
+    private void setImageBytes(byte[] imageBytes) {
         this.imageBytes = imageBytes;
     }
 }

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtil;
 
-/**
+/*
  * Created by Jeferson on 10/11/2016.
  */
 public class Categorie {
@@ -74,7 +74,7 @@ public class Categorie {
         return imageBytes;
     }
 
-    public void setImageBytes(byte[] imageBytes) {
+    private void setImageBytes(byte[] imageBytes) {
         this.imageBytes = imageBytes;
     }
 

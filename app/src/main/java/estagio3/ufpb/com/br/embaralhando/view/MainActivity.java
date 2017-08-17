@@ -1,5 +1,6 @@
 package estagio3.ufpb.com.br.embaralhando.view;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,14 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
     private DataBase dataBase;
     private MyCountDownTimerUtil myCountDownTimerUtil;
-    private ImageButton aboutButton;
-    private Intent intentService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        intentService = new Intent(this, BackgroundSoundServiceUtil.class);
+        Intent intentService = new Intent(this, BackgroundSoundServiceUtil.class);
         if (BackgroundSoundServiceUtil.isStopBackgroundMusicEnable())
             startService(intentService);
         BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(true);
@@ -41,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         ImageButton playButton = (ImageButton) findViewById(R.id.playButton);
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         ImageButton scoreButton = (ImageButton) findViewById(R.id.scoreButton);
-        aboutButton = (ImageButton) findViewById(R.id.about_button);
+        ImageButton aboutButton = (ImageButton) findViewById(R.id.about_button);
         this.dataBase = new DataBase(this);
         this.myCountDownTimerUtil = new MyCountDownTimerUtil(MainActivity.this, 2000, 1000);
         aboutButton.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("InflateParams")
     private void abouMessage() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Informações sobre o aplicativo");

@@ -6,7 +6,7 @@ import android.graphics.drawable.Drawable;
 
 import estagio3.ufpb.com.br.embaralhando.util.DatabaseBitmapUtil;
 
-/**
+/*
  * Created by Jeferson on 10/11/2016.
  */
 public class Score {
@@ -46,10 +46,6 @@ public class Score {
         return user;
     }
 
-    public void setUser(String name) {
-        this.user = name;
-    }
-
 
     public long getId() {
         return id;
@@ -80,16 +76,12 @@ public class Score {
         return imageScoreBytes;
     }
 
-    public void setImageScoreBytes(byte[] imageScoreBytes) {
+    private void setImageScoreBytes(byte[] imageScoreBytes) {
         this.imageScoreBytes = imageScoreBytes;
     }
 
     public Integer getContextId() {
         return contextId;
-    }
-
-    public void setContextId(Integer contextId) {
-        this.contextId = contextId;
     }
 
     public Integer getAnswerCount() {

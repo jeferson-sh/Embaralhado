@@ -288,7 +288,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
         return editText;
     }
 
-    public ImageView getImage() {
+    public ImageView getImageView() {
         return image;
     }
 
@@ -298,6 +298,10 @@ public class InsertNewContextActivity extends AppCompatActivity {
 
     public Bitmap getBitmapCaptured() {
         return bitmapCaptured;
+    }
+
+    public void setBitmapCaptured(Bitmap bitmapCaptured) {
+        this.bitmapCaptured = bitmapCaptured;
     }
 
     public DataBase getDataBase() {
@@ -323,6 +327,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
     public ImageButton getSavePhotobt() {
         return savePhotobt;
     }
+
 
     @Override
     protected void onPause() {

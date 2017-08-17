@@ -19,10 +19,6 @@ import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class CongratulationsMessageActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, Runnable {
 
-    private ImageView imageView;
-    private TextView pontosText;
-    private ImageButton playbt;
-    private ImageButton exitbt;
     private TextView congratulationsMessage;
     private TextToSpeech tts;
     private String scoreMessage;
@@ -32,11 +28,11 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_congratulations_message);
         BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(true);
-        imageView = (ImageView) findViewById(R.id.congratulationsImage);
+        ImageView imageView = (ImageView) findViewById(R.id.congratulationsImage);
         this.congratulationsMessage = (TextView) findViewById(R.id.congratulationsMessageText);
-        pontosText = (TextView) findViewById(R.id.pontosText);
-        exitbt = (ImageButton) findViewById(R.id.exitGame);
-        playbt = (ImageButton) findViewById(R.id.playAgain);
+        TextView pontosText = (TextView) findViewById(R.id.pontosText);
+        ImageButton exitbt = (ImageButton) findViewById(R.id.exitGame);
+        ImageButton playbt = (ImageButton) findViewById(R.id.playAgain);
         Bundle bundle = getIntent().getExtras();
         imageView.setImageResource(bundle.getInt("image"));
         int score = bundle.getInt("score");
@@ -89,7 +85,9 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
             tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
             tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null, null);
         } else {
+            //noinspection deprecation
             tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null);
+            //noinspection deprecation
             tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null);
         }
 

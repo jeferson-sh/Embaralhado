@@ -1,9 +1,10 @@
 package estagio3.ufpb.com.br.embaralhando.adapter;
 
-/**
+/*
  * Created by Jeferson on 17/11/2016.
  */
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,16 +32,16 @@ public class CategorieAdapter extends BaseAdapter {
         try {
             this.categories = dataBase.searchMyCategoriesDatabase();
         } catch (Exception e) {
-            this.categories = new ArrayList<Categorie>();
+            this.categories = new ArrayList<>();
         }
     }
-    public CategorieAdapter(Context context, List<Categorie> categories) {
+    CategorieAdapter(Context context, List<Categorie> categories) {
         this.context = context;
         this.dataBase = new DataBase(context);
         try {
             this.categories = categories;
         } catch (Exception e) {
-            this.categories = new ArrayList<Categorie>();
+            this.categories = new ArrayList<>();
         }
     }
 
@@ -61,6 +62,7 @@ public class CategorieAdapter extends BaseAdapter {
         return this.categories.get(i).getId();
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
 
@@ -83,12 +85,8 @@ public class CategorieAdapter extends BaseAdapter {
         return layout;
     }
 
-    public List<Categorie> getCategories() {
+    List<Categorie> getCategories() {
         return categories;
-    }
-
-    public void setCategories(List<Categorie> categories) {
-        this.categories = categories;
     }
 
     public Context getContext() {
@@ -101,10 +99,6 @@ public class CategorieAdapter extends BaseAdapter {
 
     public DataBase getDataBase() {
         return dataBase;
-    }
-
-    public void setDataBase(DataBase dataBase) {
-        this.dataBase = dataBase;
     }
 
 }

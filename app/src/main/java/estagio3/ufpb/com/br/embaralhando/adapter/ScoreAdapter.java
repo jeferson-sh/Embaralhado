@@ -1,9 +1,10 @@
 package estagio3.ufpb.com.br.embaralhando.adapter;
 
-/**
+/*
  * Created by Jeferson on 17/11/2016.
  */
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +23,12 @@ public class ScoreAdapter extends BaseAdapter{
 
     private List<Score> scores;
     private Context context;
-    private DataBase dataBase;
     private Integer contextID;
 
     public ScoreAdapter(Context context, Integer contextID) {
         this.context = context;
         this.contextID = contextID;
-        this.dataBase = new DataBase(context);
+        DataBase dataBase = new DataBase(context);
         this.scores = dataBase.searchScoresDatabase(contextID);
         this.notifyDataSetChanged();
     }
@@ -48,6 +48,7 @@ public class ScoreAdapter extends BaseAdapter{
         return 0;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
 

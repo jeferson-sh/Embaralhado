@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Embaralhando</string>
+    <string name="app_name">Embaralhado</string>
 
     <string name="jogar">Jogar</string>
     <string name="configurar">Configurar</string>
@@ -20,5 +20,5 @@
     <string name="exit_app">Exit app</string>
     <string name="description_button_delete_item">Description: Button delete item</string>
     <string name="description_edite_categorie">Description: edite categorie</string>
-    <string name="about_app">\nEmbaralhando 1.0.0\n\nDesenvolvedor: Jéferson Silva\nEmail: jeferson.silva@dcx.ufpb.br\n\nProfessora Orientadora: Ayla Rebouças\nEmail: ayla@dcx.ufpb.br\n\nImagens do alfabeto: Sapann-Design - Freepik.com\nImagens de animais: Freepik de Flaticon.com\nImagens de circo: Freepik de Flaticon.com\nImagens de frutas: Freepick de Flaticon.com\nÍcone de configuração Madebyoliver de Flaticon.com\nMúsica: besond.com\n</string>
+    <string name="about_app">\nEmbaralhado 1.0.0\n\nDesenvolvedor: Jéferson Silva\nEmail: jeferson.silva@dcx.ufpb.br\n\nProfessora Orientadora: Ayla Rebouças\nEmail: ayla@dcx.ufpb.br\n\nImagens do alfabeto: Sapann-Design - Freepik.com\nImagens de animais: Freepik de Flaticon.com\nImagens de circo: Freepik de Flaticon.com\nImagens de frutas: Freepick de Flaticon.com\nÍcone de configuração Madebyoliver de Flaticon.com\nMúsica: besond.com\n</string>
 </resources>

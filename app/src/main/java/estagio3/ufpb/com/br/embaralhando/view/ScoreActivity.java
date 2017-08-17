@@ -16,9 +16,6 @@ import estagio3.ufpb.com.br.embaralhando.util.BackgroundSoundServiceUtil;
 
 public class ScoreActivity extends AppCompatActivity {
 
-    private ListView listView;
-    private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +24,9 @@ public class ScoreActivity extends AppCompatActivity {
         BackgroundSoundServiceUtil.setStopBackgroundMusicEnable(true);
 
         //toolbar
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar_score);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_score);
         setSupportActionBar(toolbar);
-        this.toolbar.inflateMenu(R.menu.main_menu);
+        toolbar.inflateMenu(R.menu.main_menu);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Últimas pontuações");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -37,7 +34,7 @@ public class ScoreActivity extends AppCompatActivity {
         }
 
 
-        listView = (ListView) findViewById(R.id.listViewPontos);
+        ListView listView = (ListView) findViewById(R.id.listViewPontos);
         listView.setAdapter(new ScoreAdapter(this, getIntent().getExtras().getInt("contextID")));
     }
 
