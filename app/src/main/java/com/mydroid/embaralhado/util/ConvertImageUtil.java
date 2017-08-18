@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import java.io.ByteArrayOutputStream;
 
 /*
- * Created by Jeferson on 18/11/2016.
+ * Created by Jeferson on 19/11/2016.
  */
 
 public class ConvertImageUtil {
