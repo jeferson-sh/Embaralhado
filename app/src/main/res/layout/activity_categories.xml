@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:categorie="estagio3.ufpb.com.br.embaralhando.view.CategoriesActivity">
+    tools:categorie="com.mydroid.embaralhado.view.CategoriesActivity">
 
     <include
         android:id="@+id/toobar_categoie"

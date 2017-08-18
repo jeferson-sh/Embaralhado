@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:categorie="estagio3.ufpb.com.br.embaralhando.view.ShuffleGameActivity">
+    tools:categorie="com.mydroid.embaralhado.view.ShuffleGameActivity">
 
     <include
         android:id="@+id/toolbar_shuffler_game_mode"

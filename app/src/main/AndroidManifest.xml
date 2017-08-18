@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="estagio3.ufpb.com.br.embaralhando">
+    package="com.mydroid.embaralhado">
 
     <!-- To access Google+ APIs: -->
     <!--<uses-permission android:name="android.permission.INTERNET" />-->
@@ -29,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.SplashActivity"
+            android:name="com.mydroid.embaralhado.view.SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,44 +38,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name="com.mydroid.embaralhado.view.MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SelectCategorieScoreActivity"
+            android:name="com.mydroid.embaralhado.view.SelectCategorieScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.EditContextActivity"
+            android:name="com.mydroid.embaralhado.view.EditContextActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.EditWordActivity"
+            android:name="com.mydroid.embaralhado.view.EditWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.CategoriesActivity"
+            android:name="com.mydroid.embaralhado.view.CategoriesActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.WordsActivity"
+            android:name="com.mydroid.embaralhado.view.WordsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SelectCategoriesToPlayActivity"
+            android:name="com.mydroid.embaralhado.view.SelectCategoriesToPlayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.ScoreActivity"
+            android:name="com.mydroid.embaralhado.view.ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.ShuffleGameActivity"
+            android:name="com.mydroid.embaralhado.view.ShuffleGameActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.InsertNewContextActivity"
+            android:name="com.mydroid.embaralhado.view.InsertNewContextActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.InsertNewWordActivity"
+            android:name="com.mydroid.embaralhado.view.InsertNewWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.CongratulationsMessageActivity"
+            android:name="com.mydroid.embaralhado.view.CongratulationsMessageActivity"
             android:screenOrientation="landscape" />
 
         <service
-            android:name=".util.BackgroundSoundServiceUtil"
+            android:name="com.mydroid.embaralhado.service.BackgroundMusicService"
             android:enabled="true"
             android:exported="true"
             android:permission="true"
