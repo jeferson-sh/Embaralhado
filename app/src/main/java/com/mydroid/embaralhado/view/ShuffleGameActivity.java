@@ -18,21 +18,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import com.mydroid.embaralhado.listener.MyOnDragListener;
-import com.mydroid.embaralhado.listener.MyTouchListener;
 import com.mydroid.embaralhado.R;
 import com.mydroid.embaralhado.adapter.ScoreAdapter;
+import com.mydroid.embaralhado.listener.MyOnDragListener;
+import com.mydroid.embaralhado.listener.MyTouchListener;
 import com.mydroid.embaralhado.model.Categorie;
 import com.mydroid.embaralhado.model.Letters;
 import com.mydroid.embaralhado.model.Score;
 import com.mydroid.embaralhado.model.Word;
 import com.mydroid.embaralhado.persistence.DataBase;
 import com.mydroid.embaralhado.service.BackgroundMusicService;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ShuffleGameActivity extends AppCompatActivity {
 
@@ -49,6 +49,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private TextView textCountLevel;
     private int finalChallenge;
     private boolean verifyWord;
+    private boolean scored;
 
     private List<Integer> levelsIndex;
 
@@ -65,6 +66,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         this.words = dataBase.searchWordsDatabase(bundle.getInt("contextID"));
         this.finalChallenge = 10;
+        scored = false;
 
         if (words.size() < finalChallenge) {
             finalChallenge = words.size();
@@ -318,6 +320,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
 
     public void loadWord(int pos) {
+        scored = false;
         setVerifyWord(false);
         int challenge = count + 1;
         String n = "Desafio " + challenge + " de " + finalChallenge;
@@ -658,8 +661,10 @@ public class ShuffleGameActivity extends AppCompatActivity {
             }
         }
         if (verify.equals("v")) {
-            if (!verifyWord()) {
+
+            if (!scored) {
                 this.correctCount = correctCount + 1;
+                scored = true;
             }
             startSoundQuestionCorrect();
             toGetNextWord();
