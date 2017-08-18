@@ -49,7 +49,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private TextView textCountLevel;
     private int finalChallenge;
     private boolean verifyWord;
-    private boolean scored;
 
     private List<Integer> levelsIndex;
 
@@ -66,7 +65,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         this.words = dataBase.searchWordsDatabase(bundle.getInt("contextID"));
         this.finalChallenge = 10;
-        scored = false;
 
         if (words.size() < finalChallenge) {
             finalChallenge = words.size();
@@ -320,7 +318,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
 
     public void loadWord(int pos) {
-        scored = false;
         setVerifyWord(false);
         int challenge = count + 1;
         String n = "Desafio " + challenge + " de " + finalChallenge;
@@ -661,13 +658,13 @@ public class ShuffleGameActivity extends AppCompatActivity {
             }
         }
         if (verify.equals("v")) {
-
-            if (!scored) {
+            if (!verifyWord) {
                 this.correctCount = correctCount + 1;
-                scored = true;
+                setVerifyWord(true);
             }
             startSoundQuestionCorrect();
             toGetNextWord();
+
         } else {
             setVerifyWord(true);
             starSoundQuestionWrong();
