@@ -3,8 +3,8 @@
     package="com.mydroid.embaralhado">
 
     <!-- To access Google+ APIs: -->
-    <!--<uses-permission android:name="android.permission.INTERNET" />-->
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
@@ -12,15 +12,15 @@
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true"/>
+        android:required="true" />
 
     <supports-screens
         android:anyDensity="true"
-        android:xlargeScreens="true"
-        android:resizeable="true"
         android:largeScreens="true"
         android:normalScreens="true"
-        android:smallScreens="true" />
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -31,7 +31,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.mydroid.embaralhado.view.SplashActivity"
+            android:name=".view.SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,44 +40,47 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mydroid.embaralhado.view.MainActivity"
+            android:name=".view.MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.SelectCategorieScoreActivity"
+            android:name=".view.SelectCategorieScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.EditContextActivity"
+            android:name=".view.EditContextActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.EditWordActivity"
+            android:name=".view.EditWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.CategoriesActivity"
+            android:name=".view.CategoriesActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.WordsActivity"
+            android:name=".view.WordsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.SelectCategoriesToPlayActivity"
+            android:name=".view.SelectCategoriesToPlayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.ScoreActivity"
+            android:name=".view.ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.ShuffleGameActivity"
+            android:name=".view.ShuffleGameActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.InsertNewContextActivity"
+            android:name=".view.InsertNewContextActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.InsertNewWordActivity"
+            android:name=".view.InsertNewWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroid.embaralhado.view.CongratulationsMessageActivity"
+            android:name=".view.CongratulationsMessageActivity"
             android:screenOrientation="landscape" />
 
+        <activity android:name=".view.PrivacyPolicyActivity"
+            android:screenOrientation="landscape"/>
+
         <service
-            android:name="com.mydroid.embaralhado.service.BackgroundMusicService"
+            android:name=".service.BackgroundMusicService"
             android:enabled="true"
             android:exported="true"
             android:permission="true"

@@ -10,7 +10,7 @@
 
     <include
         android:id="@+id/toolbar_main"
-        layout="@layout/toolbar"></include>
+        layout="@layout/toolbar" />
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -103,9 +103,19 @@ public class MainActivity extends AppCompatActivity {
             case R.id.exitGame:
                 exitApp();
                 return true;
+            case R.id.pp:
+                startPrivacyPolicy();
+                return true;
             default:
                 return false;
         }
+    }
+
+    private void startPrivacyPolicy() {
+        Intent intent = new Intent(MainActivity.this, PrivacyPolicyActivity.class);
+        BackgroundMusicService.setStopBackgroundMusicEnable(false);
+        startActivity(intent);
+        finish();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
