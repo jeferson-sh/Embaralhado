@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:categorie="com.mydroid.embaralhado.view.SelectCategoriesToPlayActivity">
+    tools:categorie="com.mydroidtechnology.embaralhado.view.SelectCategoriesToPlayActivity">
 
     <include
         android:id="@+id/toolbar_select_categorie"

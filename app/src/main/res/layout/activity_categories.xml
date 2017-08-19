@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:categorie="com.mydroid.embaralhado.view.CategoriesActivity">
+    tools:categorie="com.mydroidtechnology.embaralhado.view.CategoriesActivity">
 
     <include
         android:id="@+id/toobar_categoie"

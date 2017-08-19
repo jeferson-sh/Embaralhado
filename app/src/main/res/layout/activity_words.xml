@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:categorie="com.mydroid.embaralhado.view.WordsActivity">
+    tools:categorie="com.mydroidtechnology.embaralhado.view.WordsActivity">
 
     <include
         android:id="@+id/toolbar_words"

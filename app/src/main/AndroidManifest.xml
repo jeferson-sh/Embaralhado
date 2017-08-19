@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mydroid.embaralhado">
+    package="com.mydroidtechnology.embaralhado">
 
     <!-- To access Google+ APIs: -->
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -31,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.SplashActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,47 +39,47 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SelectCategorieScoreActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.SelectCategorieScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.EditContextActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.EditContextActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.EditWordActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.EditWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.CategoriesActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.CategoriesActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.WordsActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.WordsActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SelectCategoriesToPlayActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.SelectCategoriesToPlayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.ScoreActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.ShuffleGameActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.ShuffleGameActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.InsertNewContextActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.InsertNewContextActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.InsertNewWordActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.InsertNewWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.CongratulationsMessageActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.CongratulationsMessageActivity"
             android:screenOrientation="landscape" />
 
-        <activity android:name=".view.PrivacyPolicyActivity"
+        <activity android:name="com.mydroidtechnology.embaralhado.view.PrivacyPolicyActivity"
             android:screenOrientation="landscape"/>
 
         <service
-            android:name=".service.BackgroundMusicService"
+            android:name="com.mydroidtechnology.embaralhado.service.BackgroundMusicService"
             android:enabled="true"
             android:exported="true"
             android:permission="true"
