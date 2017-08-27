@@ -36,7 +36,7 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar_select_categorie);
         setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.main_menu);
+        toolbar.inflateMenu(R.menu.main_menu2);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.select_categorie);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -91,7 +91,7 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.main_menu2, menu);
         if (!BackgroundMusicService.isPlaying()) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }

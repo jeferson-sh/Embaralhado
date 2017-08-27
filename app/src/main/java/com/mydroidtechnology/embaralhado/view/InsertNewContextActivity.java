@@ -58,7 +58,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
 
         this.toolbar = (Toolbar) findViewById(R.id.toolbar_new_categorie);
         setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.main_menu);
+        toolbar.inflateMenu(R.menu.main_menu2);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.register_new_categorie);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -226,7 +226,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.main_menu2, menu);
         if (!BackgroundMusicService.isPlaying()) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }

@@ -40,15 +40,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton playButton = (ImageButton) findViewById(R.id.playButton);
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         ImageButton scoreButton = (ImageButton) findViewById(R.id.scoreButton);
-        ImageButton aboutButton = (ImageButton) findViewById(R.id.about_button);
         this.dataBase = new DataBase(this);
         this.myCountDownTimerUtil = new MyCountDownTimerUtil(MainActivity.this, 2000, 1000);
-        aboutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abouMessage();
-            }
-        });
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.pp:
                 startPrivacyPolicy();
+                return true;
+            case R.id.about:
+                abouMessage();
                 return true;
             default:
                 return false;

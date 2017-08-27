@@ -12,13 +12,4 @@
         app:showAsAction="ifRoom"
         android:title="@string/exit_app"
         android:icon="@drawable/ic_action_exit"/>
-
-    <item
-        android:id="@+id/pp"
-        app:showAsAction="never"
-        android:title="@string/privacy_policy"/>
-    <item
-        android:id="@+id/about"
-        app:showAsAction="never"
-        android:title="@string/about"/>
     </menu>

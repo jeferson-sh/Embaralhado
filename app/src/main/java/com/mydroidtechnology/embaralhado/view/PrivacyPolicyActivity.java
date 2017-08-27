@@ -23,7 +23,7 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_privacy_policy);
         setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.main_menu);
+        toolbar.inflateMenu(R.menu.main_menu2);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.privacy_policy);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -52,8 +52,7 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        menu.getItem(2).setVisible(false);
+        getMenuInflater().inflate(R.menu.main_menu2, menu);
         if (!BackgroundMusicService.isPlaying()) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }

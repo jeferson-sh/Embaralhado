@@ -38,7 +38,7 @@ public class CategoriesActivity extends AppCompatActivity {
         //toolbar
         this.toolbar = (Toolbar) findViewById(R.id.toobar_categoie);
         setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.delete_menu);
+        toolbar.inflateMenu(R.menu.edit_menu);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.registered_categories);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -107,7 +107,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.delete_menu, menu);
+        getMenuInflater().inflate(R.menu.edit_menu, menu);
         if (!BackgroundMusicService.isPlaying()) {
             menu.getItem(2).setIcon(R.drawable.ic_volume_mute_white);
         }

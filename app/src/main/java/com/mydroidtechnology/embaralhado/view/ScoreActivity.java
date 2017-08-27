@@ -26,7 +26,7 @@ public class ScoreActivity extends AppCompatActivity {
         //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_score);
         setSupportActionBar(toolbar);
-        toolbar.inflateMenu(R.menu.main_menu);
+        toolbar.inflateMenu(R.menu.main_menu2);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("Últimas pontuações");
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -66,7 +66,7 @@ public class ScoreActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        getMenuInflater().inflate(R.menu.main_menu2, menu);
         if (!BackgroundMusicService.isPlaying()) {
             menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
