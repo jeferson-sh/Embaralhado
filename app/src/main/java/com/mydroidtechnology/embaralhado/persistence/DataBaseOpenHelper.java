@@ -22,7 +22,7 @@ class DataBaseOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase bd) {
         bd.execSQL("create table words(_id integer primary key autoincrement, name text not null, image BLOB not null, context_id int not null);");
-        bd.execSQL("create table scores(_id integer primary key autoincrement, score long not null, image BLOB not null, user text not null, context_id int not null, answer_count long not null, answer_total long not null);");
+        bd.execSQL("create table scores(_id integer primary key autoincrement, score double not null, image BLOB not null, user text not null, context_id int not null, answer_count double not null, answer_total double not null);");
         bd.execSQL("create table contexts(_id integer primary key autoincrement, name text not null, image BLOB not null, elements text, scores text);");
     }
 

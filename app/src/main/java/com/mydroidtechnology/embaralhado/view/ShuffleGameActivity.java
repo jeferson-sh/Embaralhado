@@ -278,7 +278,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private int getIdImageViewScore() {
-        setScore(this.correctCount / this.words.size() * 100);
+        setScore(this.correctCount / this.finalChallenge * 100);
         if (score < 50.0) {
             return R.drawable.low_score;
         } else if (this.score >= 50.0 && this.score <= 70.0) {
@@ -649,6 +649,13 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
     private void verifyWord(String s) {
         CharSequence verify = "";
+        boolean allDropLetter = true;
+        for (int i = 0; i < s.length(); i++) {
+            if(letters[i].isEnabled()){
+                allDropLetter = false;
+                break;
+            }
+        }
         for (int i = 0; i < s.length(); i++) {
             if (letters[i].getContentDescription().equals("f")) {
                 verify = letters[i].getContentDescription();
@@ -666,9 +673,11 @@ public class ShuffleGameActivity extends AppCompatActivity {
             toGetNextWord();
 
         } else {
-            setVerifyWord(true);
-            starSoundQuestionWrong();
-            removeLettersWrong();
+            if(allDropLetter) {
+                setVerifyWord(true);
+                starSoundQuestionWrong();
+                removeLettersWrong();
+            }
         }
 
     }
