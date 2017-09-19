@@ -19,7 +19,7 @@ import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.model.Score;
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
 
-public class ScoreAdapter extends BaseAdapter{
+public class ScoreAdapter extends BaseAdapter {
 
     private List<Score> scores;
     private Context context;
@@ -53,11 +53,10 @@ public class ScoreAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
 
         View layout;
-        if(view == null){
+        if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             layout = inflater.inflate(R.layout.score_item_list, null);
-        }
-        else{
+        } else {
             layout = view;
         }
 
@@ -65,7 +64,10 @@ public class ScoreAdapter extends BaseAdapter{
         TextView textView = (TextView) layout.findViewById(R.id.text_item);
 
         Score score = this.scores.get(i);
-        textView.setText(score.getUser()+" acertou "+score.getAnswerCount()+" de "+score.getAnswerTotal()+" = "+score.getScore()+"%");
+        if (score.getAnswerTotal() == 1) {
+            textView.setText(score.getUser() + " acertou " + score.getAnswerCount() + " de " + score.getAnswerTotal() + " desafio = " + score.getScore() + "% de acerto!");
+        }
+        textView.setText(score.getUser() + " acertou " + score.getAnswerCount() + " de " + score.getAnswerTotal() + " desafios = " + score.getScore() + "% de acerto!");
 
         imageView.setImageBitmap(this.scores.get(i).getImage());
 

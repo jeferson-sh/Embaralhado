@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.orange), "LARANJA", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.bananas), "BANANA", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.coconut), "COCO", categorie.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pear), "PÊRA", categorie.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pear), "PERA", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.watermelon), "MELANCIA", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.avocado), "ABACATE", categorie.getId()));
 
@@ -68,7 +68,7 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         //ANIMALS
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.esquilo), "ESQUILO", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.cat), "GATO", categorie.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.coala), "COALA", categorie.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.dog), "CACHORRO", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.panda), "PANDA", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.leao), "LEÃO", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.bird), "PÁSSARO", categorie.getId()));
@@ -82,16 +82,12 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
     public void createCircus(Categorie categorie) {
         //CIRCUS
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.balloon), "BALÃO", categorie.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.elephant), "ELEFANTE", categorie.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.leao), "LEÃO", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.clown), "PALHAÇO", categorie.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.carousel), "CARROCEL", categorie.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.monkey), "MACACO", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.magician), "MÁGICO", categorie.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.seal), "FOCA", categorie.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.bear), "URSO", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.popcorn), "PIPOCA", categorie.getId()));
         dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.icecream), "SORVETE", categorie.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.ballet), "BAILARINA", categorie.getId()));
+
 
     }
 

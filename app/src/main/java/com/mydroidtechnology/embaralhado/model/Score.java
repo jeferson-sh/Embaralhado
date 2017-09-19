@@ -12,7 +12,7 @@ import com.mydroidtechnology.embaralhado.util.ConvertImageUtil;
 public class Score {
 
     private byte[] imageScoreBytes;
-    private int score;
+    private long score;
     private Bitmap image;
     private Integer id;
     private String user;
@@ -64,7 +64,7 @@ public class Score {
         setImageScoreBytes(ConvertImageUtil.getBytes(image));
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 

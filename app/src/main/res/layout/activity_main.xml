@@ -89,7 +89,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Pontuação"
+                        android:text="Pontuações"
                         android:textColor="#000000"
                         android:textSize="25sp" />
                 </LinearLayout>

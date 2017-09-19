@@ -176,7 +176,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         final EditText editText = new EditText(this);
         final String[] youEditTextValue = {""};
         builder.setCancelable(true);
-        builder.setTitle("Insira seu nome");
+        builder.setTitle("Qual é o seu nome?");
         builder.setView(editText);
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
@@ -278,7 +278,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private int getIdImageViewScore() {
-        setScore((this.correctCount / this.words.size()) * 100);
+        setScore(this.correctCount / this.words.size() * 100);
         if (score < 50.0) {
             return R.drawable.low_score;
         } else if (this.score >= 50.0 && this.score <= 70.0) {
