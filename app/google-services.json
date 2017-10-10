@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "749517824697",
+    "firebase_url": "https://embaralhado-10c53.firebaseio.com",
+    "project_id": "embaralhado-10c53",
+    "storage_bucket": "embaralhado-10c53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749517824697:android:1baf10f05b24aea2",
+        "android_client_info": {
+          "package_name": "com.mydroidtechnology.embaralhado"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "749517824697-2du3o87totipp5irc4ceqamlpdq4q3qb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mydroidtechnology.embaralhado",
+            "certificate_hash": "eec721d7d0c172e91be5daa97e098a0baaed584b"
+          }
+        },
+        {
+          "client_id": "749517824697-cds27alqqfq7qe5jj15irbo7l5ra8k8j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAl2rbSVGl3Y5VaFZrvrCZbBbrHnY2R3GE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "749517824697-cds27alqqfq7qe5jj15irbo7l5ra8k8j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
