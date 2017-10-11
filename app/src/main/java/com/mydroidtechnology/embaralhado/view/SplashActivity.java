@@ -56,12 +56,12 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
         dataBase.insertCategorie(construction);
         createConstruction(dataBase.searchCategorieDatabase(construction.getName()));
 
-        //Cateorie KITCHEN
+        //Cateorie Kitchen
         Categorie kitchen = new Categorie(ContextCompat.getDrawable(this,R.drawable.cozinha), "COZINHA");
         dataBase.insertCategorie(kitchen);
         createKitchen(dataBase.searchCategorieDatabase(kitchen.getName()));
 
-        //Cateorie NATURE
+        //Cateorie Nature
         Categorie nature = new Categorie(ContextCompat.getDrawable(this,R.drawable.natureza), "NATUREZA");
         dataBase.insertCategorie(nature);
         createNature(dataBase.searchCategorieDatabase(nature.getName()));
