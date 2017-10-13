@@ -264,7 +264,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(drawId);
         Integer contextID = getIntent().getExtras().getInt("contextID");
-        Score p = new Score(imageView.getDrawable(), (int) this.score, user, contextID, (int) correctCount, words.size());
+        Score p = new Score(imageView.getDrawable(), (int) this.score, user, contextID, (int) correctCount, this.finalChallenge);
         insertScore(p, contextID);
         Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
