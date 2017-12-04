@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import com.mydroidtechnology.embaralhado.R;
@@ -55,6 +56,7 @@ public class ScoreAdapter extends BaseAdapter {
         View layout;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            assert inflater != null;
             layout = inflater.inflate(R.layout.score_item_list, null);
         } else {
             layout = view;
@@ -65,9 +67,9 @@ public class ScoreAdapter extends BaseAdapter {
 
         Score score = this.scores.get(i);
         if (score.getAnswerTotal() == 1) {
-            textView.setText(score.getUser() + " acertou " + score.getAnswerCount() + " de " + score.getAnswerTotal() + " desafio = " + score.getScore() + "% de acerto!");
+            textView.setText(MessageFormat.format("{0} acertou {1} de {2} desafio = {3}% de acerto!", score.getUser(), score.getAnswerCount(), score.getAnswerTotal(), score.getScore()));
         }
-        textView.setText(score.getUser() + " acertou " + score.getAnswerCount() + " de " + score.getAnswerTotal() + " desafios = " + score.getScore() + "% de acerto!");
+        textView.setText(MessageFormat.format("{0} acertou {1} de {2} desafios = {3}% de acerto!", score.getUser(), score.getAnswerCount(), score.getAnswerTotal(), score.getScore()));
 
         imageView.setImageBitmap(this.scores.get(i).getImage());
 
