@@ -55,7 +55,7 @@ public class DataBase {
     }
 
 
-    public void updateWord(Word word) { //implementation Future :)
+    public void updateWord(Word word) {
         ContentValues valores = new ContentValues();
         valores.put("name", word.getName());
         valores.put("image", word.getImageBytes());
