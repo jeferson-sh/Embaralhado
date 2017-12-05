@@ -29,7 +29,7 @@ public class DataBase {
         ContentValues valores = new ContentValues();
         valores.put("name", word.getName());
         valores.put("image", word.getImageBytes());
-        valores.put("context_id", word.getContext());
+        valores.put("context_id", word.getContextID());
 
         bd.insert("words", null, valores);
     }
@@ -46,9 +46,9 @@ public class DataBase {
     public void insertScore(Score score) {
         ContentValues valores = new ContentValues();
         valores.put("score", score.getScore());
-        valores.put("image", score.getImageScoreBytes());
-        valores.put("user", score.getUser());
-        valores.put("context_id", score.getContextId());
+        valores.put("image", score.getImageBytes());
+        valores.put("user", score.getName());
+        valores.put("context_id", score.getContextID());
         valores.put("answer_count", score.getAnswerCount());
         valores.put("answer_total",score.getAnswerTotal());
         bd.insert("scores", null, valores);
@@ -198,7 +198,7 @@ public class DataBase {
             do {
 
                 Integer id = cursor.getInt(0);
-                int score = cursor.getInt(1);
+                Double score = cursor.getDouble(1);
                 byte[] image = cursor.getBlob(2);
                 String user = cursor.getString(3);
                 Integer contextId = cursor.getInt(4);

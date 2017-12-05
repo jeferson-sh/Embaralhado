@@ -67,9 +67,9 @@ public class ScoreAdapter extends BaseAdapter {
 
         Score score = this.scores.get(i);
         if (score.getAnswerTotal() == 1) {
-            textView.setText(MessageFormat.format("{0} acertou {1} de {2} desafio = {3}% de acerto!", score.getUser(), score.getAnswerCount(), score.getAnswerTotal(), score.getScore()));
+            textView.setText(MessageFormat.format("{0} acertou {1} de {2} desafio = {3}% de acerto!", score.getName(), score.getAnswerCount(), score.getAnswerTotal(), score.getScore()));
         }
-        textView.setText(MessageFormat.format("{0} acertou {1} de {2} desafios = {3}% de acerto!", score.getUser(), score.getAnswerCount(), score.getAnswerTotal(), score.getScore()));
+        textView.setText(MessageFormat.format("{0} acertou {1} de {2} desafios = {3}% de acerto!", score.getName(), score.getAnswerCount(), score.getAnswerTotal(), score.getScore()));
 
         imageView.setImageBitmap(this.scores.get(i).getImage());
 

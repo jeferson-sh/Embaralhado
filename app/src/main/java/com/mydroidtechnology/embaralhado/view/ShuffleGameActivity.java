@@ -1,5 +1,6 @@
 package com.mydroidtechnology.embaralhado.view;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -44,13 +45,15 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private Integer randomLevel;
     private List<Word> words;
     private DataBase dataBase;
-    private double score;
+    private Double score;
     private double correctCount;
     private TextView textCountLevel;
     private int finalChallenge;
     private boolean verifyWord;
 
     private List<Integer> levelsIndex;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +72,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         if (words.size() < finalChallenge) {
             finalChallenge = words.size();
         }
-        this.score = words.size();
+        this.score = (double) words.size();
         this.correctCount = 0;
         count = 0;
         this.levelsIndex = shuffleLevelIndex();
@@ -117,6 +120,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
 
         this.dragContainer = (LinearLayout) findViewById(R.id.drag);
+
 
         letter0.setOnTouchListener(myTouchListener);
         letter1.setOnTouchListener(myTouchListener);
@@ -264,12 +268,12 @@ public class ShuffleGameActivity extends AppCompatActivity {
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(drawId);
         Integer contextID = getIntent().getExtras().getInt("contextID");
-        Score p = new Score(imageView.getDrawable(), (int) this.score, user, contextID, (int) correctCount, this.finalChallenge);
+        Score p = new Score(imageView.getDrawable(), this.score, user, contextID, (int) correctCount, this.finalChallenge);
         insertScore(p, contextID);
         Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image", drawId);
-        bundle.putInt("score", (int) this.score);
+        bundle.putDouble("score", this.score);
         bundle.putString("name", user);
         intent.putExtras(bundle);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);

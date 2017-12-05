@@ -9,79 +9,36 @@ import com.mydroidtechnology.embaralhado.util.ConvertImageUtil;
 /*
  * Created by Jeferson on 10/11/2016.
  */
-public class Score {
+public class Score extends GenericModel {
 
-    private byte[] imageScoreBytes;
-    private double score;
-    private Bitmap image;
-    private Integer id;
-    private String user;
-    private Integer contextId;
+    private Double score;
+    private Integer contextID;
     private Integer answerCount;
     private Integer answerTotal;
 
-    public Score(Drawable drawable, int score, String name, Integer contextId, Integer answerCount, Integer answerTotal) {
-        this.contextId = contextId;
-        this.user = name;
-        this.image = ((BitmapDrawable) drawable).getBitmap();
+    public Score(Drawable drawable, Double score, String userName, Integer contextID, Integer answerCount, Integer answerTotal) {
+        super(drawable,userName);
+        this.contextID = contextID;
         this.score = score;
-        this.imageScoreBytes = ConvertImageUtil.getBytes(this.image);
         this.answerCount = answerCount;
         this.answerTotal = answerTotal;
 
     }
 
-    public Score(Integer id, byte[] imageScoreBytes, int score, String name, Integer contextId, Integer answerCount, Integer answerTotal) {
-        this.user = name;
-        this.contextId = contextId;
-        this.id = id;
+    public Score(Integer id, byte[] imageBytes, Double score, String userName, Integer contextID, Integer answerCount, Integer answerTotal) {
+        super(id,imageBytes,userName);
+        this.contextID = contextID;
         this.score = score;
-        this.imageScoreBytes = imageScoreBytes;
-        this.image = ConvertImageUtil.getImage(imageScoreBytes);
         this.answerCount = answerCount;
         this.answerTotal = answerTotal;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
-        setImageScoreBytes(ConvertImageUtil.getBytes(image));
-    }
-
-    public double getScore() {
+    public Double getScore() {
         return score;
     }
 
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    public byte[] getImageScoreBytes() {
-        return imageScoreBytes;
-    }
-
-    private void setImageScoreBytes(byte[] imageScoreBytes) {
-        this.imageScoreBytes = imageScoreBytes;
-    }
-
-    public Integer getContextId() {
-        return contextId;
+    public Integer getContextID() {
+        return contextID;
     }
 
     public Integer getAnswerCount() {

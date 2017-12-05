@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.mydroidtechnology.embaralhado.view.PrivacyPolicyActivity">
+    tools:contextID="com.mydroidtechnology.embaralhado.view.PrivacyPolicyActivity">
 
     <include
         android:id="@+id/toolbar_privacy_policy"

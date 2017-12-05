@@ -35,7 +35,7 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         ImageButton playbt = (ImageButton) findViewById(R.id.playAgain);
         Bundle bundle = getIntent().getExtras();
         imageView.setImageResource(bundle.getInt("image"));
-        int score = bundle.getInt("score");
+        Double score = bundle.getDouble("score");
         scoreMessage = "";
         String name = bundle.getString("name");
         if (score < 50) {
