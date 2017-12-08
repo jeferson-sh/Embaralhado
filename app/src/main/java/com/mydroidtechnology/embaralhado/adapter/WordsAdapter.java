@@ -19,75 +19,13 @@ import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.model.Word;
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
 
-public class WordsAdapter extends BaseAdapter{
-
-    private List<Word> words;
-    private Context context;
-    private DataBase dataBase;
+public class WordsAdapter extends GenericAdapter{
     private Integer contextID;
 
     public WordsAdapter(Context context,Integer contextID) {
-        this.context = context;
+        super(context,new DataBase(context).searchWordsDatabase(contextID));
         this.contextID = contextID;
-        this.dataBase = new DataBase(context);
-        this.words = dataBase.searchWordsDatabase(contextID);
-        this.notifyDataSetChanged();
     }
-
-    @Override
-    public int getCount() {
-        return this.words.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return this.words.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
-
-    @SuppressLint("InflateParams")
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
-
-        View layout;
-        if(view == null){
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.word_item_list, null);
-        }
-        else{
-            layout = view;
-        }
-
-        ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
-        TextView textView = (TextView) layout.findViewById(R.id.text_item);
-
-        Word word = this.words.get(i);
-        textView.setText(word.getName());
-
-        imageView.setImageBitmap(words.get(i).getImage());
-        return layout;
-    }
-
-    List<Word> getWords() {
-        return words;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public DataBase getDataBase() {
-        return dataBase;
-    }
-
     public Integer getContextID() {
         return contextID;
     }

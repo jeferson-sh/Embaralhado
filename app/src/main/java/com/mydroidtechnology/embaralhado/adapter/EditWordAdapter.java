@@ -30,7 +30,6 @@ public class EditWordAdapter extends WordsAdapter {
         super(context, contextID);
     }
 
-    @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {// Inflar o layout da lista
 
@@ -50,10 +49,10 @@ public class EditWordAdapter extends WordsAdapter {
         editeWord.setVisibility(View.VISIBLE);
 
 
-        final Word word = getWords().get(i);
+        final Word word = (Word) getGenericModels().get(i);
         textView.setText(word.getName());
 
-        imageView.setImageBitmap(getWords().get(i).getImage());
+        imageView.setImageBitmap(word.getImage());
 
         removeWord.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,9 +63,9 @@ public class EditWordAdapter extends WordsAdapter {
                 builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        getWords().remove(word);
+                        getGenericModels().remove(word);
                         getDataBase().deleteWord(word);
-                        if(getWords().isEmpty()){
+                        if(getGenericModels().isEmpty()){
                             updateCategorie(getContextID());
                         }
                         Toast.makeText(getContext(), "Palavra " +word.getName() + " apagada!", Toast.LENGTH_LONG).show();

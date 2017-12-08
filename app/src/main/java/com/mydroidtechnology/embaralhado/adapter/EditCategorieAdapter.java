@@ -48,10 +48,10 @@ public class EditCategorieAdapter extends CategorieAdapter {
         ImageButton editeCategorie = (ImageButton) layout.findViewById(R.id.edite_categorie);
         editeCategorie.setVisibility(View.VISIBLE);
 
-        final Categorie categorie = getCategories().get(i);
+        final Categorie categorie = (Categorie) getGenericModels().get(i);
         textView.setText(categorie.getName());
 
-        imageView.setImageBitmap(getCategories().get(i).getImage());
+        imageView.setImageBitmap(categorie.getImage());
 
         removeCategorie.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +63,7 @@ public class EditCategorieAdapter extends CategorieAdapter {
                 builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        getCategories().remove(categorie);
+                        getGenericModels().remove(categorie);
                         getDataBase().deleteCategorie(categorie);
                         Toast.makeText(getContext(), "Contexto " + categorie.getName() + " apagado!", Toast.LENGTH_LONG).show();
                         notifyDataSetChanged();
@@ -94,5 +94,10 @@ public class EditCategorieAdapter extends CategorieAdapter {
             }
         });
         return layout;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
     }
 }
