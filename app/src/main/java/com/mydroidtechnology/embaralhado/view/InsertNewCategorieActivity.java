@@ -33,7 +33,7 @@ import com.mydroidtechnology.embaralhado.model.Categorie;
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
-public class InsertNewContextActivity extends AppCompatActivity {
+public class InsertNewCategorieActivity extends AppCompatActivity {
 
     private EditText editText;
     private ImageView image;
@@ -88,28 +88,28 @@ public class InsertNewContextActivity extends AppCompatActivity {
             }
         });
 
-        int permissionCheck = ContextCompat.checkSelfPermission(InsertNewContextActivity.this, Manifest.permission.CAMERA);
+        int permissionCheck = ContextCompat.checkSelfPermission(InsertNewCategorieActivity.this, Manifest.permission.CAMERA);
         if (permissionCheck == PackageManager.PERMISSION_DENIED)
             RequestRuntimePermission();
     }
 
     private void RequestRuntimePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(InsertNewContextActivity.this, Manifest.permission.CAMERA))
+        if (ActivityCompat.shouldShowRequestPermissionRationale(InsertNewCategorieActivity.this, Manifest.permission.CAMERA))
             Toast.makeText(this, "CAMERA permission allows us to access CAMERA app", Toast.LENGTH_SHORT).show();
         else {
-            ActivityCompat.requestPermissions(InsertNewContextActivity.this, new String[]{Manifest.permission.CAMERA}, RequestPermissionCode);
+            ActivityCompat.requestPermissions(InsertNewCategorieActivity.this, new String[]{Manifest.permission.CAMERA}, RequestPermissionCode);
         }
     }
 
     protected void startCategorieActivity() {
-        Intent intent = new Intent(InsertNewContextActivity.this, CategoriesActivity.class);
+        Intent intent = new Intent(InsertNewCategorieActivity.this, CategoriesActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
     protected void startMainActivity() {
-        Intent intent = new Intent(InsertNewContextActivity.this, MainActivity.class);
+        Intent intent = new Intent(InsertNewCategorieActivity.this, MainActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
@@ -143,6 +143,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
         } else if (requestCode == 1) {
             if (data != null) {
                 Bundle bundle = data.getExtras();
+                assert bundle != null;
                 bitmapCaptured = bundle.getParcelable("data");
                 image.setImageBitmap(bitmapCaptured);
             }
@@ -186,7 +187,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
         if (this.bitmapCaptured != null && this.editText.getText().toString().length() >= 2 && editText.getText().toString().length() <= 10 && verify) {
             dataBase.insertCategorie(new Categorie(bitmapCaptured, editText.getText().toString().toUpperCase()));
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
-            startActivity(new Intent(InsertNewContextActivity.this, CategoriesActivity.class));
+            startActivity(new Intent(InsertNewCategorieActivity.this, CategoriesActivity.class));
             finish();
         } else if (this.editText.getText().toString().length() > 10) {
             Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
@@ -257,7 +258,7 @@ public class InsertNewContextActivity extends AppCompatActivity {
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                stopService(new Intent(InsertNewContextActivity.this,BackgroundMusicService.class));
+                stopService(new Intent(InsertNewCategorieActivity.this,BackgroundMusicService.class));
                 finish();
                 System.exit(0);
             }

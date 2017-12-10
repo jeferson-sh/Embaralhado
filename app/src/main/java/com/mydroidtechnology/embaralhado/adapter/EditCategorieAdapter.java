@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.mydroidtechnology.embaralhado.model.Categorie;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
-import com.mydroidtechnology.embaralhado.view.EditContextActivity;
+import com.mydroidtechnology.embaralhado.view.EditCategorieActivity;
 import com.mydroidtechnology.embaralhado.R;
 
 public class EditCategorieAdapter extends CategorieAdapter {
@@ -85,7 +85,7 @@ public class EditCategorieAdapter extends CategorieAdapter {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("categorieName", categorie.getId());
-                Intent intent = new Intent(getContext(), EditContextActivity.class);
+                Intent intent = new Intent(getContext(), EditCategorieActivity.class);
                 intent.putExtras(bundle);
                 BackgroundMusicService.setStopBackgroundMusicEnable(false);
                 getContext().startActivity(intent);

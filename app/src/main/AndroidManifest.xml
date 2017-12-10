@@ -45,7 +45,7 @@
             android:name="com.mydroidtechnology.embaralhado.view.SelectCategorieScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.EditContextActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.EditCategorieActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.mydroidtechnology.embaralhado.view.EditWordActivity"
@@ -66,7 +66,7 @@
             android:name="com.mydroidtechnology.embaralhado.view.ShuffleGameActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.InsertNewContextActivity"
+            android:name="com.mydroidtechnology.embaralhado.view.InsertNewCategorieActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name="com.mydroidtechnology.embaralhado.view.InsertNewWordActivity"

@@ -38,7 +38,7 @@ public class DataBase {
         ContentValues valores = new ContentValues();
         valores.put("name", categorie.getName());
         valores.put("image", categorie.getImageBytes());
-        valores.put("elements", categorie.getElements());
+        valores.put("elements", categorie.getHaveElements());
         valores.put("scores", categorie.getScores());
         bd.insert("contexts", null, valores);
     }
@@ -262,7 +262,7 @@ public class DataBase {
         ContentValues valores = new ContentValues();
         valores.put("name", categorie.getName());
         valores.put("image", categorie.getImageBytes());
-        valores.put("elements", categorie.getElements());
+        valores.put("elements", categorie.getHaveElements());
         valores.put("scores", categorie.getScores());
         bd.update("contexts", valores, "_id = ?", new String[]{"" + categorie.getId()});
     }

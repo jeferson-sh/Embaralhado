@@ -71,7 +71,7 @@ public class CategoriesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (listView.getAdapter().getCount() <= MAX_COUNT_CONTEXTS) {
-                    Intent adicionarContext = new Intent(CategoriesActivity.this, InsertNewContextActivity.class);
+                    Intent adicionarContext = new Intent(CategoriesActivity.this, InsertNewCategorieActivity.class);
                     BackgroundMusicService.setStopBackgroundMusicEnable(false);
                     startActivity(adicionarContext);
                     finish();

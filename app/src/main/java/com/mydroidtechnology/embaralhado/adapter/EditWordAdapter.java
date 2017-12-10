@@ -1,6 +1,5 @@
 package com.mydroidtechnology.embaralhado.adapter;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -101,7 +100,7 @@ public class EditWordAdapter extends WordsAdapter {
 
     private void updateCategorie(int contextID) {
         Categorie categorie = getDataBase().searchCategorieDatabase(contextID);
-        categorie.setElements("false");
+        categorie.setHaveElements("false");
         getDataBase().updateCategorie(categorie);
     }
 

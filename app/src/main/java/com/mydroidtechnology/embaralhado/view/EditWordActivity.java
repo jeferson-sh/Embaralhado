@@ -12,7 +12,7 @@ import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
  * Created by Jeferson on 10/08/2017.
  */
 
-public class EditWordActivity extends InsertNewContextActivity {
+public class EditWordActivity extends InsertNewWordActivity {
     private Word word;
 
     @Override
@@ -20,6 +20,7 @@ public class EditWordActivity extends InsertNewContextActivity {
         super.onCreate(savedInstanceState);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
         word = getDataBase().searchWordDatabase(bundle.getInt("wordID"));
         getToolbar().setTitle("Editar palavra " + word.getName());
         getImageView().setImageBitmap(word.getImage());
@@ -29,7 +30,7 @@ public class EditWordActivity extends InsertNewContextActivity {
     }
 
     @Override
-    public void saveContext(View v) {
+    public void saveWord(View v) {
         boolean verify = verifyWord();
         Bundle bundle = getIntent().getExtras();
         if (getBitmapCaptured() != null && getEditText().getText().toString().length() >= 2 && getEditText().getText().toString().length() <= 10 && verify) {
@@ -37,6 +38,7 @@ public class EditWordActivity extends InsertNewContextActivity {
             this.word.setName(getEditText().getText().toString().toUpperCase());
             getDataBase().updateWord(word);
             Intent intent = new Intent(EditWordActivity.this, WordsActivity.class);
+            assert bundle != null;
             intent.putExtras(bundle);
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
             startActivity(intent);
@@ -66,6 +68,7 @@ public class EditWordActivity extends InsertNewContextActivity {
     public void onBackPressed() {
         Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent(EditWordActivity.this, WordsActivity.class);
+        assert bundle != null;
         intent.putExtras(bundle);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);

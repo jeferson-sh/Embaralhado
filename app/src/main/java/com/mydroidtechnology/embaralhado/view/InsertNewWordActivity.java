@@ -10,22 +10,18 @@ import com.mydroidtechnology.embaralhado.model.Categorie;
 import com.mydroidtechnology.embaralhado.model.Word;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
-public class InsertNewWordActivity extends InsertNewContextActivity {
+public class InsertNewWordActivity extends InsertNewCategorieActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.register_new_word);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
         getEditText().setHint("Digite a palavra aqui");
-
-
         getSavePhotobt().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +33,7 @@ public class InsertNewWordActivity extends InsertNewContextActivity {
     private void startWordsActivity() {
         Bundle bundle = getIntent().getExtras();
         Intent intent = new Intent(InsertNewWordActivity.this, WordsActivity.class);
+        assert bundle != null;
         intent.putExtras(bundle);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
@@ -46,9 +43,9 @@ public class InsertNewWordActivity extends InsertNewContextActivity {
     public void saveWord(View v) {
         boolean verify = verifyWord();
         Bundle bundle = getIntent().getExtras();
-        if (getBitmapCaptured() != null && getEditText().getText().toString().length() >= 2 && getEditText().getText().toString().length() <= 10 && verify) {
+        if (bundle != null && getBitmapCaptured() != null && getEditText().getText().toString().length() >= 2 && getEditText().getText().toString().length() <= 10 && verify) {
             getDataBase().insertWord(new Word(getBitmapCaptured(), getEditText().getText().toString().toUpperCase(), bundle.getInt("contextID")));
-            updateCategorie(bundle.getInt("contextID"));
+            setCategorieHaveElements(bundle.getInt("contextID"));
             Intent intent = new Intent(InsertNewWordActivity.this, WordsActivity.class);
             intent.putExtras(bundle);
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
@@ -67,9 +64,9 @@ public class InsertNewWordActivity extends InsertNewContextActivity {
 
     }
 
-    private void updateCategorie(int contextID) {
+    private void setCategorieHaveElements(int contextID) {
         Categorie categorie = getDataBase().searchCategorieDatabase(contextID);
-        categorie.setElements("true");
+        categorie.setHaveElements("true");
         getDataBase().updateCategorie(categorie);
     }
 

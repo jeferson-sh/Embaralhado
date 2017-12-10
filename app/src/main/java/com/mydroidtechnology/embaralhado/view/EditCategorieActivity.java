@@ -12,7 +12,7 @@ import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
  * Created by Jeferson on 08/08/2017.
  */
 
-public class EditContextActivity extends InsertNewContextActivity {
+public class EditCategorieActivity extends InsertNewCategorieActivity {
 
     private Categorie categorie;
 
@@ -36,7 +36,7 @@ public class EditContextActivity extends InsertNewContextActivity {
             this.categorie.setName(getEditText().getText().toString().toUpperCase());
             getDataBase().updateCategorie(categorie);
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
-            startActivity(new Intent(EditContextActivity.this, CategoriesActivity.class));
+            startActivity(new Intent(EditCategorieActivity.this, CategoriesActivity.class));
             finish();
         } else if (getEditText().getText().toString().length() > 10) {
             Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
