@@ -320,6 +320,12 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.imageQuestion.setImageBitmap(words.get(i).getImage());
     }
 
+    private void loadLetter(ImageView letterImageView, int drawableCodID, String letter, LinearLayout drop ){
+        letterImageView.setImageResource(drawableCodID);
+        letterImageView.setTag(letter);
+        letterImageView.setVisibility(View.VISIBLE);
+        drop.setVisibility(View.VISIBLE);
+    }
 
     public void loadWord(int pos) {
         setVerifyWord(false);
@@ -340,252 +346,115 @@ public class ShuffleGameActivity extends AppCompatActivity {
             drops[i].setEnabled(true);
             switch (letter) {
                 case Letters.A:
-                    letters[i].setImageResource(R.drawable.a);
-                    letters[i].setTag(Letters.A);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.a,Letters.A,drops[i]);
                     continue;
-
                 case Letters.B:
-                    letters[i].setImageResource(R.drawable.b);
-                    letters[i].setTag(Letters.B);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.b,Letters.B,drops[i]);
                     continue;
-
                 case Letters.C:
-                    letters[i].setImageResource(R.drawable.c);
-                    letters[i].setTag(Letters.C);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.c,Letters.C,drops[i]);
                     continue;
-
                 case Letters.D:
-                    letters[i].setImageResource(R.drawable.d);
-                    letters[i].setTag(Letters.D);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.d,Letters.D,drops[i]);
                     continue;
-
                 case Letters.E:
-                    letters[i].setImageResource(R.drawable.e);
-                    letters[i].setTag(Letters.E);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.e,Letters.E,drops[i]);
                     continue;
-
                 case Letters.F:
-                    letters[i].setImageResource(R.drawable.f);
-                    letters[i].setTag(Letters.F);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.f,Letters.F,drops[i]);
                     continue;
-
                 case Letters.G:
-                    letters[i].setImageResource(R.drawable.g);
-                    letters[i].setTag(Letters.G);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.g,Letters.G,drops[i]);
                     continue;
-
                 case Letters.H:
-                    letters[i].setImageResource(R.drawable.h);
-                    letters[i].setTag(Letters.H);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.h,Letters.H,drops[i]);
                     continue;
-
                 case Letters.I:
-                    letters[i].setImageResource(R.drawable.i);
-                    letters[i].setTag(Letters.I);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.i,Letters.I,drops[i]);
                     continue;
-
                 case Letters.J:
-                    letters[i].setImageResource(R.drawable.j);
-                    letters[i].setTag(Letters.J);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.j,Letters.J,drops[i]);
                     continue;
-
                 case Letters.K:
-                    letters[i].setImageResource(R.drawable.k);
-                    letters[i].setTag(Letters.K);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.k,Letters.K,drops[i]);
                     continue;
-
                 case Letters.L:
-                    letters[i].setImageResource(R.drawable.l);
-                    letters[i].setTag(Letters.L);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.l,Letters.L,drops[i]);
                     continue;
-
                 case Letters.M:
-                    letters[i].setImageResource(R.drawable.m);
-                    letters[i].setTag(Letters.M);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.m,Letters.M,drops[i]);
                     continue;
-
                 case Letters.N:
-                    letters[i].setImageResource(R.drawable.n);
-                    letters[i].setTag(Letters.N);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.n,Letters.N,drops[i]);
                     continue;
-
                 case Letters.O:
-                    letters[i].setImageResource(R.drawable.o);
-                    letters[i].setTag(Letters.O);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.o,Letters.O,drops[i]);
                     continue;
-
                 case Letters.P:
-                    letters[i].setImageResource(R.drawable.p);
-                    letters[i].setTag(Letters.P);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.p,Letters.P,drops[i]);
                     continue;
-
                 case Letters.Q:
-                    letters[i].setImageResource(R.drawable.q);
-                    letters[i].setTag(Letters.Q);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.q,Letters.Q,drops[i]);
                     continue;
-
                 case Letters.R:
-                    letters[i].setImageResource(R.drawable.r);
-                    letters[i].setTag(Letters.R);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.r,Letters.R,drops[i]);
                     continue;
-
                 case Letters.S:
-                    letters[i].setImageResource(R.drawable.s);
-                    letters[i].setTag(Letters.S);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.s,Letters.S,drops[i]);
                     continue;
-
                 case Letters.T:
-                    letters[i].setImageResource(R.drawable.t);
-                    letters[i].setTag(Letters.T);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.t,Letters.T,drops[i]);
                     continue;
-
                 case Letters.U:
-                    letters[i].setImageResource(R.drawable.u);
-                    letters[i].setTag(Letters.U);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.u,Letters.U,drops[i]);
                     continue;
-
                 case Letters.V:
-                    letters[i].setImageResource(R.drawable.v);
-                    letters[i].setTag(Letters.V);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.v,Letters.V,drops[i]);
                     continue;
-
                 case Letters.W:
-                    letters[i].setImageResource(R.drawable.w);
-                    letters[i].setTag(Letters.W);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.w,Letters.W,drops[i]);
                     continue;
-
                 case Letters.X:
-                    letters[i].setImageResource(R.drawable.x);
-                    letters[i].setTag(Letters.X);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.x,Letters.X,drops[i]);
                     continue;
-
                 case Letters.Y:
-                    letters[i].setImageResource(R.drawable.y);
-                    letters[i].setTag(Letters.Y);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.y,Letters.Y,drops[i]);
                     continue;
-
                 case Letters.Z:
-                    letters[i].setImageResource(R.drawable.z);
-                    letters[i].setTag(Letters.Z);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.z,Letters.Z,drops[i]);
                     continue;
-
                 case Letters.Ç:
-                    letters[i].setImageResource(R.drawable.cc);
-                    letters[i].setTag(Letters.Ç);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.cc,Letters.Ç,drops[i]);
                     continue;
                 case Letters.Á:
-                    letters[i].setImageResource(R.drawable.aa);
-                    letters[i].setTag(Letters.Á);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.aa,Letters.Á,drops[i]);
                     continue;
                 case Letters.Â:
-                    letters[i].setImageResource(R.drawable.aaa);
-                    letters[i].setTag(Letters.Â);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.aaa,Letters.Â,drops[i]);
                     continue;
                 case Letters.Ã:
-                    letters[i].setImageResource(R.drawable.aaaa);
-                    letters[i].setTag(Letters.Ã);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.aaaa,Letters.Ã,drops[i]);
                     continue;
                 case Letters.É:
-                    letters[i].setImageResource(R.drawable.ee);
-                    letters[i].setTag(Letters.É);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.ee,Letters.É,drops[i]);
                     continue;
                 case Letters.Ê:
-                    letters[i].setImageResource(R.drawable.eee);
-                    letters[i].setTag(Letters.Ê);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.eee,Letters.Ê,drops[i]);
                     continue;
                 case Letters.Í:
-                    letters[i].setImageResource(R.drawable.ii);
-                    letters[i].setTag(Letters.Í);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.ii,Letters.Í,drops[i]);
                     continue;
                 case Letters.Ó:
-                    letters[i].setImageResource(R.drawable.oo);
-                    letters[i].setTag(Letters.Ó);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.oo,Letters.Ó,drops[i]);
                     continue;
                 case Letters.Ô:
-                    letters[i].setImageResource(R.drawable.ooo);
-                    letters[i].setTag(Letters.Ô);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.ooo,Letters.Ô,drops[i]);
                     continue;
                 case Letters.Õ:
-                    letters[i].setImageResource(R.drawable.oooo);
-                    letters[i].setTag(Letters.Õ);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.oooo,Letters.Õ,drops[i]);
                     continue;
                 case Letters.Ú:
-                    letters[i].setImageResource(R.drawable.uu);
-                    letters[i].setTag(Letters.Ú);
-                    letters[i].setVisibility(View.VISIBLE);
-                    drops[i].setVisibility(View.VISIBLE);
+                    loadLetter(letters[i],R.drawable.uu,Letters.Ú,drops[i]);
             }
         }
     }

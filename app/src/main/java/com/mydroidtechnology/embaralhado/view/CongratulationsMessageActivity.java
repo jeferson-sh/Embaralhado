@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.MessageFormat;
 import java.util.Locale;
 
 import com.mydroidtechnology.embaralhado.R;
@@ -28,24 +29,25 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_congratulations_message);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
-        ImageView imageView = (ImageView) findViewById(R.id.congratulationsImage);
-        this.congratulationsMessage = (TextView) findViewById(R.id.congratulationsMessageText);
-        TextView pontosText = (TextView) findViewById(R.id.pontosText);
-        ImageButton exitbt = (ImageButton) findViewById(R.id.exitGame);
-        ImageButton playbt = (ImageButton) findViewById(R.id.playAgain);
+        ImageView imageView = findViewById(R.id.congratulationsImage);
+        this.congratulationsMessage = findViewById(R.id.congratulationsMessageText);
+        TextView pontosText = findViewById(R.id.pontosText);
+        ImageButton exitbt = findViewById(R.id.exitGame);
+        ImageButton playbt = findViewById(R.id.playAgain);
         Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
         imageView.setImageResource(bundle.getInt("image"));
         Double score = bundle.getDouble("score");
         scoreMessage = "";
         String name = bundle.getString("name");
         if (score < 50) {
-            this.congratulationsMessage.setText("Continue praticando " + name + ".");
+            this.congratulationsMessage.setText(MessageFormat.format("Continue praticando {0}.", name));
         } else if (score >= 50 && score < 70) {
-            this.congratulationsMessage.setText("Parabéns " + name + "! Mas pratique um pouco mais!");
+            this.congratulationsMessage.setText(MessageFormat.format("Parabéns {0}! Mas pratique um pouco mais!", name));
         } else if (score >= 70 && score < 100) {
-            this.congratulationsMessage.setText("Muito bom " + name + "! Parabéns!");
+            this.congratulationsMessage.setText(MessageFormat.format("Muito bom {0}! Parabéns!", name));
         } else {
-            this.congratulationsMessage.setText("Excelente " + name + "!");
+            this.congratulationsMessage.setText(MessageFormat.format("Excelente {0}!", name));
         }
         pontosText.setText(scoreMessage);
         Handler handler = new Handler();
@@ -80,9 +82,7 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
             tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
             tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null, null);
         } else {
-            //noinspection deprecation
             tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null);
-            //noinspection deprecation
             tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null);
         }
 
