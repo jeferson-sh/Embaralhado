@@ -66,6 +66,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         MyTouchListener myTouchListener = new MyTouchListener();
         this.dataBase = new DataBase(this);
         Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
         this.words = dataBase.searchWordsDatabase(bundle.getInt("contextID"));
         this.finalChallenge = 10;
 
@@ -80,10 +81,10 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.verifyWord = false;
 
 
-        this.imageQuestion = (ImageView) findViewById(R.id.imageQuestion);
-        ImageButton restartButton = (ImageButton) findViewById(R.id.restart_button);
-        ImageButton checkWordButton = (ImageButton) findViewById(R.id.checkButton);
-        this.textCountLevel = (TextView) findViewById(R.id.textCountNivel);
+        this.imageQuestion = findViewById(R.id.imageQuestion);
+        ImageButton restartButton = findViewById(R.id.restart_button);
+        ImageButton checkWordButton = findViewById(R.id.checkButton);
+        this.textCountLevel = findViewById(R.id.textCountNivel);
 
         //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_shuffler_game_mode);
@@ -95,31 +96,31 @@ public class ShuffleGameActivity extends AppCompatActivity {
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
 
-        ImageView letter0 = (ImageView) findViewById(R.id.letter0);
-        ImageView letter1 = (ImageView) findViewById(R.id.letter1);
-        ImageView letter2 = (ImageView) findViewById(R.id.letter2);
-        ImageView letter3 = (ImageView) findViewById(R.id.letter3);
-        ImageView letter4 = (ImageView) findViewById(R.id.letter4);
-        ImageView letter5 = (ImageView) findViewById(R.id.letter5);
-        ImageView letter6 = (ImageView) findViewById(R.id.letter6);
-        ImageView letter7 = (ImageView) findViewById(R.id.letter7);
-        ImageView letter8 = (ImageView) findViewById(R.id.letter8);
-        ImageView letter9 = (ImageView) findViewById(R.id.letter9);
+        ImageView letter0 = findViewById(R.id.letter0);
+        ImageView letter1 = findViewById(R.id.letter1);
+        ImageView letter2 = findViewById(R.id.letter2);
+        ImageView letter3 = findViewById(R.id.letter3);
+        ImageView letter4 = findViewById(R.id.letter4);
+        ImageView letter5 = findViewById(R.id.letter5);
+        ImageView letter6 = findViewById(R.id.letter6);
+        ImageView letter7 = findViewById(R.id.letter7);
+        ImageView letter8 = findViewById(R.id.letter8);
+        ImageView letter9 = findViewById(R.id.letter9);
         this.letters = new ImageView[]{letter0, letter1, letter2, letter3, letter4, letter5, letter6, letter7, letter8, letter9};
 
-        LinearLayout drop0 = (LinearLayout) findViewById(R.id.drop0);
-        LinearLayout drop1 = (LinearLayout) findViewById(R.id.drop1);
-        LinearLayout drop2 = (LinearLayout) findViewById(R.id.drop2);
-        LinearLayout drop3 = (LinearLayout) findViewById(R.id.drop3);
-        LinearLayout drop4 = (LinearLayout) findViewById(R.id.drop4);
-        LinearLayout drop5 = (LinearLayout) findViewById(R.id.drop5);
-        LinearLayout drop6 = (LinearLayout) findViewById(R.id.drop6);
-        LinearLayout drop7 = (LinearLayout) findViewById(R.id.drop7);
-        LinearLayout drop8 = (LinearLayout) findViewById(R.id.drop8);
-        LinearLayout drop9 = (LinearLayout) findViewById(R.id.drop9);
+        LinearLayout drop0 = findViewById(R.id.drop0);
+        LinearLayout drop1 = findViewById(R.id.drop1);
+        LinearLayout drop2 = findViewById(R.id.drop2);
+        LinearLayout drop3 = findViewById(R.id.drop3);
+        LinearLayout drop4 = findViewById(R.id.drop4);
+        LinearLayout drop5 = findViewById(R.id.drop5);
+        LinearLayout drop6 = findViewById(R.id.drop6);
+        LinearLayout drop7 = findViewById(R.id.drop7);
+        LinearLayout drop8 = findViewById(R.id.drop8);
+        LinearLayout drop9 = findViewById(R.id.drop9);
         this.drops = new LinearLayout[]{drop0, drop1, drop2, drop3, drop4, drop5, drop6, drop7, drop8, drop9};
 
-        this.dragContainer = (LinearLayout) findViewById(R.id.drag);
+        this.dragContainer = findViewById(R.id.drag);
 
 
         letter0.setOnTouchListener(myTouchListener);
@@ -267,7 +268,9 @@ public class ShuffleGameActivity extends AppCompatActivity {
         int drawId = getIdImageViewScore();
         ImageView imageView = new ImageView(this);
         imageView.setImageResource(drawId);
-        Integer contextID = getIntent().getExtras().getInt("contextID");
+        Bundle bundle1 = getIntent().getExtras();
+        assert bundle1 != null;
+        Integer contextID = bundle1.getInt("contextID");
         Score p = new Score(imageView.getDrawable(), this.score, user, contextID, (int) correctCount, this.finalChallenge);
         insertScore(p, contextID);
         Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
