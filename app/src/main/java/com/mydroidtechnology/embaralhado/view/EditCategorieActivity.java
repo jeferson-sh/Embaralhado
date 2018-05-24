@@ -12,7 +12,7 @@ import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
  * Created by Jeferson on 08/08/2017.
  */
 
-public class EditCategorieActivity extends InsertNewCategorieActivity {
+public class EditCategorieActivity extends InsertNewCategoriesActivity {
 
     private Categorie categorie;
 
@@ -21,6 +21,7 @@ public class EditCategorieActivity extends InsertNewCategorieActivity {
         super.onCreate(savedInstanceState);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         Bundle bundle = getIntent().getExtras();
+        assert bundle != null;
         categorie = getDataBase().searchCategorieDatabase(bundle.getInt("categorieName"));
         getToolbar().setTitle("Editar contexto " + categorie.getName());
         getImageView().setImageBitmap(categorie.getImage());

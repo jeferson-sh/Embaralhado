@@ -10,7 +10,7 @@ import com.mydroidtechnology.embaralhado.model.Categorie;
 import com.mydroidtechnology.embaralhado.model.Word;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
-public class InsertNewWordActivity extends InsertNewCategorieActivity {
+public class InsertNewWordActivity extends InsertNewCategoriesActivity {
 
 
     @Override

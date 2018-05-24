@@ -14,7 +14,7 @@ import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
  * Created by Jeferson on 11/08/2017.
  */
 
-public class SelectCategorieScoreActivity extends SelectCategoriesToPlayActivity {
+public class SelectCategoriesScoreActivity extends SelectCategoriesToPlayActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class SelectCategorieScoreActivity extends SelectCategoriesToPlayActivity
     private void startScoreActivity(Integer contextID) {
         Bundle bundle = new Bundle();
         bundle.putInt("contextID", contextID);
-        Intent intent = new Intent(SelectCategorieScoreActivity.this, ScoreActivity.class);
+        Intent intent = new Intent(SelectCategoriesScoreActivity.this, ScoreActivity.class);
         intent.putExtras(bundle);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);

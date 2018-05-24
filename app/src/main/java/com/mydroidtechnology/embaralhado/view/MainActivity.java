@@ -33,13 +33,13 @@ public class MainActivity extends AppCompatActivity {
             startService(intentService);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         //Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.main_menu);
 
-        ImageButton playButton = (ImageButton) findViewById(R.id.playButton);
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-        ImageButton scoreButton = (ImageButton) findViewById(R.id.scoreButton);
+        ImageButton playButton = findViewById(R.id.playButton);
+        ImageButton settingsButton = findViewById(R.id.settingsButton);
+        ImageButton scoreButton = findViewById(R.id.scoreButton);
         this.dataBase = new DataBase(this);
         this.myCountDownTimerUtil = new MyCountDownTimerUtil(MainActivity.this, 2000, 1000);
         playButton.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startScoreActivity() {
-        Intent intent = new Intent(this, SelectCategorieScoreActivity.class);
+        Intent intent = new Intent(this, SelectCategoriesScoreActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();

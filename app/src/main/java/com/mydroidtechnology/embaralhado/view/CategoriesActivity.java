@@ -33,10 +33,10 @@ public class CategoriesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
-        this.addCategoriebt = (ImageButton) findViewById(R.id.add_categoriebt);
+        this.addCategoriebt = findViewById(R.id.add_categoriebt);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         //toolbar
-        this.toolbar = (Toolbar) findViewById(R.id.toobar_categoie);
+        this.toolbar = findViewById(R.id.toobar_categoie);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.edit_menu);
         if (getSupportActionBar() != null) {
@@ -49,7 +49,7 @@ public class CategoriesActivity extends AppCompatActivity {
 
         this.categorieAdapter = new CategorieAdapter(this);
         //end
-        this.listView = (ListView) findViewById(R.id.listViewWords);
+        this.listView = findViewById(R.id.listViewWords);
         this.listView.setAdapter(categorieAdapter);
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -71,7 +71,7 @@ public class CategoriesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (listView.getAdapter().getCount() <= MAX_COUNT_CONTEXTS) {
-                    Intent adicionarContext = new Intent(CategoriesActivity.this, InsertNewCategorieActivity.class);
+                    Intent adicionarContext = new Intent(CategoriesActivity.this, InsertNewCategoriesActivity.class);
                     BackgroundMusicService.setStopBackgroundMusicEnable(false);
                     startActivity(adicionarContext);
                     finish();

@@ -33,7 +33,7 @@ import com.mydroidtechnology.embaralhado.model.Categorie;
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
-public class InsertNewCategorieActivity extends AppCompatActivity {
+public class InsertNewCategoriesActivity extends AppCompatActivity {
 
     private EditText editText;
     private ImageView image;
@@ -52,11 +52,11 @@ public class InsertNewCategorieActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insert_new_context);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
 
-        this.editText = (EditText) findViewById(R.id.editText);
-        this.image = (ImageView) findViewById(R.id.imageView);
+        this.editText = findViewById(R.id.editText);
+        this.image = findViewById(R.id.imageView);
         this.dataBase = new DataBase(this);
 
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar_new_categorie);
+        this.toolbar = findViewById(R.id.toolbar_new_categorie);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.main_menu2);
         if (getSupportActionBar() != null) {
@@ -65,9 +65,9 @@ public class InsertNewCategorieActivity extends AppCompatActivity {
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
 
-        ImageButton camera = (ImageButton) findViewById(R.id.activeCameraButton);
-        ImageButton gallery = (ImageButton) findViewById(R.id.activeGalleryButton);
-        savePhotobt = (ImageButton) findViewById(R.id.savePhotoButton);
+        ImageButton camera = findViewById(R.id.activeCameraButton);
+        ImageButton gallery = findViewById(R.id.activeGalleryButton);
+        savePhotobt = findViewById(R.id.savePhotoButton);
 
         camera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,28 +88,28 @@ public class InsertNewCategorieActivity extends AppCompatActivity {
             }
         });
 
-        int permissionCheck = ContextCompat.checkSelfPermission(InsertNewCategorieActivity.this, Manifest.permission.CAMERA);
+        int permissionCheck = ContextCompat.checkSelfPermission(InsertNewCategoriesActivity.this, Manifest.permission.CAMERA);
         if (permissionCheck == PackageManager.PERMISSION_DENIED)
             RequestRuntimePermission();
     }
 
     private void RequestRuntimePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(InsertNewCategorieActivity.this, Manifest.permission.CAMERA))
+        if (ActivityCompat.shouldShowRequestPermissionRationale(InsertNewCategoriesActivity.this, Manifest.permission.CAMERA))
             Toast.makeText(this, "CAMERA permission allows us to access CAMERA app", Toast.LENGTH_SHORT).show();
         else {
-            ActivityCompat.requestPermissions(InsertNewCategorieActivity.this, new String[]{Manifest.permission.CAMERA}, RequestPermissionCode);
+            ActivityCompat.requestPermissions(InsertNewCategoriesActivity.this, new String[]{Manifest.permission.CAMERA}, RequestPermissionCode);
         }
     }
 
     protected void startCategorieActivity() {
-        Intent intent = new Intent(InsertNewCategorieActivity.this, CategoriesActivity.class);
+        Intent intent = new Intent(InsertNewCategoriesActivity.this, CategoriesActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
     protected void startMainActivity() {
-        Intent intent = new Intent(InsertNewCategorieActivity.this, MainActivity.class);
+        Intent intent = new Intent(InsertNewCategoriesActivity.this, MainActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
@@ -187,7 +187,7 @@ public class InsertNewCategorieActivity extends AppCompatActivity {
         if (this.bitmapCaptured != null && this.editText.getText().toString().length() >= 2 && editText.getText().toString().length() <= 10 && verify) {
             dataBase.insertCategorie(new Categorie(bitmapCaptured, editText.getText().toString().toUpperCase()));
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
-            startActivity(new Intent(InsertNewCategorieActivity.this, CategoriesActivity.class));
+            startActivity(new Intent(InsertNewCategoriesActivity.this, CategoriesActivity.class));
             finish();
         } else if (this.editText.getText().toString().length() > 10) {
             Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
@@ -258,7 +258,7 @@ public class InsertNewCategorieActivity extends AppCompatActivity {
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                stopService(new Intent(InsertNewCategorieActivity.this,BackgroundMusicService.class));
+                stopService(new Intent(InsertNewCategoriesActivity.this,BackgroundMusicService.class));
                 finish();
                 System.exit(0);
             }

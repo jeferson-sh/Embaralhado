@@ -34,7 +34,7 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
 
 
         //toolbar
-        toolbar = (Toolbar) findViewById(R.id.toolbar_select_categorie);
+        toolbar = findViewById(R.id.toolbar_select_categorie);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.main_menu2);
         if (getSupportActionBar() != null) {
@@ -44,7 +44,7 @@ public class SelectCategoriesToPlayActivity extends AppCompatActivity {
         }
         //end
         dataBase = new DataBase(this);
-        listView = (ListView) findViewById(R.id.listViewWords);
+        listView = findViewById(R.id.listViewWords);
         listView.setAdapter(new CategorieWordsAdapter(this, "true"));
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

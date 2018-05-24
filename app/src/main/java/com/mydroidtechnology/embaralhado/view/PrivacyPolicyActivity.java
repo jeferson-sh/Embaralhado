@@ -21,7 +21,7 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
         setContentView(R.layout.activity_privacy_policy);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         //Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_privacy_policy);
+        Toolbar toolbar = findViewById(R.id.toolbar_privacy_policy);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.main_menu2);
         if (getSupportActionBar() != null) {
@@ -29,7 +29,7 @@ public class PrivacyPolicyActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
-        WebView webView = (WebView)findViewById(R.id.webView);
+        WebView webView = findViewById(R.id.webView);
         webView.loadUrl("file:///android_asset/privacy_policy.html");
 
     }

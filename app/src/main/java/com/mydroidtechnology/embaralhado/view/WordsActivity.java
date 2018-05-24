@@ -34,10 +34,10 @@ public class WordsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_words);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
 
-        this.addWordbt = (ImageButton) findViewById(R.id.add_wordbt);
+        this.addWordbt = findViewById(R.id.add_wordbt);
 
         //toolbar
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar_words);
+        this.toolbar = findViewById(R.id.toolbar_words);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.edit_menu);
         if (getSupportActionBar() != null) {
@@ -47,10 +47,11 @@ public class WordsActivity extends AppCompatActivity {
         }
         //adapters
         bundle = getIntent().getExtras();
+        assert bundle != null;
         this.editWordAdapter = new EditWordAdapter(this, bundle.getInt("contextID"));
         this.wordsAdapter = new WordsAdapter(this, bundle.getInt("contextID"));
 
-        listView = (ListView) findViewById(R.id.listViewWords);
+        listView = findViewById(R.id.listViewWords);
         listView.setAdapter(wordsAdapter);
         this.addWordbt.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -3,6 +3,7 @@ package com.mydroidtechnology.embaralhado.view;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,8 @@ import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.adapter.ScoreAdapter;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
+import java.util.Objects;
+
 public class ScoreActivity extends AppCompatActivity {
 
     @Override
@@ -24,7 +27,7 @@ public class ScoreActivity extends AppCompatActivity {
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
 
         //toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_score);
+        Toolbar toolbar = findViewById(R.id.toolbar_score);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.main_menu2);
         if (getSupportActionBar() != null) {
@@ -34,12 +37,14 @@ public class ScoreActivity extends AppCompatActivity {
         }
 
 
-        ListView listView = (ListView) findViewById(R.id.listViewPontos);
-        listView.setAdapter(new ScoreAdapter(this, getIntent().getExtras().getInt("contextID")));
+        ListView listView = findViewById(R.id.listViewPontos);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            listView.setAdapter(new ScoreAdapter(this, Objects.requireNonNull(getIntent().getExtras()).getInt("contextID")));
+        }
     }
 
     private void startSelectCategoriScoreActivity() {
-        Intent intent = new Intent(ScoreActivity.this, SelectCategorieScoreActivity.class);
+        Intent intent = new Intent(ScoreActivity.this, SelectCategoriesScoreActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();

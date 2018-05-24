@@ -55,6 +55,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +88,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
         this.textCountLevel = findViewById(R.id.textCountNivel);
 
         //toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_shuffler_game_mode);
+        Toolbar toolbar = findViewById(R.id.toolbar_shuffler_game_mode);
         setSupportActionBar(toolbar);
         toolbar.inflateMenu(R.menu.main_menu2);
         if (getSupportActionBar() != null) {
@@ -167,7 +168,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private void toGetNextWord() {
         setCount();
         if (count == finalChallenge) {
-            imputName();
+            inputName();
         } else {
             clearLevel();
             randomLevel = levelsIndex.get(count);
@@ -176,10 +177,9 @@ public class ShuffleGameActivity extends AppCompatActivity {
         }
     }
 
-    private String imputName() {
+    private void inputName() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final EditText editText = new EditText(this);
-        final String[] youEditTextValue = {""};
         builder.setCancelable(true);
         builder.setTitle("Qual é o seu nome?");
         builder.setView(editText);
@@ -197,7 +197,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-        return youEditTextValue[0];
     }
 
     private void startMainActivity() {
@@ -581,10 +580,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    public boolean verifyWord() {
-        return verifyWord;
     }
 
     public void setVerifyWord(boolean verifyWord) {
