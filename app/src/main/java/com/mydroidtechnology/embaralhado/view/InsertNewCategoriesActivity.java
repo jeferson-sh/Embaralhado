@@ -28,13 +28,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.lang.reflect.Method;
-
 import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.model.Categorie;
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
+
+import java.io.File;
 
 public class InsertNewCategoriesActivity extends AppCompatActivity {
 
@@ -55,6 +54,10 @@ public class InsertNewCategoriesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insert_new_context);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
 
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.N) {
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+        }
         this.editText = findViewById(R.id.editText);
         this.image = findViewById(R.id.imageView);
         this.dataBase = new DataBase(this);
@@ -125,14 +128,6 @@ public class InsertNewCategoriesActivity extends AppCompatActivity {
         CamIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         CamIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         CamIntent.putExtra("return-data", true);
-        if(Build.VERSION.SDK_INT>=24) {
-            try {
-                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
-                m.invoke(null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         startActivityForResult(CamIntent, 0);
     }
 
