@@ -9,8 +9,10 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -27,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.lang.reflect.Method;
 
 import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.model.Categorie;
@@ -122,6 +125,14 @@ public class InsertNewCategoriesActivity extends AppCompatActivity {
         CamIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         CamIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         CamIntent.putExtra("return-data", true);
+        if(Build.VERSION.SDK_INT>=24) {
+            try {
+                Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
+                m.invoke(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         startActivityForResult(CamIntent, 0);
     }
 
