@@ -53,11 +53,8 @@ public class InsertNewCategoriesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert_new_context);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
-
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.N) {
-            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-            StrictMode.setVmPolicy(builder.build());
-        }
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
         this.editText = findViewById(R.id.editText);
         this.image = findViewById(R.id.imageView);
         this.dataBase = new DataBase(this);
