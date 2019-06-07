@@ -86,9 +86,4 @@ public class EditWordAdapter extends WordsAdapter {
         getDataBase().updateCategory(category);
     }
 
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-    }
-
 }

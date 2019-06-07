@@ -76,9 +76,4 @@ public class EditCategorieAdapter extends CategorieAdapter {
         });
         return layout;
     }
-
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-    }
 }

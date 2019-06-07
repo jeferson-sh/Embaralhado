@@ -9,9 +9,4 @@ public class CategorieAdapter extends GenericAdapter {
     public CategorieAdapter(Context context) {
         super(context, new DataBase(context).searchMyCategoriesDatabase());
     }
-
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-    }
 }
