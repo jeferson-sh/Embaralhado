@@ -19,8 +19,11 @@
     <string name="register_new_word">Cadastrar nova palavra</string>
     <string name="exit_app">Exit app</string>
     <string name="description_button_delete_item">Description: Button delete item</string>
-    <string name="description_edite_categorie">Description: edite categorie</string>
+    <string name="description_edite_categorie">Description: edite category</string>
     <string name="about_app">\nEmbaralhado 1.0.0\n\nDesenvolvedor: Jéferson Silva\nEmail: jeferson.silva@dcx.ufpb.br\n\nProfessora Orientadora: Ayla Rebouças\nEmail: ayla@dcx.ufpb.br\n\nImagens do alfabeto: Sapann-Design - Freepik.com\nImagens de animais: Freepik de Flaticon.com\nImagens de circo: Freepik de Flaticon.com\nImagens de frutas: Freepick de Flaticon.com\nÍcone de configuração Madebyoliver de Flaticon.com\nMúsica: besond.com\n</string>
     <string name="privacy_policy">Política de Privacidade</string>
     <string name="about">Sobre</string>
+    <string name="hint_edittext_insert_new_categorie">Digite o contexto aqui</string>
+    <string name="hint_edittext_insert_new_word">Digite a palavra aqui.</string>
+    <string name="access_camera_message">Por favor, permita o acesso à câmera.</string>
 </resources>

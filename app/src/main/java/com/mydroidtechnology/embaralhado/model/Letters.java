@@ -1,9 +1,5 @@
 package com.mydroidtechnology.embaralhado.model;
 
-/*
- * Created by Jeferson on 09/08/2017.
- */
-
 public class Letters {
     public final static String A = "A";
     public final static String B = "B";

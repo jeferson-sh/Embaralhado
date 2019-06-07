@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_edittext_insert_new_categorie">Digite o contexto aqui</string>
+    <string name="hint_edittext_insert_new_word">Digite a palavra aqui</string>
+    <string name="access_camera_message">Por favor, permita o acesso à câmera.</string>
+</resources>

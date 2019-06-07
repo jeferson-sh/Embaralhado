@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_settings"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ECEFF1"
+    android:orientation="vertical"
+    tools:category="com.mydroidtechnology.embaralhado.view.SelectCategoriesToPlayActivity">
+
+    <include
+        android:id="@+id/toolbar_select_categorie"
+        layout="@layout/toolbar"/>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ListView
+            android:id="@+id/listViewWords"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none|vertical"/>
+
+    </FrameLayout>
+</LinearLayout>

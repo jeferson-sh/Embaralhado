@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ECEFF1"
     android:orientation="vertical"
-    tools:categorie="com.mydroidtechnology.embaralhado.view.ShuffleGameActivity">
+    tools:category="com.mydroidtechnology.embaralhado.view.ShuffleGameActivity">
 
    <include
        android:id="@+id/toolbar_shuffler_game_mode"

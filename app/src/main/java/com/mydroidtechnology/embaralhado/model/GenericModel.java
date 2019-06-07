@@ -6,10 +6,6 @@ import android.graphics.drawable.Drawable;
 
 import com.mydroidtechnology.embaralhado.util.ConvertImageUtil;
 
-/**
- * Created by Jeferson Silva on 04/12/2017.
- */
-
 public class GenericModel {
     private byte[] imageBytes;
     private String name;

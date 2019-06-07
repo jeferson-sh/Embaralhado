@@ -7,19 +7,18 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.mydroidtechnology.embaralhado.util.MyCountDownTimerUtil;
 import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
+import com.mydroidtechnology.embaralhado.util.MyCountDownTimerUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends NavigationControlActivity {
 
     private DataBase dataBase;
     private MyCountDownTimerUtil myCountDownTimerUtil;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 if (dataBase.searchMyCategoriesDatabase().isEmpty()) {
                     Snackbar.make(view, "Não existem Contextos cadastrados!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 } else {
-                    selectContext();
+                    startSelectCategoriesToPlayActivity();
                 }
 
             }
@@ -90,12 +89,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.soundControl:
-                controlMusic(item);
-                return true;
-            case R.id.exitGame:
-                exitApp();
-                return true;
             case R.id.pp:
                 startPrivacyPolicy();
                 return true;
@@ -103,15 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 abouMessage();
                 return true;
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void startPrivacyPolicy() {
-        Intent intent = new Intent(MainActivity.this, PrivacyPolicyActivity.class);
-        BackgroundMusicService.setStopBackgroundMusicEnable(false);
-        startActivity(intent);
-        finish();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -122,19 +108,14 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void controlMusic(MenuItem item) {
-        if (BackgroundMusicService.isPlaying()) {
-            item.setIcon(R.drawable.ic_volume_mute_white);
-            BackgroundMusicService.getMediaPlayer().pause();
-            BackgroundMusicService.setIsPlaying(false);
-        } else {
-            item.setIcon(R.drawable.ic_volume_up_white);
-            BackgroundMusicService.getMediaPlayer().start();
-            BackgroundMusicService.setIsPlaying(true);
-        }
+    private void startPrivacyPolicy() {
+        Intent intent = new Intent(MainActivity.this, PrivacyPolicyActivity.class);
+        BackgroundMusicService.setStopBackgroundMusicEnable(false);
+        startActivity(intent);
+        finish();
     }
 
-    private void selectContext() {
+    private void startSelectCategoriesToPlayActivity() {
         Intent intent = new Intent(this, SelectCategoriesToPlayActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
@@ -142,21 +123,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startSettingsActivity() {
-        Intent intent = new Intent(this, CategoriesActivity.class);
+        Intent intent = new Intent(this, CategoriesDataManagementActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
     private void startScoreActivity() {
-        Intent intent = new Intent(this, SelectCategoriesScoreActivity.class);
+        Intent intent = new Intent(this, SelectCategorieScoreActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
-    @Override
-    public void onBackPressed() {
+    private void exitAppWithCountDown(){
         if (!myCountDownTimerUtil.isStart()) {
             myCountDownTimerUtil.start();
         } else {
@@ -165,45 +145,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void exitApp() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle("Deseja sair do jogo?");
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                stopService(new Intent(MainActivity.this,BackgroundMusicService.class));
-                finish();
-                System.exit(0);
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-    }
-
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isStopBackgroundMusicEnable())
-            BackgroundMusicService.getMediaPlayer().pause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isPlaying())
-            BackgroundMusicService.getMediaPlayer().start();
+    protected void startActivityOnBackPressed() {
+        exitAppWithCountDown();
     }
 }

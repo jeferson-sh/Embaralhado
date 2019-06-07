@@ -2,7 +2,6 @@ package com.mydroidtechnology.embaralhado.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.MediaStore;
 
 import java.io.ByteArrayOutputStream;
 

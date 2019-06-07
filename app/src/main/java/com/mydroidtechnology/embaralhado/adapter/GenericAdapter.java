@@ -15,12 +15,9 @@ import com.mydroidtechnology.embaralhado.persistence.DataBase;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Jeferson Silva on 08/12/2017.
- */
-
 public class GenericAdapter extends BaseAdapter {
-    private List<GenericModel> genericModels;
+
+    private static List<? extends GenericModel> GENERIC_MODELS;
     private Context context;
     private DataBase dataBase;
 
@@ -28,24 +25,24 @@ public class GenericAdapter extends BaseAdapter {
         this.context = context;
         this.dataBase = new DataBase(context);
         try {
-            this.genericModels = (List<GenericModel>) genericModels;
+            GenericAdapter.GENERIC_MODELS =  genericModels;
         } catch (Exception e) {
-            this.genericModels = new ArrayList<>();
+            GenericAdapter.GENERIC_MODELS = new ArrayList<>();
         }
     }
     @Override
     public int getCount() {
-        return this.genericModels.size();
+        return GENERIC_MODELS.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return this.genericModels.get(i);
+        return GENERIC_MODELS.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return this.genericModels.get(i).getId();
+        return GENERIC_MODELS.get(i).getId();
     }
 
     @Override
@@ -53,32 +50,24 @@ public class GenericAdapter extends BaseAdapter {
         View layout;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(android.content.Context.LAYOUT_INFLATER_SERVICE);
-            layout = inflater.inflate(R.layout.categorie_item_list, null);
+            layout = inflater.inflate(R.layout.data_item_list, null);
         } else {
             layout = view;
         }
-
-        ImageView imageView = (ImageView) layout.findViewById(R.id.image_item);
-        TextView textView = (TextView) layout.findViewById(R.id.text_item);
-
-        final GenericModel genericModel = this.genericModels.get(i);
+        ImageView imageView = layout.findViewById(R.id.image_item);
+        TextView textView = layout.findViewById(R.id.text_item);
+        final GenericModel genericModel = GENERIC_MODELS.get(i);
         textView.setText(genericModel.getName());
-
         imageView.setImageBitmap(genericModel.getImage());
-
         return layout;
     }
 
-    List<GenericModel> getGenericModels() {
-        return genericModels;
+    List<? extends GenericModel> getGenericModels() {
+        return GENERIC_MODELS;
     }
 
     public Context getContext() {
         return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
     }
 
     DataBase getDataBase() {

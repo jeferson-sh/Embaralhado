@@ -1,14 +1,8 @@
 package com.mydroidtechnology.embaralhado.model;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import com.mydroidtechnology.embaralhado.util.ConvertImageUtil;
-
-/*
- * Created by Jeferson on 10/11/2016.
- */
 public class Word extends GenericModel {
 
     private Integer contextID;

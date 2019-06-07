@@ -2,26 +2,26 @@ package com.mydroidtechnology.embaralhado.view;
 
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.text.MessageFormat;
-import java.util.Locale;
-
 import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
+
+import java.text.MessageFormat;
+import java.util.Locale;
 
 public class CongratulationsMessageActivity extends AppCompatActivity implements TextToSpeech.OnInitListener, Runnable {
 
     private TextView congratulationsMessage;
-    private TextToSpeech tts;
+    private TextToSpeech textToSpeech;
     private String scoreMessage;
 
     @Override
@@ -37,7 +37,7 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         imageView.setImageResource(bundle.getInt("image"));
-        Double score = bundle.getDouble("score");
+        double score = bundle.getDouble("score");
         scoreMessage = "";
         String name = bundle.getString("name");
         if (score < 50) {
@@ -52,11 +52,11 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         pontosText.setText(scoreMessage);
         Handler handler = new Handler();
         handler.postDelayed(this, 2000);
-        tts = new TextToSpeech(this, this);
+        textToSpeech = new TextToSpeech(this, this);
         Locale brazil = new Locale("PT");
-        int codigo = tts.isLanguageAvailable(brazil);
+        int codigo = textToSpeech.isLanguageAvailable(brazil);
         if (codigo == TextToSpeech.LANG_AVAILABLE) {
-            tts.setLanguage(brazil);
+            textToSpeech.setLanguage(brazil);
             Log.d("Funcionou", "PT BR");
         }
         playbt.setOnClickListener(new View.OnClickListener() {
@@ -79,25 +79,20 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
 
     private void speakMessage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
-            tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null, null);
+            textToSpeech.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null, null);
+            textToSpeech.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null, null);
         } else {
-            tts.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null);
-            tts.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null);
+            textToSpeech.speak(congratulationsMessage.getText().toString(), TextToSpeech.QUEUE_ADD, null);
+            textToSpeech.speak(scoreMessage, TextToSpeech.QUEUE_ADD, null);
         }
 
 
     }
 
     @Override
-    public void onBackPressed() {
-        super.moveTaskToBack(true);
-    }
-
-    @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
-            Log.d("Tudo certo", "Funcionou");
+            run();
         }
     }
 
@@ -108,24 +103,10 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
 
     @Override
     protected void onDestroy() {
-        if (this.tts != null) {
-            this.tts.stop();
-            this.tts.shutdown();
+        if (this.textToSpeech != null) {
+            this.textToSpeech.stop();
+            this.textToSpeech.shutdown();
         }
         super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isStopBackgroundMusicEnable())
-            BackgroundMusicService.getMediaPlayer().pause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isPlaying())
-            BackgroundMusicService.getMediaPlayer().start();
     }
 }

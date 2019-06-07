@@ -7,10 +7,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -23,7 +20,7 @@ import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.adapter.ScoreAdapter;
 import com.mydroidtechnology.embaralhado.listener.MyOnDragListener;
 import com.mydroidtechnology.embaralhado.listener.MyTouchListener;
-import com.mydroidtechnology.embaralhado.model.Categorie;
+import com.mydroidtechnology.embaralhado.model.Category;
 import com.mydroidtechnology.embaralhado.model.Letters;
 import com.mydroidtechnology.embaralhado.model.Score;
 import com.mydroidtechnology.embaralhado.model.Word;
@@ -35,7 +32,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ShuffleGameActivity extends AppCompatActivity {
+public class ShuffleGameActivity extends NavigationControlActivity {
 
     private ImageView imageQuestion;
     private LinearLayout[] drops;
@@ -50,8 +47,10 @@ public class ShuffleGameActivity extends AppCompatActivity {
     private TextView textCountLevel;
     private int finalChallenge;
     private boolean verifyWord;
-
     private List<Integer> levelsIndex;
+    private MediaPlayer soundWrong;
+    private MediaPlayer soundCorrect;
+
 
 
 
@@ -146,6 +145,10 @@ public class ShuffleGameActivity extends AppCompatActivity {
         drop8.setOnDragListener(myOnDragListener);
         drop9.setOnDragListener(myOnDragListener);
 
+        this.soundWrong = MediaPlayer.create(this, R.raw.wrong);
+        this.soundCorrect = MediaPlayer.create(this, R.raw.correct);
+
+
 
         restartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -199,29 +202,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void startMainActivity() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle("Deseja sair?");
-        builder.setMessage("Todo o progresso será perdido.");
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(ShuffleGameActivity.this, MainActivity.class);
-                BackgroundMusicService.setStopBackgroundMusicEnable(false);
-                startActivity(intent);
-                finish();
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
     private List<Integer> shuffleLevelIndex() {
         List<Integer> aux = new ArrayList<>();
         for (int i = 0; i < words.size(); i++) {
@@ -242,18 +222,6 @@ public class ShuffleGameActivity extends AppCompatActivity {
                 letters[i].setEnabled(true);
                 drops[i].setVisibility(View.VISIBLE);
             }
-        }
-    }
-
-    private void controlMusic(MenuItem item) {
-        if (BackgroundMusicService.isPlaying()) {
-            item.setIcon(R.drawable.ic_volume_mute_white);
-            BackgroundMusicService.getMediaPlayer().pause();
-            BackgroundMusicService.setIsPlaying(false);
-        } else {
-            item.setIcon(R.drawable.ic_volume_up_white);
-            BackgroundMusicService.getMediaPlayer().start();
-            BackgroundMusicService.setIsPlaying(true);
         }
     }
 
@@ -300,9 +268,9 @@ public class ShuffleGameActivity extends AppCompatActivity {
             dataBase.deleteScore((Score) scoreAdapter.getItem(scoreAdapter.getCount() - 1));
         }
         dataBase.insertScore(p);
-        Categorie categorie = dataBase.searchCategorieDatabase(contextID);
-        categorie.setScores("true");
-        dataBase.updateCategorie(categorie);
+        Category category = dataBase.searchCategoryDatabase(contextID);
+        category.setScores("true");
+        dataBase.updateCategory(category);
     }
 
     private void clearLevel() {
@@ -338,8 +306,8 @@ public class ShuffleGameActivity extends AppCompatActivity {
         if (p.equals(words.get(pos).getName())) {
             p = shuffle(p);
         }
-        char aux[] = p.toCharArray();
-        char aux2[] = words.get(pos).getName().toCharArray();
+        char[] aux = p.toCharArray();
+        char[] aux2 = words.get(pos).getName().toCharArray();
         for (int i = 0; i < aux.length; i++) {
             String letter = String.valueOf(aux[i]).toUpperCase();
             letters[i].setContentDescription("f");
@@ -472,74 +440,25 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu2, menu);
-        if (!BackgroundMusicService.isPlaying()) {
-            menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                startMainActivity();
-                return true;
-            case R.id.soundControl:
-                controlMusic(item);
-                return true;
-            case R.id.exitGame:
-                exitApp();
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    private void exitApp() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle("Deseja sair do jogo?");
-        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                stopService(new Intent(ShuffleGameActivity.this,BackgroundMusicService.class));
-                finish();
-                System.exit(0);
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-    }
-
 
     private void verifyWord(String s) {
-        CharSequence verify = "";
-        boolean allDropLetter = true;
+        CharSequence verifyWordValue = "";
+        boolean isAllDropedLetter = true;
         for (int i = 0; i < s.length(); i++) {
             if(letters[i].isEnabled()){
-                allDropLetter = false;
+                isAllDropedLetter = false;
                 break;
             }
         }
         for (int i = 0; i < s.length(); i++) {
             if (letters[i].getContentDescription().equals("f")) {
-                verify = letters[i].getContentDescription();
+                verifyWordValue = letters[i].getContentDescription();
                 break;
             } else {
-                verify = letters[i].getContentDescription();
+                verifyWordValue = letters[i].getContentDescription();
             }
         }
-        if (verify.equals("v")) {
+        if (verifyWordValue.equals("v")) {
             if (!verifyWord) {
                 this.correctCount = correctCount + 1;
                 setVerifyWord(true);
@@ -548,7 +467,7 @@ public class ShuffleGameActivity extends AppCompatActivity {
             toGetNextWord();
 
         } else {
-            if(allDropLetter) {
+            if(isAllDropedLetter) {
                 setVerifyWord(true);
                 starSoundQuestionWrong();
                 removeLettersWrong();
@@ -558,28 +477,16 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     private void starSoundQuestionWrong() {
-        MediaPlayer mp = MediaPlayer.create(this, R.raw.wrong);
-        mp.seekTo(1000);
-        mp.start();
-        mp.setVolume(300, 300);
-        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        this.soundWrong.seekTo(1000);
+        this.soundWrong.start();
+        this.soundWrong.setVolume(300, 300);
+        this.soundWrong.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
     private void startSoundQuestionCorrect() {
-        MediaPlayer mp = MediaPlayer.create(this, R.raw.correct);
-        mp.start();
-        mp.setVolume(200, 200);
-        mp.setAudioStreamType(AudioManager.STREAM_MUSIC);
-    }
-
-    @Override
-    public void onBackPressed() {
-        startMainActivity();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+        this.soundCorrect.start();
+        this.soundCorrect.setVolume(200, 200);
+        this.soundCorrect.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
 
     public void setVerifyWord(boolean verifyWord) {
@@ -591,16 +498,32 @@ public class ShuffleGameActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isStopBackgroundMusicEnable())
-            BackgroundMusicService.getMediaPlayer().pause();
+    protected void startActivityOnBackPressed() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle("Deseja sair?");
+        builder.setMessage("Todo o progresso será perdido.");
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(ShuffleGameActivity.this, MainActivity.class);
+                BackgroundMusicService.setStopBackgroundMusicEnable(false);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isPlaying())
-            BackgroundMusicService.getMediaPlayer().start();
+    protected void startMainActivity(){
+        this.startActivityOnBackPressed();
     }
 }

@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="#004D40"
     android:gravity="center"
-    tools:categorie="com.mydroidtechnology.embaralhado.view.SplashActivity">
+    tools:category="com.mydroidtechnology.embaralhado.view.SplashActivity">
 
     <ImageView
         android:layout_width="256dp"

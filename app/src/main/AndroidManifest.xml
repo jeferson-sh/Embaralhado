@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mydroidtechnology.embaralhado">
-
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -32,7 +31,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.SplashActivity"
+            android:name=".view.SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,52 +40,50 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.MainActivity"
+            android:name=".view.MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.SelectCategoriesScoreActivity"
+            android:name=".view.SelectCategorieScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.EditCategorieActivity"
+            android:name=".view.EditCategorieActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.EditWordActivity"
+            android:name=".view.EditWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.CategoriesActivity"
+            android:name=".view.CategoriesDataManagementActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.WordsActivity"
+            android:name=".view.WordsDataManagementActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.SelectCategoriesToPlayActivity"
+            android:name=".view.SelectCategoriesToPlayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.ScoreActivity"
+            android:name=".view.ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.ShuffleGameActivity"
+            android:name=".view.ShuffleGameActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.InsertNewCategoriesActivity"
+            android:name=".view.InsertNewCategoriesActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.InsertNewWordActivity"
+            android:name=".view.InsertNewWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.mydroidtechnology.embaralhado.view.CongratulationsMessageActivity"
+            android:name=".view.CongratulationsMessageActivity"
             android:screenOrientation="landscape" />
-
-        <activity android:name="com.mydroidtechnology.embaralhado.view.PrivacyPolicyActivity"
-            android:screenOrientation="landscape"/>
-
+        <activity
+            android:name=".view.PrivacyPolicyActivity"
+            android:screenOrientation="landscape" />
         <service
-            android:name="com.mydroidtechnology.embaralhado.service.BackgroundMusicService"
+            android:name=".service.BackgroundMusicService"
             android:enabled="true"
             android:exported="true"
             android:permission="true"
             android:stopWithTask="true" />
-
     </application>
 
 </manifest>

@@ -2,7 +2,6 @@ package com.mydroidtechnology.embaralhado.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import com.mydroidtechnology.embaralhado.model.Word;
@@ -13,6 +12,7 @@ import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
  */
 
 public class EditWordActivity extends InsertNewWordActivity {
+
     private Word word;
 
     @Override
@@ -21,76 +21,40 @@ public class EditWordActivity extends InsertNewWordActivity {
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
-        word = getDataBase().searchWordDatabase(bundle.getInt("wordID"));
-        getToolbar().setTitle("Editar palavra " + word.getName());
-        getImageView().setImageBitmap(word.getImage());
-        getEditText().setText(word.getName());
-        setBitmapCaptured(word.getImage());
+        this.word = super.dataBase.searchWordDatabase(bundle.getInt("wordID"));
+        super.toolbar.setTitle("Editar palavra " + word.getName());
+        super.image.setImageBitmap(word.getImage());
+        super.editText.setText(word.getName());
+        super.bitmapCaptured = word.getImage();
 
     }
 
     @Override
-    public void saveWord(View v) {
-        boolean verify = verifyWord();
-        Bundle bundle = getIntent().getExtras();
-        if (getBitmapCaptured() != null && getEditText().getText().toString().length() >= 2 && getEditText().getText().toString().length() <= 10 && verify) {
-            this.word.setImage(getBitmapCaptured());
-            this.word.setName(getEditText().getText().toString().toUpperCase());
-            getDataBase().updateWord(word);
-            Intent intent = new Intent(EditWordActivity.this, WordsActivity.class);
-            assert bundle != null;
-            intent.putExtras(bundle);
+    public void saveData(View v) {
+        if(super.isValidatedData(v)){
+            this.word.setImage(super.bitmapCaptured);
+            this.word.setName(super.editText.getText().toString().toUpperCase());
+            super.dataBase.updateWord(word);
+            Intent intent = new Intent(EditWordActivity.this, WordsDataManagementActivity.class);
+            assert super.bundle != null;
+            intent.putExtras(super.bundle);
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
             startActivity(intent);
             finish();
-        } else if (getEditText().getText().toString().length() > 10) {
-            Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        } else if (getEditText().getText().toString().length() < 2) {
-            Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
-        } else if (!verify) {
-            Snackbar.make(v, "Por favor, cadastre palavras apenas com letras sem espaços ou números!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }
     }
 
-    protected boolean verifyWord() {
-        char[] word = this.word.getName().toCharArray();
-        boolean b = true;
-        for (char aWord : word) {
-            if (!Character.isLetter(aWord)) {
-                b = false;
-                break;
-            }
-        }
-        return b;
-    }
-
-    @Override
-    public void onBackPressed() {
-        Bundle bundle = getIntent().getExtras();
-        Intent intent = new Intent(EditWordActivity.this, WordsActivity.class);
-        assert bundle != null;
-        intent.putExtras(bundle);
+    private void startWordsDataManagementActivity() {
+        Intent intent = new Intent(EditWordActivity.this, WordsDataManagementActivity.class);
+        assert super.bundle != null;
+        intent.putExtras(super.bundle);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isStopBackgroundMusicEnable())
-            BackgroundMusicService.getMediaPlayer().pause();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isPlaying())
-            BackgroundMusicService.getMediaPlayer().start();
+    protected void startActivityOnBackPressed(){
+        startWordsDataManagementActivity();
     }
 }
