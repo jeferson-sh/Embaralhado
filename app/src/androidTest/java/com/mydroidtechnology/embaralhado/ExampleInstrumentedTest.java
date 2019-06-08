@@ -17,10 +17,10 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() throws Exception {
+    public void useAppContext() {
         // Category of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("estagio3.ufpb.com.br.embaralhando", appContext.getPackageName());
+        assertEquals("com.mydroidtechnology.embaralhado", appContext.getPackageName());
     }
 }
