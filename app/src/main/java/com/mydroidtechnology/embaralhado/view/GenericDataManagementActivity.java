@@ -58,8 +58,6 @@ public abstract class GenericDataManagementActivity extends GenericDataViewActiv
         return true;
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

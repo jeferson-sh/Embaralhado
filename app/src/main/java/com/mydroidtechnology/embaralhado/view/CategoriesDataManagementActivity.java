@@ -56,7 +56,7 @@ public class CategoriesDataManagementActivity extends GenericDataManagementActiv
         }
     }
 
-    protected void clickItem(int position) {
+    private void clickItem(int position) {
         CategorieAdapter categorieAdapter = new CategorieAdapter(CategoriesDataManagementActivity.this);
         Category category = (Category) categorieAdapter.getItem(position);
         Integer contextID = category.getId();
