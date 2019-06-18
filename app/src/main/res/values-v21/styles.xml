@@ -1,6 +1,3 @@
 <resources>
 
-    <style name="MyTheme" parent="android:Theme.NoTitleBar">
-        <item name="android:colorPrimary">@color/legacy_primary</item>
-    </style>
 </resources>

@@ -86,7 +86,7 @@ public abstract class InsertNewGenericDataActivity extends NavigationControlActi
     }
 
     private void RequestRuntimePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(InsertNewGenericDataActivity.this, Manifest.permission.CAMERA)) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
             Toast.makeText(this, R.string.access_camera_message, Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(InsertNewGenericDataActivity.this, new String[]{Manifest.permission.CAMERA}, RequestPermissionCode);
         }
