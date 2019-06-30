@@ -27,7 +27,7 @@ public class InsertNewCategoriesActivity extends InsertNewGenericDataActivity {
 
     @Override
     protected void saveData(View v) {
-        if(super.isValidatedData(v)){
+        if(super.isValidData(v)){
             dataBase.insertCategory(new Category(bitmapCaptured, editText.getText().toString().toUpperCase()));
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
             startActivity(new Intent(InsertNewCategoriesActivity.this, CategoriesDataManagementActivity.class));
@@ -35,7 +35,7 @@ public class InsertNewCategoriesActivity extends InsertNewGenericDataActivity {
         }
     }
 
-    protected void startCategorieActivity() {
+    protected void startCategoriesDataManagementActivity() {
         Intent intent = new Intent(InsertNewCategoriesActivity.this, CategoriesDataManagementActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
@@ -44,6 +44,6 @@ public class InsertNewCategoriesActivity extends InsertNewGenericDataActivity {
 
     @Override
     protected void startActivityOnBackPressed() {
-        startCategorieActivity();
+        startCategoriesDataManagementActivity();
     }
 }

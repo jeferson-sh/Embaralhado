@@ -1,10 +1,8 @@
 package com.mydroidtechnology.embaralhado.view;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -62,49 +60,58 @@ public abstract class InsertNewGenericDataActivity extends NavigationControlActi
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_toolbar_home);
         }
-
-        camera = findViewById(R.id.activeCameraButton);
-        gallery = findViewById(R.id.activeGalleryButton);
-        savePhotobt = findViewById(R.id.savePhotoButton);
-
-        camera.setOnClickListener(new View.OnClickListener() {
+        this.camera = findViewById(R.id.activeCameraButton);
+        this.gallery = findViewById(R.id.activeGalleryButton);
+        this.savePhotobt = findViewById(R.id.savePhotoButton);
+        this.permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        this.camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activeCamera();
+                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                    takePhoto();
+                }
             }
         });
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activeGallery();
+                    activeGallery();
             }
         });
-
-        permissionCheck = ContextCompat.checkSelfPermission(InsertNewGenericDataActivity.this, Manifest.permission.CAMERA);
         if (permissionCheck == PackageManager.PERMISSION_DENIED)
             RequestRuntimePermission();
     }
 
     private void RequestRuntimePermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-            Toast.makeText(this, R.string.access_camera_message, Toast.LENGTH_SHORT).show();
-            ActivityCompat.requestPermissions(InsertNewGenericDataActivity.this, new String[]{Manifest.permission.CAMERA}, RequestPermissionCode);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                    RequestPermissionCode);
+        }
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == RequestPermissionCode) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                this.permissionCheck = PackageManager.PERMISSION_GRANTED;
+            else
+                this.permissionCheck = PackageManager.PERMISSION_DENIED;
         }
     }
 
-    public void activeCamera() {
+    public void takePhoto() {
         Intent CamIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        file = new File(Environment.getExternalStorageDirectory(), "file" + System.currentTimeMillis() + ".jpg");
-        uri = Uri.fromFile(file);
-        CamIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        this.file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "file" + System.currentTimeMillis() + ".jpg");
+        this.uri = Uri.fromFile(file);
         CamIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         CamIntent.putExtra("return-data", true);
         startActivityForResult(CamIntent, 0);
     }
 
     public void activeGallery() {
-        Intent GalIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(Intent.createChooser(GalIntent, "Select Image from Gallery"), 2);
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(Intent.createChooser(galleryIntent, "Select Image from Gallery"), 2);
     }
 
 
@@ -112,17 +119,19 @@ public abstract class InsertNewGenericDataActivity extends NavigationControlActi
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 0 && resultCode == RESULT_OK)
             CropImage();
-        else if (requestCode == 2) {
+        else if (requestCode == 2 && resultCode == RESULT_OK) {
             if (data != null) {
-                uri = data.getData();
+                this.uri = data.getData();
                 CropImage();
             }
-        } else if (requestCode == 1) {
+        } else if (requestCode == 1 && resultCode == RESULT_OK) {
             if (data != null) {
                 Bundle bundle = data.getExtras();
-                assert bundle != null;
-                bitmapCaptured = bundle.getParcelable("data");
-                image.setImageBitmap(bitmapCaptured);
+                if (bundle != null) {
+                    this.bitmapCaptured = bundle.getParcelable("data");
+                }
+                this.image.setImageBitmap(bitmapCaptured);
+                galleryAddPic();
             }
         }
     }
@@ -131,7 +140,7 @@ public abstract class InsertNewGenericDataActivity extends NavigationControlActi
         try {
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
             cropIntent.setDataAndType(uri, "image/*");
-            cropIntent.putExtra("crop", "true");
+            cropIntent.putExtra("crop", true);
             cropIntent.putExtra("return-data", true);
             startActivityForResult(cropIntent, 1);
         } catch (ActivityNotFoundException ex) {
@@ -140,21 +149,15 @@ public abstract class InsertNewGenericDataActivity extends NavigationControlActi
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == RequestPermissionCode) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                Toast.makeText(this, "Permissão Garantida", Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(this, "Permissão Cancelada", Toast.LENGTH_SHORT).show();
-        }
+    private void galleryAddPic() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(this.uri);
+        this.sendBroadcast(mediaScanIntent);
     }
 
-    protected boolean isValidatedData(View v) {
+    protected boolean isValidData(View v) {
         boolean validatedString = isValidatedString();
-        if (this.bitmapCaptured != null && this.editText.getText().toString().length() >= 2 && editText.getText().toString().length() <= 10 && validatedString) {
-            return true;
-        } else if (this.editText.getText().toString().length() > 10) {
+        if (this.editText.getText().toString().length() > 10) {
             Snackbar.make(v, "Palavra muito grande!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         } else if (this.editText.getText().toString().length() < 2) {
             Snackbar.make(v, "Palavra muito pequena!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
@@ -163,20 +166,21 @@ public abstract class InsertNewGenericDataActivity extends NavigationControlActi
         } else if (this.bitmapCaptured == null) {
             Snackbar.make(v, "Por favor, insira uma foto da galeria ou use a câmera.", Snackbar.LENGTH_LONG).setAction("OR", null).show();
         }
-        return false;
+        return (this.bitmapCaptured != null && this.editText.getText().toString().length() >= 2 &&
+                this.editText.getText().toString().length() <= 10 && validatedString);
     }
 
 
     protected boolean isValidatedString() {
-        char[] word = this.editText.getText().toString().toCharArray();
-        boolean isValidatedString = true;
-        for (char aWord : word) {
-            if (!Character.isLetter(aWord)) {
-                isValidatedString = false;
+        char[] chars = this.editText.getText().toString().toCharArray();
+        boolean isValidated = true;
+        for (char c : chars) {
+            if (!Character.isLetter(c)) {
+                isValidated = false;
                 break;
             }
         }
-        return isValidatedString;
+        return isValidated;
 
     }
 

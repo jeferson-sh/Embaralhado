@@ -28,7 +28,7 @@ public class EditCategorieActivity extends InsertNewCategoriesActivity {
 
     @Override
     public void saveData(View v) {
-        if(super.isValidatedData(v)){
+        if(super.isValidData(v)){
             this.category.setImage(super.bitmapCaptured);
             this.category.setName(super.editText.getText().toString().toUpperCase());
             super.dataBase.updateCategory(category);

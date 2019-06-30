@@ -32,7 +32,7 @@ public class InsertNewWordActivity extends InsertNewGenericDataActivity {
 
     @Override
     public void saveData(View v) {
-        if(super.isValidatedData(v)){
+        if(super.isValidData(v)){
             super.dataBase.insertWord(new Word(bitmapCaptured, editText.getText().toString().toUpperCase(), bundle.getInt("contextID")));
             setCategorieHaveElements(this.bundle.getInt("contextID"));
             Intent intent = new Intent(InsertNewWordActivity.this, WordsDataManagementActivity.class);

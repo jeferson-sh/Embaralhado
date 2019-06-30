@@ -31,7 +31,7 @@ public class EditWordActivity extends InsertNewWordActivity {
 
     @Override
     public void saveData(View v) {
-        if(super.isValidatedData(v)){
+        if(super.isValidData(v)){
             this.word.setImage(super.bitmapCaptured);
             this.word.setName(super.editText.getText().toString().toUpperCase());
             super.dataBase.updateWord(word);
