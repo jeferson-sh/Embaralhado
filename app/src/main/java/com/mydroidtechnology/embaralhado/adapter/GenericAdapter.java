@@ -2,7 +2,6 @@ package com.mydroidtechnology.embaralhado.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import com.mydroidtechnology.embaralhado.persistence.DataBase;
 import java.util.ArrayList;
 import java.util.List;
 
+//This Class is a Generic Adapter for to instance Objects (Categories, Words and Scores) in ListViews.
 public class GenericAdapter extends BaseAdapter {
 
     private static List<? extends GenericModel> GENERIC_MODELS;
@@ -32,21 +32,25 @@ public class GenericAdapter extends BaseAdapter {
             GenericAdapter.GENERIC_MODELS = new ArrayList<>();
         }
     }
+    //Return the count of instances in List.
     @Override
     public int getCount() {
         return GENERIC_MODELS.size();
     }
 
+    //Return a GenericModel from index of List.
     @Override
-    public Object getItem(int i) {
+    public GenericModel getItem(int i) {
         return GENERIC_MODELS.get(i);
     }
 
+    //Return an id of GenericModel from index of List.
     @Override
     public long getItemId(int i) {
         return GENERIC_MODELS.get(i).getId();
     }
 
+    //This method does inflate the layout of items (Categories, Words and Scores) in ListViews.
     @SuppressLint("InflateParams")
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -69,7 +73,7 @@ public class GenericAdapter extends BaseAdapter {
         return GENERIC_MODELS;
     }
 
-    public Context getContext() {
+    Context getContext() {
         return context;
     }
 
@@ -77,6 +81,7 @@ public class GenericAdapter extends BaseAdapter {
         return dataBase;
     }
 
+    //Notify ListView that was occurred changes.
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();

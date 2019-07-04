@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ShuffleGameActivity extends NavigationControlActivity {
+public class ShuffledGameActivity extends NavigationControlActivity {
 
     private ImageView imageQuestion;
     private LinearLayout[] drops;
@@ -240,7 +240,7 @@ public class ShuffleGameActivity extends NavigationControlActivity {
         Integer contextID = bundle1.getInt("contextID");
         Score p = new Score(imageView.getDrawable(), this.score, user, contextID, (int) correctCount, this.finalChallenge);
         insertScore(p, contextID);
-        Intent intent = new Intent(ShuffleGameActivity.this, CongratulationsMessageActivity.class);
+        Intent intent = new Intent(ShuffledGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image", drawId);
         bundle.putDouble("score", this.score);
@@ -506,7 +506,7 @@ public class ShuffleGameActivity extends NavigationControlActivity {
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(ShuffleGameActivity.this, MainActivity.class);
+                Intent intent = new Intent(ShuffledGameActivity.this, MainActivity.class);
                 BackgroundMusicService.setStopBackgroundMusicEnable(false);
                 startActivity(intent);
                 finish();

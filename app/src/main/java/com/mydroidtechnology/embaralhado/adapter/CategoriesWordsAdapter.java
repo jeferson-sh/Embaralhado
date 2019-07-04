@@ -4,8 +4,11 @@ import android.content.Context;
 
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
 
-public class CategorieWordsAdapter extends GenericAdapter {
-    public CategorieWordsAdapter(Context context, String elements) {
+// This class have responsibility of to instance Category objects in
+// ListView of SelectCategoriesToPlayActivity.
+
+public class CategoriesWordsAdapter extends GenericAdapter {
+    public CategoriesWordsAdapter(Context context, String elements) {
         super(context,new DataBase(context).searchMyCategoriesWithWordsDatabase(elements));
     }
 }

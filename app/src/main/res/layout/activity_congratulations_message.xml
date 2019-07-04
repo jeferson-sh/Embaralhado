@@ -10,18 +10,19 @@
         android:id="@+id/congratulationsMessageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parabéns!"
+        android:text="@string/congratulations"
         android:textSize="25sp"
         android:textColor="#ffffff"/>
     <ImageView
         android:id="@+id/congratulationsImage"
         android:layout_width="100dp"
-        android:layout_height="100dp"/>
+        android:layout_height="100dp"
+        android:contentDescription="@string/trophy" />
     <TextView
         android:id="@+id/pontosText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="score"
+        android:text="@string/score"
         android:textColor="#ffffff"
         android:textSize="18sp" />
     <LinearLayout
@@ -49,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/jogar"
+                android:text="@string/play"
                 android:textColor="#ffffff"/>
         </LinearLayout>
         <LinearLayout
@@ -69,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/sair"
+                android:text="@string/exit"
                 android:textColor="#ffffff"/>
         </LinearLayout>
 

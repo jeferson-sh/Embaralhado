@@ -30,12 +30,13 @@
                     android:layout_height="70dp"
                     android:layout_gravity="center"
                     android:background="@drawable/play"
-                    android:text="@string/jogar" />
+                    android:text="@string/play"
+                    android:contentDescription="@string/play" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jogar"
+                    android:text="@string/play"
                     android:textColor="#000000"
                     android:textSize="25sp" />
             </LinearLayout>
@@ -58,13 +59,14 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:background="@drawable/settings"
-                        android:text="@string/configurar" />
+                        android:text="@string/configurar"
+                        android:contentDescription="@string/settings" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Configurações"
+                        android:text="@string/settings"
                         android:textColor="#000000"
                         android:textSize="25sp" />
 
@@ -83,13 +85,14 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:background="@drawable/ranking"
-                        android:text="@string/score" />
+                        android:text="@string/score"
+                        android:contentDescription="@string/trophy" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Pontuações"
+                        android:text="@string/scores"
                         android:textColor="#000000"
                         android:textSize="25sp" />
                 </LinearLayout>

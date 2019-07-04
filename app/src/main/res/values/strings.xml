@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Embaralhado</string>
 
-    <string name="jogar">Jogar</string>
+    <string name="play">Jogar</string>
     <string name="configurar">Configurar</string>
     <string name="score">score</string>
     <string name="edite_categorie">Editar Contextos</string>
     <string name="edit_word">Editar Palavras</string>
     <string name="image_score">image score</string>
     <string name="cancel_button_again">Cancel button again</string>
-    <string name="sair">Sair</string>
+    <string name="exit">Sair</string>
     <string name="registered_categories">Contextos Cadastrados</string>
     <string name="sound_button">sound button</string>
     <string name="editar">Editar</string>
@@ -26,4 +26,22 @@
     <string name="hint_edittext_insert_new_categorie">Digite o contexto aqui</string>
     <string name="hint_edittext_insert_new_word">Digite a palavra aqui.</string>
     <string name="access_camera_message">Por favor, permita o acesso à câmera.</string>
+    <string name="camera_button">Câmera</string>
+    <string name="galleria_button">Galeria</string>
+    <string name="save_button">Salvar</string>
+    <string name="digite_o_contexto_aqui">Digite o contexto aqui</string>
+    <string name="new_image">image</string>
+    <string name="congratulations">Parabéns!</string>
+    <string name="trophy">troféu</string>
+    <string name="level_number">level number</string>
+    <string name="level_image">level_image</string>
+    <string name="letter">letter</string>
+    <string name="verify">verificar</string>
+    <string name="reload">reload</string>
+    <string name="logo">logo</string>
+    <string name="word">word</string>
+    <string name="image">image</string>
+    <string name="remove_word_button">remove_word_button</string>
+    <string name="settings">Configurações</string>
+    <string name="scores">Pontuações</string>
 </resources>

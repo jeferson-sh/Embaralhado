@@ -10,25 +10,27 @@
         android:id="@+id/congratulationsMessageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parabéns!"
+        android:text="@string/congratulations"
         android:textSize="50sp"
         android:textColor="#ffffff"/>
     <ImageView
         android:id="@+id/congratulationsImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"/>
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:contentDescription="@string/trophy" />
     <TextView
         android:id="@+id/pontosText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
-        android:textSize="36sp"
-        android:text="score"/>
+        android:textSize="50sp"
+        android:text="@string/score"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,15 +42,16 @@
 
             <ImageButton
                 android:id="@+id/playAgain"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/play2" />
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/play2"
+                android:contentDescription="@string/play" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jogar"
-                android:textSize="36sp"
+                android:text="@string/play"
+                android:textSize="50sp"
                 android:textColor="#ffffff"/>
         </LinearLayout>
         <LinearLayout
@@ -61,14 +64,15 @@
 
             <ImageButton
                 android:id="@+id/exitGame"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/exit"/>
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:background="@drawable/exit"
+                android:contentDescription="@string/exit_app" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sair"
-                android:textSize="36sp"
+                android:text="@string/exit"
+                android:textSize="50sp"
                 android:textColor="#ffffff"/>
         </LinearLayout>
     </LinearLayout>

@@ -50,7 +50,7 @@ public class BackgroundMusicService extends Service {
         return MEDIA_PLAYER;
     }
 
-    public static void setMediaPlayer(MediaPlayer mediaPlayer) {
+    private static void setMediaPlayer(MediaPlayer mediaPlayer) {
         MEDIA_PLAYER = mediaPlayer;
     }
 

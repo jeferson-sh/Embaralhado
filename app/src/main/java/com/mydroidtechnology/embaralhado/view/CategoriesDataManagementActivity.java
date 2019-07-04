@@ -8,8 +8,8 @@ import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.mydroidtechnology.embaralhado.R;
-import com.mydroidtechnology.embaralhado.adapter.CategorieAdapter;
-import com.mydroidtechnology.embaralhado.adapter.EditCategorieAdapter;
+import com.mydroidtechnology.embaralhado.adapter.CategoryAdapter;
+import com.mydroidtechnology.embaralhado.adapter.EditCategoryAdapter;
 import com.mydroidtechnology.embaralhado.model.Category;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
@@ -22,8 +22,8 @@ public class CategoriesDataManagementActivity extends GenericDataManagementActiv
             getSupportActionBar().setTitle(R.string.registered_categories);
         }
         super.maxData = 20;
-        super.editDataAdapter = new EditCategorieAdapter(this);
-        super.adapter = new CategorieAdapter(this);
+        super.editDataAdapter = new EditCategoryAdapter(this);
+        super.adapter = new CategoryAdapter(this);
         super.listview.setAdapter(adapter);
         super.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -37,7 +37,7 @@ public class CategoriesDataManagementActivity extends GenericDataManagementActiv
 
     @Override
     protected void startActivityOnBackPressed() {
-        if (this.listview.getAdapter().getClass().equals(EditCategorieAdapter.class)) {
+        if (this.listview.getAdapter().getClass().equals(EditCategoryAdapter.class)) {
             this.setAdapter(toolbar.getMenu().getItem(1));
         } else {
             super.startMainActivity();
@@ -57,8 +57,8 @@ public class CategoriesDataManagementActivity extends GenericDataManagementActiv
     }
 
     private void clickItem(int position) {
-        CategorieAdapter categorieAdapter = new CategorieAdapter(CategoriesDataManagementActivity.this);
-        Category category = (Category) categorieAdapter.getItem(position);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(CategoriesDataManagementActivity.this);
+        Category category = (Category) categoryAdapter.getItem(position);
         Integer contextID = category.getId();
         Bundle bundle = new Bundle();
         bundle.putInt("contextID", contextID);

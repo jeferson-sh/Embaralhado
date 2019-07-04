@@ -8,7 +8,7 @@ import com.mydroidtechnology.embaralhado.model.Category;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
 
-public class EditCategorieActivity extends InsertNewCategoriesActivity {
+public class EditCategoryActivity extends InsertNewCategoriesActivity {
 
     private Category category;
 
@@ -17,8 +17,9 @@ public class EditCategorieActivity extends InsertNewCategoriesActivity {
         super.onCreate(savedInstanceState);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         Bundle bundle = getIntent().getExtras();
-        assert bundle != null;
-        category = super.dataBase.searchCategoryDatabase(bundle.getInt("categorieName"));
+        if (bundle != null) {
+            category = super.dataBase.searchCategoryDatabase(bundle.getInt("categoryName"));
+        }
         super.toolbar.setTitle("Editar contexto " + category.getName());
         super.image.setImageBitmap(category.getImage());
         super.editText.setText(category.getName());
@@ -33,7 +34,7 @@ public class EditCategorieActivity extends InsertNewCategoriesActivity {
             this.category.setName(super.editText.getText().toString().toUpperCase());
             super.dataBase.updateCategory(category);
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
-            startActivity(new Intent(EditCategorieActivity.this, CategoriesDataManagementActivity.class));
+            startActivity(new Intent(EditCategoryActivity.this, CategoriesDataManagementActivity.class));
             finish();
         }
     }

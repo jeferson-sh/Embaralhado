@@ -27,7 +27,7 @@ public class ScoreActivity extends GenericDataViewActivity {
 
     @Override
     protected void startActivityOnBackPressed() {
-        Intent intent = new Intent(ScoreActivity.this, SelectCategorieScoreActivity.class);
+        Intent intent = new Intent(ScoreActivity.this, SelectCategoriesScoreActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();

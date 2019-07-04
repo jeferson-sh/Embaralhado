@@ -27,24 +27,26 @@
 
                 <ImageButton
                     android:id="@+id/playButton"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_gravity="center"
                     android:background="@drawable/play"
-                    android:text="@string/jogar" />
+                    android:text="@string/play"
+                    android:contentDescription="@string/play" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jogar"
+                    android:text="@string/play"
                     android:textColor="#000000"
-                    android:textSize="50sp" />
+                    android:textSize="40sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -55,18 +57,19 @@
 
                     <ImageButton
                         android:id="@+id/settingsButton"
-                        android:layout_width="140dp"
-                        android:layout_height="140dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/settings"
-                        android:text="@string/configurar" />
+                        android:text="@string/configurar"
+                        android:contentDescription="@string/settings" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Configurações"
+                        android:text="@string/settings"
                         android:textColor="#000000"
-                        android:textSize="50sp" />
+                        android:textSize="40sp" />
 
 
                 </LinearLayout>
@@ -80,18 +83,19 @@
 
                     <ImageButton
                         android:id="@+id/scoreButton"
-                        android:layout_width="140dp"
-                        android:layout_height="140dp"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
                         android:background="@drawable/ranking"
-                        android:text="@string/score" />
+                        android:text="@string/score"
+                        android:contentDescription="@string/scores" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Pontuações"
+                        android:text="@string/scores"
                         android:textColor="#000000"
-                        android:textSize="50sp" />
+                        android:textSize="40sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

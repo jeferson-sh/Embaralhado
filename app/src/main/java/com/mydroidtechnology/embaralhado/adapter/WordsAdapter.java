@@ -4,7 +4,10 @@ import android.content.Context;
 
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
 
+//This class have responsibility of to instance Score objects in ListViews of WordsDataManagementActivity
+
 public class WordsAdapter extends GenericAdapter{
+    //Id references the id Category that Word object is save.
     private Integer contextID;
 
     public WordsAdapter(Context context,Integer contextID) {
@@ -15,7 +18,4 @@ public class WordsAdapter extends GenericAdapter{
         return contextID;
     }
 
-    public void setContextID(Integer contextID) {
-        this.contextID = contextID;
-    }
 }

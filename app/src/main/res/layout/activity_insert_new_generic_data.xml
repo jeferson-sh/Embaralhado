@@ -26,18 +26,19 @@
             android:layout_weight="1"
             android:layout_gravity="center"
             android:inputType="textPersonName"
-            android:hint="Digite o contexto aqui"
+            android:hint="@string/digite_o_contexto_aqui"
             android:textColorHint="#000000"
             android:textColor="#000000"
             android:textSize="20sp"
-            android:id="@+id/editText"/>
+            android:id="@+id/editText"
+            tools:ignore="Autofill" />
 
         <ImageView
             android:layout_width="@dimen/newImageWidth"
             android:layout_height="@dimen/newImageHeight"
             android:layout_margin="5dp"
             android:id="@+id/imageView"
-            android:contentDescription="TODO" />
+            android:contentDescription="@string/new_image" />
 
     </LinearLayout>
 
@@ -60,11 +61,12 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/active_camera"
-                android:id="@+id/activeCameraButton"/>
+                android:id="@+id/activeCameraButton"
+                android:contentDescription="@string/camera_button" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Câmera"
+                android:text="@string/camera_button"
                 android:textSize="20sp"
                 android:textColor="#000000"/>
         </LinearLayout>
@@ -81,12 +83,13 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/activeGalleryButton"
-                android:background="@drawable/active_galleria"/>
+                android:background="@drawable/active_galleria"
+                android:contentDescription="@string/galleria_button" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Galeria"
+                android:text="@string/galleria_button"
                 android:textSize="20sp"
                 android:textColor="#000000"/>
 
@@ -104,12 +107,13 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:id="@+id/savePhotoButton"
-                android:background="@drawable/save"/>
+                android:background="@drawable/save"
+                android:contentDescription="@string/save_button" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Salvar"
+                android:text="@string/save_button"
                 android:textSize="20sp"
                 android:textColor="#000000"/>
         </LinearLayout>

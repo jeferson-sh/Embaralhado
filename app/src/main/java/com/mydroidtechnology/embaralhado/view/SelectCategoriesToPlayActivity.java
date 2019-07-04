@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.mydroidtechnology.embaralhado.R;
-import com.mydroidtechnology.embaralhado.adapter.CategorieWordsAdapter;
+import com.mydroidtechnology.embaralhado.adapter.CategoriesWordsAdapter;
 import com.mydroidtechnology.embaralhado.model.Category;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
@@ -19,7 +19,7 @@ public class SelectCategoriesToPlayActivity extends GenericDataViewActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(R.string.select_categorie);
         }
-        super.listview.setAdapter(new CategorieWordsAdapter(this, "true"));
+        super.listview.setAdapter(new CategoriesWordsAdapter(this, "true"));
         super.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -45,7 +45,7 @@ public class SelectCategoriesToPlayActivity extends GenericDataViewActivity {
     private void startGame(Integer contextID) {
         Bundle bundle = new Bundle();
         bundle.putInt("contextID", contextID);
-        Intent intent = new Intent(SelectCategoriesToPlayActivity.this, ShuffleGameActivity.class);
+        Intent intent = new Intent(SelectCategoriesToPlayActivity.this, ShuffledGameActivity.class);
         intent.putExtras(bundle);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);

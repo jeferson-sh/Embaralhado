@@ -11,11 +11,17 @@
         android:id="@+id/toolbar_select_categorie"
         layout="@layout/toolbar"/>
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <ListView
         android:id="@+id/listViewWords"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none|vertical"/>
 
+    </FrameLayout>
 
 </LinearLayout>

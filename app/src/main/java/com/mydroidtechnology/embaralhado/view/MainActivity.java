@@ -130,7 +130,7 @@ public class MainActivity extends NavigationControlActivity {
     }
 
     private void startScoreActivity() {
-        Intent intent = new Intent(this, SelectCategorieScoreActivity.class);
+        Intent intent = new Intent(this, SelectCategoriesScoreActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();

@@ -10,20 +10,21 @@
         android:id="@+id/congratulationsMessageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Parabéns!"
+        android:text="@string/congratulations"
         android:textColor="#ffffff"
         android:textSize="50sp" />
 
     <ImageView
         android:id="@+id/congratulationsImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:contentDescription="@string/trophy" />
 
     <TextView
         android:id="@+id/pontosText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="score"
+        android:text="@string/score"
         android:textColor="#ffffff"
         android:textSize="36sp" />
 
@@ -31,7 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -45,12 +47,13 @@
                 android:id="@+id/playAgain"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@drawable/play2" />
+                android:background="@drawable/play2"
+                android:contentDescription="@string/play" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jogar"
+                android:text="@string/play"
                 android:textColor="#ffffff"
                 android:textSize="36sp" />
         </LinearLayout>
@@ -67,12 +70,13 @@
                 android:id="@+id/exitGame"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:background="@drawable/exit" />
+                android:background="@drawable/exit"
+                android:contentDescription="@string/exit_app" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sair"
+                android:text="@string/exit"
                 android:textColor="#ffffff"
                 android:textSize="36sp" />
         </LinearLayout>

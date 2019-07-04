@@ -43,10 +43,10 @@
             android:name=".view.MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SelectCategorieScoreActivity"
+            android:name=".view.SelectCategoriesScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.EditCategorieActivity"
+            android:name=".view.EditCategoryActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.EditWordActivity"
@@ -64,7 +64,7 @@
             android:name=".view.ScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.ShuffleGameActivity"
+            android:name=".view.ShuffledGameActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.InsertNewCategoriesActivity"

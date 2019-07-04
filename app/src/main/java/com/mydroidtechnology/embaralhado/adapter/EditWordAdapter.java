@@ -17,71 +17,87 @@ import com.mydroidtechnology.embaralhado.model.Word;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 import com.mydroidtechnology.embaralhado.view.EditWordActivity;
 
+// This class have responsibility of change layout of ListView and allow the edition
+// of Word Objects in ListView of WordsDataManagementActivity
+
 public class EditWordAdapter extends WordsAdapter {
 
     public EditWordAdapter(Context context, Integer contextID) {
         super(context, contextID);
     }
 
+    // Override method getView in GenericAdapter for show options of edition of the Category object.
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View layout = super.getView(i,view,viewGroup);
-        final ImageButton removeWord = layout.findViewById(R.id.delete_data);
-        removeWord.setVisibility(View.VISIBLE);
-        final ImageButton editeWord = layout.findViewById(R.id.edite_data);
-        editeWord.setVisibility(View.VISIBLE);
+        final ImageButton removeWordBtn = layout.findViewById(R.id.delete_data);
+        removeWordBtn.setVisibility(View.VISIBLE);
+        final ImageButton editWordBtn = layout.findViewById(R.id.edite_data);
+        editWordBtn.setVisibility(View.VISIBLE);
         final Word word = (Word) getGenericModels().get(i);
-        removeWord.setOnClickListener(new View.OnClickListener() {
+        removeWordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setCancelable(true);
-                builder.setTitle("Deseja apagar a palavra "+word.getName()+"?");
-                builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        getGenericModels().remove(word);
-                        getDataBase().deleteWord(word);
-                        if(getGenericModels().isEmpty()){
-                            updateCategorieWithNoElements(getContextID());
-                        }
-                        Toast.makeText(getContext(), "Palavra " +word.getName() + " apagada!", Toast.LENGTH_LONG).show();
-                        notifyDataSetChanged();
-                    }
-                });
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                removeWord(word); // Remove Word object.
             }
-
-
-
         });
 
-        editeWord.setOnClickListener(new View.OnClickListener() {
+        editWordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("contextID", getContextID());
-                bundle.putInt("wordID",word.getId());
-                Intent intent = new Intent(getContext(), EditWordActivity.class);
-                intent.putExtras(bundle);
-                BackgroundMusicService.setStopBackgroundMusicEnable(false);
-                getContext().startActivity(intent);
-                ((Activity) getContext()).finish();
+                editWord(word); // Edit Word object.
             }
 
         });
         return layout;
     }
 
-    private void updateCategorieWithNoElements(int contextID) {
+    private void editWord(Word word) {
+        Bundle bundle = new Bundle();
+        //ContextID for instance listView in WordDataManagementActivity.
+        bundle.putInt("contextID", getContextID());
+        //WordID for search in Database and allow Edition.
+        bundle.putInt("wordID",word.getId());
+        Intent intent = new Intent(getContext(), EditWordActivity.class);
+        intent.putExtras(bundle);
+        BackgroundMusicService.setStopBackgroundMusicEnable(false);
+        getContext().startActivity(intent);
+        ((Activity) getContext()).finish();
+    }
+
+    private void removeWord(final Word word) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setCancelable(true);
+        builder.setTitle("Deseja apagar a palavra "+word.getName()+"?");
+        builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Remove Word in ListView.
+                getGenericModels().remove(word);
+                //Remove Word in Database.
+                getDataBase().deleteWord(word);
+                if(getGenericModels().isEmpty()){
+                    updateCategoryWithNoElements(getContextID());
+                }
+                Toast.makeText(getContext(), "Palavra " +word.getName() + " apagada!", Toast.LENGTH_LONG).show();
+                //Notify ListView that was occurred changes.
+                EditWordAdapter.super.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    //Update Category Object in Database, case not have elements (Words).
+    private void updateCategoryWithNoElements(int contextID) {
         Category category = getDataBase().searchCategoryDatabase(contextID);
+        // If getGenericModel is Empty, the Category Object not have elements (Words).
         category.setHaveElements("false");
         getDataBase().updateCategory(category);
     }

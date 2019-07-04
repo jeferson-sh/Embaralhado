@@ -7,9 +7,6 @@ import android.view.View;
 import com.mydroidtechnology.embaralhado.model.Word;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
-/*
- * Created by Jeferson on 10/08/2017.
- */
 
 public class EditWordActivity extends InsertNewWordActivity {
 
@@ -46,7 +43,6 @@ public class EditWordActivity extends InsertNewWordActivity {
 
     private void startWordsDataManagementActivity() {
         Intent intent = new Intent(EditWordActivity.this, WordsDataManagementActivity.class);
-        assert super.bundle != null;
         intent.putExtras(super.bundle);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
