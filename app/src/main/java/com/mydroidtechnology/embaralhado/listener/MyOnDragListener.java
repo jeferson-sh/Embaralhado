@@ -18,6 +18,7 @@ public class MyOnDragListener implements View.OnDragListener {
         ImageView letter = (ImageView) event.getLocalState(); //Capture the Letter that was Dragged.
         switch(action) { // Action contains the value of the action occurred.
             case DragEvent.ACTION_DROP:
+                //noinspection UnusedAssignment
                 isDroped = true;//Drop occurred.
                 letter.setEnabled(false); //The Letter can't be moved.
                 drop.setEnabled(false); //The drop container can't receive other letters.
@@ -38,6 +39,7 @@ public class MyOnDragListener implements View.OnDragListener {
                     letter.setVisibility(View.VISIBLE); //ShadowBuilder is discarded and letter returns to be visible.
                 break;
             default:
+                //noinspection UnusedAssignment
                 isDroped = false;
                 break;
         }
