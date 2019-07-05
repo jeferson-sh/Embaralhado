@@ -73,13 +73,10 @@ public class EditCategoryAdapter extends CategoryAdapter {
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Remove Category in ListView
-                getGenericModels().remove(category);
-                // Remove Category in Database
-                getDataBase().deleteCategory(category);
+                getGenericModels().remove(category);  // Remove Category in ListView
+                getDataBase().deleteCategory(category); // Remove Category in Database
                 Toast.makeText(getContext(), "Contexto " + category.getName() + " apagado!", Toast.LENGTH_LONG).show();
-                //Notify ListView that was occurred changes.
-                EditCategoryAdapter.super.notifyDataSetChanged();
+                EditCategoryAdapter.super.notifyDataSetChanged(); //Notify ListView that was occurred changes.
             }
         });
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {

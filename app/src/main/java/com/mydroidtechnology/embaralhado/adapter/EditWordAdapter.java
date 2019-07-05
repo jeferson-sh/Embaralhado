@@ -72,16 +72,13 @@ public class EditWordAdapter extends WordsAdapter {
         builder.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //Remove Word in ListView.
-                getGenericModels().remove(word);
-                //Remove Word in Database.
-                getDataBase().deleteWord(word);
+                getGenericModels().remove(word); //Remove Word in ListView.
+                getDataBase().deleteWord(word); //Remove Word in Database.
                 if(getGenericModels().isEmpty()){
                     updateCategoryWithNoElements(getContextID());
                 }
                 Toast.makeText(getContext(), "Palavra " +word.getName() + " apagada!", Toast.LENGTH_LONG).show();
-                //Notify ListView that was occurred changes.
-                EditWordAdapter.super.notifyDataSetChanged();
+                EditWordAdapter.super.notifyDataSetChanged();  //Notify ListView that was occurred changes.
             }
         });
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
