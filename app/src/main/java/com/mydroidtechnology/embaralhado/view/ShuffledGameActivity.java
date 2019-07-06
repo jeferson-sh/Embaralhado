@@ -21,7 +21,7 @@ import com.mydroidtechnology.embaralhado.adapter.ScoreAdapter;
 import com.mydroidtechnology.embaralhado.listener.MyOnDragListener;
 import com.mydroidtechnology.embaralhado.listener.MyTouchListener;
 import com.mydroidtechnology.embaralhado.model.Category;
-import com.mydroidtechnology.embaralhado.model.Letters;
+import com.mydroidtechnology.embaralhado.model.Character;
 import com.mydroidtechnology.embaralhado.model.Score;
 import com.mydroidtechnology.embaralhado.model.Word;
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
@@ -315,116 +315,116 @@ public class ShuffledGameActivity extends NavigationControlActivity {
             drops[i].setTag(aux2[i]);
             drops[i].setEnabled(true);
             switch (letter) {
-                case Letters.A:
-                    loadLetter(letters[i],R.drawable.a,Letters.A,drops[i]);
+                case Character.A:
+                    loadLetter(letters[i],R.drawable.a, Character.A,drops[i]);
                     continue;
-                case Letters.B:
-                    loadLetter(letters[i],R.drawable.b,Letters.B,drops[i]);
+                case Character.B:
+                    loadLetter(letters[i],R.drawable.b, Character.B,drops[i]);
                     continue;
-                case Letters.C:
-                    loadLetter(letters[i],R.drawable.c,Letters.C,drops[i]);
+                case Character.C:
+                    loadLetter(letters[i],R.drawable.c, Character.C,drops[i]);
                     continue;
-                case Letters.D:
-                    loadLetter(letters[i],R.drawable.d,Letters.D,drops[i]);
+                case Character.D:
+                    loadLetter(letters[i],R.drawable.d, Character.D,drops[i]);
                     continue;
-                case Letters.E:
-                    loadLetter(letters[i],R.drawable.e,Letters.E,drops[i]);
+                case Character.E:
+                    loadLetter(letters[i],R.drawable.e, Character.E,drops[i]);
                     continue;
-                case Letters.F:
-                    loadLetter(letters[i],R.drawable.f,Letters.F,drops[i]);
+                case Character.F:
+                    loadLetter(letters[i],R.drawable.f, Character.F,drops[i]);
                     continue;
-                case Letters.G:
-                    loadLetter(letters[i],R.drawable.g,Letters.G,drops[i]);
+                case Character.G:
+                    loadLetter(letters[i],R.drawable.g, Character.G,drops[i]);
                     continue;
-                case Letters.H:
-                    loadLetter(letters[i],R.drawable.h,Letters.H,drops[i]);
+                case Character.H:
+                    loadLetter(letters[i],R.drawable.h, Character.H,drops[i]);
                     continue;
-                case Letters.I:
-                    loadLetter(letters[i],R.drawable.i,Letters.I,drops[i]);
+                case Character.I:
+                    loadLetter(letters[i],R.drawable.i, Character.I,drops[i]);
                     continue;
-                case Letters.J:
-                    loadLetter(letters[i],R.drawable.j,Letters.J,drops[i]);
+                case Character.J:
+                    loadLetter(letters[i],R.drawable.j, Character.J,drops[i]);
                     continue;
-                case Letters.K:
-                    loadLetter(letters[i],R.drawable.k,Letters.K,drops[i]);
+                case Character.K:
+                    loadLetter(letters[i],R.drawable.k, Character.K,drops[i]);
                     continue;
-                case Letters.L:
-                    loadLetter(letters[i],R.drawable.l,Letters.L,drops[i]);
+                case Character.L:
+                    loadLetter(letters[i],R.drawable.l, Character.L,drops[i]);
                     continue;
-                case Letters.M:
-                    loadLetter(letters[i],R.drawable.m,Letters.M,drops[i]);
+                case Character.M:
+                    loadLetter(letters[i],R.drawable.m, Character.M,drops[i]);
                     continue;
-                case Letters.N:
-                    loadLetter(letters[i],R.drawable.n,Letters.N,drops[i]);
+                case Character.N:
+                    loadLetter(letters[i],R.drawable.n, Character.N,drops[i]);
                     continue;
-                case Letters.O:
-                    loadLetter(letters[i],R.drawable.o,Letters.O,drops[i]);
+                case Character.O:
+                    loadLetter(letters[i],R.drawable.o, Character.O,drops[i]);
                     continue;
-                case Letters.P:
-                    loadLetter(letters[i],R.drawable.p,Letters.P,drops[i]);
+                case Character.P:
+                    loadLetter(letters[i],R.drawable.p, Character.P,drops[i]);
                     continue;
-                case Letters.Q:
-                    loadLetter(letters[i],R.drawable.q,Letters.Q,drops[i]);
+                case Character.Q:
+                    loadLetter(letters[i],R.drawable.q, Character.Q,drops[i]);
                     continue;
-                case Letters.R:
-                    loadLetter(letters[i],R.drawable.r,Letters.R,drops[i]);
+                case Character.R:
+                    loadLetter(letters[i],R.drawable.r, Character.R,drops[i]);
                     continue;
-                case Letters.S:
-                    loadLetter(letters[i],R.drawable.s,Letters.S,drops[i]);
+                case Character.S:
+                    loadLetter(letters[i],R.drawable.s, Character.S,drops[i]);
                     continue;
-                case Letters.T:
-                    loadLetter(letters[i],R.drawable.t,Letters.T,drops[i]);
+                case Character.T:
+                    loadLetter(letters[i],R.drawable.t, Character.T,drops[i]);
                     continue;
-                case Letters.U:
-                    loadLetter(letters[i],R.drawable.u,Letters.U,drops[i]);
+                case Character.U:
+                    loadLetter(letters[i],R.drawable.u, Character.U,drops[i]);
                     continue;
-                case Letters.V:
-                    loadLetter(letters[i],R.drawable.v,Letters.V,drops[i]);
+                case Character.V:
+                    loadLetter(letters[i],R.drawable.v, Character.V,drops[i]);
                     continue;
-                case Letters.W:
-                    loadLetter(letters[i],R.drawable.w,Letters.W,drops[i]);
+                case Character.W:
+                    loadLetter(letters[i],R.drawable.w, Character.W,drops[i]);
                     continue;
-                case Letters.X:
-                    loadLetter(letters[i],R.drawable.x,Letters.X,drops[i]);
+                case Character.X:
+                    loadLetter(letters[i],R.drawable.x, Character.X,drops[i]);
                     continue;
-                case Letters.Y:
-                    loadLetter(letters[i],R.drawable.y,Letters.Y,drops[i]);
+                case Character.Y:
+                    loadLetter(letters[i],R.drawable.y, Character.Y,drops[i]);
                     continue;
-                case Letters.Z:
-                    loadLetter(letters[i],R.drawable.z,Letters.Z,drops[i]);
+                case Character.Z:
+                    loadLetter(letters[i],R.drawable.z, Character.Z,drops[i]);
                     continue;
-                case Letters.Ç:
-                    loadLetter(letters[i],R.drawable.cc,Letters.Ç,drops[i]);
+                case Character.Ç:
+                    loadLetter(letters[i],R.drawable.cc, Character.Ç,drops[i]);
                     continue;
-                case Letters.Á:
-                    loadLetter(letters[i],R.drawable.aa,Letters.Á,drops[i]);
+                case Character.Á:
+                    loadLetter(letters[i],R.drawable.aa, Character.Á,drops[i]);
                     continue;
-                case Letters.Â:
-                    loadLetter(letters[i],R.drawable.aaa,Letters.Â,drops[i]);
+                case Character.Â:
+                    loadLetter(letters[i],R.drawable.aaa, Character.Â,drops[i]);
                     continue;
-                case Letters.Ã:
-                    loadLetter(letters[i],R.drawable.aaaa,Letters.Ã,drops[i]);
+                case Character.Ã:
+                    loadLetter(letters[i],R.drawable.aaaa, Character.Ã,drops[i]);
                     continue;
-                case Letters.É:
-                    loadLetter(letters[i],R.drawable.ee,Letters.É,drops[i]);
+                case Character.É:
+                    loadLetter(letters[i],R.drawable.ee, Character.É,drops[i]);
                     continue;
-                case Letters.Ê:
-                    loadLetter(letters[i],R.drawable.eee,Letters.Ê,drops[i]);
+                case Character.Ê:
+                    loadLetter(letters[i],R.drawable.eee, Character.Ê,drops[i]);
                     continue;
-                case Letters.Í:
-                    loadLetter(letters[i],R.drawable.ii,Letters.Í,drops[i]);
+                case Character.Í:
+                    loadLetter(letters[i],R.drawable.ii, Character.Í,drops[i]);
                     continue;
-                case Letters.Ó:
-                    loadLetter(letters[i],R.drawable.oo,Letters.Ó,drops[i]);
+                case Character.Ó:
+                    loadLetter(letters[i],R.drawable.oo, Character.Ó,drops[i]);
                     continue;
-                case Letters.Ô:
-                    loadLetter(letters[i],R.drawable.ooo,Letters.Ô,drops[i]);
+                case Character.Ô:
+                    loadLetter(letters[i],R.drawable.ooo, Character.Ô,drops[i]);
                     continue;
-                case Letters.Õ:
-                    loadLetter(letters[i],R.drawable.oooo,Letters.Õ,drops[i]);
+                case Character.Õ:
+                    loadLetter(letters[i],R.drawable.oooo, Character.Õ,drops[i]);
                     continue;
-                case Letters.Ú:
-                    loadLetter(letters[i],R.drawable.uu,Letters.Ú,drops[i]);
+                case Character.Ú:
+                    loadLetter(letters[i],R.drawable.uu, Character.Ú,drops[i]);
             }
         }
     }

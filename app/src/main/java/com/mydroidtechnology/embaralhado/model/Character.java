@@ -1,6 +1,7 @@
 package com.mydroidtechnology.embaralhado.model;
 
-public class Letters {
+@SuppressWarnings("NonAsciiCharacters")
+public class Character {
     public final static String A = "A";
     public final static String B = "B";
     public final static String C = "C";

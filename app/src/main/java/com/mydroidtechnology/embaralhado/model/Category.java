@@ -5,22 +5,22 @@ import android.graphics.drawable.Drawable;
 
 public class Category extends GenericModel {
 
-    private String haveElements;
-    private String scores;
+    private String haveElements; //Tag the category when has words.
+    private String scores; ///Tag the category when has scores.
 
-    public Category(Integer id, byte[] imageBytes, String name, String haveElements, String scores) {
+    public Category(Integer id, byte[] imageBytes, String name, String haveElements, String scores) { //This constructor is called in the Database.
         super(id,imageBytes,name);
         this.haveElements = haveElements;
         this.scores = scores;
     }
 
-    public Category(Bitmap image, String name) {
+    public Category(Bitmap image, String name) { //This constructor is called when inserting new categories.
         super(image,name);
         this.haveElements = "false";
         this.scores = "false";
     }
 
-    public Category(Drawable drawable, String name) {
+    public Category(Drawable drawable, String name) { //This constructor is called when the app runs the first time.
         super(drawable,name);
         this.haveElements = "true";
         this.scores = "false";

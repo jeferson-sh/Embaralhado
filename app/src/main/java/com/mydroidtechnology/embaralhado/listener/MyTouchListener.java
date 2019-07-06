@@ -5,21 +5,23 @@ import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
 
+//This class is responsible for to set event Touch in Characters on ShuffledGameActivity.
  public class MyTouchListener implements View.OnTouchListener {
 
-     public boolean onTouch(View view, MotionEvent motionEvent) {
-         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-             ClipData data = ClipData.newPlainText("", "");
-             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+    //This Method will to capture the event Touch in Characters.
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) { //If event touch in character occurred.
+             ClipData data = ClipData.newPlainText("", ""); //ClipData to copy the instance of the character.
+             View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view); //Create ShadowBuilder for drag.
              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                 view.startDragAndDrop(data, shadowBuilder, view, 0);
+                 view.startDragAndDrop(data, shadowBuilder, view, 0); //Start drag and drop in android version Nougat or later.
              } else {
-                 view.startDrag(data, shadowBuilder, view, 0);
+                 view.startDrag(data, shadowBuilder, view, 0); //Start drag and drop in android version ice Cream Sandwich or Kitkat.
              }
-             view.setVisibility(View.INVISIBLE);
+             view.setVisibility(View.INVISIBLE); //The Image view related to the character is invisible.
              return true;
-         }else if(motionEvent.getAction() == MotionEvent.ACTION_UP){
-             view.performClick();
+         }else if(motionEvent.getAction() == MotionEvent.ACTION_UP){ //If event Touch finnish.
+             view.performClick(); //Run performClick() when click finnish.
              return true;
          }else {
              return false;
