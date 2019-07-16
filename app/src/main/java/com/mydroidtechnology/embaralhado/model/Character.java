@@ -1,5 +1,6 @@
 package com.mydroidtechnology.embaralhado.model;
 
+//This class is a map the character used in app for register of the words and Contexts.
 @SuppressWarnings("NonAsciiCharacters")
 public class Character {
     public final static String A = "A";

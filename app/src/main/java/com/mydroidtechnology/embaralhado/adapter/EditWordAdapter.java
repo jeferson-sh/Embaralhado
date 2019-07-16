@@ -2,7 +2,6 @@ package com.mydroidtechnology.embaralhado.adapter;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +11,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.mydroidtechnology.embaralhado.R;
-import com.mydroidtechnology.embaralhado.model.Category;
+import com.mydroidtechnology.embaralhado.model.Context;
 import com.mydroidtechnology.embaralhado.model.Word;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 import com.mydroidtechnology.embaralhado.view.EditWordActivity;
@@ -22,11 +21,11 @@ import com.mydroidtechnology.embaralhado.view.EditWordActivity;
 
 public class EditWordAdapter extends WordsAdapter {
 
-    public EditWordAdapter(Context context, Integer contextID) {
+    public EditWordAdapter(android.content.Context context, Integer contextID) {
         super(context, contextID);
     }
 
-    // Override method getView in GenericAdapter for show options of edition of the Category object.
+    // Override method getView in GenericAdapter for show options of edition of the Context object.
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View layout = super.getView(i,view,viewGroup);
@@ -91,12 +90,12 @@ public class EditWordAdapter extends WordsAdapter {
         dialog.show();
     }
 
-    //Update Category Object in Database, case not have elements (Words).
+    //Update Context Object in Database, case not have elements (Words).
     private void updateCategoryWithNoElements(int contextID) {
-        Category category = getDataBase().searchCategoryDatabase(contextID);
-        // If getGenericModel is Empty, the Category Object not have elements (Words).
-        category.setHaveElements("false");
-        getDataBase().updateCategory(category);
+        Context context = getDataBase().searchContextDatabase(contextID);
+        // If getGenericModel is Empty, the Context Object not have elements (Words).
+        context.setHaveElements("false");
+        getDataBase().updateContext(context);
     }
 
 }

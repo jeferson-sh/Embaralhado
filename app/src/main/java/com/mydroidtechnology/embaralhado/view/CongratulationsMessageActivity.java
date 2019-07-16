@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,25 +30,25 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         ImageView imageView = findViewById(R.id.congratulationsImage);
         this.congratulationsMessage = findViewById(R.id.congratulationsMessageText);
-        TextView pontosText = findViewById(R.id.pontosText);
-        ImageButton exitbt = findViewById(R.id.exitGame);
-        ImageButton playbt = findViewById(R.id.playAgain);
+        TextView scoreText = findViewById(R.id.scoreText);
+        ImageButton exitBt = findViewById(R.id.exitGame);
+        ImageButton playBt = findViewById(R.id.playAgain);
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         imageView.setImageResource(bundle.getInt("image"));
         double score = bundle.getDouble("score");
-        scoreMessage = "";
+        scoreMessage = MessageFormat.format("Você acertou {0}% das palavras.",Math.round(score));
         String name = bundle.getString("name");
         if (score < 50) {
             this.congratulationsMessage.setText(MessageFormat.format("Continue praticando {0}.", name));
         } else if (score >= 50 && score < 70) {
-            this.congratulationsMessage.setText(MessageFormat.format("Parabéns {0}! Mas pratique um pouco mais!", name));
+            this.congratulationsMessage.setText(MessageFormat.format("Parabéns {0}! Mas pratique um pouco mais.", name));
         } else if (score >= 70 && score < 100) {
             this.congratulationsMessage.setText(MessageFormat.format("Muito bom {0}! Parabéns!", name));
         } else {
             this.congratulationsMessage.setText(MessageFormat.format("Excelente {0}!", name));
         }
-        pontosText.setText(scoreMessage);
+        scoreText.setText(scoreMessage);
         Handler handler = new Handler();
         handler.postDelayed(this, 2000);
         textToSpeech = new TextToSpeech(this, this);
@@ -57,17 +56,16 @@ public class CongratulationsMessageActivity extends AppCompatActivity implements
         int codigo = textToSpeech.isLanguageAvailable(brazil);
         if (codigo == TextToSpeech.LANG_AVAILABLE) {
             textToSpeech.setLanguage(brazil);
-            Log.d("Funcionou", "PT BR");
         }
-        playbt.setOnClickListener(new View.OnClickListener() {
+        playBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BackgroundMusicService.setStopBackgroundMusicEnable(false);
-                startActivity(new Intent(CongratulationsMessageActivity.this, SelectCategoriesToPlayActivity.class));
+                startActivity(new Intent(CongratulationsMessageActivity.this, SelectContextsToPlayActivity.class));
                 finish();
             }
         });
-        exitbt.setOnClickListener(new View.OnClickListener() {
+        exitBt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BackgroundMusicService.setStopBackgroundMusicEnable(false);

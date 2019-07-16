@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.mydroidtechnology.embaralhado.R;
-import com.mydroidtechnology.embaralhado.model.Category;
+import com.mydroidtechnology.embaralhado.model.Context;
 import com.mydroidtechnology.embaralhado.model.Word;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
@@ -44,10 +44,10 @@ public class InsertNewWordActivity extends InsertNewGenericDataActivity {
     }
 
     private void setCategorieHaveElements(int contextID) {
-        Category category = super.dataBase.searchCategoryDatabase(contextID);
-        if(category.getHaveElements().equals("false")){
-            category.setHaveElements("true");
-            super.dataBase.updateCategory(category);
+        Context context = super.dataBase.searchContextDatabase(contextID);
+        if(context.getHasElements().equals("false")){
+            context.setHaveElements("true");
+            super.dataBase.updateContext(context);
         }
 
     }

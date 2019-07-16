@@ -5,47 +5,44 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.mydroidtechnology.embaralhado.R;
-import com.mydroidtechnology.embaralhado.adapter.CategoriesWordsAdapter;
-import com.mydroidtechnology.embaralhado.model.Category;
+import com.mydroidtechnology.embaralhado.adapter.CategoriesScoresAdapter;
+import com.mydroidtechnology.embaralhado.model.Context;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
-public class SelectCategoriesToPlayActivity extends GenericDataViewActivity {
+/*
+ * Created by Jeferson on 11/08/2017.
+ */
+
+public class SelectContextsScoreActivity extends GenericDataViewActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(R.string.select_categorie);
+            getSupportActionBar().setTitle("Contextos pontuados");
         }
-        super.listview.setAdapter(new CategoriesWordsAdapter(this, "true"));
+        super.listview.setAdapter(new CategoriesScoresAdapter(this, "true"));
         super.listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                itemClicked(position);
+                Context context = (Context) listview.getAdapter().getItem(position);
+                Integer contextID = context.getId();
+                startScoreActivity(contextID);
+
             }
         });
     }
 
-    private void itemClicked(int position) {
-        Category category = (Category) listview.getAdapter().getItem(position);
-        Integer contextID = category.getId();
-        startGame(contextID);
-    }
-
     @Override
     protected void startActivityOnBackPressed() {
-        Intent intent = new Intent(SelectCategoriesToPlayActivity.this, MainActivity.class);
-        BackgroundMusicService.setStopBackgroundMusicEnable(false);
-        startActivity(intent);
-        finish();
+        super.startMainActivity();
     }
 
-    private void startGame(Integer contextID) {
+    private void startScoreActivity(Integer contextID) {
         Bundle bundle = new Bundle();
         bundle.putInt("contextID", contextID);
-        Intent intent = new Intent(SelectCategoriesToPlayActivity.this, ShuffledGameActivity.class);
+        Intent intent = new Intent(SelectContextsScoreActivity.this, ScoreActivity.class);
         intent.putExtras(bundle);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);

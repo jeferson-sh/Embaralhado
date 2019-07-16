@@ -20,7 +20,7 @@ import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.adapter.ScoreAdapter;
 import com.mydroidtechnology.embaralhado.listener.MyOnDragListener;
 import com.mydroidtechnology.embaralhado.listener.MyTouchListener;
-import com.mydroidtechnology.embaralhado.model.Category;
+import com.mydroidtechnology.embaralhado.model.Context;
 import com.mydroidtechnology.embaralhado.model.Character;
 import com.mydroidtechnology.embaralhado.model.Score;
 import com.mydroidtechnology.embaralhado.model.Word;
@@ -34,20 +34,20 @@ import java.util.List;
 
 public class ShuffledGameActivity extends NavigationControlActivity {
 
-    private ImageView imageQuestion;
+    private ImageView imageChallenge;
     private LinearLayout[] drops;
     private LinearLayout dragContainer;
     private ImageView[] letters;
     private int count;
-    private Integer randomLevel;
+    private Integer randomChallenge;
     private List<Word> words;
     private DataBase dataBase;
     private Double score;
     private double correctCount;
     private TextView textCountLevel;
-    private int finalChallenge;
+    private int finalChallengeNumber;
     private boolean verifyWord;
-    private List<Integer> levelsIndex;
+    private List<Integer> challengeIndex;
     private MediaPlayer soundWrong;
     private MediaPlayer soundCorrect;
 
@@ -68,20 +68,20 @@ public class ShuffledGameActivity extends NavigationControlActivity {
         Bundle bundle = getIntent().getExtras();
         assert bundle != null;
         this.words = dataBase.searchWordsDatabase(bundle.getInt("contextID"));
-        this.finalChallenge = 10;
+        this.finalChallengeNumber = 10;
 
-        if (words.size() < finalChallenge) {
-            finalChallenge = words.size();
+        if (words.size() < finalChallengeNumber) {
+            finalChallengeNumber = words.size();
         }
         this.score = (double) words.size();
         this.correctCount = 0;
         count = 0;
-        this.levelsIndex = shuffleLevelIndex();
-        randomLevel = levelsIndex.get(count);
+        this.challengeIndex = shuffleLevelIndex();
+        randomChallenge = challengeIndex.get(count);
         this.verifyWord = false;
 
 
-        this.imageQuestion = findViewById(R.id.imageQuestion);
+        this.imageChallenge = findViewById(R.id.imageQuestion);
         ImageButton restartButton = findViewById(R.id.restart_button);
         ImageButton checkWordButton = findViewById(R.id.checkButton);
         this.textCountLevel = findViewById(R.id.textCountNivel);
@@ -160,23 +160,23 @@ public class ShuffledGameActivity extends NavigationControlActivity {
         checkWordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifyWord(words.get(randomLevel).getName());
+                verifyWord(words.get(randomChallenge).getName());
             }
         });
 
-        loadWord(randomLevel);
-        setImage(randomLevel);
+        loadWord(randomChallenge);
+        setImageChallenge(randomChallenge);
     }
 
     private void toGetNextWord() {
         setCount();
-        if (count == finalChallenge) {
+        if (count == finalChallengeNumber) {
             inputName();
         } else {
-            clearLevel();
-            randomLevel = levelsIndex.get(count);
-            loadWord(randomLevel);
-            setImage(randomLevel);
+            clearChallenge();
+            randomChallenge = challengeIndex.get(count);
+            loadWord(randomChallenge);
+            setImageChallenge(randomChallenge);
         }
     }
 
@@ -212,7 +212,7 @@ public class ShuffledGameActivity extends NavigationControlActivity {
     }
 
     private void removeLettersWrong() {
-        for (int i = 0; i < words.get(randomLevel).getName().length(); i++) {
+        for (int i = 0; i < words.get(randomChallenge).getName().length(); i++) {
             if (letters[i].getContentDescription().equals("f")) {
                 ViewGroup dropLayout = (ViewGroup) letters[i].getParent();
                 dropLayout.setEnabled(true);
@@ -226,7 +226,7 @@ public class ShuffledGameActivity extends NavigationControlActivity {
     }
 
     private void setCount() {
-        if (count < finalChallenge) {
+        if (count < finalChallengeNumber) {
             this.count++;
         }
     }
@@ -238,8 +238,8 @@ public class ShuffledGameActivity extends NavigationControlActivity {
         Bundle bundle1 = getIntent().getExtras();
         assert bundle1 != null;
         Integer contextID = bundle1.getInt("contextID");
-        Score p = new Score(imageView.getDrawable(), this.score, user, contextID, (int) correctCount, this.finalChallenge);
-        insertScore(p, contextID);
+        Score score = new Score(imageView.getDrawable(), this.score, user, contextID, (int) correctCount, this.finalChallengeNumber);
+        this.insertScore(score, contextID);
         Intent intent = new Intent(ShuffledGameActivity.this, CongratulationsMessageActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("image", drawId);
@@ -252,7 +252,7 @@ public class ShuffledGameActivity extends NavigationControlActivity {
     }
 
     private int getIdImageViewScore() {
-        setScore(this.correctCount / this.finalChallenge * 100);
+        setScore(this.correctCount / this.finalChallengeNumber * 100);
         if (score < 50.0) {
             return R.drawable.low_score;
         } else if (this.score >= 50.0 && this.score <= 70.0) {
@@ -268,12 +268,14 @@ public class ShuffledGameActivity extends NavigationControlActivity {
             dataBase.deleteScore((Score) scoreAdapter.getItem(scoreAdapter.getCount() - 1));
         }
         dataBase.insertScore(p);
-        Category category = dataBase.searchCategoryDatabase(contextID);
-        category.setScores("true");
-        dataBase.updateCategory(category);
+        Context context = dataBase.searchContextDatabase(contextID);
+        if(context.getScores().equalsIgnoreCase("false")) {
+            context.setScores("true");
+            dataBase.updateContext(context);
+        }
     }
 
-    private void clearLevel() {
+    private void clearChallenge() {
         for (int i = 0; i < letters.length; i++) {
             ViewGroup dropLayout = (ViewGroup) letters[i].getParent();
             dropLayout.removeView(letters[i]);
@@ -286,25 +288,25 @@ public class ShuffledGameActivity extends NavigationControlActivity {
         }
     }
 
-    private void setImage(int i) {
-        this.imageQuestion.setImageBitmap(words.get(i).getImage());
+    private void setImageChallenge(int i) {
+        this.imageChallenge.setImageBitmap(words.get(i).getImage());
     }
 
-    private void loadLetter(ImageView letterImageView, int drawableCodID, String letter, LinearLayout drop ){
-        letterImageView.setImageResource(drawableCodID);
-        letterImageView.setTag(letter);
-        letterImageView.setVisibility(View.VISIBLE);
+    private void loadCharacter(ImageView characterImageView, int drawableCodID, String letter, LinearLayout drop ){
+        characterImageView.setImageResource(drawableCodID);
+        characterImageView.setTag(letter);
+        characterImageView.setVisibility(View.VISIBLE);
         drop.setVisibility(View.VISIBLE);
     }
 
     public void loadWord(int pos) {
         setVerifyWord(false);
         int challenge = count + 1;
-        String n = "Desafio " + challenge + " de " + finalChallenge;
+        String n = "Desafio " + challenge + " de " + finalChallengeNumber;
         this.textCountLevel.setText(n);
-        String p = shuffle(words.get(pos).getName());
+        String p = shuffleWord(words.get(pos).getName());
         if (p.equals(words.get(pos).getName())) {
-            p = shuffle(p);
+            p = shuffleWord(p);
         }
         char[] aux = p.toCharArray();
         char[] aux2 = words.get(pos).getName().toCharArray();
@@ -316,164 +318,163 @@ public class ShuffledGameActivity extends NavigationControlActivity {
             drops[i].setEnabled(true);
             switch (letter) {
                 case Character.A:
-                    loadLetter(letters[i],R.drawable.a, Character.A,drops[i]);
+                    loadCharacter(letters[i],R.drawable.a, Character.A,drops[i]);
                     continue;
                 case Character.B:
-                    loadLetter(letters[i],R.drawable.b, Character.B,drops[i]);
+                    loadCharacter(letters[i],R.drawable.b, Character.B,drops[i]);
                     continue;
                 case Character.C:
-                    loadLetter(letters[i],R.drawable.c, Character.C,drops[i]);
+                    loadCharacter(letters[i],R.drawable.c, Character.C,drops[i]);
                     continue;
                 case Character.D:
-                    loadLetter(letters[i],R.drawable.d, Character.D,drops[i]);
+                    loadCharacter(letters[i],R.drawable.d, Character.D,drops[i]);
                     continue;
                 case Character.E:
-                    loadLetter(letters[i],R.drawable.e, Character.E,drops[i]);
+                    loadCharacter(letters[i],R.drawable.e, Character.E,drops[i]);
                     continue;
                 case Character.F:
-                    loadLetter(letters[i],R.drawable.f, Character.F,drops[i]);
+                    loadCharacter(letters[i],R.drawable.f, Character.F,drops[i]);
                     continue;
                 case Character.G:
-                    loadLetter(letters[i],R.drawable.g, Character.G,drops[i]);
+                    loadCharacter(letters[i],R.drawable.g, Character.G,drops[i]);
                     continue;
                 case Character.H:
-                    loadLetter(letters[i],R.drawable.h, Character.H,drops[i]);
+                    loadCharacter(letters[i],R.drawable.h, Character.H,drops[i]);
                     continue;
                 case Character.I:
-                    loadLetter(letters[i],R.drawable.i, Character.I,drops[i]);
+                    loadCharacter(letters[i],R.drawable.i, Character.I,drops[i]);
                     continue;
                 case Character.J:
-                    loadLetter(letters[i],R.drawable.j, Character.J,drops[i]);
+                    loadCharacter(letters[i],R.drawable.j, Character.J,drops[i]);
                     continue;
                 case Character.K:
-                    loadLetter(letters[i],R.drawable.k, Character.K,drops[i]);
+                    loadCharacter(letters[i],R.drawable.k, Character.K,drops[i]);
                     continue;
                 case Character.L:
-                    loadLetter(letters[i],R.drawable.l, Character.L,drops[i]);
+                    loadCharacter(letters[i],R.drawable.l, Character.L,drops[i]);
                     continue;
                 case Character.M:
-                    loadLetter(letters[i],R.drawable.m, Character.M,drops[i]);
+                    loadCharacter(letters[i],R.drawable.m, Character.M,drops[i]);
                     continue;
                 case Character.N:
-                    loadLetter(letters[i],R.drawable.n, Character.N,drops[i]);
+                    loadCharacter(letters[i],R.drawable.n, Character.N,drops[i]);
                     continue;
                 case Character.O:
-                    loadLetter(letters[i],R.drawable.o, Character.O,drops[i]);
+                    loadCharacter(letters[i],R.drawable.o, Character.O,drops[i]);
                     continue;
                 case Character.P:
-                    loadLetter(letters[i],R.drawable.p, Character.P,drops[i]);
+                    loadCharacter(letters[i],R.drawable.p, Character.P,drops[i]);
                     continue;
                 case Character.Q:
-                    loadLetter(letters[i],R.drawable.q, Character.Q,drops[i]);
+                    loadCharacter(letters[i],R.drawable.q, Character.Q,drops[i]);
                     continue;
                 case Character.R:
-                    loadLetter(letters[i],R.drawable.r, Character.R,drops[i]);
+                    loadCharacter(letters[i],R.drawable.r, Character.R,drops[i]);
                     continue;
                 case Character.S:
-                    loadLetter(letters[i],R.drawable.s, Character.S,drops[i]);
+                    loadCharacter(letters[i],R.drawable.s, Character.S,drops[i]);
                     continue;
                 case Character.T:
-                    loadLetter(letters[i],R.drawable.t, Character.T,drops[i]);
+                    loadCharacter(letters[i],R.drawable.t, Character.T,drops[i]);
                     continue;
                 case Character.U:
-                    loadLetter(letters[i],R.drawable.u, Character.U,drops[i]);
+                    loadCharacter(letters[i],R.drawable.u, Character.U,drops[i]);
                     continue;
                 case Character.V:
-                    loadLetter(letters[i],R.drawable.v, Character.V,drops[i]);
+                    loadCharacter(letters[i],R.drawable.v, Character.V,drops[i]);
                     continue;
                 case Character.W:
-                    loadLetter(letters[i],R.drawable.w, Character.W,drops[i]);
+                    loadCharacter(letters[i],R.drawable.w, Character.W,drops[i]);
                     continue;
                 case Character.X:
-                    loadLetter(letters[i],R.drawable.x, Character.X,drops[i]);
+                    loadCharacter(letters[i],R.drawable.x, Character.X,drops[i]);
                     continue;
                 case Character.Y:
-                    loadLetter(letters[i],R.drawable.y, Character.Y,drops[i]);
+                    loadCharacter(letters[i],R.drawable.y, Character.Y,drops[i]);
                     continue;
                 case Character.Z:
-                    loadLetter(letters[i],R.drawable.z, Character.Z,drops[i]);
+                    loadCharacter(letters[i],R.drawable.z, Character.Z,drops[i]);
                     continue;
                 case Character.Ç:
-                    loadLetter(letters[i],R.drawable.cc, Character.Ç,drops[i]);
+                    loadCharacter(letters[i],R.drawable.cc, Character.Ç,drops[i]);
                     continue;
                 case Character.Á:
-                    loadLetter(letters[i],R.drawable.aa, Character.Á,drops[i]);
+                    loadCharacter(letters[i],R.drawable.aa, Character.Á,drops[i]);
                     continue;
                 case Character.Â:
-                    loadLetter(letters[i],R.drawable.aaa, Character.Â,drops[i]);
+                    loadCharacter(letters[i],R.drawable.aaa, Character.Â,drops[i]);
                     continue;
                 case Character.Ã:
-                    loadLetter(letters[i],R.drawable.aaaa, Character.Ã,drops[i]);
+                    loadCharacter(letters[i],R.drawable.aaaa, Character.Ã,drops[i]);
                     continue;
                 case Character.É:
-                    loadLetter(letters[i],R.drawable.ee, Character.É,drops[i]);
+                    loadCharacter(letters[i],R.drawable.ee, Character.É,drops[i]);
                     continue;
                 case Character.Ê:
-                    loadLetter(letters[i],R.drawable.eee, Character.Ê,drops[i]);
+                    loadCharacter(letters[i],R.drawable.eee, Character.Ê,drops[i]);
                     continue;
                 case Character.Í:
-                    loadLetter(letters[i],R.drawable.ii, Character.Í,drops[i]);
+                    loadCharacter(letters[i],R.drawable.ii, Character.Í,drops[i]);
                     continue;
                 case Character.Ó:
-                    loadLetter(letters[i],R.drawable.oo, Character.Ó,drops[i]);
+                    loadCharacter(letters[i],R.drawable.oo, Character.Ó,drops[i]);
                     continue;
                 case Character.Ô:
-                    loadLetter(letters[i],R.drawable.ooo, Character.Ô,drops[i]);
+                    loadCharacter(letters[i],R.drawable.ooo, Character.Ô,drops[i]);
                     continue;
                 case Character.Õ:
-                    loadLetter(letters[i],R.drawable.oooo, Character.Õ,drops[i]);
+                    loadCharacter(letters[i],R.drawable.oooo, Character.Õ,drops[i]);
                     continue;
                 case Character.Ú:
-                    loadLetter(letters[i],R.drawable.uu, Character.Ú,drops[i]);
+                    loadCharacter(letters[i],R.drawable.uu, Character.Ú,drops[i]);
             }
         }
     }
 
-    private String shuffle(String s) {
-        List<String> letters = Arrays.asList(s.split(""));
-        Collections.shuffle(letters);
-        StringBuilder t = new StringBuilder(s.length());
-        for (String k : letters) {
-            t.append(k);
+    private String shuffleWord(String word) {
+        List<String> characters = Arrays.asList(word.split(""));
+        Collections.shuffle(characters);
+        StringBuilder wordShuffled = new StringBuilder(word.length());
+        for (String k : characters) {
+            wordShuffled.append(k);
         }
-        return t.toString();
+        return wordShuffled.toString();
     }
-
-
 
     private void verifyWord(String s) {
-        CharSequence verifyWordValue = "";
-        boolean isAllDropedLetter = true;
-        for (int i = 0; i < s.length(); i++) {
-            if(letters[i].isEnabled()){
-                isAllDropedLetter = false;
-                break;
-            }
-        }
-        for (int i = 0; i < s.length(); i++) {
-            if (letters[i].getContentDescription().equals("f")) {
-                verifyWordValue = letters[i].getContentDescription();
-                break;
+        if(isAllDroppedLetter(s)){
+            if (checkCharacters(s).equals("v")) {
+                if (!verifyWord) {
+                    this.correctCount = correctCount + 1;
+                }
+                startSoundQuestionCorrect();
+                toGetNextWord();
             } else {
-                verifyWordValue = letters[i].getContentDescription();
-            }
-        }
-        if (verifyWordValue.equals("v")) {
-            if (!verifyWord) {
-                this.correctCount = correctCount + 1;
-                setVerifyWord(true);
-            }
-            startSoundQuestionCorrect();
-            toGetNextWord();
-
-        } else {
-            if(isAllDropedLetter) {
-                setVerifyWord(true);
                 starSoundQuestionWrong();
                 removeLettersWrong();
+                setVerifyWord(true);
             }
         }
+    }
 
+    private CharSequence checkCharacters(String s) {
+        CharSequence verifyWordValue = "v";
+        for (int i = 0; i < s.length(); i++) {
+            if (letters[i].getContentDescription().equals("f")) {
+                verifyWordValue = "f";
+                break;
+            }
+        }
+        return verifyWordValue;
+    }
+
+    private boolean isAllDroppedLetter(String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if(letters[i].isEnabled()){
+                return false;
+            }
+        }
+        return true;
     }
 
     private void starSoundQuestionWrong() {
@@ -499,6 +500,11 @@ public class ShuffledGameActivity extends NavigationControlActivity {
 
     @Override
     protected void startActivityOnBackPressed() {
+        this.startMainActivity();
+    }
+
+    @Override
+    protected void startMainActivity(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle("Deseja sair?");
@@ -520,10 +526,5 @@ public class ShuffledGameActivity extends NavigationControlActivity {
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-    }
-
-    @Override
-    protected void startMainActivity(){
-        this.startActivityOnBackPressed();
     }
 }

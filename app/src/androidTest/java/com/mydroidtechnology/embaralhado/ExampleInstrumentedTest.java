@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 public class ExampleInstrumentedTest {
     @Test
     public void useAppContext() {
-        // Category of the app under test.
+        // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.mydroidtechnology.embaralhado", appContext.getPackageName());

@@ -19,12 +19,9 @@ import android.view.View;
                  view.startDrag(data, shadowBuilder, view, 0); //Start drag and drop in android version ice Cream Sandwich or Kitkat.
              }
              view.setVisibility(View.INVISIBLE); //The Image view related to the character is invisible.
-             return true;
          }else if(motionEvent.getAction() == MotionEvent.ACTION_UP){ //If event Touch finnish.
              view.performClick(); //Run performClick() when click finnish.
-             return true;
-         }else {
-             return false;
          }
+         return true;
      }
  }

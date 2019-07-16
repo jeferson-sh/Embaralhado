@@ -7,6 +7,6 @@ import com.mydroidtechnology.embaralhado.persistence.DataBase;
 public class CategoryAdapter extends GenericAdapter {
 
     public CategoryAdapter(Context context) {
-        super(context, new DataBase(context).searchMyCategoriesDatabase());
+        super(context, new DataBase(context).searchMyContextsDatabase());
     }
 }

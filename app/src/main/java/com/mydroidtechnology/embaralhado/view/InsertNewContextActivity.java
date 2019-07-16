@@ -5,10 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.mydroidtechnology.embaralhado.R;
-import com.mydroidtechnology.embaralhado.model.Category;
+import com.mydroidtechnology.embaralhado.model.Context;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
-public class InsertNewCategoriesActivity extends InsertNewGenericDataActivity {
+public class InsertNewContextActivity extends InsertNewGenericDataActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +28,15 @@ public class InsertNewCategoriesActivity extends InsertNewGenericDataActivity {
     @Override
     protected void saveData(View v) {
         if(super.isValidData(v)){
-            dataBase.insertCategory(new Category(bitmapCaptured, editText.getText().toString().toUpperCase()));
+            dataBase.insertContext(new Context(bitmapCaptured, editText.getText().toString().toUpperCase()));
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
-            startActivity(new Intent(InsertNewCategoriesActivity.this, CategoriesDataManagementActivity.class));
+            startActivity(new Intent(InsertNewContextActivity.this, ContextsDataManagementActivity.class));
             finish();
         }
     }
 
     protected void startCategoriesDataManagementActivity() {
-        Intent intent = new Intent(InsertNewCategoriesActivity.this, CategoriesDataManagementActivity.class);
+        Intent intent = new Intent(InsertNewContextActivity.this, ContextsDataManagementActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();

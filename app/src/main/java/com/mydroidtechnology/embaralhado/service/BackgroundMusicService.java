@@ -4,16 +4,19 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 
 import com.mydroidtechnology.embaralhado.R;
 
+//Class responsibility for sound service.
 public class BackgroundMusicService extends Service {
 
     private static MediaPlayer MEDIA_PLAYER;
     private static boolean STOP_BACKGROUND_MUSIC_ENABLE = true;
-    private static boolean ISPLAYNG = true;
+    private static boolean IS_PLAYING = true;
+    private final IBinder binder = new LocalBinder();
+
 
     @Override
     public void onCreate() {
@@ -22,6 +25,8 @@ public class BackgroundMusicService extends Service {
         MEDIA_PLAYER.setLooping(true);
         MEDIA_PLAYER.setAudioStreamType(AudioManager.STREAM_MUSIC);
     }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         MEDIA_PLAYER.start();
         return flags;
@@ -32,17 +37,17 @@ public class BackgroundMusicService extends Service {
         super.onLowMemory();
     }
 
-    @Nullable
+
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return binder;
     }
 
     @Override
     public void onDestroy() {
         MEDIA_PLAYER.stop();
         MEDIA_PLAYER.release();
-        setMediaPlayer(null);
+        setMediaPlayer();
         super.onDestroy();
     }
 
@@ -50,11 +55,11 @@ public class BackgroundMusicService extends Service {
         return MEDIA_PLAYER;
     }
 
-    private static void setMediaPlayer(MediaPlayer mediaPlayer) {
-        MEDIA_PLAYER = mediaPlayer;
+    private static void setMediaPlayer() {
+        MEDIA_PLAYER = null;
     }
 
-    public static boolean isStopBackgroundMusicEnable() {
+    public static boolean stopBackgroundMusicEnable() {
         return STOP_BACKGROUND_MUSIC_ENABLE;
     }
 
@@ -63,10 +68,18 @@ public class BackgroundMusicService extends Service {
     }
 
     public static boolean isPlaying() {
-        return ISPLAYNG;
+        return IS_PLAYING;
     }
 
     public static void setIsPlaying(boolean isPlaying) {
-        BackgroundMusicService.ISPLAYNG = isPlaying;
+        BackgroundMusicService.IS_PLAYING = isPlaying;
     }
+
+    public class LocalBinder extends Binder {
+        BackgroundMusicService getService() {
+            // Return this instance of LocalService so clients can call public methods
+            return BackgroundMusicService.this;
+        }
+    }
+
 }

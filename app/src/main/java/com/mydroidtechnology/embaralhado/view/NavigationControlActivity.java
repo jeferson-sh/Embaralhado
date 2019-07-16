@@ -16,7 +16,7 @@ public abstract class NavigationControlActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu2, menu);
         if (!BackgroundMusicService.isPlaying()) {
-            menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
+          menu.getItem(0).setIcon(R.drawable.ic_volume_mute_white);
         }
         return true;
     }
@@ -97,13 +97,13 @@ public abstract class NavigationControlActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isStopBackgroundMusicEnable())
+        if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.stopBackgroundMusicEnable())
             BackgroundMusicService.getMediaPlayer().pause();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
         if (BackgroundMusicService.getMediaPlayer() != null && BackgroundMusicService.isPlaying())
             BackgroundMusicService.getMediaPlayer().start();
     }

@@ -28,7 +28,7 @@ public class MainActivity extends NavigationControlActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Intent intentService = new Intent(this, BackgroundMusicService.class);
-        if (BackgroundMusicService.isStopBackgroundMusicEnable())
+        if (BackgroundMusicService.stopBackgroundMusicEnable())
             startService(intentService);
         BackgroundMusicService.setStopBackgroundMusicEnable(true);
         //Toolbar
@@ -44,7 +44,7 @@ public class MainActivity extends NavigationControlActivity {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (dataBase.searchMyCategoriesDatabase().isEmpty()) {
+                if (dataBase.searchMyContextsDatabase().isEmpty()) {
                     Snackbar.make(view, "Não existem Contextos cadastrados!", Snackbar.LENGTH_LONG).setAction("OR", null).show();
                 } else {
                     startSelectCategoriesToPlayActivity();
@@ -116,21 +116,21 @@ public class MainActivity extends NavigationControlActivity {
     }
 
     private void startSelectCategoriesToPlayActivity() {
-        Intent intent = new Intent(this, SelectCategoriesToPlayActivity.class);
+        Intent intent = new Intent(this, SelectContextsToPlayActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
     private void startSettingsActivity() {
-        Intent intent = new Intent(this, CategoriesDataManagementActivity.class);
+        Intent intent = new Intent(this, ContextsDataManagementActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();
     }
 
     private void startScoreActivity() {
-        Intent intent = new Intent(this, SelectCategoriesScoreActivity.class);
+        Intent intent = new Intent(this, SelectContextsScoreActivity.class);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
         finish();

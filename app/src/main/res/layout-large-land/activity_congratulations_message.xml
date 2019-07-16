@@ -21,7 +21,7 @@
         android:contentDescription="@string/trophy" />
 
     <TextView
-        android:id="@+id/pontosText"
+        android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/score"

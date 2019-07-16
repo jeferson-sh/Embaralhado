@@ -48,7 +48,7 @@ public class WordsDataManagementActivity extends GenericDataManagementActivity {
         if (this.listview.getAdapter().getClass().equals(EditWordAdapter.class)) {
             super.setAdapter(toolbar.getMenu().getItem(1));
         } else {
-            Intent intent = new Intent(WordsDataManagementActivity.this, CategoriesDataManagementActivity.class);
+            Intent intent = new Intent(WordsDataManagementActivity.this, ContextsDataManagementActivity.class);
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
             startActivity(intent);
             finish();

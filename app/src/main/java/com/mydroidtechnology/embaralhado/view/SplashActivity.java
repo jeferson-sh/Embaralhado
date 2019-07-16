@@ -8,7 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.mydroidtechnology.embaralhado.R;
-import com.mydroidtechnology.embaralhado.model.Category;
+import com.mydroidtechnology.embaralhado.model.Context;
 import com.mydroidtechnology.embaralhado.model.Word;
 import com.mydroidtechnology.embaralhado.persistence.DataBase;
 
@@ -36,121 +36,121 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
     }
 
     public void createCategories() {
-        //Category Animals
-        Category animals = new Category(ContextCompat.getDrawable(this, R.drawable.animals), "ANIMAIS");
-        dataBase.insertCategory(animals);
-        createAnimals(dataBase.searchCategoryDatabase(animals.getName()));
+        //Context Animals
+        Context animals = new Context(ContextCompat.getDrawable(this, R.drawable.animals), "ANIMAIS");
+        dataBase.insertContext(animals);
+        createAnimals(dataBase.searchContextDatabase(animals.getName()));
 
-        //Category Fruits
-        Category fruits = new Category(ContextCompat.getDrawable(this, R.drawable.fruits), "FRUTAS");
-        dataBase.insertCategory(fruits);
-        createFruits(dataBase.searchCategoryDatabase(fruits.getName()));
+        //Context Fruits
+        Context fruits = new Context(ContextCompat.getDrawable(this, R.drawable.fruits), "FRUTAS");
+        dataBase.insertContext(fruits);
+        createFruits(dataBase.searchContextDatabase(fruits.getName()));
 
-        //Category Circus
-        Category circus = new Category(ContextCompat.getDrawable(this, R.drawable.circus), "CIRCO");
-        dataBase.insertCategory(circus);
-        createCircus(dataBase.searchCategoryDatabase(circus.getName()));
+        //Context Circus
+        Context circus = new Context(ContextCompat.getDrawable(this, R.drawable.circus), "CIRCO");
+        dataBase.insertContext(circus);
+        createCircus(dataBase.searchContextDatabase(circus.getName()));
 
         //Cateorie Construction
-        Category construction = new Category(ContextCompat.getDrawable(this,R.drawable.construction), "CONSTRUÇÃO");
-        dataBase.insertCategory(construction);
-        createConstruction(dataBase.searchCategoryDatabase(construction.getName()));
+        Context construction = new Context(ContextCompat.getDrawable(this,R.drawable.construction), "CONSTRUÇÃO");
+        dataBase.insertContext(construction);
+        createConstruction(dataBase.searchContextDatabase(construction.getName()));
 
         //Cateorie Kitchen
-        Category kitchen = new Category(ContextCompat.getDrawable(this,R.drawable.cozinha), "COZINHA");
-        dataBase.insertCategory(kitchen);
-        createKitchen(dataBase.searchCategoryDatabase(kitchen.getName()));
+        Context kitchen = new Context(ContextCompat.getDrawable(this,R.drawable.cozinha), "COZINHA");
+        dataBase.insertContext(kitchen);
+        createKitchen(dataBase.searchContextDatabase(kitchen.getName()));
 
         //Cateorie Nature
-        Category nature = new Category(ContextCompat.getDrawable(this,R.drawable.natureza), "NATUREZA");
-        dataBase.insertCategory(nature);
-        createNature(dataBase.searchCategoryDatabase(nature.getName()));
+        Context nature = new Context(ContextCompat.getDrawable(this,R.drawable.natureza), "NATUREZA");
+        dataBase.insertContext(nature);
+        createNature(dataBase.searchContextDatabase(nature.getName()));
 
     }
 
-    private void createNature(Category category) {
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.abelha), "ABELHA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.acude), "AÇUDE", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.arvore), "ÁRVORE", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.cabra), "CABRA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.flor), "FLOR", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.galo), "GALO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.goiaba), "GOIABA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.lua), "LUA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.manga), "MANGA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.nuvem), "NUVEM", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.rio), "RIO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.sol), "SOL", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.vaca), "VACA", category.getId()));
+    private void createNature(Context context) {
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.abelha), "ABELHA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.acude), "AÇUDE", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.arvore), "ÁRVORE", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.cabra), "CABRA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.flor), "FLOR", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.galo), "GALO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.goiaba), "GOIABA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.lua), "LUA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.manga), "MANGA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.nuvem), "NUVEM", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.rio), "RIO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.sol), "SOL", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.vaca), "VACA", context.getId()));
     }
 
-    private void createKitchen(Category category) {
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.fogao), "FOGÃO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.geladeira), "GELADEIRA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.colher), "COLHER", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.garfo), "GARFO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.faca), "FACA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.prato), "PRATO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.mesa), "MESA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pia), "PIA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.macarrao), "MACARRÃO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.feijao), "FEIJÃO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.arroz), "ARROZ", category.getId()));
+    private void createKitchen(Context context) {
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.fogao), "FOGÃO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.geladeira), "GELADEIRA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.colher), "COLHER", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.garfo), "GARFO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.faca), "FACA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.prato), "PRATO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.mesa), "MESA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pia), "PIA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.macarrao), "MACARRÃO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.feijao), "FEIJÃO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.arroz), "ARROZ", context.getId()));
     }
 
-    private void createConstruction(Category category) {
+    private void createConstruction(Context context) {
         //CONSTRUCTION
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.andaime), "ANDAIME", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.areia), "AREIA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.balde), "BALDE", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.cimento), "CIMENTO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.escada), "ESCADA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.espatula), "ESPÁTULA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.tijolos), "TIJOLOS", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.torneira), "TORNEIRA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pa), "PÁ", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.peneira), "PENEIRA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.luvas), "LUVAS", category.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.andaime), "ANDAIME", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.areia), "AREIA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.balde), "BALDE", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.cimento), "CIMENTO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.escada), "ESCADA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.espatula), "ESPÁTULA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.tijolos), "TIJOLOS", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.torneira), "TORNEIRA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pa), "PÁ", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.peneira), "PENEIRA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.luvas), "LUVAS", context.getId()));
     }
 
-    private void createFruits(Category category) {
+    private void createFruits(Context context) {
         //FRUITS
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.apple), "MAÇÃ", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.grapes), "UVA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.strawberry), "MORANGO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pineapple), "ABACAXI", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.orange), "LARANJA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.bananas), "BANANA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.coconut), "COCO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pear), "PERA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.watermelon), "MELANCIA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.avocado), "ABACATE", category.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.apple), "MAÇÃ", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.grapes), "UVA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.strawberry), "MORANGO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pineapple), "ABACAXI", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.orange), "LARANJA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.bananas), "BANANA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.coconut), "COCO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.pear), "PERA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.watermelon), "MELANCIA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.avocado), "ABACATE", context.getId()));
 
     }
 
-    public void createAnimals(Category category) {
+    public void createAnimals(Context context) {
         //ANIMALS
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.esquilo), "ESQUILO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.cat), "GATO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.dog), "CACHORRO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.panda), "PANDA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.leao), "LEÃO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.bird), "PÁSSARO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.duck), "PATO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.owl), "CORUJA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.monkey), "MACACO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.elephant), "ELEFANTE", category.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.esquilo), "ESQUILO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.cat), "GATO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.dog), "CACHORRO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.panda), "PANDA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.leao), "LEÃO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.bird), "PÁSSARO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.duck), "PATO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.owl), "CORUJA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.monkey), "MACACO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.elephant), "ELEFANTE", context.getId()));
 
     }
 
-    public void createCircus(Category category) {
+    public void createCircus(Context context) {
         //CIRCUS
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.balloon), "BALÃO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.clown), "PALHAÇO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.magician), "MÁGICO", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.popcorn), "PIPOCA", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.icecream), "SORVETE", category.getId()));
-        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.ballet), "BAILARINA", category.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.balloon), "BALÃO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.clown), "PALHAÇO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.magician), "MÁGICO", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.popcorn), "PIPOCA", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.icecream), "SORVETE", context.getId()));
+        dataBase.insertWord(new Word(ContextCompat.getDrawable(this, R.drawable.ballet), "BAILARINA", context.getId()));
 
 
     }

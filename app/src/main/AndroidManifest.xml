@@ -35,7 +35,6 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -43,22 +42,22 @@
             android:name=".view.MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SelectCategoriesScoreActivity"
+            android:name=".view.SelectContextsScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.EditCategoryActivity"
+            android:name=".view.EditContextActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.EditWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.CategoriesDataManagementActivity"
+            android:name=".view.ContextsDataManagementActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.WordsDataManagementActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SelectCategoriesToPlayActivity"
+            android:name=".view.SelectContextsToPlayActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.ScoreActivity"
@@ -67,7 +66,7 @@
             android:name=".view.ShuffledGameActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.InsertNewCategoriesActivity"
+            android:name=".view.InsertNewContextActivity"
             android:screenOrientation="landscape" />
         <activity
             android:name=".view.InsertNewWordActivity"

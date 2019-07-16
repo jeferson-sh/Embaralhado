@@ -5,13 +5,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import com.mydroidtechnology.embaralhado.util.ConvertImageUtil;
-
+// This class has a default data for all register in the app.
 public class GenericModel {
-    private byte[] imageBytes;
-    private String name;
-    private Bitmap image;
-    private Integer id;
+    private byte[] imageBytes; //Array bytes of images of the word.
+    private String name; //Name assigned to the word.
+    private Bitmap image; //Image assigned to the word.
+    private Integer id; //id control for Database.
 
+    //This constructor is called when reading data (Words , Contexts or Scores) in database.
     GenericModel(Integer id, byte[] imageBytes, String name) {
         this.id = id;
         this.name = name;
@@ -19,12 +20,14 @@ public class GenericModel {
         this.image = ConvertImageUtil.getImage(imageBytes);
     }
 
+    //This constructor is called when inserting new data (Words , Contexts or Scores).
     GenericModel(Bitmap image, String name) {
         this.name = name;
         this.image = image;
         this.imageBytes = ConvertImageUtil.getBytes(this.image);
     }
 
+    //This constructor is called when the app runs the first time.
     GenericModel(Drawable drawable, String name) {
         this.image = ((BitmapDrawable) drawable).getBitmap();
         this.name = name;

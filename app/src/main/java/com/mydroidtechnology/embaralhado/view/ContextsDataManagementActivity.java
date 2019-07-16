@@ -10,10 +10,10 @@ import android.widget.Toast;
 import com.mydroidtechnology.embaralhado.R;
 import com.mydroidtechnology.embaralhado.adapter.CategoryAdapter;
 import com.mydroidtechnology.embaralhado.adapter.EditCategoryAdapter;
-import com.mydroidtechnology.embaralhado.model.Category;
+import com.mydroidtechnology.embaralhado.model.Context;
 import com.mydroidtechnology.embaralhado.service.BackgroundMusicService;
 
-public class CategoriesDataManagementActivity extends GenericDataManagementActivity {
+public class ContextsDataManagementActivity extends GenericDataManagementActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +47,22 @@ public class CategoriesDataManagementActivity extends GenericDataManagementActiv
     @Override
     protected void startAddDataActivity() {
         if (super.listview.getAdapter().getCount() <= super.maxData) {
-            Intent addCategorie = new Intent(CategoriesDataManagementActivity.this, InsertNewCategoriesActivity.class);
+            Intent addCategorie = new Intent(ContextsDataManagementActivity.this, InsertNewContextActivity.class);
             BackgroundMusicService.setStopBackgroundMusicEnable(false);
             startActivity(addCategorie);
             finish();
         } else {
-            Toast.makeText(CategoriesDataManagementActivity.this, "Desculpe, a memoria está cheia!", Toast.LENGTH_LONG).show();
+            Toast.makeText(ContextsDataManagementActivity.this, "Desculpe, a memoria está cheia!", Toast.LENGTH_LONG).show();
         }
     }
 
     private void clickItem(int position) {
-        CategoryAdapter categoryAdapter = new CategoryAdapter(CategoriesDataManagementActivity.this);
-        Category category = (Category) categoryAdapter.getItem(position);
-        Integer contextID = category.getId();
+        CategoryAdapter categoryAdapter = new CategoryAdapter(ContextsDataManagementActivity.this);
+        Context context = (Context) categoryAdapter.getItem(position);
+        Integer contextID = context.getId();
         Bundle bundle = new Bundle();
         bundle.putInt("contextID", contextID);
-        Intent intent = new Intent(CategoriesDataManagementActivity.this, WordsDataManagementActivity.class);
+        Intent intent = new Intent(ContextsDataManagementActivity.this, WordsDataManagementActivity.class);
         intent.putExtras(bundle);
         BackgroundMusicService.setStopBackgroundMusicEnable(false);
         startActivity(intent);
