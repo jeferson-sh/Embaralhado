@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:id="@+id/text_item"
-        android:text="@string/word"
+        android:text="@string/wordModel"
         android:textColor="#000000"
         android:textSize="35sp"
         />

@@ -31,7 +31,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".view.SplashActivity"
+            android:name=".views.SplashActivity"
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,46 +39,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name=".views.MainActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SelectContextsScoreActivity"
+            android:name=".views.SelectContextsScoreActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.EditContextActivity"
+            android:name=".views.EditContextModelActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.EditWordActivity"
+            android:name=".views.EditWordModelActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.ContextsDataManagementActivity"
+            android:name=".views.ContextsDataManagementActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.WordsDataManagementActivity"
+            android:name=".views.WordsDataManagementActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SelectContextsToPlayActivity"
+            android:name=".views.SelectContextsToPlayActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.ScoreActivity"
+            android:name=".views.ScoreModelActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.ShuffledGameActivity"
+            android:name=".views.ShuffledGameActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.InsertNewContextActivity"
+            android:name=".views.InsertNewContextActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.InsertNewWordActivity"
+            android:name=".views.InsertNewWordActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.CongratulationsMessageActivity"
+            android:name=".views.CongratulationsMessageActivity"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.PrivacyPolicyActivity"
+            android:name=".views.PrivacyPolicyActivity"
             android:screenOrientation="landscape" />
         <service
-            android:name=".service.BackgroundMusicService"
+            android:name=".services.BackgroundMusicService"
             android:enabled="true"
             android:exported="true"
             android:permission="true"

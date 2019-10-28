@@ -24,7 +24,7 @@
         android:id="@+id/scoreText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/score"
+        android:text="@string/scoreModel"
         android:textColor="#ffffff"
         android:textSize="36sp" />
 

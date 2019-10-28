@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ECEFF1"
-    tools:context="com.mydroidtechnology.embaralhado.view.InsertNewWordActivity">
+    tools:contextModel="com.mydroidtechnology.embaralhado.views.InsertNewWordActivity">
 
 
     <include

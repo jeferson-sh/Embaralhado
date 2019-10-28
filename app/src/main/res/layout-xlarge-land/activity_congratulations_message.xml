@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:textColor="#ffffff"
         android:textSize="50sp"
-        android:text="@string/score"/>
+        android:text="@string/scoreModel"/>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

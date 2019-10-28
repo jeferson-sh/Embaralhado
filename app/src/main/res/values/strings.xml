@@ -3,10 +3,10 @@
 
     <string name="play">Jogar</string>
     <string name="configurar">Configurar</string>
-    <string name="score">score</string>
+    <string name="scoreModel">scoreModel</string>
     <string name="edite_categorie">Editar Contextos</string>
     <string name="edit_word">Editar Palavras</string>
-    <string name="image_score">image score</string>
+    <string name="image_score">image scoreModel</string>
     <string name="cancel_button_again">Cancel button again</string>
     <string name="exit">Sair</string>
     <string name="registered_categories">Contextos Cadastrados</string>
@@ -19,7 +19,7 @@
     <string name="register_new_word">Cadastrar nova palavra</string>
     <string name="exit_app">Exit app</string>
     <string name="description_button_delete_item">Description: Button delete item</string>
-    <string name="description_edite_categorie">Description: edite context</string>
+    <string name="description_edite_categorie">Description: edite contextModel</string>
     <string name="about_app">\nEmbaralhado 1.0.0\n\nDesenvolvedor: Jéferson Silva\nEmail: jeferson.silva@dcx.ufpb.br\n\nProfessora Orientadora: Ayla Rebouças\nEmail: ayla@dcx.ufpb.br\n\nImagens do alfabeto: Sapann-Design - Freepik.com\nImagens de animais: Freepik de Flaticon.com\nImagens de circo: Freepik de Flaticon.com\nImagens de frutas: Freepick de Flaticon.com\nÍcone de configuração Madebyoliver de Flaticon.com\nMúsica: besond.com\n</string>
     <string name="privacy_policy">Política de Privacidade</string>
     <string name="about">Sobre</string>
@@ -39,7 +39,7 @@
     <string name="verify">verificar</string>
     <string name="reload">reload</string>
     <string name="logo">logo</string>
-    <string name="word">word</string>
+    <string name="wordModel">wordModel</string>
     <string name="image">image</string>
     <string name="remove_word_button">remove_word_button</string>
     <string name="settings">Configurações</string>
